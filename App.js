@@ -19,6 +19,7 @@ const bottomTabNavigator = createBottomTabNavigator(
   {
     Home: HomeScreen,
     Explore: ExploreScreen,
+    Haha: HomeScreen,
   },
   {
     initialRouteName: 'Home'
