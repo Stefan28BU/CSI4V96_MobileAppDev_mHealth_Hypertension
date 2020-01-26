@@ -39,7 +39,9 @@ const styles = StyleSheet.create({
     },
     rootImage: {
         height: 300,
-        resizeMode: "contain",
+        maxWidth: '106%',
+        minWidth: '101%',
+        resizeMode: "stretch",
     },
     centerContainer: {
         flex: 1,
