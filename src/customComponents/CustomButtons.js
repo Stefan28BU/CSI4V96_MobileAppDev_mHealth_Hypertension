@@ -21,16 +21,16 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#000000',
+        backgroundColor: 'black',
         shadowColor: 'black',
         shadowOpacity: 0.7,
         shadowOffset: { height: 0, width: 0 },
-        shadowRadius: 8,
+        shadowRadius: 5,
     },
 
     welcomeText: {
         fontSize: 16,
-        color: '#FFFFFF',
+        color: 'white',
         textTransform: 'uppercase'
     },
 });

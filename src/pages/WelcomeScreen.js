@@ -5,24 +5,23 @@ import { WelcomeButton } from '../customComponents/CustomButtons'
 
 export class WelcomeScreen extends Component {
     render() {
-      return (
-          <View style={styles.welcomeScreenWrapper}>
-
-            <WelcomeButton title="Continue As Guest" onPress={() => this.props.navigation.navigate('Home')}/>
-          <WelcomeButton title="Sign In" onPress={() => this.props.navigation.navigate('Login')}/>
-          <WelcomeButton title="Sign Up As Researcher" onPress={() => alert('Nah you cannot sign up')} />
-        </View>
-      );
+        return (
+            <View style={styles.welcomeScreenWrapper}>
+                <WelcomeButton title="Continue As Guest" onPress={() => this.props.navigation.navigate('Home')} />
+                <WelcomeButton title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
+                <WelcomeButton title="Sign Up As Researcher" onPress={() => alert('Nah you cannot sign up')} />
+            </View>
+        );
     }
-  }
-  
-  const styles = StyleSheet.create({
-      welcomeScreenWrapper: {
-        flex:1, 
+}
+
+const styles = StyleSheet.create({
+    welcomeScreenWrapper: {
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-      },
-      welcomeScreenButtonContainer: {
+    },
+    welcomeScreenButtonContainer: {
         display: 'flex',
         height: 50,
         borderRadius: 5,
@@ -34,10 +33,10 @@ export class WelcomeScreen extends Component {
         shadowOpacity: 0.4,
         shadowOffset: { height: 10, width: 0 },
         shadowRadius: 20,
-      },
-      welcomeScreenText: {
+    },
+    welcomeScreenText: {
         fontSize: 16,
         textTransform: 'uppercase',
         color: 'white',
-      }
-  })
+    }
+})
