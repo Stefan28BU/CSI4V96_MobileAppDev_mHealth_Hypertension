@@ -10,7 +10,7 @@ import { SettingsScreen } from './src/pages/SettingsScreen';
 import { ProfileScreen } from './src/pages/ProfileScreen';
 import { FeedScreen } from './src/pages/FeedScreen';
 import { WelcomeScreen } from './src/pages/WelcomeScreen';
-
+import { Signup } from './src/pages/Signup';
 
 import Icon from '@expo/vector-icons/Ionicons';
 
@@ -77,7 +77,8 @@ const AppDrawerNavigator = createDrawerNavigator({
 const AppSwitchNavigator = createSwitchNavigator({
   Welcome: { screen: WelcomeScreen },
   Home: { screen: AppDrawerNavigator },
-  Login: { screen: Login }
+  Login: { screen: Login },
+  SignUp: { screen: Signup}
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
