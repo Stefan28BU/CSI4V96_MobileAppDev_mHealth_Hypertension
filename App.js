@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import { createStackNavigator } from 'react-navigation-stack'
+import { createStackNavigator, HeaderBackButton } from 'react-navigation-stack'
 import { ExploreScreen } from './src/pages/ExploreScreen';
 import { Login } from './src/pages/LoginScreen';
 import { SettingsScreen } from './src/pages/SettingsScreen';
@@ -21,16 +21,6 @@ export default class App extends React.Component {
   render() {
     return (
       <AppContainer />
-    );
-  }
-}
-
-class DashboardScreen extends Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>DashboardScreen</Text>
-      </View>
     );
   }
 }
@@ -72,6 +62,13 @@ export const DashboardStackNavigator = createStackNavigator(
     Login: { screen: Login },
     'Sign Up': { screen: Signup },
   },
+  {
+    defaultNavigationOptions: ({navigation}) => {
+      return{
+        // headerLeft: <Text>m Healt</Text>
+      }
+    }
+  }
   // {
   //   defaultNavigationOptions: ({ navigation }) => {
   //     return {

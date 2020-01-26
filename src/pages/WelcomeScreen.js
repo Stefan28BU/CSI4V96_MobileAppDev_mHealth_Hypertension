@@ -9,8 +9,8 @@ export class WelcomeScreen extends Component {
             <View style={styles.welcomeScreenWrapper}>
                 <View style={styles.rootImageCont}>
                 <Image
-                    style={styles.welcomeScreenWrapper}
-                    source={require('../imageAssets/hyp1.gif')}
+                    style={styles.rootImage}
+                    source={require('../imageAssets/hyp2.gif')}
                 />
                 </View>
                 
@@ -26,13 +26,12 @@ const styles = StyleSheet.create({
     welcomeScreenWrapper: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
     },
     rootImageCont: {
-        height: 450,
-        marginBottom:20
+        marginBottom:30,
     },
     rootImage: {
+        height: 300,
         resizeMode: "contain",
     }
 })
