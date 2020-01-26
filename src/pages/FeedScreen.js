@@ -1,12 +1,37 @@
+
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
+import Constants from 'expo-constants';
+import { VideoButton } from '../customComponents/CustomButtons';
 
 export class FeedScreen extends Component {
     render() {
         return (
-            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text>Feed</Text>
-            </View>
+            <SafeAreaView style={styles.container}>
+                <ScrollView style={styles.scrollView}>
+                    <VideoButton onPress={() => this.props.navigation.navigate('Video1')} />
+                    <VideoButton />
+                    <VideoButton />
+                    <VideoButton />
+                    <VideoButton />
+                    <VideoButton />
+                    <VideoButton />
+                    <VideoButton />
+                </ScrollView>
+            </SafeAreaView>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginTop: Constants.statusBarHeight,
+    },
+    scrollView: {
+        margin: 10,
+    },
+    text: {
+        fontSize: 20,
+    },
+});

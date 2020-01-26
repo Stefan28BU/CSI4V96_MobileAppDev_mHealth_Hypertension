@@ -13,6 +13,7 @@ import { WelcomeScreen } from './src/pages/WelcomeScreen';
 import { Signup } from './src/pages/Signup';
 import Icon from '@expo/vector-icons/Ionicons';
 import { WelcomeButton } from './src/customComponents/CustomButtons';
+import {VideoPageTest1} from './src/pages/videoPages/VideoPageTest1';
 
 // import AppSwitchNavigator from './src/pages/navigators/AppSwitchNavigator';
 
@@ -50,24 +51,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
     }
   }
 );
-// export const DashboardStackNavigator = createStackNavigator(
-//   {
-//     DashboardTabNavigator: DashboardTabNavigator
-//   },
-//   {
-//     defaultNavigationOptions: ({ navigation }) => {
-//       return {
-//         headerLeft: () =>
-//           <Icon
-//             style={{ paddingLeft: 10 }}
-//             onPress={() => navigation.openDrawer()}
-//             name="md-menu"
-//             size={30}
-//           />
-//       };
-//     }
-//   }
-// );
+
 
 export const AppDrawerNavigator = createDrawerNavigator(
   {
@@ -83,6 +67,7 @@ export const AppDrawerNavigator = createDrawerNavigator(
 export const DashboardStackNavigator = createStackNavigator(
   {
     Welcome: AppDrawerNavigator,
+    Video1: VideoPageTest1,
   },
   {
     defaultNavigationOptions: ({ navigation }) => {
@@ -98,11 +83,13 @@ export const DashboardStackNavigator = createStackNavigator(
     }
   }
 );
+
+
 // export const AppSwitchNavigator = createSwitchNavigator({
-//   Welcome: { screen: WelcomeScreen },
-//   Home: { screen: AppDrawerNavigator },
+//   Root: { screen: DashboardStackNavigator },
+
 //   Login: { screen: Login },
-//   SignUp: { screen: Signup }
+//   'Sign Up': { screen: Signup }
 // });
 
 // const AppContainer = createAppContainer(AppSwitchNavigator);
