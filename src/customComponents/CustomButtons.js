@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#20b2aa',
+        backgroundColor: '#9370db',
     },
 
     playText: {

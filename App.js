@@ -66,7 +66,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 
 export const DashboardStackNavigator = createStackNavigator(
   {
-    Welcome: WelcomeScreen,
+    'mHealth Hypertension': WelcomeScreen,
     Video1: VideoPageTest1,
     Hypertension: DashboardTabNavigator,
     Login: { screen: Login },
