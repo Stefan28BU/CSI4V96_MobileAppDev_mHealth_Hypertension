@@ -26,10 +26,8 @@ export class FeedScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: Constants.statusBarHeight,
     },
     scrollView: {
-        margin: 10,
     },
     text: {
         fontSize: 20,

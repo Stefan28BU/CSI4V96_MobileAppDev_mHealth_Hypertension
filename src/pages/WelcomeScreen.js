@@ -1,15 +1,15 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TouchableOpacity } from 'react-native';
-import { WelcomeButton } from '../customComponents/CustomButtons'
+import { PlayBtn, SignInBtn, SignUpBtn } from '../customComponents/CustomButtons'
 
 export class WelcomeScreen extends Component {
     render() {
         return (
             <View style={styles.welcomeScreenWrapper}>
-                <WelcomeButton title="Continue As Guest" onPress={() => this.props.navigation.navigate('Hypertension')} />
-                <WelcomeButton title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
-                <WelcomeButton title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('Sign Up')} />
+                <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Hypertension')} />
+                <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
+                <SignUpBtn title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('Sign Up')} />
             </View>
         );
     }

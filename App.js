@@ -53,35 +53,38 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 );
 
 
-export const AppDrawerNavigator = createDrawerNavigator(
-  {
-    Home: {
-      screen: WelcomeScreen
-    },
-    Hypertension: DashboardTabNavigator,
-    Login: { screen: Login },
-    'Sign Up': { screen: Signup },
-  }
-);
+// export const AppDrawerNavigator = createDrawerNavigator(
+//   {
+//     Home: {
+//       screen: WelcomeScreen
+//     },
+//     // Hypertension: DashboardTabNavigator,
+//     // Login: { screen: Login },
+//     // 'Sign Up': { screen: Signup },
+//   }
+// );
 
 export const DashboardStackNavigator = createStackNavigator(
   {
-    Welcome: AppDrawerNavigator,
+    Welcome: WelcomeScreen,
     Video1: VideoPageTest1,
+    Hypertension: DashboardTabNavigator,
+    Login: { screen: Login },
+    'Sign Up': { screen: Signup },
   },
-  {
-    defaultNavigationOptions: ({ navigation }) => {
-      return {
-        headerLeft: () =>
-          <Icon
-            style={{ paddingLeft: 10 }}
-            onPress={() => navigation.openDrawer()}
-            name="md-menu"
-            size={30}
-          />
-      };
-    }
-  }
+  // {
+  //   defaultNavigationOptions: ({ navigation }) => {
+  //     return {
+  //       headerLeft: () =>
+  //         <Icon
+  //           style={{ paddingLeft: 10 }}
+  //           onPress={() => navigation.openDrawer()}
+  //           name="md-menu"
+  //           size={30}
+  //         />
+  //     };
+  //   }
+  // }
 );
 
 
