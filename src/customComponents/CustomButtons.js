@@ -60,10 +60,10 @@ const styles = StyleSheet.create({
         flex: 1,
         resizeMode: "contain",
     },
-    signInCont: {
+    signUpCont: {
         display: 'flex',
-        height: 50,
-        width: 250,
+        minHeight: '7%',
+        minWidth: '85%',
         margin: 5,
         borderRadius: 5,
         justifyContent: 'center',
@@ -75,15 +75,15 @@ const styles = StyleSheet.create({
         // shadowRadius: 5,
     },
 
-    signInText: {
+    signUpText: {
         fontSize: 16,
         color: 'white',
         textTransform: 'uppercase'
     },
-    signUpCont: {
+    signInCont: {
         display: 'flex',
-        height: 50,
-        width: 250,
+        minHeight: '7%',
+        minWidth: '85%',
         margin: 5,
         borderRadius: 5,
         borderWidth: 1,
@@ -94,15 +94,15 @@ const styles = StyleSheet.create({
         // shadowOffset: { height: 8, width: 0 },
         // shadowRadius: 5,
     },
-    signUpText: {
+    signInText: {
         fontSize: 16,
         color: 'black',
         textTransform: 'uppercase'
     },
     playCont: {
         display: 'flex',
-        height: 50,
-        width: 250,
+        minHeight: '7%',
+        minWidth: '85%',
         margin: 5,
         borderRadius: 5,
         justifyContent: 'center',

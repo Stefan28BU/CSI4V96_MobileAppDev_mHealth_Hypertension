@@ -11,9 +11,9 @@ import { ProfileScreen } from './src/pages/ProfileScreen';
 import { FeedScreen } from './src/pages/FeedScreen';
 import { WelcomeScreen } from './src/pages/WelcomeScreen';
 import { Signup } from './src/pages/Signup';
-import Icon from '@expo/vector-icons/Ionicons';
 import { WelcomeButton } from './src/customComponents/CustomButtons';
-import {VideoPageTest1} from './src/pages/videoPages/VideoPageTest1';
+import { VideoPageTest1 } from './src/pages/videoPages/VideoPageTest1';
+import { Icon, colors } from 'react-native-elements';
 
 // import AppSwitchNavigator from './src/pages/navigators/AppSwitchNavigator';
 
@@ -54,34 +54,43 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 //   }
 // );
 
+const BackButton = ({ navigation }) => {
+  const onPress = () => navigation.goBack();
+
+  return (
+    <Icon
+      color={'white'}
+      containerStyle={styles.backButton}
+      name="chevron-left"
+      onPress={onPress}
+      size={30}
+    />
+  );
+};
+
 export const DashboardStackNavigator = createStackNavigator(
   {
-    'mHealth Hypertension': WelcomeScreen,
+    mHealth: WelcomeScreen,
     Video1: VideoPageTest1,
-    Hypertension: DashboardTabNavigator,
+    Learn: DashboardTabNavigator,
     Login: { screen: Login },
     'Sign Up': { screen: Signup },
   },
+
   {
-    defaultNavigationOptions: ({navigation}) => {
-      return{
-        // headerLeft: <Text>m Healt</Text>
-      }
+    defaultNavigationOptions: ({ navigation }) => {
+      return {
+        headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
+        headerBackTitle: ' ',
+        headerBackImage: () => <BackButton navigation={navigation} />,
+        title: 'mHealth',
+        headerStyle: {
+          backgroundColor: '#9370db',
+        },
+        headerTintColor: 'white',
+      };
     }
   }
-  // {
-  //   defaultNavigationOptions: ({ navigation }) => {
-  //     return {
-  //       headerLeft: () =>
-  //         <Icon
-  //           style={{ paddingLeft: 10 }}
-  //           onPress={() => navigation.openDrawer()}
-  //           name="md-menu"
-  //           size={30}
-  //         />
-  //     };
-  //   }
-  // }
 );
 
 
@@ -101,5 +110,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center'
-  }
+  },
+  headerRight: {
+    margin: 10,
+    color: 'white',
+    fontSize: 14,
+  },
 });
