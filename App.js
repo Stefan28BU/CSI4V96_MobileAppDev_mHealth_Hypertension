@@ -69,8 +69,12 @@ const DashboardStackNavigator = createStackNavigator(
 );
 
 const AppDrawerNavigator = createDrawerNavigator({
-  Home: {
+  Welcome: {
     screen: DashboardStackNavigator
+  },
+
+  Home: {
+    screen: WelcomeScreen
   }
 });
 
