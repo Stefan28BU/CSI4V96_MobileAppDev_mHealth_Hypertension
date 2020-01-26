@@ -7,9 +7,9 @@ export class WelcomeScreen extends Component {
     render() {
         return (
             <View style={styles.welcomeScreenWrapper}>
-                <WelcomeButton title="Continue As Guest" onPress={() => this.props.navigation.navigate('Home')} />
+                <WelcomeButton title="Play and Learn" onPress={() => this.props.navigation.navigate('Hypertension')} />
                 <WelcomeButton title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
-                <WelcomeButton title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('SignUp')} />
+                <WelcomeButton title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('Sign Up')} />
             </View>
         );
     }

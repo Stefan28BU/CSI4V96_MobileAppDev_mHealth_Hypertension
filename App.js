@@ -11,9 +11,10 @@ import { ProfileScreen } from './src/pages/ProfileScreen';
 import { FeedScreen } from './src/pages/FeedScreen';
 import { WelcomeScreen } from './src/pages/WelcomeScreen';
 import { Signup } from './src/pages/Signup';
-
 import Icon from '@expo/vector-icons/Ionicons';
+import { WelcomeButton } from './src/customComponents/CustomButtons';
 
+// import AppSwitchNavigator from './src/pages/navigators/AppSwitchNavigator';
 
 export default class App extends React.Component {
   render() {
@@ -33,7 +34,7 @@ class DashboardScreen extends Component {
   }
 }
 
-const DashboardTabNavigator = createBottomTabNavigator(
+export const DashboardTabNavigator = createBottomTabNavigator(
   {
     Feed: FeedScreen,
     Profile: ProfileScreen,
@@ -49,9 +50,39 @@ const DashboardTabNavigator = createBottomTabNavigator(
     }
   }
 );
-const DashboardStackNavigator = createStackNavigator(
+// export const DashboardStackNavigator = createStackNavigator(
+//   {
+//     DashboardTabNavigator: DashboardTabNavigator
+//   },
+//   {
+//     defaultNavigationOptions: ({ navigation }) => {
+//       return {
+//         headerLeft: () =>
+//           <Icon
+//             style={{ paddingLeft: 10 }}
+//             onPress={() => navigation.openDrawer()}
+//             name="md-menu"
+//             size={30}
+//           />
+//       };
+//     }
+//   }
+// );
+
+export const AppDrawerNavigator = createDrawerNavigator(
   {
-    DashboardTabNavigator: DashboardTabNavigator
+    Home: {
+      screen: WelcomeScreen
+    },
+    Hypertension: DashboardTabNavigator,
+    Login: { screen: Login },
+    'Sign Up': { screen: Signup },
+  }
+);
+
+export const DashboardStackNavigator = createStackNavigator(
+  {
+    Welcome: AppDrawerNavigator,
   },
   {
     defaultNavigationOptions: ({ navigation }) => {
@@ -67,25 +98,16 @@ const DashboardStackNavigator = createStackNavigator(
     }
   }
 );
+// export const AppSwitchNavigator = createSwitchNavigator({
+//   Welcome: { screen: WelcomeScreen },
+//   Home: { screen: AppDrawerNavigator },
+//   Login: { screen: Login },
+//   SignUp: { screen: Signup }
+// });
 
-const AppDrawerNavigator = createDrawerNavigator({
-  Welcome: {
-    screen: DashboardStackNavigator
-  },
+// const AppContainer = createAppContainer(AppSwitchNavigator);
 
-  Home: {
-    screen: WelcomeScreen
-  }
-});
-
-const AppSwitchNavigator = createSwitchNavigator({
-  Welcome: { screen: WelcomeScreen },
-  Home: { screen: AppDrawerNavigator },
-  Login: { screen: Login },
-  SignUp: { screen: Signup}
-});
-
-const AppContainer = createAppContainer(AppSwitchNavigator);
+const AppContainer = createAppContainer(DashboardStackNavigator);
 
 const styles = StyleSheet.create({
   container: {
