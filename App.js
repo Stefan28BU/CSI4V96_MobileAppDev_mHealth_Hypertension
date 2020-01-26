@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
-import { createAppContainer,  createSwitchNavigator } from 'react-navigation';
+import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
 import { createStackNavigator } from 'react-navigation-stack'
@@ -9,7 +9,7 @@ import { Login } from './src/pages/LoginScreen';
 import { SettingsScreen } from './src/pages/SettingsScreen';
 import { ProfileScreen } from './src/pages/ProfileScreen';
 import { FeedScreen } from './src/pages/FeedScreen';
-import { WelcomeScreen} from './src/pages/WelcomeScreen';
+import { WelcomeScreen } from './src/pages/WelcomeScreen';
 
 
 import Icon from '@expo/vector-icons/Ionicons';
@@ -18,7 +18,7 @@ import Icon from '@expo/vector-icons/Ionicons';
 export default class App extends React.Component {
   render() {
     return (
-        <AppContainer />
+      <AppContainer />
     );
   }
 }
