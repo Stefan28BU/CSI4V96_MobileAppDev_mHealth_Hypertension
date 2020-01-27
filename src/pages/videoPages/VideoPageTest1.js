@@ -2,21 +2,36 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 // import { createAppContainer } from 'react-navigation';
 // import { createBottomTabNavigator } from 'react-navigation-tabs';
-import Video from 'react-native-video';
+import { Video, Audio } from 'expo-av'
+import VideoPlayer from 'expo-video-player'
 
-const video1 = require('../../videoAssets/htn_epart2.mp4')
+import htn_epart2  from '../../videoAssets/htn_epart2.mp4';
+
+// const video1 = require('../../videoAssets/')
 
 export class VideoPageTest1 extends React.Component {
     render() {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Video source={video1}   // Can be a URL or a local file.
-                    ref={(ref) => {
-                        this.player = ref
-                    }}                                      // Store reference
-                    onBuffer={this.onBuffer}                // Callback when remote video is buffering
-                    onError={this.videoError}               // Callback when video cannot be loaded
-                    style={styles.backgroundVideo} />
+                {/* <VideoPlayer
+                    videoProps={{
+                        shouldPlay: true,
+                        resizeMode: Video.RESIZE_MODE_CONTAIN,
+                        source: { htn_epart2 },
+                    }}
+                    inFullscreen={true}
+                /> */}
+                <Video
+                    source={ htn_epart2 }
+                    rate={1.0}
+                    volume={1.0}
+                    isMuted={false}
+                    resizeMode="cover"
+                    shouldPlay
+                    isLooping
+                    style={{ width: '100%', height: '100%' }}
+                    useNativeControls={true}
+                />
             </View>
         );
     }
