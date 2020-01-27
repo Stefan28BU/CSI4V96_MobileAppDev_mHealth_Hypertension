@@ -5,7 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Video, Audio } from 'expo-av'
 import VideoPlayer from 'expo-video-player'
 
-import htn_epart2  from '../../videoAssets/htn_epart2.mp4';
+// import htn_epart2  from '../../videoAssets/htn_epart2.mp4';
 
 // const video1 = require('../../videoAssets/')
 
