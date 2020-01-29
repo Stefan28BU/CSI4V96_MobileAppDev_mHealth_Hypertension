@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
 
-export class Signup extends Component {
+export class SignUpScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
       borderColor: 'black',
       marginBottom: 10,
       justifyContent: 'center',
+      borderBottomWidth: 1,
     },
     title: {
         alignContent: 'center', 

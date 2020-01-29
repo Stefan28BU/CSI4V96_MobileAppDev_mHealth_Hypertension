@@ -22,7 +22,7 @@ export class VideoScreen_1 extends React.Component {
                     inFullscreen={true}
                 /> */}
                 <Video
-                    source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+                    source={{ uri: 'https://mhealthhypertension.s3.amazonaws.com/htn_epart2.mp4' }}
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}

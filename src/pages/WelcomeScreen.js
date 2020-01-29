@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 export class WelcomeScreen extends Component {
     render() {
         return (
-            <LinearGradient colors={['#272727', '#000000']}
+            <LinearGradient colors={['#505050', '#000000']}
                 style={styles.graidientStyle}>
                 <View style={styles.welcomeScreenWrapper}>
 
@@ -42,10 +42,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     rootImageCont: {
-        marginTop: 35,
-        marginBottom: 0,
-        aspectRatio: 1,
-        height: '35%',
+        // marginTop: 40,
+        marginBottom: 10,
+        // aspectRatio: 1,
+        height: '40%',
+        width: '100%',
         shadowColor: 'black',
         shadowOpacity: 0.7,
         shadowOffset: { height: 0, width: 0 },
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     rootImage: {
         width: '100%',
         height: '100%',
-        borderRadius: 1000,
+        // borderRadius: 99999999,
         resizeMode: "cover",
     },
     centerContainer: {
@@ -75,6 +76,7 @@ const styles = StyleSheet.create({
     welcomeCont: {
         maxWidth: '80%',
         alignItems: "center",
+
         justifyContent: "center",
     },
     graidientStyle: {

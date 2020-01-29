@@ -10,7 +10,7 @@ import { SettingsScreen } from './src/pages/SettingsScreen';
 import { ProfileScreen } from './src/pages/ProfileScreen';
 import { FeedScreen } from './src/pages/FeedScreen';
 import { WelcomeScreen } from './src/pages/WelcomeScreen';
-import { Signup } from './src/pages/Signup';
+import { SignUpScreen } from './src/pages/SignUpScreen';
 import { WelcomeButton } from './src/customComponents/CustomButtons';
 import { VideoScreen_1 } from './src/pages/videoScreens/VideoScreen_1';
 import { Icon, colors } from 'react-native-elements';
@@ -45,7 +45,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         // headerTransparent: 'true',
         headerBackground: () => 
         <View style={styles.headerStyle}>
-           <LinearGradient style={styles.headerGraidient} colors={['#000000', '#303030']} />
+           <LinearGradient style={styles.headerGraidient} colors={['#000000', '#505050']} />
           </View>,
         // ,
       };
@@ -98,7 +98,7 @@ export const DashboardStackNavigator = createStackNavigator(
     Video1: VideoScreen_1,
     Learn: DashboardTabNavigator,
     Login: { screen: Login },
-    'Sign Up': { screen: Signup },
+    'Sign Up': { screen: SignUpScreen },
   },
   {
 
@@ -110,11 +110,9 @@ export const DashboardStackNavigator = createStackNavigator(
         // headerBackground: () => <BlurView tint="light" intensity={50} style={styles.headerStyle} />,
         headerBackground: () =>
           <View style={styles.headerStyle}>
-           {/* <LinearGradient style={styles.headerGraidient} colors={['#000000', '#434343']} /> */}
+           <LinearGradient style={styles.headerGraidient} colors={['#000000', '#505050']} />
           </View>,
           // <BlurView intensity={80} style={styles.blurHeader} />,
-
-
         headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
         headerBackImage: () => <BackButton navigation={navigation} />,
         headerTintColor: 'white',
