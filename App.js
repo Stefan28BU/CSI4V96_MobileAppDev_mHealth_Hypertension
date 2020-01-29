@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   headerStyle: {
-    backgroundColor: '#48d1cc',
+    backgroundColor: '#40e0d0',
     justifyContent: 'center',
     alignContent: 'center',
     width: '100%',

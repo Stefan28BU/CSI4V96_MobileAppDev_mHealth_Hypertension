@@ -24,9 +24,9 @@ export class WelcomeScreen extends Component {
                     </Text>
                     </View>
                     <View style={styles.centerContainer}>
-                        <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
                         <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
                         <SignUpBtn title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('Sign Up')} />
+                        <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
                     </View>
                 </View>
             </LinearGradient>

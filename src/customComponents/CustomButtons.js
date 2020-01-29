@@ -66,21 +66,17 @@ const styles = StyleSheet.create({
         minHeight: '7%',
         minWidth: '85%',
         margin: 8,
-        borderRadius: 10000,
-        borderColor: '#fba1a1',
+        borderRadius: 2,
+        borderColor: '#40e0d0',
         borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'transparent',
-        // shadowColor: 'black',
-        // shadowOpacity: 0.7,
-        // shadowOffset: { height: 8, width: 0 },
-        // shadowRadius: 5,
     },
 
     signUpText: {
         fontSize: 16,
-        color: '#fba1a1',
+        color: '#40e0d0',
         textTransform: 'uppercase'
     },
     signInCont: {
@@ -88,20 +84,21 @@ const styles = StyleSheet.create({
         minHeight: '7%',
         minWidth: '85%',
         margin: 8,
-        borderRadius: 10000,
+
+        borderTopLeftRadius: 99999999,
+        borderTopRightRadius: 99999999,
+        borderBottomLeftRadius: 2,
+        borderBottomRightRadius: 2,
+
         borderWidth: 1,
-        borderColor: '#fba1a1',
+        borderColor: '#40e0d0',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fba1a1'
-        // shadowColor: 'black',
-        // shadowOpacity: 0.7,
-        // shadowOffset: { height: 8, width: 0 },
-        // shadowRadius: 5,
+        backgroundColor: 'transparent'
     },
     signInText: {
         fontSize: 16,
-        color: 'black',
+        color: '#40e0d0',
         textTransform: 'uppercase'
     },
     playCont: {
@@ -109,10 +106,15 @@ const styles = StyleSheet.create({
         minHeight: '7%',
         minWidth: '85%',
         margin: 8,
-        borderRadius: 10000,
+        borderWidth: 1,
+        borderColor: '#40e0d0',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#48d1cc',
+        backgroundColor: '#40e0d0',
+        borderBottomLeftRadius: 99999999,
+        borderBottomRightRadius: 99999999,
+        borderTopRightRadius: 2,
+        borderTopLeftRadius: 2,
     },
 
     playText: {
