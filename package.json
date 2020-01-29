@@ -30,9 +30,13 @@
     "react-navigation-stack": "^2.0.16",
     "react-navigation-tabs": "^2.7.0",
     "expo-av": "~8.0.0",
+<<<<<<< HEAD
     "@react-native-community/netinfo": "4.6.0",
     "expo-linear-gradient": "~8.0.0",
     "expo-blur": "~8.0.0"
+=======
+    "@react-native-community/netinfo": "4.6.0"
+>>>>>>> 16baf2e86fd116f6075f712068e9dd864585fc95
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",
