@@ -27,8 +27,11 @@ export class FeedScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'black',
+        
     },
     scrollView: {
+        backgroundColor: 'white',
     },
     text: {
         fontSize: 20,

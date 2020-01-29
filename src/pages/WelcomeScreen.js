@@ -8,35 +8,36 @@ import { LinearGradient } from 'expo-linear-gradient';
 export class WelcomeScreen extends Component {
     render() {
         return (
-            // <LinearGradient colors={['#dd5e89', '#f7bb97']}
-            // style={styles.graidientStyle}>
-            <View style={styles.welcomeScreenWrapper}>
-              
-                <View style={styles.rootImageCont}>
-                    <Image
-                        style={styles.rootImage}
-                        source={require('../imageAssets/hyp2.gif')}
-                    />
-                </View>
-                <View style={styles.welcomeCont} >
-                    <Text style={styles.welcomeText}>
-                        Welcome to mHealth!{"\n\n"}Learn about Hypertension, and how you can prevent it.
+            <LinearGradient colors={['#272727', '#000000']}
+                style={styles.graidientStyle}>
+                <View style={styles.welcomeScreenWrapper}>
+
+                    <View style={styles.rootImageCont}>
+                        <Image
+                            style={styles.rootImage}
+                            source={require('../imageAssets/hyp2.gif')}
+                        />
+                    </View>
+                    <View style={styles.welcomeCont} >
+                        <Text style={styles.welcomeText}>
+                            Welcome to mHealth!{"\n\n"}Learn about Hypertension, and how you can prevent it.
                     </Text>
+                    </View>
+                    <View style={styles.centerContainer}>
+                        <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
+                        <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
+                        <SignUpBtn title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('Sign Up')} />
+                    </View>
                 </View>
-                <View style={styles.centerContainer}>
-                    <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
-                    <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
-                    <SignUpBtn title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('Sign Up')} />
-                </View>
-            </View>
-            // </LinearGradient>
+            </LinearGradient>
         );
     }
 }
 
 const styles = StyleSheet.create({
     welcomeScreenWrapper: {
-        // marginTop: 100,
+        // marginTop: '25%',
+        // backgroundColor: '#242424',
         flex: 1,
         alignItems: 'center',
     },
@@ -64,7 +65,8 @@ const styles = StyleSheet.create({
     },
     welcomeText: {
         fontSize: 20,
-        color: '#808080',
+        // color: '#808080',
+        color: 'white',
         marginTop: 15,
         marginLeft: 10,
         marginRight: 10,
@@ -77,6 +79,6 @@ const styles = StyleSheet.create({
     },
     graidientStyle: {
         width: '100%',
-        height: '100%'
+        height: '100%',
     }
 })

@@ -12,7 +12,7 @@ import VideoPlayer from 'expo-video-player'
 export class VideoScreen_1 extends React.Component {
     render() {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={styles.videoContainer}>
                 {/* <VideoPlayer
                     videoProps={{
                         shouldPlay: true,
@@ -22,12 +22,12 @@ export class VideoScreen_1 extends React.Component {
                     inFullscreen={true}
                 /> */}
                 <Video
-                    source={ {uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'} }
+                    source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}
-                    resizeMode="cover"
-                    // shouldPlay
+                    resizeMode="contain"
+                    shouldPlay
                     isLooping
                     style={{ width: '100%', height: '100%' }}
                     useNativeControls={true}
@@ -39,11 +39,10 @@ export class VideoScreen_1 extends React.Component {
 
 // Later on in your styles..
 var styles = StyleSheet.create({
-    backgroundVideo: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        bottom: 0,
-        right: 0,
-    },
+    videoContainer: {
+        flex: 1, 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        backgroundColor: 'black'
+    }
 });

@@ -42,17 +42,23 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       const { routeName } = navigation.state.routes[navigation.state.index];
       return {
         headerTitle: routeName,
-        // headerBackground: <View style={styles.botTapStyle}></View>,
+        // headerTransparent: 'true',
+        headerBackground: () => 
+        <View style={styles.headerStyle}>
+           <LinearGradient style={styles.headerGraidient} colors={['#000000', '#303030']} />
+          </View>,
+        // ,
       };
     },
-    tabBarOptions: {
 
+    tabBarOptions: {
+      
       style: {
         shadowColor: 'black',
         shadowOpacity: 0.7,
         shadowOffset: { height: 0, width: 0 },
         shadowRadius: 5,
-        // backgroundColor: 'black',
+        // backgroundColor: 'transparent',
         // color: 'white'
       }
     }
@@ -97,18 +103,20 @@ export const DashboardStackNavigator = createStackNavigator(
   {
 
     defaultNavigationOptions: ({ navigation }) => {
-
       return {
+
         headerBackTitle: ' ',
         // headerTransparent: 'true',
         // headerBackground: () => <BlurView tint="light" intensity={50} style={styles.headerStyle} />,
         headerBackground: () =>
           <View style={styles.headerStyle}>
-            {/* <LinearGradient style={styles.headerGraidient} colors={['#000000', '#434343']} /> */}
+           {/* <LinearGradient style={styles.headerGraidient} colors={['#000000', '#434343']} /> */}
           </View>,
+          // <BlurView intensity={80} style={styles.blurHeader} />,
+
+
         headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
         headerBackImage: () => <BackButton navigation={navigation} />,
-        title: 'mHealth',
         headerTintColor: 'white',
       };
     }
@@ -140,21 +148,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   headerStyle: {
-    backgroundColor: '#20b2aa',
+    backgroundColor: '#48d1cc',
     justifyContent: 'center',
     alignContent: 'center',
     width: '100%',
     height: '100%',
     alignSelf: 'center',
     shadowColor: 'black',
-    shadowOpacity: 0.6,
-    shadowOffset: { height: 5, width: 0 },
-    shadowRadius: 7,
-    // borderRadius: 15,
+    shadowOpacity: 0.8,
+    shadowOffset: { height: 0, width: 0 },
+    shadowRadius: 8,
+    // borderRadius: 1000,
     // height: '116%'
   },
   botTapStyle: {
-    backgroundColor: 'black'
+    // backgroundColor: 'black'
   },
   headerGraidient: {
     height: '100%', width: '100%',
@@ -162,5 +170,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.7,
     shadowOffset: { height: 0, width: 0 },
     shadowRadius: 5,
+    // borderRadius: 15,
+  },
+  blurHeader: {
+    width: 500,
+    height: '100%'
   }
 });

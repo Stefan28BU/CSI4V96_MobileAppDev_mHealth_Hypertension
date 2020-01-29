@@ -65,11 +65,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         minHeight: '7%',
         minWidth: '85%',
-        margin: 5,
-        borderRadius: 5,
+        margin: 8,
+        borderRadius: 10000,
+        borderColor: '#fba1a1',
+        borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: 'transparent',
         // shadowColor: 'black',
         // shadowOpacity: 0.7,
         // shadowOffset: { height: 8, width: 0 },
@@ -78,18 +80,20 @@ const styles = StyleSheet.create({
 
     signUpText: {
         fontSize: 16,
-        color: 'white',
+        color: '#fba1a1',
         textTransform: 'uppercase'
     },
     signInCont: {
         display: 'flex',
         minHeight: '7%',
         minWidth: '85%',
-        margin: 5,
-        borderRadius: 5,
+        margin: 8,
+        borderRadius: 10000,
         borderWidth: 1,
+        borderColor: '#fba1a1',
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#fba1a1'
         // shadowColor: 'black',
         // shadowOpacity: 0.7,
         // shadowOffset: { height: 8, width: 0 },
@@ -104,16 +108,16 @@ const styles = StyleSheet.create({
         display: 'flex',
         minHeight: '7%',
         minWidth: '85%',
-        margin: 5,
-        borderRadius: 5,
+        margin: 8,
+        borderRadius: 10000,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#20b2aa',
+        backgroundColor: '#48d1cc',
     },
 
     playText: {
         fontSize: 16,
-        color: 'white',
+        color: 'black',
         textTransform: 'uppercase'
     },
 });
