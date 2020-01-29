@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
-
+import { LinearGradient }  from 'expo-linear-gradient';
 
 export const SignInBtn = (props) => {
     const { title = {}, style = {}, textStyle = {}, onPress } = props;
@@ -48,8 +48,9 @@ export const VideoButton = (props) => {
 const styles = StyleSheet.create({
     videoBtnContainer: {
         height: 250,
-        marginTop: 10,
-        marginBottom: 10,
+        minWidth: '101%',
+        maxWidth: '105%',
+        marginBottom: 20,
         padding: 50,
         justifyContent: 'center',
         alignItems: 'center',
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#9370db',
+        backgroundColor: '#20b2aa',
     },
 
     playText: {

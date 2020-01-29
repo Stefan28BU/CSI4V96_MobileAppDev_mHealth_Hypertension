@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import { VideoButton } from '../customComponents/CustomButtons';
-
+import { Video, Audio } from 'expo-av'
+import VideoPlayer from 'expo-video-player'
 export class FeedScreen extends Component {
     render() {
         return (

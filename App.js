@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView, Platform } from 'react-native';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
-import { createStackNavigator, HeaderBackButton } from 'react-navigation-stack'
+import { createStackNavigator, HeaderBackButton, useCardAnimation, useHeaderHeight } from 'react-navigation-stack'
 import { ExploreScreen } from './src/pages/ExploreScreen';
 import { Login } from './src/pages/LoginScreen';
 import { SettingsScreen } from './src/pages/SettingsScreen';
@@ -12,15 +12,20 @@ import { FeedScreen } from './src/pages/FeedScreen';
 import { WelcomeScreen } from './src/pages/WelcomeScreen';
 import { Signup } from './src/pages/Signup';
 import { WelcomeButton } from './src/customComponents/CustomButtons';
-import { VideoPageTest1 } from './src/pages/videoPages/VideoPageTest1';
+import { VideoScreen_1 } from './src/pages/videoScreens/VideoScreen_1';
 import { Icon, colors } from 'react-native-elements';
+import { LinearGradient } from 'expo-linear-gradient';
+import { BlurView } from 'expo-blur';
+
 
 // import AppSwitchNavigator from './src/pages/navigators/AppSwitchNavigator';
 
 export default class App extends React.Component {
   render() {
     return (
-      <AppContainer />
+      <View style={styles.appContainer}>
+        <AppContainer />
+      </View>
     );
   }
 }
@@ -36,8 +41,20 @@ export const DashboardTabNavigator = createBottomTabNavigator(
     navigationOptions: ({ navigation }) => {
       const { routeName } = navigation.state.routes[navigation.state.index];
       return {
-        headerTitle: routeName
+        headerTitle: routeName,
+        // headerBackground: <View style={styles.botTapStyle}></View>,
       };
+    },
+    tabBarOptions: {
+
+      style: {
+        shadowColor: 'black',
+        shadowOpacity: 0.7,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 5,
+        // backgroundColor: 'black',
+        // color: 'white'
+      }
     }
   }
 );
@@ -68,25 +85,30 @@ const BackButton = ({ navigation }) => {
   );
 };
 
+
 export const DashboardStackNavigator = createStackNavigator(
   {
     mHealth: WelcomeScreen,
-    Video1: VideoPageTest1,
+    Video1: VideoScreen_1,
     Learn: DashboardTabNavigator,
     Login: { screen: Login },
     'Sign Up': { screen: Signup },
   },
-
   {
+
     defaultNavigationOptions: ({ navigation }) => {
+
       return {
-        headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
         headerBackTitle: ' ',
+        // headerTransparent: 'true',
+        // headerBackground: () => <BlurView tint="light" intensity={50} style={styles.headerStyle} />,
+        headerBackground: () =>
+          <View style={styles.headerStyle}>
+            {/* <LinearGradient style={styles.headerGraidient} colors={['#000000', '#434343']} /> */}
+          </View>,
+        headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
         headerBackImage: () => <BackButton navigation={navigation} />,
         title: 'mHealth',
-        headerStyle: {
-          backgroundColor: '#9370db',
-        },
         headerTintColor: 'white',
       };
     }
@@ -106,14 +128,39 @@ export const DashboardStackNavigator = createStackNavigator(
 const AppContainer = createAppContainer(DashboardStackNavigator);
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
+    justifyContent: 'center',
+    alignContent: 'center',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    backgroundColor: 'transparent'
   },
   headerRight: {
     margin: 10,
     color: 'white',
     fontSize: 14,
   },
+  headerStyle: {
+    backgroundColor: '#20b2aa',
+    justifyContent: 'center',
+    alignContent: 'center',
+    width: '100%',
+    height: '100%',
+    alignSelf: 'center',
+    shadowColor: 'black',
+    shadowOpacity: 0.6,
+    shadowOffset: { height: 5, width: 0 },
+    shadowRadius: 7,
+    // borderRadius: 15,
+    // height: '116%'
+  },
+  botTapStyle: {
+    backgroundColor: 'black'
+  },
+  headerGraidient: {
+    height: '100%', width: '100%',
+    shadowColor: 'black',
+    shadowOpacity: 0.7,
+    shadowOffset: { height: 0, width: 0 },
+    shadowRadius: 5,
+  }
 });

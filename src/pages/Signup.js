@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, View, StyleSheet, Text } from 'react-native';
+import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
 
 export class Signup extends Component {
@@ -11,7 +11,7 @@ export class Signup extends Component {
             confirmPassword: '',
             submitted: false,
         };
-        this.handleSubmit=this.handleSubmit.bind(this);
+        this.handleSubmit=this.handleSubmit.bind(this); 
     }
     
 
@@ -52,10 +52,10 @@ export class Signup extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text style = {styles.title}>Sign Up</Text>
+            <KeyboardAvoidingView style = {styles.keyboardInput}  behavior="padding" enabled>
                 <Form ref = "Signup" onSubmit = {this.handleSubmit}>
-                    <Text>Email: </Text>
+                    <Text style = {styles.title}>Sign Up</Text>
+                    <Text style = {styles.name}>Email: </Text>
                     <TextValidator
                         title= "Email: "
                         style={styles.input}
@@ -70,7 +70,7 @@ export class Signup extends Component {
                         value = {this.state.username}
                         onChangeText={(username) => this.setState({ username })} 
                     />
-                    <Text>Password: </Text>
+                    <Text style = {styles.name}>Password: </Text>
                     <TextValidator
                         title= "Password: "
                         style={styles.input}    
@@ -84,7 +84,7 @@ export class Signup extends Component {
                         onChangeText={(password) => this.setState({ password })}
                         secureTextEntry={true}
                     />
-                    <Text>Re-enter Password: </Text>
+                    <Text style = {styles.name}>Re-enter Password: </Text>
                     <TextValidator
                         title= "Re-enter Password: "
                         style={styles.input}
@@ -100,18 +100,17 @@ export class Signup extends Component {
                     />
                     <Button style={styles.button} title = "Sign Up" onPress = {this.handleSubmit} />
                 </Form>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 
 }
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      backgroundColor: '#ecf0f1',
+    keyboardInput: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     input: {
       width: 200,
@@ -123,11 +122,13 @@ const styles = StyleSheet.create({
     },
     title: {
         alignContent: 'center', 
-        justifyContent: 'center', 
+        justifyContent: 'center',
         fontSize: 20,
         fontWeight: 'bold',
+        marginBottom: 10,
     },
     name: {
+        textAlign: 'left',
         fontSize: 15,
         marginTop: 25,
     },
