@@ -42,11 +42,16 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       const { routeName } = navigation.state.routes[navigation.state.index];
       return {
         headerTitle: routeName,
-        // headerTransparent: 'true',
-        headerBackground: () => 
-        <View style={styles.headerStyle}>
-           <LinearGradient style={styles.headerGraidient} colors={['#000000', '#505050']} />
+        headerTransparent: 'true',
+        // headerBackground: () => 
+        // <View style={styles.headerStyle}>
+        //    <LinearGradient style={styles.headerGraidient} colors={['#000000', '#505050']} />
+        //   </View>,
+        headerBackground: () =>
+          <View style={styles.headerStyle}>
+           <BlurView tint="light" intensity={80} style={styles.headerStyle} />
           </View>,
+
         // ,
       };
     },
@@ -106,11 +111,11 @@ export const DashboardStackNavigator = createStackNavigator(
       return {
 
         headerBackTitle: ' ',
-        // headerTransparent: 'true',
-        // headerBackground: () => <BlurView tint="light" intensity={50} style={styles.headerStyle} />,
+        headerTransparent: 'true',
+        // headerBackground: () => <BlurView tint="light" intensity={80} style={styles.headerStyle} />,
         headerBackground: () =>
           <View style={styles.headerStyle}>
-           <LinearGradient style={styles.headerGraidient} colors={['#000000', '#505050']} />
+           <BlurView tint="light" intensity={80} style={styles.headerStyle} />
           </View>,
           // <BlurView intensity={80} style={styles.blurHeader} />,
         headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
@@ -146,7 +151,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   headerStyle: {
-    backgroundColor: '#40e0d0',
+    // backgroundColor: '#40e0d0',
     justifyContent: 'center',
     alignContent: 'center',
     width: '100%',

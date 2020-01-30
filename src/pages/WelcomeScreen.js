@@ -1,40 +1,51 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { PlayBtn, SignInBtn, SignUpBtn } from '../customComponents/CustomButtons'
 import { colors } from 'react-native-elements';
-import { LinearGradient } from 'expo-linear-gradient';
+import LinearGradient from 'expo-linear-gradient';
+import { Video, Audio } from 'expo-av';
+import VideoPlayer from 'expo-video-player';
+import { BlurView } from 'expo-blur';
+// import { BlurView, VibrancyView } from 'react-native-blur';
+
+const welcome = require('../imageAssets/welcomeGif.gif')
 
 export class WelcomeScreen extends Component {
-    render() {
-        return (
-            <LinearGradient colors={['#505050', '#000000']}
-                style={styles.graidientStyle}>
-                <View style={styles.welcomeScreenWrapper}>
-
-                    <View style={styles.rootImageCont}>
-                        <Image
-                            style={styles.rootImage}
-                            source={require('../imageAssets/hyp2.gif')}
-                        />
-                    </View>
-                    <View style={styles.welcomeCont} >
-                        <Text style={styles.welcomeText}>
-                            Welcome to mHealth!{"\n\n"}Learn about Hypertension, and how you can prevent it.
-                    </Text>
-                    </View>
+    componentWillMount() {
+        this.background = (
+            <BlurView tint="light" blurAmount={80} style={styles.blurStyle} blurType={"light"} >
+                <ImageBackground style={styles.welcomeVideoStyle} resizeMode={'cover'} source={require('../imageAssets/welcomeGif.gif')} >
                     <View style={styles.centerContainer}>
                         <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
                         <SignUpBtn title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('Sign Up')} />
                         <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
                     </View>
-                </View>
-            </LinearGradient>
+                </ImageBackground>
+            </BlurView>
+        );
+    }
+
+    render() {
+        return (
+            <View style={styles.welcomeScreenWrapper}>
+                {this.background}
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    blurStyle: {
+        width: '100%',
+        height: '100%',
+        zIndex: 0
+    },
+    welcomeVideoStyle: {
+        width: '100%',
+        height: '100%',
+        //  zIndex: -1,
+    },
     welcomeScreenWrapper: {
         // marginTop: '25%',
         // backgroundColor: '#242424',
@@ -61,8 +72,8 @@ const styles = StyleSheet.create({
     centerContainer: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
-
+        justifyContent: 'center',
+        zIndex: 1
     },
     welcomeText: {
         fontSize: 20,
