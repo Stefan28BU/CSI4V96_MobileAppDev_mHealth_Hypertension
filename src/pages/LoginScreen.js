@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
+import { PlayBtn, SignInBtn, SignUpBtn } from '../customComponents/CustomButtons';
 
 export class Login extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       username: '',
       password: '',
     };
   }
-  
+
   onLogin() {
     const { username, password } = this.state;
 
@@ -33,12 +34,13 @@ export class Login extends Component {
           secureTextEntry={true}
           style={styles.input}
         />
-        
+
         <Button
           title={'Login'}
           style={styles.input}
           onPress={this.onLogin.bind(this)}
         />
+        <SignUpBtn title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('Sign Up')} />
       </View>
     );
   }

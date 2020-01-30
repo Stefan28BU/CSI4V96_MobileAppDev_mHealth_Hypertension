@@ -49,7 +49,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         //   </View>,
         headerBackground: () =>
           <View style={styles.headerStyle}>
-           <BlurView tint="light" intensity={80} style={styles.headerStyle} />
+           <BlurView tint="light" intensity={10} style={styles.headerStyle} />
           </View>,
 
         // ,
@@ -115,7 +115,7 @@ export const DashboardStackNavigator = createStackNavigator(
         // headerBackground: () => <BlurView tint="light" intensity={80} style={styles.headerStyle} />,
         headerBackground: () =>
           <View style={styles.headerStyle}>
-           <BlurView tint="light" intensity={80} style={styles.headerStyle} />
+           <BlurView tint="light" intensity={0} style={styles.headerStyle} />
           </View>,
           // <BlurView intensity={80} style={styles.blurHeader} />,
         headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,

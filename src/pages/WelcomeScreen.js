@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TouchableOpacity, Image, ImageBackground } from 'react-native';
-import { PlayBtn, SignInBtn, SignUpBtn } from '../customComponents/CustomButtons'
+import { PlayBtn, SignInBtn, SignUpBtn } from '../customComponents/CustomButtons';
 import { colors } from 'react-native-elements';
 import LinearGradient from 'expo-linear-gradient';
 import { Video, Audio } from 'expo-av';
@@ -12,16 +12,13 @@ import { BlurView } from 'expo-blur';
 const welcome = require('../imageAssets/welcomeGif.gif')
 
 export class WelcomeScreen extends Component {
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         this.background = (
-            <BlurView tint="light" blurAmount={80} style={styles.blurStyle} blurType={"light"} >
-                <ImageBackground style={styles.welcomeVideoStyle} resizeMode={'cover'} source={require('../imageAssets/welcomeGif.gif')} >
-                    <View style={styles.centerContainer}>
-                        <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
-                        <SignUpBtn title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('Sign Up')} />
-                        <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
-                    </View>
-                </ImageBackground>
+            <BlurView  intensity={0} style={styles.blurStyle} >
+
+            {/* <View style={styles.blurStyle} > */}
+                <Image style={styles.welcomeVideoStyle} resizeMode={'cover'} source={require('../imageAssets/wow.gif')} />
+                {/* </View> */}
             </BlurView>
         );
     }
@@ -30,6 +27,10 @@ export class WelcomeScreen extends Component {
         return (
             <View style={styles.welcomeScreenWrapper}>
                 {this.background}
+                <View style={styles.centerContainer}>
+                        <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
+                        <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
+                    </View>
             </View>
         );
     }
@@ -39,18 +40,26 @@ const styles = StyleSheet.create({
     blurStyle: {
         width: '100%',
         height: '100%',
-        zIndex: 0
+        zIndex: 1,
+        // position: 'absolute',
+        // backgroundColor: 'black'
     },
     welcomeVideoStyle: {
         width: '100%',
         height: '100%',
-        //  zIndex: -1,
+         zIndex: -1,
+        //  position: 'absolute'
     },
     welcomeScreenWrapper: {
         // marginTop: '25%',
         // backgroundColor: '#242424',
         flex: 1,
         alignItems: 'center',
+        // backgroundColor: 'black',
+        // zIndex: 2,
+        width: '100%',
+        height: '100%',
+        // position: 'absolute'
     },
     rootImageCont: {
         // marginTop: 40,
@@ -71,9 +80,10 @@ const styles = StyleSheet.create({
     },
     centerContainer: {
         flex: 1,
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'center',
-        zIndex: 1
+        top: '-18%',
+        zIndex: 2
     },
     welcomeText: {
         fontSize: 20,
