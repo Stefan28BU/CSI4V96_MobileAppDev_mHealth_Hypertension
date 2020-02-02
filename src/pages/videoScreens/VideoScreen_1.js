@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 // import { createAppContainer } from 'react-navigation';
 // import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { Video, Audio } from 'expo-av'
-import VideoPlayer from 'expo-video-player'
+import { Video, Audio } from 'expo-av';
+import VideoPlayer from 'expo-video-player';
 
 // import htn_epart2  from '../../videoAssets/htn_epart2.mp4';
 

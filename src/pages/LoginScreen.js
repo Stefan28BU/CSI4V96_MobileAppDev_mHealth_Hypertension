@@ -30,6 +30,7 @@ export class Login extends Component {
       }
     }
 
+
     handleSubmit() {   
         if (this.state.submitted) {
             Alert.alert('Credentials', `${this.state.username} + ${this.state.password}`);
@@ -99,6 +100,7 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     marginBottom: 10,
     justifyContent: 'center',
+    borderBottomWidth: 1,
   },
   title: {
       alignContent: 'center', 
