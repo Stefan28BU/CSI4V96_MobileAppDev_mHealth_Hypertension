@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
-
+import { LinearGradient }  from 'expo-linear-gradient';
 
 export const SignInBtn = (props) => {
     const { title = {}, style = {}, textStyle = {}, onPress } = props;
@@ -48,8 +48,9 @@ export const VideoButton = (props) => {
 const styles = StyleSheet.create({
     videoBtnContainer: {
         height: 250,
-        marginTop: 10,
-        marginBottom: 10,
+        minWidth: '101%',
+        maxWidth: '105%',
+        marginBottom: 20,
         padding: 50,
         justifyContent: 'center',
         alignItems: 'center',
@@ -66,18 +67,16 @@ const styles = StyleSheet.create({
         minWidth: '85%',
         margin: 5,
         borderRadius: 5,
+        borderColor: '#40e0d0',
+        borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
-        // shadowColor: 'black',
-        // shadowOpacity: 0.7,
-        // shadowOffset: { height: 8, width: 0 },
-        // shadowRadius: 5,
+        backgroundColor: 'transparent',
     },
 
     signUpText: {
         fontSize: 16,
-        color: 'white',
+        color: '#40e0d0',
         textTransform: 'uppercase'
     },
     signInCont: {
@@ -86,17 +85,21 @@ const styles = StyleSheet.create({
         minWidth: '85%',
         margin: 5,
         borderRadius: 5,
+
+        // borderTopLeftRadius: 99999999,
+        // borderTopRightRadius: 99999999,
+        // borderBottomLeftRadius: 2,
+        // borderBottomRightRadius: 2,
+
         borderWidth: 1,
+        borderColor: '#40e0d0',
         justifyContent: 'center',
         alignItems: 'center',
-        // shadowColor: 'black',
-        // shadowOpacity: 0.7,
-        // shadowOffset: { height: 8, width: 0 },
-        // shadowRadius: 5,
+        backgroundColor: 'transparent'
     },
     signInText: {
         fontSize: 16,
-        color: 'black',
+        color: '#40e0d0',
         textTransform: 'uppercase'
     },
     playCont: {
@@ -105,14 +108,21 @@ const styles = StyleSheet.create({
         minWidth: '85%',
         margin: 5,
         borderRadius: 5,
+
+        borderWidth: 1,
+        borderColor: '#40e0d0',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#9370db',
+        backgroundColor: '#40e0d0',
+        // borderBottomLeftRadius: 99999999,
+        // borderBottomRightRadius: 99999999,
+        // borderTopRightRadius: 2,
+        // borderTopLeftRadius: 2,
     },
 
     playText: {
         fontSize: 16,
-        color: 'white',
+        color: 'black',
         textTransform: 'uppercase'
     },
 });

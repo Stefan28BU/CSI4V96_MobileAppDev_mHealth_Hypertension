@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import { VideoButton } from '../customComponents/CustomButtons';
-
+import { Video, Audio } from 'expo-av'
+import VideoPlayer from 'expo-video-player'
 export class FeedScreen extends Component {
     render() {
         return (
@@ -26,8 +27,11 @@ export class FeedScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'black',
+        
     },
     scrollView: {
+        backgroundColor: 'white',
     },
     text: {
         fontSize: 20,
