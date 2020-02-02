@@ -139,6 +139,7 @@ export const DashboardStackNavigator = createStackNavigator(
 const AppContainer = createAppContainer(DashboardStackNavigator);
 
 const styles = StyleSheet.create({
+
   appContainer: {
     justifyContent: 'center',
     alignContent: 'center',
