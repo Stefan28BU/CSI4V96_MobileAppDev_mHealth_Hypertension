@@ -15,7 +15,7 @@ export class SignUpScreen extends Component {
     }
     
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         Form.addValidationRule('passwordMatch', (value)=>{
             if (value === undefined || value !== this.state.password) {
                 this.setState({
@@ -119,7 +119,6 @@ const styles = StyleSheet.create({
       borderColor: 'black',
       marginBottom: 10,
       justifyContent: 'center',
-      borderBottomWidth: 1,
     },
     title: {
         alignContent: 'center', 
