@@ -1,64 +1,117 @@
 import React, { Component } from 'react';
-import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
-import { PlayBtn, SignInBtn, SignUpBtn } from '../customComponents/CustomButtons';
+import { Alert, Button, Text, View, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { Form, TextValidator } from 'react-native-validator-form';
 
 export class Login extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+            username: '',
+            password: '',
+            submitted: false,
+        };
+        this.handleSubmit=this.handleSubmit.bind(this); 
+    }
+  
+    onLogin() {
+        const { username, password } = this.state;
+        if (submitted === false) {
+          Alert.alert(
+              'Wrong information!',
+              'Please check your email address or password and try again!',
+              [
+                {text: 'Retry', onPress: () => console.log('Press button!')}
+              ],
+              {cancelable: false}
+            )
+        } else {
+        Alert.alert('Credentials', `${username} + ${password}`);
+      }
+    }
 
-    this.state = {
-      username: '',
-      password: '',
-    };
-  }
 
-  onLogin() {
-    const { username, password } = this.state;
-
-    Alert.alert('Credentials', `${username} + ${password}`);
-  }
+    handleSubmit() {   
+        if (this.state.submitted) {
+            Alert.alert('Credentials', `${this.state.username} + ${this.state.password}`);
+        } else {
+            Alert.alert(
+                'Wrong information!',
+                'Please check your email address and try again!',
+                [
+                    {text: 'Retry', onPress: () => console.log('Press button!')}
+                ],
+                {cancelable: false}
+            )
+        }
+    }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <TextInput
-          value={this.state.username}
-          onChangeText={(username) => this.setState({ username })}
-          placeholder={'Username'}
-          style={styles.input}
-        />
-        <TextInput
-          value={this.state.password}
-          onChangeText={(password) => this.setState({ password })}
-          placeholder={'Password'}
-          secureTextEntry={true}
-          style={styles.input}
-        />
-
-        <Button
-          title={'Login'}
-          style={styles.input}
-          onPress={this.onLogin.bind(this)}
-        />
-        <SignUpBtn title="Sign Up As Researcher" onPress={() => this.props.navigation.navigate('Sign Up')} />
-      </View>
+      return (
+          <KeyboardAvoidingView style={styles.keyboardInput} behavior="padding" enabled>
+              <Form ref = "Log In" onSubmit = {this.handleSubmit}>
+              <Text style = {styles.title}>Log In</Text>
+                  <Text style = {styles.name}>Email: </Text>
+                  <TextValidator
+                        title= "Email: "
+                        style={styles.input}
+                        name = "email"
+                        lable = "Email"
+                        validators = {['required', 'isEmail']}
+                        errorMessages = {['This field is required!', 'Email invalid!']}
+                        onError={errors => this.setState({submitted: false})}
+                        placeholder = "Email"
+                        type = "text"
+                        keyboardTypes = "email-address"
+                        value = {this.state.username}
+                        onChangeText={(username) => this.setState({ username })} 
+                  />
+                  <Text style = {styles.name}>Password: </Text>
+                  <TextValidator
+                        title= "Password: "
+                        style={styles.input}    
+                        name = "password"
+                        lable = "Password"
+                        validators = {['required']}
+                        errorMessages = {['This field is required!']}
+                        placeholder = "Password"
+                        type = "text"
+                        value = {this.state.password}
+                        onChangeText={(password) => this.setState({ password })}
+                        secureTextEntry={true}
+                  />
+                  <Button style={styles.button} title = "Log In" onPress = {this.handleSubmit} />
+              </Form>
+      </KeyboardAvoidingView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
+  keyboardInput: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
   },
   input: {
     width: 200,
     height: 44,
     padding: 10,
-    borderWidth: 1,
     borderColor: 'black',
     marginBottom: 10,
+    justifyContent: 'center',
+    borderBottomWidth: 1,
+  },
+  title: {
+      alignContent: 'center', 
+      justifyContent: 'center',
+      fontSize: 20,
+      fontWeight: 'bold',
+      marginBottom: 10,
+  },
+  name: {
+      textAlign: 'left',
+      fontSize: 15,
+      marginTop: 25,
   },
 });

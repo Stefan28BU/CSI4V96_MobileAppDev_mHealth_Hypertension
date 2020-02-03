@@ -10,4 +10,3 @@ export class SettingsScreen extends Component {
       );
     }
   }
-  
