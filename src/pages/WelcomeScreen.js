@@ -50,7 +50,7 @@ export class WelcomeScreen extends Component {
         this.background = (
             <ImageBackground style={styles.welcomeBackground} resizeMode={'cover'} source={require('../imageAssets/wallpaper.jpg')} >
                 <View style={styles.blank} />
-                <MHealthBtn title="Explore mHealth" onPress={this.toggleModal} />
+                <MHealthBtn title="EXPLORE" onPress={this.toggleModal} />
             </ImageBackground>
         );
     }
@@ -67,9 +67,10 @@ export class WelcomeScreen extends Component {
                     animationIn={"slideInUp"}
                     animationInTiming={400}
                     animationOutTiming={500}
+                    hasBackdrop={false}
                 >
                     <LinearGradient
-                        colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
+                        colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
                         <MHealthBackBtn onPress={this.toggleModal} />
                         <View style={styles.welcomeCont}>
                             <Text style={styles.welcomeText}>

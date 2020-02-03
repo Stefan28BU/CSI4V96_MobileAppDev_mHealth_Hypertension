@@ -41,36 +41,6 @@ export default class App extends React.Component {
   }
 }
 
-// export const VideoStackNavigator = createStackNavigator(
-//   {
-//     Video1: VideoScreen_1,
-//     Video2: VideoScreen_2,
-//     Video3: VideoScreen_3,
-//     Video4: VideoScreen_4,
-//   },
-//   {
-
-//     defaultNavigationOptions: ({ navigation }) => {
-//       return {
-
-//         headerBackTitle: ' ',
-//         // headerTransparent: 'true',
-//         // headerBackground: () => <BlurView tint="light" intensity={80} style={styles.headerStyle} />,
-//         headerBackground: () =>
-//           <View style={styles.headerStyle}>
-//             <BlurView tint="light" intensity={0} style={styles.headerStyle} />
-//           </View>,
-//         // <BlurView intensity={80} style={styles.blurHeader} />,
-//         headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
-//         headerBackImage: () => <BackButton navigation={navigation} />,
-//         headerTintColor: 'white',
-//         ...TransitionPresets.SlideFromRightIOS, // add this line
-//       };
-//     }
-//   },
-// );
-
-
 export const DashboardTabNavigator = createBottomTabNavigator(
   {
     Feed: FeedScreen,
@@ -84,11 +54,6 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       return {
         // ...TransitionPresets.SlideFromRightIOS, // add this line
         headerTitle: routeName,
-        // headerTransparent: 'true',
-        // headerBackground: () => 
-        // <View style={styles.headerStyle}>
-        //    <LinearGradient style={styles.headerGraidient} colors={['#000000', '#505050']} />
-        //   </View>,
         headerBackground: () =>
           <View style={styles.headerStyle}>
             <BlurView tint="light" intensity={10} style={styles.headerStyle} />
@@ -112,18 +77,6 @@ export const DashboardTabNavigator = createBottomTabNavigator(
   }
 );
 
-
-// export const AppDrawerNavigator = createDrawerNavigator(
-//   {
-//     Home: {
-//       screen: WelcomeScreen
-//     },
-//     // Hypertension: DashboardTabNavigator,
-//     // Login: { screen: Login },
-//     // 'Sign Up': { screen: Signup },
-//   }
-// );
-
 export const DashboardStackNavigator = createStackNavigator(
   {
     mHealth: WelcomeScreen,
@@ -141,12 +94,14 @@ export const DashboardStackNavigator = createStackNavigator(
       return {
 
         headerBackTitle: ' ',
-        // headerTransparent: 'true',
-        // headerBackground: () => <BlurView tint="light" intensity={80} style={styles.headerStyle} />,
-        headerBackground: () =>
-          <View style={styles.headerStyle}>
-            <BlurView tint="light" intensity={0} style={styles.headerStyle} />
-          </View>,
+        headerTransparent: 'true',
+        // headerBackground: () => <LinearGradient
+        //   colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
+        // </LinearGradient>,
+        // headerBackground: () =>
+        //   <View style={styles.headerStyle}>
+        //     <BlurView tint="light" intensity={0} style={styles.headerStyle} />
+        //   </View>,
         // <BlurView intensity={80} style={styles.blurHeader} />,
         headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
         headerBackImage: () => <BackButton navigation={navigation} />,
@@ -156,16 +111,6 @@ export const DashboardStackNavigator = createStackNavigator(
     }
   },
 );
-
-
-// export const AppSwitchNavigator = createSwitchNavigator({
-//   Root: { screen: DashboardStackNavigator },
-
-//   Login: { screen: Login },
-//   'Sign Up': { screen: Signup }
-// });
-
-// const AppContainer = createAppContainer(AppSwitchNavigator);
 
 const AppContainer = createAppContainer(DashboardStackNavigator);
 
