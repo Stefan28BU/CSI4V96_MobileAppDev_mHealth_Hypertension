@@ -92,9 +92,11 @@ export const VideoButton = (props) => {
                 style={[styles.videoCoverImage, imageStyle]}
                 source={require('../imageAssets/amg_gt63s.jpg')}
             /> */
-            <ImageBackground source = {props.source} style={{width: '100%', height: '100%', resizeMode: "contain"}} />
+            <ImageBackground source = {props.source} style={{width: '100%', height: '100%', resizeMode: "contain"}} >
+                <Text style={{ fontWeight: '200', fontSize: 30, textAlign: 'center'  }}>Video {props.num}</Text>
+            </ImageBackground>
             }
-            <Text>Video {props.num}</Text>
+            
         </TouchableOpacity>
     );
 };
