@@ -50,22 +50,7 @@ export class WelcomeScreen extends Component {
         this.background = (
             <ImageBackground style={styles.welcomeBackground} resizeMode={'cover'} source={require('../imageAssets/wallpaper.jpg')} >
                 <View style={styles.blank} />
-
-
-                {/* <View style={styles.centerContainer}>
-                    <View style={styles.welcomeCont}>
-                        <Text style={styles.welcomeText}>
-                            Welcome to mHealth{"\n"}Here, you will learn about{"\n"}Hypertension
-                            </Text>
-                    </View>
-                    <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
-                    <SignInBtn title="Sign Up" onPress={() => this.props.navigation.navigate('Sign Up')} />
-                    <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
-                </View> */}
-                {/* <View style={styles.bottomBtn}> */}
-
                 <MHealthBtn title="Explore mHealth" onPress={this.toggleModal} />
-                {/* </View> */}
             </ImageBackground>
         );
     }
@@ -76,27 +61,6 @@ export class WelcomeScreen extends Component {
         return (
             <View style={styles.welcomeScreenWrapper}>
                 {this.background}
-                {/* <Modal
-                    animationType="fade"
-                    transparent={false}
-                    visible={this.state.isModalVisible}
-                    style={styles.modalStyle} 
-                >
-                    <View style={styles.centerContainer}>
-                        <View style={styles.welcomeCont}>
-                            <Text style={styles.welcomeText}>
-                                Welcome to mHealth{"\n"}Here, you will learn about{"\n"}Hypertension
-                            </Text>
-                        </View>
-                        <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
-                        <SignInBtn title="Sign Up" onPress={() => this.props.navigation.navigate('Sign Up')} />
-                        <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
-                        <Button title="Hide modal" onPress={this.toggleModal} />
-                    </View>
-                </Modal> */}
-
-                {/* <Button title="Show modal" onPress={this.toggleModal} /> */}
-                {/* <View style={styles.modalStyle}> */}
                 <Modal
                     isVisible={this.state.isModalVisible}
                     style={styles.modalStyle}
@@ -106,18 +70,17 @@ export class WelcomeScreen extends Component {
                 >
                     <LinearGradient
                         colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
-                            <MHealthBackBtn onPress={this.toggleModal} />
-                            <View style={styles.welcomeCont}>
-                                <Text style={styles.welcomeText}>
-                                    Here, you will learn about{"\n"}Hypertension
+                        <MHealthBackBtn onPress={this.toggleModal} />
+                        <View style={styles.welcomeCont}>
+                            <Text style={styles.welcomeText}>
+                                Here, you will learn about{"\n"}Hypertension
                             </Text>
-                            </View>
-                            <SignInBtn title="Sign In" onPress={this.toSignIn} />
-                            <SignInBtn title="Sign Up" onPress={this.toSignUp} />
-                            <PlayBtn title="Play and Learn" onPress={this.toPlay} />
+                        </View>
+                        <SignInBtn title="Sign In" onPress={this.toSignIn} />
+                        <SignInBtn title="Sign Up" onPress={this.toSignUp} />
+                        <PlayBtn title="Play and Learn" onPress={this.toPlay} />
                     </LinearGradient>
                 </Modal>
-                {/* </View> */}
             </View>
         );
     }

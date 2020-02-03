@@ -26,7 +26,7 @@ export const MHealthBackBtn = (props) => {
                 color={'#40e0d0'}
                 containerStyle={styles.mIconBack}
                 name="expand-more"
-                size={70}
+                size={60}
             />
             {/* <Text style={[styles.mHealthText, textStyle]}>{props.title}</Text> */}
         </TouchableOpacity>
@@ -44,7 +44,7 @@ export const MHealthBtn = (props) => {
                     color={'rgba(255,255,255,0.8)'}
                     containerStyle={styles.mIcon}
                     name="expand-less"
-                    size={70}
+                    size={60}
                 />
                 <Text style={[styles.mHealthText, textStyle]}>{props.title}</Text>
             </LinearGradient>
@@ -85,12 +85,14 @@ export const PlayBtn = (props) => {
 export const VideoButton = (props) => {
     const { title = {}, style = {}, imageStyle = {}, onPress } = props;
 
+
     return (
         <TouchableOpacity title={title} onPress={onPress} style={[styles.videoBtnContainer, style]}>
-            <Image
+            {/* <Image
                 style={[styles.videoCoverImage, imageStyle]}
                 source={require('../imageAssets/amg_gt63s.jpg')}
-            />
+            /> */}
+            <Text>Video</Text>
         </TouchableOpacity>
     );
 };
