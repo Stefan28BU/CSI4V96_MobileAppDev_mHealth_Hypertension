@@ -65,10 +65,13 @@ const styles = StyleSheet.create({
         display: 'flex',
         minHeight: '7%',
         minWidth: '85%',
-        margin: 5,
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft: 15,
+        marginRight: 15,        
         borderRadius: 5,
         borderColor: '#40e0d0',
-        borderWidth: 1,
+        // borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'transparent',
@@ -83,7 +86,10 @@ const styles = StyleSheet.create({
         display: 'flex',
         minHeight: '7%',
         minWidth: '85%',
-        margin: 5,
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft: 15,
+        marginRight: 15,        
         borderRadius: 5,
 
         // borderTopLeftRadius: 99999999,
@@ -91,29 +97,33 @@ const styles = StyleSheet.create({
         // borderBottomLeftRadius: 2,
         // borderBottomRightRadius: 2,
 
-        borderWidth: 1,
-        borderColor: '#40e0d0',
+        // borderWidth: 1,
+        // borderColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'transparent'
+        backgroundColor: '#40e0d0'
     },
     signInText: {
         fontSize: 16,
-        color: '#40e0d0',
+        color: 'black',
         textTransform: 'uppercase'
     },
     playCont: {
         display: 'flex',
         minHeight: '7%',
         minWidth: '85%',
-        margin: 5,
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft: 15,
+        marginRight: 15,
         borderRadius: 5,
-
         borderWidth: 1,
         borderColor: '#40e0d0',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#40e0d0',
+        backgroundColor: 'transparent'
+        // backgroundColor: '#40e0d0',
+        // backgroundColor: 'rgba(0,0,0,0.75)'
         // borderBottomLeftRadius: 99999999,
         // borderBottomRightRadius: 99999999,
         // borderTopRightRadius: 2,
@@ -122,7 +132,7 @@ const styles = StyleSheet.create({
 
     playText: {
         fontSize: 16,
-        color: 'black',
+        color: '#40e0d0',
         textTransform: 'uppercase'
     },
 });
