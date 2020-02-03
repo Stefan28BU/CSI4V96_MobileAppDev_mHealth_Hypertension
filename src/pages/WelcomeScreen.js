@@ -1,74 +1,162 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity, Image, ImageBackground } from 'react-native';
-import { PlayBtn, SignInBtn, SignUpBtn } from '../customComponents/CustomButtons';
+import { View, Text, StyleSheet, Button, TouchableOpacity, Image, ImageBackground, TouchableHighlight } from 'react-native';
+import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn } from '../customComponents/CustomButtons';
 import { colors } from 'react-native-elements';
-import LinearGradient from 'expo-linear-gradient';
 import { Video, Audio } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
 import { BlurView } from 'expo-blur';
+import { LinearGradient } from 'expo-linear-gradient';
+
+
 // import { BlurView, VibrancyView } from 'react-native-blur';
 
+import Modal from "react-native-modal";
+import { Icon } from 'react-native-elements';
 
 export class WelcomeScreen extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isModalVisible: false,
+        }
+    }
+
+    toggleModal = () => {
+        this.setState({ isModalVisible: !this.state.isModalVisible });
+    };
+
+    setModalVisible(visible) {
+        this.setState({ isModalVisible: visible });
+    }
+
+    toSignIn = () => {
+        this.setState({ isModalVisible: !this.state.isModalVisible });
+        this.props.navigation.navigate('Login');
+    }
+
+    toPlay = () => {
+        this.setState({ isModalVisible: !this.state.isModalVisible });
+        this.props.navigation.navigate('Learn');
+    }
+
+    toSignUp = () => {
+        this.setState({ isModalVisible: !this.state.isModalVisible });
+        this.props.navigation.navigate('Sign Up');
+    }
+
     UNSAFE_componentWillMount() {
         this.background = (
-            <BlurView intensity={0} style={styles.blurStyle} >
+            <ImageBackground style={styles.welcomeBackground} resizeMode={'cover'} source={require('../imageAssets/wallpaper.jpg')} >
+                <View style={styles.blank} />
 
-                {/* <View style={styles.blurStyle} > */}
-                <ImageBackground style={styles.welcomeVideoStyle} resizeMode={'cover'} source={require('../imageAssets/wallpaper.jpg')} >
-                    {/* <View style={styles.rootImageCont}>
-                        <Image style={styles.rootImage} resizeMode={'cover'} source={require('../imageAssets/awesome.gif')} />
-                    </View> */}
 
-                    <View style={styles.blank}/>
-                    <View style={styles.centerContainer}>
-                        <View style={styles.welcomeCont}>
-                            <Text style={styles.welcomeText}>
-                                Welcome to mHealth{"\n"}Here, you will learn about{"\n"}Hypertension
-                        </Text>
-                        </View>
-                        <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
-                        <SignInBtn title="Sign Up" onPress={() => this.props.navigation.navigate('Sign Up')} />
-                        <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
+                {/* <View style={styles.centerContainer}>
+                    <View style={styles.welcomeCont}>
+                        <Text style={styles.welcomeText}>
+                            Welcome to mHealth{"\n"}Here, you will learn about{"\n"}Hypertension
+                            </Text>
                     </View>
-                </ImageBackground>
+                    <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
+                    <SignInBtn title="Sign Up" onPress={() => this.props.navigation.navigate('Sign Up')} />
+                    <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
+                </View> */}
+                {/* <View style={styles.bottomBtn}> */}
+
+                <MHealthBtn title="Explore mHealth" onPress={this.toggleModal} />
                 {/* </View> */}
-            </BlurView>
+            </ImageBackground>
         );
     }
 
     render() {
+        const { open } = this.state
+
         return (
             <View style={styles.welcomeScreenWrapper}>
                 {this.background}
+                {/* <Modal
+                    animationType="fade"
+                    transparent={false}
+                    visible={this.state.isModalVisible}
+                    style={styles.modalStyle} 
+                >
+                    <View style={styles.centerContainer}>
+                        <View style={styles.welcomeCont}>
+                            <Text style={styles.welcomeText}>
+                                Welcome to mHealth{"\n"}Here, you will learn about{"\n"}Hypertension
+                            </Text>
+                        </View>
+                        <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
+                        <SignInBtn title="Sign Up" onPress={() => this.props.navigation.navigate('Sign Up')} />
+                        <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
+                        <Button title="Hide modal" onPress={this.toggleModal} />
+                    </View>
+                </Modal> */}
+
+                {/* <Button title="Show modal" onPress={this.toggleModal} /> */}
+                {/* <View style={styles.modalStyle}> */}
+                <Modal
+                    isVisible={this.state.isModalVisible}
+                    style={styles.modalStyle}
+                    animationIn={"slideInUp"}
+                    animationInTiming={400}
+                    animationOutTiming={500}
+                >
+                    <LinearGradient
+                        colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
+                            <MHealthBackBtn onPress={this.toggleModal} />
+                            <View style={styles.welcomeCont}>
+                                <Text style={styles.welcomeText}>
+                                    Here, you will learn about{"\n"}Hypertension
+                            </Text>
+                            </View>
+                            <SignInBtn title="Sign In" onPress={this.toSignIn} />
+                            <SignInBtn title="Sign Up" onPress={this.toSignUp} />
+                            <PlayBtn title="Play and Learn" onPress={this.toPlay} />
+                    </LinearGradient>
+                </Modal>
+                {/* </View> */}
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    bottomBtn: {
+        paddingTop: 50,
+        paddingBottom: 50,
+        position: 'absolute',
+        bottom: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'black',
+        width: '100%',
+        height: '20%'
+    },
+    modalStyle: {
+        // marginTop: '100%',
+        minHeight: 400,
+        bottom: 0,
+        position: "absolute",
+        width: '100%',
+        alignSelf: 'center'
+    },
     blank: {
         height: '50%'
     },
-    blurStyle: {
-        width: '100%',
-        height: '100%',
-        zIndex: 1,
-        // position: 'absolute',
-        // backgroundColor: 'black'
-    },
-    welcomeVideoStyle: {
-        width: '100%',
-        height: '100%',
+    welcomeBackground: {
         zIndex: -1,
-        //  position: 'absolute'
+        width: '100%',
+        height: '100%'
     },
     welcomeScreenWrapper: {
         // marginTop: '25%',
         // backgroundColor: '#242424',
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
         // backgroundColor: 'black',
         // zIndex: 2,
         width: '100%',
@@ -99,12 +187,12 @@ const styles = StyleSheet.create({
         resizeMode: "cover",
     },
     centerContainer: {
-        width: '95%',
-        backgroundColor: 'rgba(0,0,0,0.7)',
+        width: '100%',
+        // backgroundColor: 'rgba(0,0,0,0.7)',
         // borderColor: 'white',
         // borderWidth: 1,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        // borderTopLeftRadius: 20,
+        // borderTopRightRadius: 20,
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -128,6 +216,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     welcomeCont: {
+        marginTop: 10,
         maxWidth: '90%',
         alignItems: 'center',
         // backgroundColor: 'rgba(0,0,0,0.5)',

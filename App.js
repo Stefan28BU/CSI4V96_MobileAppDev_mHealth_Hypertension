@@ -17,12 +17,13 @@ import { FeedScreen } from './src/pages/FeedScreen';
 import { WelcomeScreen } from './src/pages/WelcomeScreen';
 import { SignUpScreen } from './src/pages/SignUpScreen';
 import { WelcomeButton } from './src/customComponents/CustomButtons';
+import { BackButton } from './src/customComponents/CustomButtons';
 import { VideoScreen_1 } from './src/pages/videoScreens/VideoScreen_1';
 import { VideoScreen_2 } from './src/pages/videoScreens/VideoScreen_2';
 import { VideoScreen_3 } from './src/pages/videoScreens/VideoScreen_3';
 import { VideoScreen_4 } from './src/pages/videoScreens/VideoScreen_4';
 
-import { Icon, colors } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { fromBottom } from 'react-navigation-transitions';
@@ -122,21 +123,6 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 //     // 'Sign Up': { screen: Signup },
 //   }
 // );
-
-const BackButton = ({ navigation }) => {
-  const onPress = () => navigation.goBack();
-
-  return (
-    <Icon
-      color={'white'}
-      containerStyle={styles.backButton}
-      name="chevron-left"
-      onPress={onPress}
-      size={30}
-    />
-  );
-};
-
 
 export const DashboardStackNavigator = createStackNavigator(
   {
