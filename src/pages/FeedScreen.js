@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, ScrollView, ImageBackground } from 'react-native';
 import Constants from 'expo-constants';
 import { VideoButton } from '../customComponents/CustomButtons';
 import { Video, Audio } from 'expo-av'
@@ -11,10 +11,18 @@ export class FeedScreen extends Component {
         return (
             <SafeAreaView style={styles.container}>
                 <ScrollView style={styles.scrollView}>
-                    <VideoButton onPress={() => this.props.navigation.navigate('Video1')} />
-                    <VideoButton onPress={() => this.props.navigation.navigate('Video2')} />
-                    <VideoButton onPress={() => this.props.navigation.navigate('Video3')} />
-                    <VideoButton onPress={() => this.props.navigation.navigate('Video4')} />                    
+                    <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video1')} source={require('../imageAssets/001.png')} num={1}>
+                        
+                    </VideoButton>
+                    <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video2')} source={require('../imageAssets/002.png')} num={2}>
+                    
+                    </VideoButton>
+                    <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video3')} source={require('../imageAssets/003.png')} num={3}>
+                        
+                    </VideoButton>
+                    <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video4')} source={require('../imageAssets/004.png')} num={4}>
+                        
+                    </VideoButton>                    
                 </ScrollView>
             </SafeAreaView>
         );
