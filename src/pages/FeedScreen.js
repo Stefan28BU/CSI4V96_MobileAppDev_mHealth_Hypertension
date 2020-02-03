@@ -5,19 +5,16 @@ import Constants from 'expo-constants';
 import { VideoButton } from '../customComponents/CustomButtons';
 import { Video, Audio } from 'expo-av'
 import VideoPlayer from 'expo-video-player'
+
 export class FeedScreen extends Component {
     render() {
         return (
             <SafeAreaView style={styles.container}>
                 <ScrollView style={styles.scrollView}>
                     <VideoButton onPress={() => this.props.navigation.navigate('Video1')} />
-                    <VideoButton />
-                    <VideoButton />
-                    <VideoButton />
-                    <VideoButton />
-                    <VideoButton />
-                    <VideoButton />
-                    <VideoButton />
+                    <VideoButton onPress={() => this.props.navigation.navigate('Video2')} />
+                    <VideoButton onPress={() => this.props.navigation.navigate('Video3')} />
+                    <VideoButton onPress={() => this.props.navigation.navigate('Video4')} />                    
                 </ScrollView>
             </SafeAreaView>
         );

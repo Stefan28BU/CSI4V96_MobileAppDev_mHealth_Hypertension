@@ -15,7 +15,7 @@ export class SignUpScreen extends Component {
     }
     
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         Form.addValidationRule('passwordMatch', (value)=>{
             if (value === undefined || value !== this.state.password) {
                 this.setState({

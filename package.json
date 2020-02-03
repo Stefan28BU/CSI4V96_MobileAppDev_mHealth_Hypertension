@@ -19,10 +19,13 @@
     "expo-video-player": "^1.5.5",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
+    "react-drag-drawer": "^3.3.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-blur": "^3.2.2",
     "react-native-elements": "^1.2.7",
     "react-native-gesture-handler": "^1.5.3",
+    "react-native-modal": "^11.5.3",
+    "react-native-modals": "^0.19.9",
     "react-native-reanimated": "^1.4.0",
     "react-native-safe-area-context": "^0.6.0",
     "react-native-screens": "^2.0.0-alpha.12",
@@ -33,7 +36,8 @@
     "react-navigation": "^4.0.10",
     "react-navigation-drawer": "^2.3.3",
     "react-navigation-stack": "^2.0.16",
-    "react-navigation-tabs": "^2.7.0"
+    "react-navigation-tabs": "^2.7.0",
+    "react-navigation-transitions": "^1.0.12"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",
