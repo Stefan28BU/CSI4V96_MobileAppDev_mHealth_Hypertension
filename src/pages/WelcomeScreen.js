@@ -26,9 +26,10 @@ export class WelcomeScreen extends Component {
     render() {
         return (
             <View style={styles.welcomeScreenWrapper}>
-                {this.background}
+                {/* {this.background} */}
                 <View style={styles.centerContainer}>
                         <SignInBtn title="Sign In" onPress={() => this.props.navigation.navigate('Login')} />
+                        <SignInBtn title="Sign Up" onPress={() => this.props.navigation.navigate('Sign Up')} />
                         <PlayBtn title="Play and Learn" onPress={() => this.props.navigation.navigate('Learn')} />
                     </View>
             </View>
@@ -82,8 +83,8 @@ const styles = StyleSheet.create({
         flex: 1,
         // alignItems: 'center',
         justifyContent: 'center',
-        top: '-18%',
-        zIndex: 2
+        // top: '-18%',
+        // zIndex: 2
     },
     welcomeText: {
         fontSize: 20,

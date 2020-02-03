@@ -9,7 +9,7 @@ import VideoPlayer from 'expo-video-player';
 
 // const video1 = require('../../videoAssets/')
 
-export class VideoScreen_1 extends React.Component {
+export class VideoScreen_3 extends React.Component {
     render() {
         return (
             <View style={styles.videoContainer}>
@@ -22,7 +22,7 @@ export class VideoScreen_1 extends React.Component {
                     inFullscreen={true}
                 /> */}
                 <Video
-                    source={{ uri: 'https://mhealthhypertension.s3.amazonaws.com/htn_epart1.mp4' }}
+                    source={{ uri: 'https://mhealthhypertension.s3.amazonaws.com/htn_epart3.mp4' }}
                     rate={1.0}
                     volume={1.0}
                     isMuted={false}
