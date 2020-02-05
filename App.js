@@ -52,6 +52,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
     navigationOptions: ({ navigation }) => {
       const { routeName } = navigation.state.routes[navigation.state.index];
       return {
+        headerTransparent: 'false',
         // ...TransitionPresets.SlideFromRightIOS, // add this line
         headerTitle: routeName,
         headerBackground: () =>

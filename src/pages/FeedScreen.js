@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         
     },
     scrollView: {
+        marginTop: 50,
         backgroundColor: 'white',
     },
     text: {
