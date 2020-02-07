@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, Image } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, Image, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Icon } from 'react-native-elements';
 
@@ -83,7 +83,7 @@ export const PlayBtn = (props) => {
 };
 
 export const VideoButton = (props) => {
-    const { title = {}, style = {}, imageStyle = {}, onPress } = props;
+    const { num={}, source = {}, title = {}, style = {}, imageStyle = {}, onPress } = props;
 
 
     return (
@@ -91,8 +91,10 @@ export const VideoButton = (props) => {
             {/* <Image
                 style={[styles.videoCoverImage, imageStyle]}
                 source={require('../imageAssets/amg_gt63s.jpg')}
-            /> */}
-            <Text>Video</Text>
+            /> */
+            <ImageBackground source = {props.source} style={{width: '100%', height: '100%', resizeMode: "contain"}} />
+            }
+            <Text>Video {props.num}</Text>
         </TouchableOpacity>
     );
 };
@@ -157,11 +159,8 @@ const styles = StyleSheet.create({
         minWidth: '101%',
         maxWidth: '105%',
         marginBottom: 20,
-        padding: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
-
     },
     videoCoverImage: {
         flex: 1,
