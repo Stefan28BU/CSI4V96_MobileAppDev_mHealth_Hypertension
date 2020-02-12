@@ -50,6 +50,7 @@ export class SignUpScreen extends Component {
                 }
                 });
                 console.log(signUpResponse);
+                // do some saving?
 
             } catch(error) {
                 console.log(error);
