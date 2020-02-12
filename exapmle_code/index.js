@@ -1,6 +1,8 @@
-import Amplify from 'aws-amplify';
-import config from './config';
-import { Auth } from 'aws-amplify';
+//import Amplify from 'aws-amplify';
+const Amplify = require('aws-amplify');
+const config = require('./config');
+const Auth = require('@aws-amplify/auth');
+// import { Auth } from 'aws-amplify';
 
 Amplify.configure({
     Auth: {

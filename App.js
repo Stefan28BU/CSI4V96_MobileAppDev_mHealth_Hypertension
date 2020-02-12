@@ -22,11 +22,24 @@ import { VideoScreen_1 } from './src/pages/videoScreens/VideoScreen_1';
 import { VideoScreen_2 } from './src/pages/videoScreens/VideoScreen_2';
 import { VideoScreen_3 } from './src/pages/videoScreens/VideoScreen_3';
 import { VideoScreen_4 } from './src/pages/videoScreens/VideoScreen_4';
+import Amplify from 'aws-amplify';
+import config from './config';
 
 import { Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { fromBottom } from 'react-navigation-transitions';
+const Auth = {
+  mandatorySignId: true,
+  region: config.cognito.REGION,
+  userPoolId: config.cognito.USER_POOL_ID,
+  userPoolWebClientId: config.cognito.APP_CLIENT_ID
+}
+Amplify.configure(
+  Auth
+);
+
+console.log(Auth);
 
 
 // import AppSwitchNavigator from './src/pages/navigators/AppSwitchNavigator';

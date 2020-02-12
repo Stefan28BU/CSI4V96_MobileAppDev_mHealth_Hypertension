@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
+import { Auth } from 'aws-amplify';
 
 export class SignUpScreen extends Component {
     constructor(props) {
@@ -34,9 +35,25 @@ export class SignUpScreen extends Component {
         Form.removeValidationRule('passwordMatch');
     }
 
-    handleSubmit() {
+    async handleSubmit() {
         
         if (this.state.submitted) {
+            const username = this.state.username;
+            const password = this.state.password;
+            console.log(username + " " + password);
+            try {
+                const signUpResponse = await Auth.signUp({
+                username, 
+                password,
+                attributes: {
+                    email: username
+                }
+                });
+                console.log(signUpResponse);
+
+            } catch(error) {
+                console.log(error);
+            }
             Alert.alert('Credentials', `${this.state.username} + ${this.state.password}`);
         } else {
             Alert.alert(
