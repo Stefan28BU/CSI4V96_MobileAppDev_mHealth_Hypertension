@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
 import { Auth } from 'aws-amplify';
+import { TextInput } from 'react-native-gesture-handler';
 
 
 export class SignUpScreen extends Component {
@@ -18,7 +19,7 @@ export class SignUpScreen extends Component {
         this.handleSubmit=this.handleSubmit.bind(this); 
         this.handleConfirm=this.handleConfirm.bind(this);
     }
-    
+
 
     // UNSAFE_componentWillMount() {
     //     Form.addValidationRule('passwordMatch', (value)=>{
