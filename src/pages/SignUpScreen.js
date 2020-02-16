@@ -44,7 +44,6 @@ export class SignUpScreen extends Component {
         console.log(this.state.checked);
     
         if (this.state.checked && this.state.password === this.state.confirmPassword) {
-            this.setState({submited: true});
             const username = this.state.username;
             const password = this.state.password;
             console.log(username + " " + password);
@@ -56,37 +55,63 @@ export class SignUpScreen extends Component {
                     email: username
                 }
                 });
+                console.log('not a error');
                 console.log(signUpResponse);
+                this.setState({submited: true});
+
                 // do some saving?
             } catch(error) {
                 console.log(error);
+                this.setState({submited: false});
+                Alert.alert(error.message);
             }
         } else {
             Alert.alert(
                 'Wrong information!',
                 'Please check your email address or password and try again!',
                 [
-                    {text: 'Retry', onPress: () => console.log('Press button!')}
+                    {text: 'Retry', onPress: () => {
+                        console.log('resending');
+                    }}
                 ],
                 {cancelable: false}
             )
         }
     }
 
+    handleResendSignUp() {
+        Auth.resendSignUp(this.state.username)
+        .then(() => console.log('successfully resend'))
+        .catch((err) => console.log(err));
+    }
+
+    navigateToHome() {
+        this.props.navigation.navigate('Learn');
+    }
+
     handleConfirm() {
-        if ('12345' === this.state.confirmKey) {
-            Alert.alert('Credentials', `${this.state.username} + ${this.state.password}`);
+        // const go = this.props.navigation.navigate('Learn');
+
+        Auth.confirmSignUp(this.state.username, this.state.confirmKey)
+        .then(() => {
             
-        } else {
+            this.navigateToHome();
+            console.log('successful confirm signed up')
+        })
+        .catch(err => {
+            console.log('error confirm signing up: ', err)
             Alert.alert(
                 'Wrong confirm key!',
                 'Please check your confirm key and try again!',
                 [
-                    {text: 'Retry', onPress: () => console.log('Press button!')}
+                    {text: 'Retry', onPress: () => {
+                        console.log('Press button!')
+                        this.handleResendSignUp();
+                    }}
                 ],
                 {cancelable: false}
             )
-        }
+        });
     }
 
     render() {   
