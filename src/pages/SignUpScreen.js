@@ -14,6 +14,7 @@ export class SignUpScreen extends Component {
             confirmKey: '',
         };
         this.handleSubmit=this.handleSubmit.bind(this); 
+        this.handleConfirm=this.handleConfirm.bind(this);
     }
     
 
@@ -38,8 +39,7 @@ export class SignUpScreen extends Component {
 
     handleSubmit() {
         if (this.state.checked) {
-            //Alert.alert('Credentials', `${this.state.username} + ${this.state.password}`);
-            this.setState(submited = true);
+            this.setState({submited: true});
         } else {
             Alert.alert(
                 'Wrong information!',
@@ -53,7 +53,7 @@ export class SignUpScreen extends Component {
     }
 
     handleConfirm() {
-        if (this.state.confirmKey === '12345') {
+        if ('12345' === this.state.confirmKey) {
             Alert.alert('Credentials', `${this.state.username} + ${this.state.password}`);
         } else {
             Alert.alert(
@@ -67,12 +67,10 @@ export class SignUpScreen extends Component {
         }
     }
 
-    render() {
-        let screen;
-        if (this.state.submited === false) {
-            screen = 
-                <KeyboardAvoidingView style = {styles.keyboardInput}  behavior="padding" enabled>
-                    <Form ref = "Signup" onSubmit = {this.handleSubmit}>
+    render() {   
+        return (
+            <KeyboardAvoidingView style = {styles.keyboardInput}  behavior="padding" enabled>
+                {this.state.submited === false?<Form ref = "Signup" onSubmit = {this.handleSubmit}>
                         <Text style = {styles.title}>Sign Up</Text>
                         <Text style = {styles.name}>Email: </Text>
                         <TextValidator
@@ -119,11 +117,10 @@ export class SignUpScreen extends Component {
                         />
                     <Button style={styles.button} title = "Sign Up" onPress = {this.handleSubmit} />
                 </Form>
-            </KeyboardAvoidingView>
-        } else {
-            screen = 
-                <KeyboardAvoidingView style = {styles.keyboardInput}  behavior="padding" enabled>
-                    <Form ref = "Signup" onSubmit = {this.handleSubmit}>
+                
+                :
+                
+                <Form ref = "Signup" onSubmit = {this.handleSubmit}>
                         <Text style = {styles.title}>Confirmation</Text>
                         <Text style = {styles.name}>Confirm Key: </Text>
                         <TextValidator
@@ -139,12 +136,10 @@ export class SignUpScreen extends Component {
                             value = {this.state.confirmKey}
                             onChangeText={(confirmKey) => this.setState({ confirmKey })} 
                         />
-                        <Button style={styles.button} title = "Sign Up" onPress = {this.handleSubmit} />
+                        <Button style={styles.button} title = "Confirm" onPress = {this.handleConfirm} />
                     </Form>
-                </KeyboardAvoidingView>
-        }
-        return (
-            {screen}
+                }
+            </KeyboardAvoidingView>
         )
     }
 
