@@ -23,6 +23,7 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
     "react-native-blur": "^3.2.2",
     "react-native-elements": "^1.2.7",
+    "react-native-fast-image": "^7.0.2",
     "react-native-gesture-handler": "^1.5.3",
     "react-native-modal": "^11.5.3",
     "react-native-modals": "^0.19.9",
@@ -40,8 +41,8 @@
     "react-navigation-transitions": "^1.0.12"
   },
   "devDependencies": {
-    "babel-preset-expo": "~8.0.0",
-    "@babel/core": "^7.0.0"
+    "@babel/core": "^7.0.0",
+    "babel-preset-expo": "~8.0.0"
   },
   "private": true
 }

@@ -50,7 +50,7 @@ export class WelcomeScreen extends Component {
         this.background = (
             <ImageBackground style={styles.welcomeBackground} resizeMode={'cover'} source={require('../imageAssets/wallpaper.jpg')} >
                 <View style={styles.blank} />
-                <MHealthBtn title="EXPLORE" onPress={this.toggleModal} />
+                {/* <MHealthBtn title="EXPLORE" onPress={this.toggleModal} /> */}
             </ImageBackground>
         );
     }
@@ -61,7 +61,7 @@ export class WelcomeScreen extends Component {
         return (
             <View style={styles.welcomeScreenWrapper}>
                 {this.background}
-                <Modal
+                <View
                     isVisible={this.state.isModalVisible}
                     style={styles.modalStyle}
                     animationIn={"slideInUp"}
@@ -71,7 +71,7 @@ export class WelcomeScreen extends Component {
                 >
                     <LinearGradient
                         colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
-                        <MHealthBackBtn onPress={this.toggleModal} />
+                        {/* <MHealthBackBtn onPress={this.toggleModal} /> */}
                         <View style={styles.welcomeCont}>
                             <Text style={styles.welcomeText}>
                                 Here, you will learn about{"\n"}Hypertension
@@ -81,7 +81,7 @@ export class WelcomeScreen extends Component {
                         <SignInBtn title="Sign Up" onPress={this.toSignUp} />
                         <PlayBtn title="Play and Learn" onPress={this.toPlay} />
                     </LinearGradient>
-                </Modal>
+                </View>
             </View>
         );
     }
@@ -174,13 +174,13 @@ const styles = StyleSheet.create({
         // color: '#808080',
         color: 'white',
         // marginTop: 15,
-        marginBottom: 30,
+        marginBottom: 50,
         marginLeft: 10,
         marginRight: 10,
         textAlign: 'center'
     },
     welcomeCont: {
-        marginTop: 10,
+        // marginTop: 10,
         maxWidth: '90%',
         alignItems: 'center',
         // backgroundColor: 'rgba(0,0,0,0.5)',

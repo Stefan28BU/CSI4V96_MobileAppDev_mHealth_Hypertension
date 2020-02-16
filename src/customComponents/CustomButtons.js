@@ -2,6 +2,7 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, Image, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Icon } from 'react-native-elements';
+import FastImage from 'react-native-fast-image';
 
 export const BackButton = ({ navigation }) => {
     const onPress = () => navigation.goBack();
@@ -83,18 +84,23 @@ export const PlayBtn = (props) => {
 };
 
 export const VideoButton = (props) => {
-    const { num={}, source = {}, title = {}, style = {}, imageStyle = {}, onPress } = props;
+    const { num = {}, source = {}, title = {}, style = {}, imageStyle = {}, onPress } = props;
 
 
     return (
         <TouchableOpacity title={title} onPress={onPress} style={[styles.videoBtnContainer, style]}>
-            {/* <Image
-                style={[styles.videoCoverImage, imageStyle]}
-                source={require('../imageAssets/amg_gt63s.jpg')}
-            /> */
-            <ImageBackground source = {props.source} style={{width: '100%', height: '100%', resizeMode: "contain"}} />
-            }
-            <Text>Video {props.num}</Text>
+
+                <ImageBackground source = {props.source} style={{width: '100%', height: '100%', resizeMode: "contain"}} />
+                {/* <FastImage
+                    style={{ width: 200, height: 200 }}
+                    source={{
+                        uri: 'https://unsplash.it/400/400?image=1',
+                        headers: { Authorization: 'someAuthToken' },
+                        priority: FastImage.priority.normal,
+                    }}
+                    resizeMode={FastImage.resizeMode.contain}
+                /> */}
+                <Text>Video {props.num}</Text>
         </TouchableOpacity>
     );
 };

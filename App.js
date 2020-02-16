@@ -43,10 +43,59 @@ export default class App extends React.Component {
 
 export const DashboardTabNavigator = createBottomTabNavigator(
   {
-    Feed: FeedScreen,
-    Profile: ProfileScreen,
-    Settings: SettingsScreen,
-    Explore: ExploreScreen
+    Feed: {
+      screen: FeedScreen,
+
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            color={'black'}
+            name="play-circle-outline"
+            size={30}
+        />
+        )
+      },
+    },
+    Profile: {
+      screen: ProfileScreen,
+
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            color={'black'}
+            name="stay-current-landscape"
+            size={30}
+        />
+        )
+      },
+    },
+    Settings:
+    {
+      screen: SettingsScreen,
+
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            color={'black'}
+            name="child-care"
+            size={30}
+        />
+        )
+      },
+    },
+    Explore: {
+      screen: ExploreScreen,
+
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            color={'black'}
+            name="account-circle"
+            size={30}
+        />
+        )
+      },
+    },
   },
   {
     navigationOptions: ({ navigation }) => {
@@ -65,13 +114,14 @@ export const DashboardTabNavigator = createBottomTabNavigator(
     },
 
     tabBarOptions: {
-
+      showIcon: true,
+      // showLabel: false,
       style: {
         shadowColor: 'black',
         shadowOpacity: 0.7,
         shadowOffset: { height: 0, width: 0 },
         shadowRadius: 5,
-        // backgroundColor: 'transparent',
+        backgroundColor: '#40e0d0',
         // color: 'white'
       }
     }
