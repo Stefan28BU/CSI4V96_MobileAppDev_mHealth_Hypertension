@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
+import { Auth } from 'aws-amplify';
+
 
 export class SignUpScreen extends Component {
     constructor(props) {
@@ -9,7 +11,7 @@ export class SignUpScreen extends Component {
             username: '',
             password: '',
             confirmPassword: '',
-            checked: false,
+            checked: true,
             submited: false,
             confirmKey: '',
         };
@@ -18,28 +20,46 @@ export class SignUpScreen extends Component {
     }
     
 
-    UNSAFE_componentWillMount() {
-        Form.addValidationRule('passwordMatch', (value)=>{
-            if (value === undefined || value !== this.state.password) {
-                this.setState({
-                    checked: false
-                })
-                return false;
-            }
-            this.setState({
-                checked: true
-            })
-            return true;
-        });
-    }
+    // UNSAFE_componentWillMount() {
+    //     Form.addValidationRule('passwordMatch', (value)=>{
+    //         if (value === undefined || value !== this.state.password) {
+    //             this.setState({
+    //                 checked: false
+    //             })
+    //             return false;
+    //         }
+    //         this.setState({
+    //             checked: true
+    //         })
+    //         return true;
+    //     });
+    // }
 
     componentWillUnmount() {
         Form.removeValidationRule('passwordMatch');
     }
 
-    handleSubmit() {
-        if (this.state.checked) {
+    async handleSubmit() {
+        console.log(this.state.checked);
+    
+        if (this.state.checked && this.state.password === this.state.confirmPassword) {
             this.setState({submited: true});
+            const username = this.state.username;
+            const password = this.state.password;
+            console.log(username + " " + password);
+            try {
+                const signUpResponse = await Auth.signUp({
+                username, 
+                password,
+                attributes: {
+                    email: username
+                }
+                });
+                console.log(signUpResponse);
+                // do some saving?
+            } catch(error) {
+                console.log(error);
+            }
         } else {
             Alert.alert(
                 'Wrong information!',
@@ -55,6 +75,7 @@ export class SignUpScreen extends Component {
     handleConfirm() {
         if ('12345' === this.state.confirmKey) {
             Alert.alert('Credentials', `${this.state.username} + ${this.state.password}`);
+            
         } else {
             Alert.alert(
                 'Wrong confirm key!',
@@ -107,8 +128,8 @@ export class SignUpScreen extends Component {
                             style={styles.input}
                             name = "repeatPassword"
                             lable = "Confirm Password"
-                            validators = {['required', 'passwordMatch']}
-                            errorMessages = {['This field is required!', 'The password does not match!']}
+                            validators = {['required']}
+                            errorMessages = {['This field is required!']}
                             placeholder = "Password"
                             type = "text"
                             value = {this.state.confirmPassword}

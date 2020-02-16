@@ -33,6 +33,7 @@ export class Login extends Component {
 
   handleSubmit() {
     if (this.state.submitted) {
+      
       Alert.alert('Credentials', `${this.state.username} + ${this.state.password}`);
     } else {
       Alert.alert(
