@@ -93,10 +93,11 @@ export const VideoButton = (props) => {
                 source={require('../imageAssets/amg_gt63s.jpg')}
             /> */
             <ImageBackground source = {props.source} style={{width: '100%', height: '100%', resizeMode: "contain"}} >
-                <Text style={{ fontWeight: '200', fontSize: 30, textAlign: 'center'  }}>Video {props.num}</Text>
+                
             </ImageBackground>
-            }
             
+            }
+            <Text style={{ fontWeight: '200', fontSize: 30, textAlign: 'center'  }}>Video {props.num}</Text>
         </TouchableOpacity>
     );
 };
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
         height: 250,
         minWidth: '101%',
         maxWidth: '105%',
-        marginBottom: 20,
+        marginBottom: 40,
         justifyContent: 'center',
         alignItems: 'center',
     },

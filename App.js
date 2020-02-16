@@ -28,7 +28,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { fromBottom } from 'react-navigation-transitions';
 
-
 // import AppSwitchNavigator from './src/pages/navigators/AppSwitchNavigator';
 
 export default class App extends React.Component {
