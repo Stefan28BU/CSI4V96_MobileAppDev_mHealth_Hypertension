@@ -63,6 +63,16 @@ export const SignInBtn = (props) => {
     );
 };
 
+export const SignOutBtn = (props) => {
+    const { title = {}, style = {}, textStyle = {}, onPress } = props;
+
+    return (
+        <TouchableOpacity title={title} onPress={onPress} style={[styles.signOutCont, style]}>
+            <Text style={[styles.signOutText, textStyle]}>{props.title}</Text>
+        </TouchableOpacity>
+    );
+};
+
 export const SignUpBtn = (props) => {
     const { title = {}, style = {}, textStyle = {}, onPress } = props;
 
@@ -104,12 +114,12 @@ export const VideoButton = (props) => {
                 style={[styles.videoCoverImage, imageStyle]}
                 source={require('../imageAssets/amg_gt63s.jpg')}
             /> */
-            <ImageBackground source = {props.source} style={{width: '100%', height: '100%', resizeMode: "contain"}} >
-                
-            </ImageBackground>
-            
+                <ImageBackground source={props.source} style={{ width: '100%', height: '100%', resizeMode: "contain" }} >
+
+                </ImageBackground>
+
             }
-            <Text style={{ fontWeight: '200', fontSize: 30, textAlign: 'center'  }}>Video {props.num}</Text>
+            <Text style={{ fontWeight: '200', fontSize: 30, textAlign: 'center' }}>Video {props.num}</Text>
         </TouchableOpacity>
     );
 };
@@ -171,8 +181,8 @@ const styles = StyleSheet.create({
     },
     videoBtnContainer: {
         height: 250,
-        minWidth: '101%',
-        maxWidth: '105%',
+        minWidth: '102%',
+        maxWidth: '106%',
         marginBottom: 40,
         justifyContent: 'center',
         alignItems: 'center',
@@ -184,7 +194,7 @@ const styles = StyleSheet.create({
     signUpCont: {
         display: 'flex',
         minHeight: '12%',
-        minWidth: '85%',
+        minWidth: '86%',
         marginTop: 5,
         marginBottom: 5,
         marginLeft: 15,
@@ -205,7 +215,7 @@ const styles = StyleSheet.create({
     signInCont: {
         display: 'flex',
         minHeight: '12%',
-        minWidth: '85%',
+        minWidth: '86%',
         marginTop: 5,
         marginBottom: 5,
         marginLeft: 15,
@@ -230,7 +240,7 @@ const styles = StyleSheet.create({
     playCont: {
         display: 'flex',
         minHeight: '12%',
-        minWidth: '85%',
+        minWidth: '86%',
         marginTop: 5,
         marginBottom: 5,
         marginLeft: 15,
@@ -255,25 +265,55 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase'
     },
 
-
-    editProfileCont: {
+    signOutCont: {
         display: 'flex',
-        minHeight: '12%',
-        minWidth: '85%',
-        marginTop: 5,
-        marginBottom: 5,
-        marginLeft: 15,
-        marginRight: 15,
-        borderRadius: 5,
-        borderColor: '#40e0d0',
-        borderWidth: 1,
+        minHeight: '13%',
+        minWidth: '100%',
+        padding: 18,
+        // marginLeft: 15,
+        // marginRight: 15,
+        // borderTopLeftRadius: 25,
+        // borderTopRightRadius: 25,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#40e0d0',
+        borderWidth: 2,
+        // borderRadius: 5,
+        borderColor: 'transparent',
+
         shadowColor: 'black',
-        shadowOpacity: 0.3,
-        shadowOffset: { height: 8, width: 0 },
-        shadowRadius: 10,
+        shadowOpacity: 0.4,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 6,
+        // marginBottom: 0,
+    },
+
+    signOutText: {
+        fontSize: 16,
+        color: 'white',
+        textTransform: 'uppercase'
+    },
+    editProfileCont: {
+        display: 'flex',
+        minHeight: '13%',
+        minWidth: '100%',
+        padding: 18,
+        // marginLeft: 15,
+        // marginRight: 15,
+        // borderTopLeftRadius: 25,
+        // borderTopRightRadius: 25,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#40e0d0',
+        borderWidth: 2,
+        // borderRadius: 5,
+        borderColor: 'transparent',
+
+        shadowColor: 'black',
+        shadowOpacity: 0.4,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 6,
+        // marginBottom: 0,
     },
 
     editProfileText: {

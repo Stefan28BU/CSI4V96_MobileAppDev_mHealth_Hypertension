@@ -137,11 +137,13 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       showIcon: true,
       showLabel: false,
       style: {
-        shadowColor: 'black',
-        shadowOpacity: 0.5,
-        shadowOffset: { height: 0, width: 0 },
-        shadowRadius: 5,
+        // shadowColor: 'black',
+        // shadowOpacity: 0.5,
+        // shadowOffset: { height: 0, width: 0 },
+        // shadowRadius: 5,
         backgroundColor: '#40e0d0',
+        borderTopColor: 'white',
+        borderTopWidth: 1
         // color: 'white'
       }
     }

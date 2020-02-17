@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TouchableOpacity, Image, ImageBackground, TouchableHighlight } from 'react-native';
-import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn } from '../customComponents/CustomButtons';
+import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn, EditProfileBtn, SignOutBtn } from '../customComponents/CustomButtons';
 import { colors } from 'react-native-elements';
 import { Video, Audio } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
@@ -9,7 +9,6 @@ import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-// import { BlurView, VibrancyView } from 'react-native-blur';
 
 import Modal from "react-native-modal";
 import { Icon } from 'react-native-elements';
@@ -50,7 +49,6 @@ export class WelcomeScreen extends Component {
         this.background = (
             <ImageBackground style={styles.welcomeBackground} resizeMode={'cover'} source={require('../imageAssets/wallpaper.jpg')} >
                 <View style={styles.blank} />
-                {/* <MHealthBtn title="EXPLORE" onPress={this.toggleModal} /> */}
             </ImageBackground>
         );
     }
