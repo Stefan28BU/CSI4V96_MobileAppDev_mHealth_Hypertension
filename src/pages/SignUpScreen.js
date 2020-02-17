@@ -86,7 +86,7 @@ export class SignUpScreen extends Component {
     }
 
     navigateToHome() {
-        this.props.navigation.navigate('Learn');
+        this.props.navigation.navigate('VideoList');
     }
 
     handleConfirm() {
@@ -99,6 +99,7 @@ export class SignUpScreen extends Component {
             console.log('successful confirm signed up')
         })
         .catch(err => {
+
             console.log('error confirm signing up: ', err)
             Alert.alert(
                 'Wrong confirm key!',
