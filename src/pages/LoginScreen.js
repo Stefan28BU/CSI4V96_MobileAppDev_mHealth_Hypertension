@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Button, Text, View, StyleSheet, KeyboardAvoidingView, ImageBackground } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
+import { Auth } from 'aws-amplify';
 
 export class Login extends Component {
   constructor(props) {
@@ -9,11 +10,11 @@ export class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      submitted: false,
+      submitted: true,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
+  // ????????
   onLogin() {
     const { username, password } = this.state;
     if (submitted === false) {
@@ -26,13 +27,28 @@ export class Login extends Component {
         { cancelable: false }
       )
     } else {
+      
       Alert.alert('Credentials', `${username} + ${password}`);
     }
   }
 
+  navigateToHome() {
+    this.props.navigation.navigate('Learn');
+  }
 
   handleSubmit() {
     if (this.state.submitted) {
+      Auth.signIn(this.state.username, this.state.password).then((user) => {
+        console.log(user);
+        // Auth.confirmSignIn(user).then(() => {
+        //   this.navigateToHome();
+        //   console.log('successful confirm signed up')
+        // });
+        this.navigateToHome();
+      })
+      .catch(err => {
+        console.log(err);
+      })
       
       Alert.alert('Credentials', `${this.state.username} + ${this.state.password}`);
     } else {
