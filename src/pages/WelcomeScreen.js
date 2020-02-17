@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, TouchableOpacity, Image, ImageBackground, TouchableHighlight } from 'react-native';
-import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn } from '../customComponents/CustomButtons';
+import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn, EditProfileBtn, SignOutBtn } from '../customComponents/CustomButtons';
 import { colors } from 'react-native-elements';
 import { Video, Audio } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
@@ -9,7 +9,6 @@ import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
-// import { BlurView, VibrancyView } from 'react-native-blur';
 
 import Modal from "react-native-modal";
 import { Icon } from 'react-native-elements';
@@ -38,7 +37,7 @@ export class WelcomeScreen extends Component {
 
     toPlay = () => {
         this.setState({ isModalVisible: !this.state.isModalVisible });
-        this.props.navigation.navigate('Learn');
+        this.props.navigation.navigate('VideoList');
     }
 
     toSignUp = () => {
@@ -50,7 +49,6 @@ export class WelcomeScreen extends Component {
         this.background = (
             <ImageBackground style={styles.welcomeBackground} resizeMode={'cover'} source={require('../imageAssets/wallpaper.jpg')} >
                 <View style={styles.blank} />
-                <MHealthBtn title="EXPLORE" onPress={this.toggleModal} />
             </ImageBackground>
         );
     }
@@ -61,7 +59,7 @@ export class WelcomeScreen extends Component {
         return (
             <View style={styles.welcomeScreenWrapper}>
                 {this.background}
-                <Modal
+                <View
                     isVisible={this.state.isModalVisible}
                     style={styles.modalStyle}
                     animationIn={"slideInUp"}
@@ -70,8 +68,7 @@ export class WelcomeScreen extends Component {
                     hasBackdrop={false}
                 >
                     <LinearGradient
-                        colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
-                        <MHealthBackBtn onPress={this.toggleModal} />
+                        colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
                         <View style={styles.welcomeCont}>
                             <Text style={styles.welcomeText}>
                                 Here, you will learn about{"\n"}Hypertension
@@ -81,7 +78,7 @@ export class WelcomeScreen extends Component {
                         <SignInBtn title="Sign Up" onPress={this.toSignUp} />
                         <PlayBtn title="Play and Learn" onPress={this.toPlay} />
                     </LinearGradient>
-                </Modal>
+                </View>
             </View>
         );
     }
@@ -174,13 +171,13 @@ const styles = StyleSheet.create({
         // color: '#808080',
         color: 'white',
         // marginTop: 15,
-        marginBottom: 30,
+        marginBottom: 50,
         marginLeft: 10,
         marginRight: 10,
         textAlign: 'center'
     },
     welcomeCont: {
-        marginTop: 10,
+        // marginTop: 10,
         maxWidth: '90%',
         alignItems: 'center',
         // backgroundColor: 'rgba(0,0,0,0.5)',
