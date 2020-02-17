@@ -36,7 +36,7 @@ export class ProfileScreen extends Component {
             <Text style={styles.profileFieldText}>Learning Progress: 0% </Text>
           </View>
           <View style={styles.profileFields}>
-            <Text style={styles.profileFieldText}>Hours Spent on Learning: 2 </Text>
+            <Text style={styles.profileFieldText}>Hours Spent: 2 </Text>
           </View>
           <View style={styles.profileFields}>
             <Text style={styles.profileFieldText}>Achievements</Text>

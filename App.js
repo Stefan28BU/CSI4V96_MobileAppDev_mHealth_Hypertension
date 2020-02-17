@@ -68,6 +68,12 @@ export default class App extends React.Component {
   }
 }
 
+export const SubTabStackNavigator = createStackNavigator(
+  {
+    
+  }
+);
+
 export const DashboardTabNavigator = createBottomTabNavigator(
   {
     Watch: {
