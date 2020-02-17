@@ -48,9 +48,9 @@ export class Login extends Component {
       })
       .catch(err => {
         console.log(err);
+        Alert.alert(err.message);
       })
       
-      Alert.alert('Credentials', `${this.state.username} + ${this.state.password}`);
     } else {
       Alert.alert(
         'Wrong information!',
