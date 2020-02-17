@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView, Platform } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView, Platform, Alert } from 'react-native';
 import { createAppContainer, createSwitchNavigator, CreateNavigatorConfig, NavigationStackRouterConfig, NavigationRoute } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
@@ -7,13 +7,13 @@ import {
   NavigationStackConfig,
   NavigationStackOptions,
   NavigationStackProp,
-  TransitionPresets, createStackNavigator, HeaderBackButton, useCardAnimation, useHeaderHeight
+  TransitionPresets, createStackNavigator, HeaderBackButton, useCardAnimation, useHeaderHeight, Header
 } from 'react-navigation-stack'
-import { ExploreScreen } from './src/pages/ExploreScreen';
+import { PlayGamesScreen } from "./src/pages/PlayGamesScreen";
 import { Login } from './src/pages/LoginScreen';
-import { SettingsScreen } from './src/pages/SettingsScreen';
+import { PetScreen } from './src/pages/PetScreen';
 import { ProfileScreen } from './src/pages/ProfileScreen';
-import { FeedScreen } from './src/pages/FeedScreen';
+import { WatchVideosScreen } from './src/pages/WatchVideosScreen';
 import { WelcomeScreen } from './src/pages/WelcomeScreen';
 import { SignUpScreen } from './src/pages/SignUpScreen';
 import { WelcomeButton } from './src/customComponents/CustomButtons';
@@ -22,6 +22,8 @@ import { VideoScreen_1 } from './src/pages/videoScreens/VideoScreen_1';
 import { VideoScreen_2 } from './src/pages/videoScreens/VideoScreen_2';
 import { VideoScreen_3 } from './src/pages/videoScreens/VideoScreen_3';
 import { VideoScreen_4 } from './src/pages/videoScreens/VideoScreen_4';
+import Amplify from 'aws-amplify';
+import config from './config';
 
 import { Icon } from 'react-native-elements';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -29,9 +31,34 @@ import { BlurView } from 'expo-blur';
 import { fromBottom } from 'react-navigation-transitions';
 
 
+const Auth = {
+  mandatorySignId: true,
+  region: config.cognito.REGION,
+  userPoolId: config.cognito.USER_POOL_ID,
+  userPoolWebClientId: config.cognito.APP_CLIENT_ID
+}
+Amplify.configure(
+  Auth
+);
+
+console.log(Auth);
+
 // import AppSwitchNavigator from './src/pages/navigators/AppSwitchNavigator';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      headerHeight: 0,
+    }
+  }
+
+  getHeaderHeight = () => {
+    this.headerHeight = useHeaderHeight();
+  }
+
+
   render() {
     return (
       <View style={styles.appContainer}>
@@ -43,56 +70,56 @@ export default class App extends React.Component {
 
 export const DashboardTabNavigator = createBottomTabNavigator(
   {
-    Feed: {
-      screen: FeedScreen,
+    Watch: {
+      screen: WatchVideosScreen,
 
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon
-            color={'black'}
+            color={'white'}
             name="play-circle-outline"
             size={30}
-        />
+          />
         )
       },
     },
-    Profile: {
+    Play: {
+      screen: PlayGamesScreen,
+
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            color={'white'}
+            name="stay-current-landscape"
+            size={30}
+          />
+        )
+      },
+    },
+    Pet:
+    {
+      screen: PetScreen,
+
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon
+            color={'white'}
+            name="child-care"
+            size={30}
+          />
+        )
+      },
+    },
+    'My Profile': {
       screen: ProfileScreen,
 
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon
-            color={'black'}
-            name="stay-current-landscape"
-            size={30}
-        />
-        )
-      },
-    },
-    Settings:
-    {
-      screen: SettingsScreen,
-
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            color={'black'}
-            name="child-care"
-            size={30}
-        />
-        )
-      },
-    },
-    Explore: {
-      screen: ExploreScreen,
-
-      navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            color={'black'}
+            color={'white'}
             name="account-circle"
             size={30}
-        />
+          />
         )
       },
     },
@@ -101,24 +128,17 @@ export const DashboardTabNavigator = createBottomTabNavigator(
     navigationOptions: ({ navigation }) => {
       const { routeName } = navigation.state.routes[navigation.state.index];
       return {
-        headerTransparent: 'false',
         // ...TransitionPresets.SlideFromRightIOS, // add this line
         headerTitle: routeName,
-        headerBackground: () =>
-          <View style={styles.headerStyle}>
-            <BlurView tint="light" intensity={10} style={styles.headerStyle} />
-          </View>,
-
-        // ,
       };
     },
 
     tabBarOptions: {
       showIcon: true,
-      // showLabel: false,
+      showLabel: false,
       style: {
         shadowColor: 'black',
-        shadowOpacity: 0.7,
+        shadowOpacity: 0.5,
         shadowOffset: { height: 0, width: 0 },
         shadowRadius: 5,
         backgroundColor: '#40e0d0',
@@ -135,7 +155,7 @@ export const DashboardStackNavigator = createStackNavigator(
     Video2: VideoScreen_2,
     Video3: VideoScreen_3,
     Video4: VideoScreen_4,
-    Learn: DashboardTabNavigator,
+    VideoList: DashboardTabNavigator,
     Login: { screen: Login },
     'Sign Up': { screen: SignUpScreen },
   },
@@ -145,22 +165,15 @@ export const DashboardStackNavigator = createStackNavigator(
       return {
 
         headerBackTitle: ' ',
-        headerTransparent: 'true',
-        // headerBackground: () => <LinearGradient
-        //   colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
-        // </LinearGradient>,
-        // headerBackground: () =>
-        //   <View style={styles.headerStyle}>
-        //     <BlurView tint="light" intensity={0} style={styles.headerStyle} />
-        //   </View>,
-        // <BlurView intensity={80} style={styles.blurHeader} />,
+        headerBackground: () => <View style={styles.headerStyle} />,
         headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
         headerBackImage: () => <BackButton navigation={navigation} />,
         headerTintColor: 'white',
         // ...TransitionPresets.ModalPresentationIOS, // add this line
       };
-    }
+    },
   },
+
 );
 
 const AppContainer = createAppContainer(DashboardStackNavigator);
@@ -181,16 +194,16 @@ const styles = StyleSheet.create({
   headerStyle: {
     // backgroundColor: '#40e0d0',
     // backgroundColor: 'rgba(0,0,0,0.4)',
-    backgroundColor: 'black',
+    backgroundColor: '#40e0d0',
     justifyContent: 'center',
     alignContent: 'center',
     width: '100%',
     height: '100%',
     alignSelf: 'center',
-    shadowColor: 'black',
-    shadowOpacity: 0.8,
-    shadowOffset: { height: 0, width: 0 },
-    shadowRadius: 8,
+    // shadowColor: 'black',
+    // shadowOpacity: 0.4,
+    // shadowOffset: { height: 0, width: 0 },
+    // shadowRadius: 10,
     // borderRadius: 1000,
     // height: '116%'
   },
@@ -208,5 +221,8 @@ const styles = StyleSheet.create({
   blurHeader: {
     width: 500,
     height: '100%'
+  },
+  tabIcon: {
+    paddingTop: '15px',
   }
 });

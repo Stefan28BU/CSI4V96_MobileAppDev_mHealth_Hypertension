@@ -83,6 +83,16 @@ export const PlayBtn = (props) => {
     );
 };
 
+export const EditProfileBtn = (props) => {
+    const { title = {}, style = {}, textStyle = {}, onPress } = props;
+
+    return (
+        <TouchableOpacity title={title} onPress={onPress} style={[styles.editProfileCont, style]}>
+            <Text style={[styles.editProfileText, textStyle]}>{props.title}</Text>
+        </TouchableOpacity>
+    );
+};
+
 export const VideoButton = (props) => {
     const { num = {}, source = {}, title = {}, style = {}, imageStyle = {}, onPress } = props;
 
@@ -90,17 +100,16 @@ export const VideoButton = (props) => {
     return (
         <TouchableOpacity title={title} onPress={onPress} style={[styles.videoBtnContainer, style]}>
 
-                <ImageBackground source = {props.source} style={{width: '100%', height: '100%', resizeMode: "contain"}} />
-                {/* <FastImage
-                    style={{ width: 200, height: 200 }}
-                    source={{
-                        uri: 'https://unsplash.it/400/400?image=1',
-                        headers: { Authorization: 'someAuthToken' },
-                        priority: FastImage.priority.normal,
-                    }}
-                    resizeMode={FastImage.resizeMode.contain}
-                /> */}
-                <Text>Video {props.num}</Text>
+            {/* <Image
+                style={[styles.videoCoverImage, imageStyle]}
+                source={require('../imageAssets/amg_gt63s.jpg')}
+            /> */
+            <ImageBackground source = {props.source} style={{width: '100%', height: '100%', resizeMode: "contain"}} >
+                
+            </ImageBackground>
+            
+            }
+            <Text style={{ fontWeight: '200', fontSize: 30, textAlign: 'center'  }}>Video {props.num}</Text>
         </TouchableOpacity>
     );
 };
@@ -164,7 +173,7 @@ const styles = StyleSheet.create({
         height: 250,
         minWidth: '101%',
         maxWidth: '105%',
-        marginBottom: 20,
+        marginBottom: 40,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -243,6 +252,33 @@ const styles = StyleSheet.create({
     playText: {
         fontSize: 16,
         color: '#40e0d0',
+        textTransform: 'uppercase'
+    },
+
+
+    editProfileCont: {
+        display: 'flex',
+        minHeight: '12%',
+        minWidth: '85%',
+        marginTop: 5,
+        marginBottom: 5,
+        marginLeft: 15,
+        marginRight: 15,
+        borderRadius: 5,
+        borderColor: '#40e0d0',
+        borderWidth: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#40e0d0',
+        shadowColor: 'black',
+        shadowOpacity: 0.3,
+        shadowOffset: { height: 8, width: 0 },
+        shadowRadius: 10,
+    },
+
+    editProfileText: {
+        fontSize: 16,
+        color: 'white',
         textTransform: 'uppercase'
     },
 });

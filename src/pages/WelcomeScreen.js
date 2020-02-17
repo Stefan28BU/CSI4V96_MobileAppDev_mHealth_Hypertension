@@ -38,7 +38,7 @@ export class WelcomeScreen extends Component {
 
     toPlay = () => {
         this.setState({ isModalVisible: !this.state.isModalVisible });
-        this.props.navigation.navigate('Learn');
+        this.props.navigation.navigate('VideoList');
     }
 
     toSignUp = () => {
@@ -70,8 +70,7 @@ export class WelcomeScreen extends Component {
                     hasBackdrop={false}
                 >
                     <LinearGradient
-                        colors={['rgba(0,0,0,0.4)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
-                        {/* <MHealthBackBtn onPress={this.toggleModal} /> */}
+                        colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
                         <View style={styles.welcomeCont}>
                             <Text style={styles.welcomeText}>
                                 Here, you will learn about{"\n"}Hypertension

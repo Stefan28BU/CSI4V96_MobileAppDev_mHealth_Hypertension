@@ -7,7 +7,7 @@ import { Video, Audio } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
 import FastImage from 'react-native-fast-image';
 
-export class FeedScreen extends Component {
+export class WatchVideosScreen extends Component {
     UNSAFE_componentWillMount() {
         this.videoList = (
             <ScrollView style={styles.scrollView}>
@@ -39,12 +39,11 @@ export class FeedScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black',
+        backgroundColor: 'rgb(235,235,235)',
 
     },
     scrollView: {
-        marginTop: 50,
-        backgroundColor: 'white',
+        backgroundColor: 'rgb(235,235,235)',
     },
     text: {
         fontSize: 20,

@@ -40,7 +40,6 @@ export class VideoScreen_4 extends React.Component {
 // Later on in your styles..
 var styles = StyleSheet.create({
     videoContainer: {
-        // marginTop: 50,
         flex: 1, 
         justifyContent: 'center', 
         alignItems: 'center',
