@@ -6,9 +6,12 @@ import { VideoButton } from '../customComponents/CustomButtons';
 import { Video, Audio } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
 import FastImage from 'react-native-fast-image';
+import { findCoordinates } from '../utils/findCoordinate';
+
 
 export class WatchVideosScreen extends Component {
-    UNSAFE_componentWillMount() {
+    async UNSAFE_componentWillMount() {
+        
         this.videoList = (
             <ScrollView style={styles.scrollView}>
                 <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video1')} source={require('../imageAssets/001.png')} num={1}>
@@ -25,6 +28,9 @@ export class WatchVideosScreen extends Component {
                 </VideoButton>
             </ScrollView>
         );
+
+        const loc = await findCoordinates();
+        console.log(loc);
     }
 
     render() {
