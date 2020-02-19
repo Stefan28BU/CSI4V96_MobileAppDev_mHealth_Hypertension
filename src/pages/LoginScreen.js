@@ -33,7 +33,7 @@ export class Login extends Component {
   }
 
   navigateToHome() {
-    this.props.navigation.navigate('Learn');
+    this.props.navigation.navigate('VideoList');
   }
 
   handleSubmit() {
