@@ -10,7 +10,7 @@ import Gallery from './gallery.component';
 
 import styles from './styles';
 
-export default class CameraPage extends React.Component {
+export class CameraPage extends React.Component {
     camera = null;
     state = {
         captures: [],

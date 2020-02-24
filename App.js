@@ -22,6 +22,7 @@ import { VideoScreen_1 } from './src/pages/videoScreens/VideoScreen_1';
 import { VideoScreen_2 } from './src/pages/videoScreens/VideoScreen_2';
 import { VideoScreen_3 } from './src/pages/videoScreens/VideoScreen_3';
 import { VideoScreen_4 } from './src/pages/videoScreens/VideoScreen_4';
+import { CameraPage } from './src/camera/camera.page';
 import Amplify from 'aws-amplify';
 import config from './config';
 
@@ -159,6 +160,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 export const DashboardStackNavigator = createStackNavigator(
   {
     mHealth: WelcomeScreen,
+    camera: CameraPage,
     Video1: VideoScreen_1,
     Video2: VideoScreen_2,
     Video3: VideoScreen_3,
