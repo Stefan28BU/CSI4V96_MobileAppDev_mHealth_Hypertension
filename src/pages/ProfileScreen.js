@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet, Button, FlatList, SafeAreaView, ScrollView } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
+import { Auth } from 'aws-amplify';
 
 
 import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn, EditProfileBtn } from '../customComponents/CustomButtons';
@@ -20,6 +21,19 @@ export class ProfileScreen extends Component {
 
   constructor(props) {
     super(props);
+    this.signOut = this.signOut.bind(this);
+  }
+
+  navigateToHome() {
+    this.props.navigation.navigate('mHealth');
+  }
+
+  signOut() {
+    console.log('trying to sign out');
+    Auth.signOut({ global: true })
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+    this.navigateToHome();
   }
 
   render() {
@@ -47,7 +61,7 @@ export class ProfileScreen extends Component {
           <View style={styles.profileFields}>
             <Text style={styles.profileFieldText}>My Information</Text>
           </View>
-          <SignOutBtn title="Sign Out" />
+          <SignOutBtn title="Sign Out" onPress = {this.signOut}/>
         </View>
       </View>
     );
