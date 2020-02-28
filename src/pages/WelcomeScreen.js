@@ -82,7 +82,6 @@ export class WelcomeScreen extends Component {
                         <SignInBtn title="Sign In" onPress={this.toSignIn} />
                         <SignInBtn title="Sign Up" onPress={this.toSignUp} />
                         <PlayBtn title="Play and Learn" onPress={this.toPlay} />
-                        <PlayBtn title="Camera" onPress={this.toCamera} />
 
                     </LinearGradient>
                 </View>

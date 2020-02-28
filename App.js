@@ -271,7 +271,6 @@ export const DashboardStackNavigator = createStackNavigator(
     VideoList: DashboardTabNavigator,
     Login: { screen: Login },
     'Sign Up': { screen: SignUpScreen },
-    camera: CameraPage,
 
   },
   {
