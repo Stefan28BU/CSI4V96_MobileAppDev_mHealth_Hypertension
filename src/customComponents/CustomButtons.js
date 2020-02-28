@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, Image, ImageBackground } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, Image, ImageBackground, View } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Icon } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
@@ -104,22 +104,28 @@ export const EditProfileBtn = (props) => {
 };
 
 export const VideoButton = (props) => {
-    const { num = {}, source = {}, title = {}, style = {}, imageStyle = {}, onPress } = props;
+    const { num = {}, source = {}, title = {}, style = {}, label, imageStyle = {}, onPress } = props;
 
 
     return (
         <TouchableOpacity title={title} onPress={onPress} style={[styles.videoBtnContainer, style]}>
+            <ImageBackground source={props.source} style={{ width: '100%', height: 240, resizeMode: "cover" }} ></ImageBackground>
 
-            {/* <Image
-                style={[styles.videoCoverImage, imageStyle]}
-                source={require('../imageAssets/amg_gt63s.jpg')}
-            /> */
-                <ImageBackground source={props.source} style={{ width: '100%', height: '100%', resizeMode: "contain" }} >
-
-                </ImageBackground>
-
-            }
-            <Text style={{ fontWeight: '200', fontSize: 30, textAlign: 'center' }}>Video {props.num}</Text>
+            <View style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                padding: 4,
+            }}>
+                <Text style={{
+                    fontWeight: '300',
+                    fontSize: 20,
+                }}
+                >
+                    {label}
+                </Text>
+            </View>
         </TouchableOpacity>
     );
 };
@@ -180,10 +186,9 @@ const styles = StyleSheet.create({
         // backgroundColor: 'black',
     },
     videoBtnContainer: {
-        height: 250,
-        minWidth: '102%',
-        maxWidth: '106%',
-        marginBottom: 40,
+        // height: 300,
+        width: '100%',
+        // marginBottom: 40,
         justifyContent: 'center',
         alignItems: 'center',
     },
