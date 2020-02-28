@@ -82,7 +82,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon
-            color={'white'}
+            color={tintColor}
             name="play-circle-outline"
             size={30}
           />
@@ -95,7 +95,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon
-            color={'white'}
+            color={tintColor}
             name="stay-current-landscape"
             size={30}
           />
@@ -109,7 +109,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon
-            color={'white'}
+            color={tintColor}
             name="child-care"
             size={30}
           />
@@ -122,7 +122,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <Icon
-            color={'white'}
+            color={tintColor}
             name="account-circle"
             size={30}
           />
@@ -141,7 +141,10 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 
     tabBarOptions: {
       showIcon: true,
-      showLabel: false,
+      // showLabel: false,
+      activeTintColor: 'white',
+      inactiveTintColor: 'rgb(235,235,235)',
+      
       style: {
         // shadowColor: 'black',
         // shadowOpacity: 0.5,
@@ -149,8 +152,9 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         // shadowRadius: 5,
         backgroundColor: '#40e0d0',
         borderTopColor: 'white',
-        borderTopWidth: 1
-        // color: 'white'
+        borderTopWidth: 1,
+        paddingTop: 10,
+        height: 60
       }
     }
   }
@@ -181,7 +185,6 @@ export const DashboardStackNavigator = createStackNavigator(
       };
     },
   },
-
 );
 
 const AppContainer = createAppContainer(DashboardStackNavigator);

@@ -11,16 +11,16 @@ export class WatchVideosScreen extends Component {
     UNSAFE_componentWillMount() {
         this.videoList = (
             <ScrollView style={styles.scrollView}>
-                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video1')} source={require('../imageAssets/001.png')} num={1}>
+                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video1')} source={require('../imageAssets/001.png')} label={"What is Hypertension or High BP?"}>
+                    
+                </VideoButton>
+                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video2')} source={require('../imageAssets/002.png')} label={"What causes High BP?"}>
 
                 </VideoButton>
-                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video2')} source={require('../imageAssets/002.png')} num={2}>
+                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video3')} source={require('../imageAssets/003.png')} label={"What are the symptoms of High BP?"}>
 
                 </VideoButton>
-                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video3')} source={require('../imageAssets/003.png')} num={3}>
-
-                </VideoButton>
-                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video4')} source={require('../imageAssets/004.png')} num={4}>
+                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video4')} source={require('../imageAssets/004.png')} label={"How to know if you have High BP?"}>
 
                 </VideoButton>
             </ScrollView>
