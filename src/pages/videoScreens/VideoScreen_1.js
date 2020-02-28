@@ -194,7 +194,7 @@ var styles = StyleSheet.create({
 
         fontSize: 20,
         // backgroundColor: '#40e0d0',
-        color: 'white'
+        color: 'white',
     },
     quizOptionsCnt: {
         marginTop: 10,
