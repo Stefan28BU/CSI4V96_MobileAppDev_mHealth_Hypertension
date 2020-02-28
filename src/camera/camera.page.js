@@ -6,6 +6,7 @@ import { Camera } from 'expo-camera';
 import Toolbar from './toolbar.component';
 import Gallery from './gallery.component';
 import { RNS3 } from 'react-native-s3-upload';
+import axios from 'axios';
 
 import styles from './styles';
 
@@ -32,10 +33,10 @@ export class CameraPage extends React.Component {
 
     handleShortCapture = async () => {
         const photoData = await this.camera.takePictureAsync();
-        console.log(photoData);
+        //console.log(photoData);
 
         const { uri: ph_uri } = photoData
-        console.log(ph_uri);
+        //console.log(ph_uri);
         const file = {
             uri: ph_uri,
             name: "image.jpg",
@@ -49,16 +50,35 @@ export class CameraPage extends React.Component {
             secretKey: "FmQNQ+ZpzAVS6n6i49/ft3Yd27kV8idngpMoJDFF",
             successActionStatus: 201
           }
-          console.log('file!')
-        console.log(file);
+          //console.log('file!')
+        //console.log(file);
         RNS3.put(file, options).progress((e) => console.log(e.loaded / e.total))
         .then(response => {
-            console.log(response);
+            // console.log(response);
 
-            console.log('upload?')
+            // console.log('upload?')
+
+            axios.post('https://y5k6itv6eg.execute-api.us-east-1.amazonaws.com/test', {
+                bucket: 'hypertest1',
+                key: 'image.jpg'
+              })
+              .then(function (response) {
+                  console.log('here!!!');
+                //console.log(response.data.result);
+                let label = JSON.parse(response.data.result)
+                //console.log(label);
+                let possible = "";
+                label.map(entity => {
+                    console.log(entity["Name"]);
+                    possible
+                });
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
             if (response.status !== 201)
             throw new Error("Failed to upload image to S3");
-        console.log(response.body);
+        // console.log(response.body);
         })
         .catch(err => {console.log(err)});
         this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
