@@ -22,6 +22,7 @@ import { VideoScreen_1 } from './src/pages/videoScreens/VideoScreen_1';
 import { VideoScreen_2 } from './src/pages/videoScreens/VideoScreen_2';
 import { VideoScreen_3 } from './src/pages/videoScreens/VideoScreen_3';
 import { VideoScreen_4 } from './src/pages/videoScreens/VideoScreen_4';
+import { CameraPage } from './src/camera/camera.page';
 import Amplify from 'aws-amplify';
 import config from './config';
 
@@ -125,6 +126,7 @@ export default class App extends React.Component {
 
 export const DashboardTabNavigator = createBottomTabNavigator(
   {
+
     Watch: {
       screen: WatchVideosScreen,
 
@@ -148,6 +150,27 @@ export const DashboardTabNavigator = createBottomTabNavigator(
             name="stay-current-landscape"
             size={30}
           />
+        )
+      },
+    },
+    Camera: {
+      screen: CameraPage,
+
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <View style={{
+            // backgroundColor: 'black',
+            // borderRadius: 999,
+            // // borderStyle:,
+            // top:-20,
+            // position:"absolute"
+          }}>
+            <Icon
+              color={tintColor}
+              name="photo-camera"
+              size={30}
+            />
+          </View>
         )
       },
     },
@@ -244,9 +267,12 @@ export const DashboardStackNavigator = createStackNavigator(
         ></LinearGradient>,
       },
     },
+
     VideoList: DashboardTabNavigator,
     Login: { screen: Login },
     'Sign Up': { screen: SignUpScreen },
+    // camera: CameraPage,
+
   },
   {
 

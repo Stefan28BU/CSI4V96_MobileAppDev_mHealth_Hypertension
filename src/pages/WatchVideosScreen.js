@@ -6,6 +6,7 @@ import { VideoButton } from '../customComponents/CustomButtons';
 import { Video, Audio } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
 import FastImage from 'react-native-fast-image';
+import { findCoordinates } from '../utils/findCoordinate';
 import { Asset } from 'expo-asset';
 
 import { AppLoading } from 'expo';
@@ -17,18 +18,6 @@ const img3 = require('../imageAssets/002.jpg')
 const img4 = require('../imageAssets/001.jpg')
 
 
-// function cacheImages(images) {
-//     return images.map(image => {
-//         if (typeof image === 'string') {
-//             return Image.prefetch(image);
-//         } else {
-//             return Asset.fromModule(image).downloadAsync();
-//         }
-//     });
-// }
-
-// let imageAssets;
-
 export class WatchVideosScreen extends Component {
 
     state = {
@@ -36,20 +25,7 @@ export class WatchVideosScreen extends Component {
     };
 
 
-    // async _loadAssetsAsync() {
-    //     imageAssets = cacheImages([
-    //         require('../imageAssets/004.jpg'),
-    //         require('../imageAssets/003.jpg'),
-    //         require('../imageAssets/002.jpg'),
-    //         require('../imageAssets/001.jpg')
-    //     ]);
-
-
-    //     await Promise.all([...imageAssets]);
-    // }
-
     async UNSAFE_componentWillMount() {
-
         this.videoList = (
             <ScrollView style={styles.scrollView}>
                 <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Part 1: Introduction')} source={img1} label={"What is Hypertension or High BP?"}>
@@ -66,18 +42,12 @@ export class WatchVideosScreen extends Component {
                 </VideoButton>
             </ScrollView>
         );
+
+        const loc = await findCoordinates();
+        console.log(loc);
     }
 
     render() {
-        // if (!this.state.isReady) {
-        //     return (
-        //         <AppLoading
-        //             startAsync={this._loadAssetsAsync}
-        //             onFinish={() => this.setState({ isReady: true })}
-        //             onError={console.warn}
-        //         />
-        //     );
-        // }
 
         return (
             <SafeAreaView style={styles.container}>
