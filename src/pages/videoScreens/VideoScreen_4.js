@@ -8,6 +8,7 @@ import VideoPlayer from 'expo-video-player';
 // import htn_epart2  from '../../videoAssets/htn_epart2.mp4';
 
 // const video1 = require('../../videoAssets/')
+import { LinearGradient } from 'expo-linear-gradient';
 
 export class VideoScreen_4 extends React.Component {
     state = {
@@ -69,9 +70,13 @@ export class VideoScreen_4 extends React.Component {
                 <View style={styles.sfQuizCnt}>
                     <ScrollView style={styles.quizCnt}>
                         <View style={styles.quizItemCont}>
-                            <Text style={styles.quizItem}>
-                                High BP can be easily checked at clinics or hospitals
-                            </Text>
+                            <LinearGradient
+                                start={[0, 0]}
+                                colors={['#2193b0', '#845EC2', '#D65DB1', '#FF6F91', '#FF9671']}>
+                                <Text style={styles.quizItem}>
+                                    High BP can be easily checked at clinics or hospitals
+                                </Text>
+                            </LinearGradient>
 
                             <Picker
                                 itemStyle={styles.quizOptions}
@@ -87,9 +92,13 @@ export class VideoScreen_4 extends React.Component {
                         </View>
 
                         <View style={styles.quizItemCont}>
-                            <Text style={styles.quizItem}>
-                                Which of the following behavior is bad if you already have High BP?
-                            </Text>
+                            <LinearGradient
+                                start={[0, 0]}
+                                colors={['#2193b0', '#845EC2', '#D65DB1', '#FF6F91', '#FF9671']}>
+                                <Text style={styles.quizItem}>
+                                    Which of the following behavior is bad if you already have High BP?
+                                </Text>
+                            </LinearGradient>
 
                             <Picker
                                 itemStyle={styles.quizOptions}
@@ -107,9 +116,13 @@ export class VideoScreen_4 extends React.Component {
                         </View>
 
                         <View style={styles.quizItemCont}>
-                            <Text style={styles.quizItem}>
-                                You need to see doctors regularly when taking High BP treatment medications
-                            </Text>
+                            <LinearGradient
+                                start={[0, 0]}
+                                colors={['#2193b0', '#845EC2', '#D65DB1', '#FF6F91', '#FF9671']}>
+                                <Text style={styles.quizItem}>
+                                    You need to see doctors regularly when taking High BP treatment medications
+                                </Text>
+                            </LinearGradient>
 
                             <Picker
                                 itemStyle={styles.quizOptions}
@@ -125,9 +138,13 @@ export class VideoScreen_4 extends React.Component {
                         </View>
 
                         <View style={styles.quizItemCont}>
-                            <Text style={styles.quizItem}>
-                                It is very important to have your blood pressure checked
-                            </Text>
+                            <LinearGradient
+                                start={[0, 0]}
+                                colors={['#2193b0', '#845EC2', '#D65DB1', '#FF6F91', '#FF9671']}>
+                                <Text style={styles.quizItem}>
+                                    It is very important to have your blood pressure checked
+                                </Text>
+                            </LinearGradient>
 
                             <Picker
                                 itemStyle={styles.quizOptions}
@@ -141,15 +158,13 @@ export class VideoScreen_4 extends React.Component {
                                 <Picker.Item label="True" value="correct" />
                             </Picker>
                         </View>
-
-
-                        <View style={{
-                            height: 60
-                        }} />
                     </ScrollView>
-                    <TouchableOpacity style={styles.confAns} onPress={this.onSubmitAnswers}>
-                        <Text style={{ color: "white", fontSize: 20 }}>Confirm Answers</Text>
-                    </TouchableOpacity>
+                    <LinearGradient
+                        colors={[ '#b06ab3','#4568dc' ]}>
+                        <TouchableOpacity style={styles.confAns} onPress={this.onSubmitAnswers}>
+                            <Text style={{ color: "white", fontSize: 20 }}>Confirm Answers</Text>
+                        </TouchableOpacity>
+                    </LinearGradient>
                 </View>
             </View>
         );
@@ -179,27 +194,27 @@ var styles = StyleSheet.create({
     quizCnt: {
         height: '70%',
         width: '100%',
-        padding: 30,
+        // padding: 30,
     },
     quizItemCont: {
         backgroundColor: 'white',
 
-        marginBottom: 20,
+        // marginBottom: 20,
 
         aspectRatio: 1,
         width: '100%',
 
-        shadowColor: 'black',
-        shadowOpacity: 0.25,
-        shadowOffset: { height: 10, width: 0 },
-        shadowRadius: 10,
+        // shadowColor: 'black',
+        // shadowOpacity: 0.25,
+        // shadowOffset: { height: 10, width: 0 },
+        // shadowRadius: 10,
 
     },
     quizItem: {
         padding: 20,
 
         fontSize: 20,
-        backgroundColor: '#40e0d0',
+        // backgroundColor: '#40e0d0',
         color: 'white'
     },
     quizOptionsCnt: {
@@ -209,7 +224,7 @@ var styles = StyleSheet.create({
     quizOptions: {
     },
     confAns: {
-        backgroundColor: '#40e0d0',
+        // backgroundColor: '#40e0d0',
         width: '100%',
         height: 100,
         display: 'flex',

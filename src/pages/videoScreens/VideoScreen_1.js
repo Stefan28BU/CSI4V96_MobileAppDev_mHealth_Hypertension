@@ -8,6 +8,7 @@ import VideoPlayer from 'expo-video-player';
 // import htn_epart2  from '../../videoAssets/htn_epart2.mp4';
 
 // const video1 = require('../../videoAssets/')
+import { LinearGradient } from 'expo-linear-gradient';
 
 export class VideoScreen_1 extends React.Component {
 
@@ -71,9 +72,13 @@ export class VideoScreen_1 extends React.Component {
                 <View style={styles.sfQuizCnt}>
                     <ScrollView style={styles.quizCnt}>
                         <View style={styles.quizItemCont}>
-                            <Text style={styles.quizItem}>
-                                Smoking tobacco can lead to High BP
-                            </Text>
+                            <LinearGradient
+                                start={[0, 0]}
+                                colors={['#2193b0', '#845EC2', '#D65DB1', '#FF6F91', '#FF9671']}>
+                                <Text style={styles.quizItem}>
+                                    Smoking tobacco can lead to High BP
+                                </Text>
+                            </LinearGradient>
 
                             <Picker
                                 itemStyle={styles.quizOptions}
@@ -89,9 +94,13 @@ export class VideoScreen_1 extends React.Component {
                         </View>
 
                         <View style={styles.quizItemCont}>
-                            <Text style={styles.quizItem}>
-                                If a person has High BP, what would his/her blood vessel look like comparing to healthy people?
+                            <LinearGradient
+                                start={[0, 0]}
+                                colors={['#2193b0', '#845EC2', '#D65DB1', '#FF6F91', '#FF9671']}>
+                                <Text style={styles.quizItem}>
+                                    If a person has High BP, what would his/her blood vessel look like comparing to healthy people?
                             </Text>
+                            </LinearGradient>
 
                             <Picker
                                 itemStyle={styles.quizOptions}
@@ -107,9 +116,13 @@ export class VideoScreen_1 extends React.Component {
                         </View>
 
                         <View style={styles.quizItemCont}>
-                            <Text style={styles.quizItem}>
-                                High BP makes your heart harder to pump blood though your organs
-                            </Text>
+                            <LinearGradient
+                                start={[0, 0]}
+                                colors={['#2193b0', '#845EC2', '#D65DB1', '#FF6F91', '#FF9671']}>
+                                <Text style={styles.quizItem}>
+                                    High BP makes your heart harder to pump blood though your organs
+                                </Text>
+                            </LinearGradient>
 
                             <Picker
                                 itemStyle={styles.quizOptions}
@@ -123,16 +136,13 @@ export class VideoScreen_1 extends React.Component {
                                 <Picker.Item label="True" value="correct" />
                             </Picker>
                         </View>
-                        
-
-
-                        <View style={{
-                            height: 60
-                        }} />
                     </ScrollView>
-                    <TouchableOpacity style={styles.confAns} onPress={this.onSubmitAnswers}>
-                        <Text style={{ color: "white", fontSize: 20 }}>Confirm Answers</Text>
-                    </TouchableOpacity>
+                    <LinearGradient
+                        colors={[ '#b06ab3','#4568dc' ]}>
+                        <TouchableOpacity style={styles.confAns} onPress={this.onSubmitAnswers}>
+                            <Text style={{ color: "white", fontSize: 20 }}>Confirm Answers</Text>
+                        </TouchableOpacity>
+                    </LinearGradient>
                 </View>
             </View>
         );
@@ -152,6 +162,7 @@ var styles = StyleSheet.create({
     },
     sfQuizCnt: {
         backgroundColor: 'white',
+        // backgroundColor: '#40e0d0',
 
         width: '100%',
         top: '30%',
@@ -162,27 +173,27 @@ var styles = StyleSheet.create({
     quizCnt: {
         height: '70%',
         width: '100%',
-        padding: 30,
+        // padding: 30,
     },
     quizItemCont: {
         backgroundColor: 'white',
 
-        marginBottom: 20,
+        // marginBottom: 20,
 
         aspectRatio: 1,
         width: '100%',
 
-        shadowColor: 'black',
-        shadowOpacity: 0.25,
-        shadowOffset: { height: 10, width: 0 },
-        shadowRadius: 10,
+        // shadowColor: 'black',
+        // shadowOpacity: 0.25,
+        // shadowOffset: { height: 10, width: 0 },
+        // shadowRadius: 10,
 
     },
     quizItem: {
         padding: 20,
 
         fontSize: 20,
-        backgroundColor: '#40e0d0',
+        // backgroundColor: '#40e0d0',
         color: 'white'
     },
     quizOptionsCnt: {
@@ -192,7 +203,7 @@ var styles = StyleSheet.create({
     quizOptions: {
     },
     confAns: {
-        backgroundColor: '#40e0d0',
+        // backgroundColor: '#40e0d0',
         width: '100%',
         height: 100,
         display: 'flex',
