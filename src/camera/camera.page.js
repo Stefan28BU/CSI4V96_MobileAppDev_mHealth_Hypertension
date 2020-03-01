@@ -22,6 +22,7 @@ export class CameraPage extends React.Component {
         // start the back camera by default
         cameraType: Camera.Constants.Type.back,
         hasCameraPermission: null,
+        photoResponse: []
     };
 
     setFlashMode = (flashMode) => this.setState({ flashMode });
@@ -62,6 +63,7 @@ export class CameraPage extends React.Component {
           }
           //console.log('file!')
         //console.log(file);
+
         RNS3.put(file, options).progress((e) => console.log(e.loaded / e.total))
         .then(response => {
             // console.log(response);
@@ -72,20 +74,20 @@ export class CameraPage extends React.Component {
                 bucket: 'hypertest1',
                 key: 'image.jpg'
               })
-              .then(function (response) {
-                  console.log('here!!!');
+              .then( (response) => {
+                  // console.log('here!!!');
                 //console.log(response.data.result);
                 let label = JSON.parse(response.data.result)
                 //console.log(label);
-                let possible = "";
-                let photoResponse = []
+                let tempPhoto = []
 
                 label.map(entity => {
-                    console.log(entity["Name"]);
-                    photoResponse.push(entity["Name"])
+                    tempPhoto.push(entity["Name"])
                 });
+                console.log(tempPhoto);
 
-                Alert.alert(photoResponse);
+                this.setState({photoResponse: tempPhoto});
+                this.showLabel(this.state.photoResponse);
               })
               .catch(function (error) {
                 console.log(error);
@@ -98,10 +100,9 @@ export class CameraPage extends React.Component {
         this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
     };
 
-    // handleLongCapture = async () => {
-    //     const videoData = await this.camera.recordAsync();
-    //     this.setState({ capturing: false, captures: [videoData, ...this.state.captures] });
-    // };
+    showLabel(photoResponse) {
+        Alert.alert(photoResponse.join('\n'));
+    }
 
     async componentDidMount() {
         const camera = await Permissions.askAsync(Permissions.CAMERA);
@@ -143,6 +144,10 @@ export class CameraPage extends React.Component {
                     // onLongCapture={this.handleLongCapture}
                     onShortCapture={this.handleShortCapture}
                 />
+                {this.state.photoResponse.length != 0 && 
+                    console.log(this.state.photoResponse)
+
+                }
             </React.Fragment>
 
         );
