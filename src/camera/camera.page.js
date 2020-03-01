@@ -1,12 +1,14 @@
 // src/camera.page.js file
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import * as Permissions from 'expo-permissions'
 import { Camera } from 'expo-camera';
 import Toolbar from './toolbar.component';
 import Gallery from './gallery.component';
 import { RNS3 } from 'react-native-s3-upload';
 import axios from 'axios';
+import * as ImageManipulator from 'expo-image-manipulator';
+
 
 import styles from './styles';
 
@@ -33,9 +35,17 @@ export class CameraPage extends React.Component {
 
     handleShortCapture = async () => {
         const photoData = await this.camera.takePictureAsync();
-        //console.log(photoData);
+        console.log(photoData);
 
-        const { uri: ph_uri } = photoData
+        const { uri: raw_uri } = photoData
+
+        const compressedImage = await ImageManipulator.manipulateAsync(
+            raw_uri,
+            [{resize: {width: 100, height: 100}}],
+            { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
+        )
+
+        const { uri: ph_uri } = compressedImage
         //console.log(ph_uri);
         const file = {
             uri: ph_uri,
@@ -68,10 +78,14 @@ export class CameraPage extends React.Component {
                 let label = JSON.parse(response.data.result)
                 //console.log(label);
                 let possible = "";
+                let photoResponse = []
+
                 label.map(entity => {
                     console.log(entity["Name"]);
-                    possible
+                    photoResponse.push(entity["Name"])
                 });
+
+                Alert.alert(photoResponse);
               })
               .catch(function (error) {
                 console.log(error);
