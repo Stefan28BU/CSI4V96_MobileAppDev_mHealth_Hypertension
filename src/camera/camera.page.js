@@ -1,11 +1,14 @@
 // src/camera.page.js file
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import * as Permissions from 'expo-permissions'
 import { Camera } from 'expo-camera';
 import Toolbar from './toolbar.component';
 import Gallery from './gallery.component';
 import { RNS3 } from 'react-native-s3-upload';
+import axios from 'axios';
+import * as ImageManipulator from 'expo-image-manipulator';
+
 
 import styles from './styles';
 
@@ -19,6 +22,7 @@ export class CameraPage extends React.Component {
         // start the back camera by default
         cameraType: Camera.Constants.Type.back,
         hasCameraPermission: null,
+        photoResponse: []
     };
 
     setFlashMode = (flashMode) => this.setState({ flashMode });
@@ -34,8 +38,16 @@ export class CameraPage extends React.Component {
         const photoData = await this.camera.takePictureAsync();
         console.log(photoData);
 
-        const { uri: ph_uri } = photoData
-        console.log(ph_uri);
+        const { uri: raw_uri } = photoData
+
+        const compressedImage = await ImageManipulator.manipulateAsync(
+            raw_uri,
+            [{resize: {width: 100, height: 100}}],
+            { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
+        )
+
+        const { uri: ph_uri } = compressedImage
+        //console.log(ph_uri);
         const file = {
             uri: ph_uri,
             name: "image.jpg",
@@ -49,25 +61,48 @@ export class CameraPage extends React.Component {
             secretKey: "FmQNQ+ZpzAVS6n6i49/ft3Yd27kV8idngpMoJDFF",
             successActionStatus: 201
           }
-          console.log('file!')
-        console.log(file);
+          //console.log('file!')
+        //console.log(file);
+
         RNS3.put(file, options).progress((e) => console.log(e.loaded / e.total))
         .then(response => {
-            console.log(response);
+            // console.log(response);
 
-            console.log('upload?')
+            // console.log('upload?')
+
+            axios.post('https://y5k6itv6eg.execute-api.us-east-1.amazonaws.com/test', {
+                bucket: 'hypertest1',
+                key: 'image.jpg'
+              })
+              .then( (response) => {
+                  // console.log('here!!!');
+                //console.log(response.data.result);
+                let label = JSON.parse(response.data.result)
+                //console.log(label);
+                let tempPhoto = []
+
+                label.map(entity => {
+                    tempPhoto.push(entity["Name"])
+                });
+                console.log(tempPhoto);
+
+                this.setState({photoResponse: tempPhoto});
+                this.showLabel(this.state.photoResponse);
+              })
+              .catch(function (error) {
+                console.log(error);
+              });
             if (response.status !== 201)
             throw new Error("Failed to upload image to S3");
-        console.log(response.body);
+        // console.log(response.body);
         })
         .catch(err => {console.log(err)});
         this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
     };
 
-    // handleLongCapture = async () => {
-    //     const videoData = await this.camera.recordAsync();
-    //     this.setState({ capturing: false, captures: [videoData, ...this.state.captures] });
-    // };
+    showLabel(photoResponse) {
+        Alert.alert(photoResponse.join('\n'));
+    }
 
     async componentDidMount() {
         const camera = await Permissions.askAsync(Permissions.CAMERA);
@@ -109,6 +144,10 @@ export class CameraPage extends React.Component {
                     // onLongCapture={this.handleLongCapture}
                     onShortCapture={this.handleShortCapture}
                 />
+                {this.state.photoResponse.length != 0 && 
+                    console.log(this.state.photoResponse)
+
+                }
             </React.Fragment>
 
         );

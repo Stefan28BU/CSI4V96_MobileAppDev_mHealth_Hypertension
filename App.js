@@ -78,6 +78,16 @@ export default class App extends React.Component {
       require('./src/imageAssets/002.jpg'),
       require('./src/imageAssets/001.jpg'),
       require('./src/imageAssets/wallpaper.jpg'),
+      require('./src/pages/game1/img/apple.jpg'),
+      require('./src/pages/game1/img/apricot.jpg'),
+      require('./src/pages/game1/img/back.png'),
+      require('./src/pages/game1/img/correct.png'),
+      require('./src/pages/game1/img/cross-wrong.png'),
+      require('./src/pages/game1/img/orange.png'),
+      require('./src/pages/game1/img/pear.jpg'),
+      require('./src/pages/game1/img/pineapple.png'),
+      require('./src/pages/game1/img/popeyes.jpg'),
+
     ]);
 
 
