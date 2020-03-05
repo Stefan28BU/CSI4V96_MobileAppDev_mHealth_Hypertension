@@ -16,18 +16,18 @@ const correct = require('./img/correct.png');
 
 
 
-let initArray = [{ id: 0, img: apple, selected: false, type: 'healthy', removed: false },
-{ id: 1, img: apricot, selected: false, type: 'healthy', removed: false },
-{ id: 2, img: orange, selected: false, type: 'healthy', removed: false },
-{ id: 3, img: pear, selected: false, type: 'healthy', removed: false },
-{ id: 4, img: pinaepple, selected: false, type: 'healthy', removed: false },
-{ id: 5, img: popeyes, selected: false, type: 'unhealthy', removed: false },
-{ id: 6, img: apple, selected: false, type: 'healthy', removed: false },
-{ id: 7, img: apricot, selected: false, type: 'healthy', removed: false },
-{ id: 8, img: orange, selected: false, type: 'healthy', removed: false },
-{ id: 9, img: pear, selected: false, type: 'healthy', removed: false },
-{ id: 10, img: pinaepple, selected: false, type: 'healthy', removed: false },
-{ id: 11, img: popeyes, selected: false, type: 'unhealthy', removed: false }];
+let initArray = [{ id: 0, img: apple, selected: false, type: 'healthy', removed: false, name: apple },
+{ id: 1, img: apricot, selected: false, type: 'healthy', removed: false, name: apricot },
+{ id: 2, img: orange, selected: false, type: 'healthy', removed: false, name: orange },
+{ id: 3, img: pear, selected: false, type: 'healthy', removed: false, name: pear },
+{ id: 4, img: pinaepple, selected: false, type: 'healthy', removed: false, name: pinaepple },
+{ id: 5, img: popeyes, selected: false, type: 'unhealthy', removed: false, name: popeyes },
+{ id: 6, img: apple, selected: false, type: 'healthy', removed: false, name: apple },
+{ id: 7, img: apricot, selected: false, type: 'healthy', removed: false, name: apricot },
+{ id: 8, img: orange, selected: false, type: 'healthy', removed: false, name: orange },
+{ id: 9, img: pear, selected: false, type: 'healthy', removed: false, name: pear },
+{ id: 10, img: pinaepple, selected: false, type: 'healthy', removed: false, name: pinaepple },
+{ id: 11, img: popeyes, selected: false, type: 'unhealthy', removed: false, name: popeyes }];
 
 
 export class CardGame extends Component {
@@ -45,10 +45,16 @@ export class CardGame extends Component {
      * Sort the order of array every time entering to this page
      */
     sortOrder() {
+        console.log(JSON.stringify(initArray));
         var i, j, temp;
         var arr = initArray;
         for (let k = 0; k < arr.length; k++) {
             arr[k][`selected`] = false;
+            // arr[k][`removed`] = false;
+            if (arr[k][`removed`] === true) {
+                arr[k][`img`] = arr[k][`name`];
+                arr[k][`removed`] = false;
+            }
         }
         for (i = arr.length - 1; i > 0; i--) {
             j = Math.floor(Math.random() * (i + 1));
@@ -62,6 +68,7 @@ export class CardGame extends Component {
             selected: -1,
             Images: arr,
         });
+        console.log(JSON.stringify(this.state.Images));
     }
 
 
@@ -99,16 +106,30 @@ export class CardGame extends Component {
                 })
             }
             else {
-                this.state.Images[this.state.selected][`selected`] = false;
+                var prev = this.state.selected;
                 this.setState({
-                    Images: this.state.Images,
                     selected: cardID,
-                })
+                });
+                setTimeout(
+                    () => {
+                        this.state.Images[prev][`selected`] = false;
+                        this.setState({
+                            Images: this.state.Images
+                        });
+                    }
+                , 1000)
                 console.log("not same!!!");
                 console.log(JSON.stringify(this.state.Images[this.state.selected]) + " !== " + JSON.stringify(this.state.Images[cardID]));
             }
         }
     }
+
+    // displaySecond(id) {
+    //     this.state.Images[id][`selected`] = false;
+    //     this.setState({
+    //         Images: this.state.Images
+    //     });
+    // }
 
     /**
      * Remove the card has been selected
@@ -176,7 +197,7 @@ export class CardGame extends Component {
             <View style={styles.bodys} >
                 <Text style={styles.title}>Score: {this.state.score}</Text>
                 <View style={styles.container}>
-                    {initArray.map((item, key) =>
+                    {this.state.Images.map((item, key) =>
                         <TouchableOpacity key={key} onPress={this.handleClick.bind(this, key)}>
                             <Image style={styles.box} source={item.selected ? item.img : back} />
                         </TouchableOpacity>
