@@ -88,7 +88,8 @@ export class VideoScreen_1 extends React.Component {
                                     this.setState({ answer1: itemValue })
                                 }
                             >
-                                <Picker.Item label="False" value="incorrect" />
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
+                                <Picker.Item label="False" value="incorrect1" />
                                 <Picker.Item label="True" value="correct" />
                             </Picker>
                         </View>
@@ -110,7 +111,8 @@ export class VideoScreen_1 extends React.Component {
                                     this.setState({ answer2: itemValue })
                                 }
                             >
-                                <Picker.Item label="It would look wider" value="incorrect" />
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
+                                <Picker.Item label="It would look wider" value="incorrect1" />
                                 <Picker.Item label="It would look narrower" value="correct" />
                             </Picker>
                         </View>
@@ -132,13 +134,14 @@ export class VideoScreen_1 extends React.Component {
                                     this.setState({ answer3: itemValue })
                                 }
                             >
-                                <Picker.Item label="False" value="incorrect" />
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
+                                <Picker.Item label="False" value="incorrect1" />
                                 <Picker.Item label="True" value="correct" />
                             </Picker>
                         </View>
                     </ScrollView>
                     <LinearGradient
-                        colors={[ '#b06ab3','#4568dc' ]}>
+                        colors={['#b06ab3', '#4568dc']}>
                         <TouchableOpacity style={styles.confAns} onPress={this.onSubmitAnswers}>
                             <Text style={{ color: "white", fontSize: 20 }}>Confirm Answers</Text>
                         </TouchableOpacity>

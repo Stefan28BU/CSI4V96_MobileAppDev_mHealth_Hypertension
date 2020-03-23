@@ -14,9 +14,9 @@ export class VideoScreen_3 extends React.Component {
     state = {
         correctAns: false,
 
-        answer1: 'correct',
-        answer2: 'incorrect1',
-        answer3: 'incorrect1',
+        answer1: 'incorrect',
+        answer2: 'incorrect',
+        answer3: 'incorrect',
         answer4: 'incorrect',
 
     };
@@ -87,8 +87,9 @@ export class VideoScreen_3 extends React.Component {
                                     this.setState({ answer1: itemValue })
                                 }
                             >
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
                                 <Picker.Item label="False" value="correct" />
-                                <Picker.Item label="True" value="incorrect" />
+                                <Picker.Item label="True" value="incorrect1" />
                             </Picker>
                         </View>
 
@@ -109,6 +110,7 @@ export class VideoScreen_3 extends React.Component {
                                     this.setState({ answer2: itemValue })
                                 }
                             >
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
                                 <Picker.Item label="Difficulty breathing" value="incorrect1" />
                                 <Picker.Item label="Chest pain" value="incorrect2" />
                                 <Picker.Item label="Feeling dizzy" value="incorrect3" />
@@ -133,6 +135,7 @@ export class VideoScreen_3 extends React.Component {
                                     this.setState({ answer3: itemValue })
                                 }
                             >
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
                                 <Picker.Item label="Difficulty moving arms or legs" value="incorrect1" />
                                 <Picker.Item label="Having sudden headache" value="incorrect2" />
                                 <Picker.Item label="Feeling extremely depressed" value="correct" />
@@ -157,7 +160,8 @@ export class VideoScreen_3 extends React.Component {
                                     this.setState({ answer4: itemValue })
                                 }
                             >
-                                <Picker.Item label="False" value="incorrect" />
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
+                                <Picker.Item label="False" value="incorrect1" />
                                 <Picker.Item label="True" value="correct" />
                             </Picker>
                         </View>

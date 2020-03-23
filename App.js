@@ -244,7 +244,10 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 
 export const DashboardStackNavigator = createStackNavigator(
   {
+
     mHealth: WelcomeScreen,
+    VideoList: DashboardTabNavigator,
+
     'Part 1: Introduction': {
       screen: VideoScreen_1,
 
@@ -278,10 +281,6 @@ export const DashboardStackNavigator = createStackNavigator(
       },
     },
 
-    VideoList: DashboardTabNavigator,
-    Login: { screen: Login },
-    'Sign Up': { screen: SignUpScreen },
-
   },
   {
 
@@ -299,7 +298,33 @@ export const DashboardStackNavigator = createStackNavigator(
   },
 );
 
-const AppContainer = createAppContainer(DashboardStackNavigator);
+export const switchNavigator = createSwitchNavigator(
+  {
+    DashboardStackNavigator: DashboardStackNavigator,
+    Login: { 
+      screen: Login,
+    },
+    'Sign Up': { 
+      screen: SignUpScreen ,
+    },
+  },
+  {
+
+    navigationOptions: ({ navigation }) => {
+      return {
+
+        headerBackTitle: ' ',
+        headerBackground: () => <View style={styles.headerStyle} />,
+        headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
+        headerBackImage: () => <BackButton navigation={navigation} />,
+        headerTintColor: 'white',
+        // ...TransitionPresets.ModalPresentationIOS, // add this line
+      };
+    },
+  },
+);
+
+const AppContainer = createAppContainer(switchNavigator);
 
 const styles = StyleSheet.create({
 

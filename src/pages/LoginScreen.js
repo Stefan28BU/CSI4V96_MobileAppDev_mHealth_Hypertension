@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, Text, View, StyleSheet, KeyboardAvoidingView, ImageBackground } from 'react-native';
+import { Alert, Button, Text, View, StyleSheet, KeyboardAvoidingView, ImageBackground, TouchableOpacity } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
 import { Auth } from 'aws-amplify';
 
@@ -27,7 +27,7 @@ export class Login extends Component {
         { cancelable: false }
       )
     } else {
-      
+
       Alert.alert('Credentials', `${username} + ${password}`);
     }
   }
@@ -46,11 +46,11 @@ export class Login extends Component {
         // });
         this.navigateToHome();
       })
-      .catch(err => {
-        console.log(err);
-        Alert.alert(err.message);
-      })
-      
+        .catch(err => {
+          console.log(err);
+          Alert.alert(err.message);
+        })
+
     } else {
       Alert.alert(
         'Wrong information!',
@@ -111,8 +111,7 @@ export class Login extends Component {
       // </View>
       <KeyboardAvoidingView style={styles.keyboardInput} behavior="padding" enabled>
         <Form ref="Log In" onSubmit={this.handleSubmit}>
-          <Text style={styles.title}>Log In</Text>
-          <Text style={styles.name}>Email: </Text>
+          <Text style={styles.title}>Sign In</Text>
           <TextValidator
             title="Email: "
             style={styles.input}
@@ -127,7 +126,6 @@ export class Login extends Component {
             value={this.state.username}
             onChangeText={(username) => this.setState({ username })}
           />
-          <Text style={styles.name}>Password: </Text>
           <TextValidator
             title="Password: "
             style={styles.input}
@@ -141,7 +139,30 @@ export class Login extends Component {
             onChangeText={(password) => this.setState({ password })}
             secureTextEntry={true}
           />
-          <Button style={styles.button} title="Log In" onPress={this.handleSubmit} />
+          <TouchableOpacity style={styles.button} onPress={this.handleSubmit} >
+            <Text style={{
+              fontSize: 18,
+              color: '#40e0d0'
+            }}>
+              Login
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('Sign Up')} >
+            <Text style={{
+              fontSize: 18,
+              color: 'black'
+            }}>
+              Sign Up
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('VideoList')} >
+            <Text style={{
+              fontSize: 18,
+              color: 'black'
+            }}>
+              Play as Guest
+                        </Text>
+          </TouchableOpacity>
         </Form>
       </KeyboardAvoidingView>
     );
@@ -149,24 +170,58 @@ export class Login extends Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    marginTop: 20,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: 'black',
+    width: 200,
+    height: 50,
+    // borderRadius: 10,
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
+    shadowOffset: { height: 5, width: 0 },
+    shadowRadius: 10,
+  },
+  buttonUp: {
+    marginTop: 20,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: 'black',
+    width: 200,
+    height: 50,
+    // borderRadius: 10,
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
+    shadowOffset: { height: 5, width: 0 },
+    shadowRadius: 10,
+  },
   keyboardInput: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#40e0d0',
   },
   input: {
+    color: 'white',
+    backgroundColor: 'transparent',
+
     width: 200,
     height: 44,
-    padding: 10,
     borderColor: 'black',
     marginBottom: 10,
     justifyContent: 'center',
     borderBottomWidth: 1,
   },
   title: {
+    // color: 'white',
+    // textAlign: 'center',
     alignContent: 'center',
     justifyContent: 'center',
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
   },

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView } from 'react-native';
+import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
 import { Auth } from 'aws-amplify';
-import { TextInput } from 'react-native-gesture-handler';
+import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 
 
 export class SignUpScreen extends Component {
@@ -124,7 +124,6 @@ export class SignUpScreen extends Component {
             <KeyboardAvoidingView style={styles.keyboardInput} behavior="padding" enabled>
                 {this.state.submited === false ? <Form ref="Signup" onSubmit={this.handleSubmit}>
                     <Text style={styles.title}>Sign Up</Text>
-                    <Text style={styles.name}>Email: </Text>
                     <TextValidator
                         title="Email: "
                         style={styles.input}
@@ -139,7 +138,6 @@ export class SignUpScreen extends Component {
                         value={this.state.username}
                         onChangeText={(username) => this.setState({ username })}
                     />
-                    <Text style={styles.name}>Password: </Text>
                     <TextValidator
                         title="Password: "
                         style={styles.input}
@@ -153,7 +151,6 @@ export class SignUpScreen extends Component {
                         onChangeText={(password) => this.setState({ password })}
                         secureTextEntry={true}
                     />
-                    <Text style={styles.name}>Re-enter Password: </Text>
                     <TextValidator
                         title="Re-enter Password: "
                         style={styles.input}
@@ -161,14 +158,37 @@ export class SignUpScreen extends Component {
                         lable="Confirm Password"
                         validators={['required']}
                         errorMessages={['This field is required!']}
-                        placeholder="Password"
+                        placeholder="Confirm Password"
                         type="text"
                         value={this.state.confirmPassword}
                         onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
                         secureTextEntry={true}
                     />
-                    <Button style={styles.button} title="Sign Up" onPress={this.handleSubmit} />
-                </Form>
+                    <TouchableOpacity style={styles.button} onPress={this.handleSubmit} >
+                        <Text style={{
+                            fontSize: 18,
+                            color: '#40e0d0'
+                        }}>
+                            Create Account
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('Login')} >
+                        <Text style={{
+                            fontSize: 18,
+                            color: 'black'
+                        }}>
+                            Sign In
+                        </Text>
+                    </TouchableOpacity>     
+                    <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('VideoList')} >
+                        <Text style={{
+                            fontSize: 18,
+                            color: 'black'
+                        }}>
+                            Play as Guest
+                        </Text>
+                    </TouchableOpacity>              
+                    </Form>
 
                     :
 
@@ -198,15 +218,44 @@ export class SignUpScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+    button: {
+        marginTop: 20,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: 'black',
+        width: 200,
+        height: 50,
+        // borderRadius: 10,
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: { height: 5, width: 0 },
+        shadowRadius: 10,
+    },
+    buttonUp: {
+        marginTop: 20,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderWidth: 1,
+        borderColor: 'black',
+        width: 200,
+        height: 50,
+        // borderRadius: 10,
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: { height: 5, width: 0 },
+        shadowRadius: 10,
+    },
     keyboardInput: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: '#40e0d0',
     },
     input: {
         width: 200,
         height: 44,
-        padding: 10,
         borderColor: 'black',
         marginBottom: 10,
         justifyContent: 'center',
@@ -215,7 +264,7 @@ const styles = StyleSheet.create({
     title: {
         alignContent: 'center',
         justifyContent: 'center',
-        fontSize: 20,
+        fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 10,
     },

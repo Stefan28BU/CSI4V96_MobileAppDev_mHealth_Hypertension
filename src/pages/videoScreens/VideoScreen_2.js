@@ -14,11 +14,11 @@ export class VideoScreen_2 extends React.Component {
     state = {
         correctAns: false,
 
-        answer1: 'correct',
-        answer2: 'incorrect1',
-        answer3: 'correct',
+        answer1: 'incorrect',
+        answer2: 'incorrect',
+        answer3: 'incorrect',
         answer4: 'incorrect',
-        answer5: 'correct',
+        answer5: 'incorrect',
         answer6: 'incorrect',
     };
 
@@ -93,8 +93,9 @@ export class VideoScreen_2 extends React.Component {
                                     this.setState({ answer1: itemValue })
                                 }
                             >
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
                                 <Picker.Item label="False" value="correct" />
-                                <Picker.Item label="True" value="incorrect" />
+                                <Picker.Item label="True" value="incorrect1" />
                             </Picker>
                         </View>
 
@@ -115,6 +116,7 @@ export class VideoScreen_2 extends React.Component {
                                     this.setState({ answer2: itemValue })
                                 }
                             >
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
                                 <Picker.Item label="Orange" value="incorrect1" />
                                 <Picker.Item label="Apple" value="incorrect2" />
                                 <Picker.Item label="Lean meat" value="incorrect3" />
@@ -139,8 +141,10 @@ export class VideoScreen_2 extends React.Component {
                                     this.setState({ answer3: itemValue })
                                 }
                             >
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
+
                                 <Picker.Item label="False" value="correct" />
-                                <Picker.Item label="True" value="incorrect" />
+                                <Picker.Item label="True" value="incorrect1" />
                             </Picker>
                         </View>
 
@@ -161,7 +165,8 @@ export class VideoScreen_2 extends React.Component {
                                     this.setState({ answer4: itemValue })
                                 }
                             >
-                                <Picker.Item label="False" value="incorrect" />
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
+                                <Picker.Item label="False" value="incorrect1" />
                                 <Picker.Item label="True" value="correct" />
                             </Picker>
                         </View>
@@ -182,8 +187,9 @@ export class VideoScreen_2 extends React.Component {
                                     this.setState({ answer5: itemValue })
                                 }
                             >
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
                                 <Picker.Item label="False" value="correct" />
-                                <Picker.Item label="True" value="incorrect" />
+                                <Picker.Item label="True" value="incorrect1" />
                             </Picker>
                         </View>
 
@@ -204,13 +210,14 @@ export class VideoScreen_2 extends React.Component {
                                     this.setState({ answer6: itemValue })
                                 }
                             >
-                                <Picker.Item label="False" value="incorrect" />
+                                <Picker.Item label="Choose an answer..." value="incorrect" />
+                                <Picker.Item label="False" value="incorrect1" />
                                 <Picker.Item label="True" value="correct" />
                             </Picker>
                         </View>
                     </ScrollView>
                     <LinearGradient
-                        colors={[ '#b06ab3','#4568dc' ]}>
+                        colors={['#b06ab3', '#4568dc']}>
                         <TouchableOpacity style={styles.confAns} onPress={this.onSubmitAnswers}>
                             <Text style={{ color: "white", fontSize: 20 }}>Confirm Answers</Text>
                         </TouchableOpacity>
