@@ -106,13 +106,13 @@ export class WatchVideosScreen extends Component {
                         // onDidFocus={this.focused}
                         onWillFocus={this.focused}
                     />
-                    <VideoButton disabled={false} style={styles.img} onPress={() => this.props.navigation.navigate('Part 1: Introduction')} source={require('../imageAssets/004.jpg')} label={"Part 1: What is High BP?"}>
+                    <VideoButton subTitle={0} disabled={false} style={styles.img} onPress={() => this.props.navigation.navigate('Part 1: Introduction')} source={require('../imageAssets/004.jpg')} label={"Part 1: What is High BP?"}>
                         {learningProgress >= 25 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
                                 resizeMode: "cover",
-                                backgroundColor: 'rgba(0,0,0,0.5)',
+                                backgroundColor: 'rgba(255,255,255,0.6)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -120,27 +120,28 @@ export class WatchVideosScreen extends Component {
                             }}>
                                 <Icon
                                     // color={'#40e0d0'}
-                                    color={'white'}
+                                    color={'black'}
                                     name="check"
                                     size={100}
                                 />
                                 <Text style={{
                                     fontSize: 20,
-                                    color: 'white',
-                                    marginTop: 15
+                                    color: 'black',
+                                    marginTop: 15,
+                                    fontWeight: 'bold'
                                 }}>
                                     Part 1 completed
                                 </Text>
                             </View>
                         }
                     </VideoButton>
-                    <VideoButton disabled={this.state.lockSecond} style={styles.img} onPress={() => this.props.navigation.navigate('Part 2: Causes')} source={require('../imageAssets/003.jpg')} label={"Part 2: What causes High BP?"}>
+                    <VideoButton subTitle={1} disabled={this.state.lockSecond} style={styles.img} onPress={() => this.props.navigation.navigate('Part 2: Causes')} source={require('../imageAssets/003.jpg')} label={"Part 2: What causes High BP?"}>
                         {learningProgress >= 50 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
                                 resizeMode: "cover",
-                                backgroundColor: 'rgba(0,0,0,0.5)',
+                                backgroundColor: 'rgba(255,255,255,0.6)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -148,27 +149,28 @@ export class WatchVideosScreen extends Component {
                             }}>
                                 <Icon
                                     // color={'#40e0d0'}
-                                    color={'white'}
+                                    color={'black'}
                                     name="check"
                                     size={100}
                                 />
                                 <Text style={{
                                     fontSize: 20,
-                                    color: 'white',
-                                    marginTop: 15
+                                    color: 'black',
+                                    marginTop: 15,
+                                    fontWeight: 'bold'
                                 }}>
                                     Part 2 completed
                                 </Text>
                             </View>
                         }
                     </VideoButton>
-                    <VideoButton disabled={this.state.lockThird} style={styles.img} onPress={() => this.props.navigation.navigate('Part 3: Symptoms')} source={require('../imageAssets/002.jpg')} label={"Part 3: Symptoms of High BP"}>
+                    <VideoButton subTitle={2} disabled={this.state.lockThird} style={styles.img} onPress={() => this.props.navigation.navigate('Part 3: Symptoms')} source={require('../imageAssets/002.jpg')} label={"Part 3: Symptoms of High BP"}>
                         {learningProgress >= 75 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
                                 resizeMode: "cover",
-                                backgroundColor: 'rgba(0,0,0,0.5)',
+                                backgroundColor: 'rgba(255,255,255,0.6)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -176,27 +178,28 @@ export class WatchVideosScreen extends Component {
                             }}>
                                 <Icon
                                     // color={'#40e0d0'}
-                                    color={'white'}
+                                    color={'black'}
                                     name="check"
                                     size={100}
                                 />
                                 <Text style={{
                                     fontSize: 20,
-                                    color: 'white',
-                                    marginTop: 15
+                                    color: 'black',
+                                    marginTop: 15,
+                                    fontWeight: 'bold'
                                 }}>
                                     Part 3 completed
                                 </Text>
                             </View>
                         }
                     </VideoButton>
-                    <VideoButton disabled={this.state.lockLast} style={styles.img} onPress={() => this.props.navigation.navigate('Part 4: Treatments')} source={require('../imageAssets/001.jpg')} label={"Part 4: Diagnosis High BP"}>
+                    <VideoButton subTitle={3} disabled={this.state.lockLast} style={styles.img} onPress={() => this.props.navigation.navigate('Part 4: Treatments')} source={require('../imageAssets/001.jpg')} label={"Part 4: Diagnosis High BP"}>
                         {learningProgress >= 100 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
                                 resizeMode: "cover",
-                                backgroundColor: 'rgba(0,0,0,0.5)',
+                                backgroundColor: 'rgba(255,255,255,0.6)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -204,14 +207,15 @@ export class WatchVideosScreen extends Component {
                             }}>
                                 <Icon
                                     // color={'#40e0d0'}
-                                    color={'white'}
+                                    color={'black'}
                                     name="check"
                                     size={100}
                                 />
                                 <Text style={{
                                     fontSize: 20,
-                                    color: 'white',
-                                    marginTop: 15
+                                    color: 'black',
+                                    marginTop: 15,
+                                    fontWeight: 'bold'
                                 }}>
                                     Part 4 completed
                                 </Text>

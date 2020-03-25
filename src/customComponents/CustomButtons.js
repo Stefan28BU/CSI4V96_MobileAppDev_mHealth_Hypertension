@@ -25,7 +25,7 @@ export const MHealthBackBtn = (props) => {
     const { title = {}, style = {}, textStyle = {}, onPress } = props;
 
     return (
-        <TouchableOpacity title={title} onPress={onPress} style={[styles.mHealthContBack, style]}>
+        <TouchableOpacity  title={title} onPress={onPress} style={[styles.mHealthContBack, style]}>
             <Icon
                 color={'#40e0d0'}
                 containerStyle={styles.mIconBack}
@@ -107,7 +107,7 @@ export const EditProfileBtn = (props) => {
 };
 
 export const VideoButton = (props) => {
-    const { num = {}, source = {}, title = {}, style = {}, label, imageStyle = {}, onPress, disabled, children } = props;
+    const { num = {}, source = {}, title = {}, style = {}, label, imageStyle = {}, onPress, disabled, children, subTitle={} } = props;
 
 
     return (
@@ -135,8 +135,9 @@ export const VideoButton = (props) => {
                             fontSize: 20,
                             color: 'white',
                             marginTop: 15
-                        }}>
-                            Please complete the previous part
+                        }}
+                        >
+                            Please complete part {props.subTitle}
                         </Text>
                     </View>
                 }
