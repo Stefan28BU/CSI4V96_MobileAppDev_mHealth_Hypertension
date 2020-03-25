@@ -66,21 +66,6 @@ export class ProfileScreen extends Component {
     ).start()
   };
 
-  _startCompleteAnim = () => {
-    Animated.loop(
-      Animated.sequence([
-        Animated.timing(this.state.completeAnim, {
-          toValue: 0.4,
-          duration: 1000,
-        }),
-        Animated.timing(this.state.completeAnim, {
-          toValue: 0,
-          duration: 1000
-        })
-      ]),
-    ).start()
-  };
-
   navigateToHome() {
     this.props.navigation.navigate('mHealth');
   }
@@ -99,7 +84,6 @@ export class ProfileScreen extends Component {
 
   UNSAFE_componentWillMount() {
     this._startProgressAnim();
-    this._startCompleteAnim();
     this._startProgressAnim2();
   }
 
@@ -366,10 +350,10 @@ export class ProfileScreen extends Component {
 
           <Animated.View style={{
             borderRadius: 14,
-            shadowColor: 'white',
-            shadowOpacity: 0.4,
+            shadowColor: 'black',
+            shadowOpacity: 0.3,
             shadowOffset: { height: 10, width: 0 },
-            shadowRadius: 18,
+            shadowRadius: 10,
 
             backgroundColor: 'rgb(50,50,50)',
             aspectRatio: 1,
@@ -400,10 +384,11 @@ export class ProfileScreen extends Component {
 
           <Animated.View style={{
             borderRadius: 14,
-            shadowColor: 'white',
-            shadowOpacity: 0.4,
+            shadowColor: 'black',
+            shadowOpacity: 0.3,
             shadowOffset: { height: 10, width: 0 },
-            shadowRadius: 18,
+            shadowRadius: 10,
+
 
             backgroundColor: 'rgb(50,50,50)',
             aspectRatio: 1,
@@ -433,10 +418,11 @@ export class ProfileScreen extends Component {
 
           <Animated.View style={{
             borderRadius: 14,
-            shadowColor: 'white',
-            shadowOpacity: 0.4,
+            shadowColor: 'black',
+            shadowOpacity: 0.3,
             shadowOffset: { height: 10, width: 0 },
-            shadowRadius: 18,
+            shadowRadius: 10,
+
 
             backgroundColor: 'rgb(50,50,50)',
             aspectRatio: 1,
@@ -465,10 +451,11 @@ export class ProfileScreen extends Component {
 
           <Animated.View style={{
             borderRadius: 14,
-            shadowColor: 'white',
-            shadowOpacity: 0.4,
+            shadowColor: 'black',
+            shadowOpacity: 0.3,
             shadowOffset: { height: 10, width: 0 },
-            shadowRadius: 18,
+            shadowRadius: 10,
+
 
             backgroundColor: 'rgb(50,50,50)',
             aspectRatio: 1,
@@ -496,20 +483,6 @@ export class ProfileScreen extends Component {
 
           </Animated.View>
 
-
-
-          {/* <View style={styles.profileFields}>
-            <Text style={styles.profileFieldText}>Hours Spent: 2 </Text>
-          </View>
-          <View style={styles.profileFields}>
-            <Text style={styles.profileFieldText}>Achievements</Text>
-          </View>
-          <View style={styles.profileFields}>
-            <Text style={styles.profileFieldText}>Gaming Statistics</Text>
-          </View>
-          <View style={styles.profileFields}>
-            <Text style={styles.profileFieldText}>My Information</Text>
-          </View> */}
           <View style={{
             height: 110,
             width: '100%'
