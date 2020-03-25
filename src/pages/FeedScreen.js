@@ -11,16 +11,16 @@ export class FeedScreen extends Component {
     UNSAFE_componentWillMount() {
         this.videoList = (
             <ScrollView style={styles.scrollView}>
-                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video1')} source={require('../imageAssets/001.png')} num={1}>
+                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video1')} source={require('../imageAssets/01.png')} num={1}>
 
                 </VideoButton>
-                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video2')} source={require('../imageAssets/002.png')} num={2}>
+                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video2')} source={require('../imageAssets/02.png')} num={2}>
 
                 </VideoButton>
-                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video3')} source={require('../imageAssets/003.png')} num={3}>
+                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video3')} source={require('../imageAssets/03.png')} num={3}>
 
                 </VideoButton>
-                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video4')} source={require('../imageAssets/004.png')} num={4}>
+                <VideoButton style={styles.img} onPress={() => this.props.navigation.navigate('Video4')} source={require('../imageAssets/04.png')} num={4}>
 
                 </VideoButton>
             </ScrollView>

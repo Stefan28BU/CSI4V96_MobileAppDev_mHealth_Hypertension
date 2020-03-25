@@ -123,7 +123,9 @@ export class CameraPage extends React.Component {
 
         return (
             <React.Fragment>
-                <View>
+                <View style={{
+                    height: '90%'
+                }}>
                     <Camera
                         type={cameraType}
                         flashMode={flashMode}

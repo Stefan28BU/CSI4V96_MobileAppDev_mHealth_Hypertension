@@ -6,6 +6,8 @@ import { Auth } from 'aws-amplify';
 
 import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn, EditProfileBtn } from '../customComponents/CustomButtons';
 
+import { completePart1, completePart2, completePart3, completePart4, compP1, compP2, compP3, compP4, learningProgress, getProgress } from '../globals/progress'
+import { NavigationEvents } from 'react-navigation';
 
 const SignOutBtn = (props) => {
   const { title = {}, style = {}, textStyle = {}, onPress } = props;
@@ -22,6 +24,7 @@ export class ProfileScreen extends Component {
   constructor(props) {
     super(props);
     this.signOut = this.signOut.bind(this);
+    this.focused = this.focused.bind(this)
   }
 
   navigateToHome() {
@@ -31,15 +34,24 @@ export class ProfileScreen extends Component {
   signOut() {
     console.log('trying to sign out');
     Auth.signOut({ global: true })
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
     this.navigateToHome();
   }
+
+  focused() {
+    this.forceUpdate();
+  }
+
 
   render() {
 
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'white' }}>
+      <View style={{
+        flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(70,70,70)',
+
+      }}>
+        <NavigationEvents onWillFocus={this.focused} />
         <View style={styles.headerWrapper}>
           <Avatar size="large" rounded title="JD" />
           <Text style={styles.userName}>John Doe</Text>
@@ -47,7 +59,7 @@ export class ProfileScreen extends Component {
         </View>
         <View style={styles.viewCont}>
           <View style={styles.profileFields}>
-            <Text style={styles.profileFieldText}>Learning Progress: 0% </Text>
+            <Text style={styles.profileFieldText}>Learning Progress: {learningProgress}% </Text>
           </View>
           <View style={styles.profileFields}>
             <Text style={styles.profileFieldText}>Hours Spent: 2 </Text>
@@ -61,7 +73,11 @@ export class ProfileScreen extends Component {
           <View style={styles.profileFields}>
             <Text style={styles.profileFieldText}>My Information</Text>
           </View>
-          <SignOutBtn title="Sign Out" onPress = {this.signOut}/>
+          <SignOutBtn title="Sign Out" onPress={this.signOut} />
+          <View style={{
+            height: 140,
+            width: '100%'
+          }} />
         </View>
       </View>
     );
@@ -178,15 +194,16 @@ const styles = StyleSheet.create({
     // borderTopRightRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#40e0d0',
+    // backgroundColor: '#40e0d0',
+    backgroundColor: 'rgb(70,70,70)',
     borderWidth: 2,
     // borderRadius: 5,
     borderColor: 'transparent',
 
-    shadowColor: 'black',
-    shadowOpacity: 0.4,
-    shadowOffset: { height: 0, width: 0 },
-    shadowRadius: 6,
+    // shadowColor: 'black',
+    // shadowOpacity: 0.4,
+    // shadowOffset: { height: 0, width: 0 },
+    // shadowRadius: 6,
     // marginBottom: 0,
   },
 

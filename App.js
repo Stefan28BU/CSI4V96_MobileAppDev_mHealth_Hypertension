@@ -26,7 +26,10 @@ import { CameraPage } from './src/camera/camera.page';
 import Amplify from 'aws-amplify';
 import config from './config';
 
+import { Ionicons } from '@expo/vector-icons';
+
 import { Icon } from 'react-native-elements';
+
 import { LinearGradient } from 'expo-linear-gradient';
 import { BlurView } from 'expo-blur';
 import { fromBottom } from 'react-navigation-transitions';
@@ -73,10 +76,10 @@ export default class App extends React.Component {
 
   async _loadAssetsAsync() {
     const imageAssets = cacheImages([
-      require('./src/imageAssets/004.jpg'),
-      require('./src/imageAssets/003.jpg'),
-      require('./src/imageAssets/002.jpg'),
-      require('./src/imageAssets/001.jpg'),
+      require('./src/imageAssets/04.jpg'),
+      require('./src/imageAssets/03.jpg'),
+      require('./src/imageAssets/02.jpg'),
+      require('./src/imageAssets/01.jpg'),
       require('./src/imageAssets/wallpaper.jpg'),
       require('./src/pages/game1/img/apple.jpg'),
       require('./src/pages/game1/img/apricot.jpg'),
@@ -127,12 +130,6 @@ export default class App extends React.Component {
   }
 }
 
-// export const SubTabStackNavigator = createStackNavigator(
-//   {
-
-//   }
-// );
-
 export const DashboardTabNavigator = createBottomTabNavigator(
   {
 
@@ -140,12 +137,15 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       screen: WatchVideosScreen,
 
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            color={tintColor}
-            name="play-circle-outline"
-            size={30}
-          />
+        tabBarLabel: ({ tintColor }) => (
+          <View style={styles.tabbarIcon}>
+
+            <Icon
+              color={tintColor}
+              name="play-circle-outline"
+              size={26}
+            />
+          </View>
         )
       },
     },
@@ -153,12 +153,15 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       screen: PlayGamesScreen,
 
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            color={tintColor}
-            name="stay-current-landscape"
-            size={30}
-          />
+        tabBarLabel: ({ tintColor }) => (
+          <View style={styles.tabbarIcon}>
+
+            <Ionicons
+              color={tintColor}
+              name="logo-game-controller-b"
+              size={26}
+            />
+          </View>
         )
       },
     },
@@ -166,18 +169,12 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       screen: CameraPage,
 
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <View style={{
-            // backgroundColor: 'black',
-            // borderRadius: 999,
-            // // borderStyle:,
-            // top:-20,
-            // position:"absolute"
-          }}>
+        tabBarLabel: ({ tintColor }) => (
+          <View style={styles.tabbarIcon}>
             <Icon
               color={tintColor}
               name="photo-camera"
-              size={30}
+              size={26}
             />
           </View>
         )
@@ -188,12 +185,15 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       screen: PetScreen,
 
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            color={tintColor}
-            name="child-care"
-            size={30}
-          />
+        tabBarLabel: ({ tintColor }) => (
+          <View style={styles.tabbarIcon}>
+
+            <Icon
+              color={tintColor}
+              name="child-care"
+              size={26}
+            />
+          </View>
         )
       },
     },
@@ -201,19 +201,22 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       screen: ProfileScreen,
 
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon
-            color={tintColor}
-            name="account-circle"
-            size={30}
-          />
+        tabBarLabel: ({ tintColor }) => (
+          <View style={styles.tabbarIcon}>
+
+            <Icon
+              color={tintColor}
+              name="account-circle"
+              size={26}
+            />
+          </View>
         )
       },
     },
   },
 
   {
-    
+
     initialRouteName: 'Dashboard',
 
     navigationOptions: ({ navigation }) => {
@@ -226,17 +229,25 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 
     tabBarOptions: {
 
-      showIcon: true,
-      showLabel: false,
-      activeTintColor: 'white',
-      inactiveTintColor: 'rgb(235,235,235)',
+      showLabel: true,
+      activeTintColor: 'black',
+      inactiveTintColor: 'rgb(85,85,85)',
+
 
       style: {
+        marginTop: 100,
+        paddingLeft: 20,
+        paddingRight: 20,
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        width: '100%',
         borderTopColor: 'transparent',
         backgroundColor: '#40e0d0',
         borderTopWidth: 1,
         paddingTop: 10,
-        height: 60
+        height: 60,
+        backgroundColor: 'transparent'
       }
     }
   },
@@ -337,12 +348,32 @@ export const switchNavigator = createSwitchNavigator(
 const AppContainer = createAppContainer(switchNavigator);
 
 const styles = StyleSheet.create({
+  tabbarIcon: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
 
+    backgroundColor: '#40e0d0',
+    borderRadius: 20,
+    minWidth: 50,
+    maxWidth: 50,
+    aspectRatio: 1,
+    top: -20,
+    position: "absolute",
+
+    shadowColor: '#00fa9a',
+    shadowOpacity: 0.9,
+    shadowOffset: { height: 0, width: 0 },
+    shadowRadius: 18,
+  },
   appContainer: {
     justifyContent: 'center',
     alignContent: 'center',
     flex: 1,
-    backgroundColor: 'transparent'
+    backgroundColor: 'transparent',
+    width: '100%',
+    height: '100%'
   },
   headerRight: {
     margin: 10,
@@ -350,20 +381,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   headerStyle: {
-    // backgroundColor: '#40e0d0',
-    // backgroundColor: 'rgba(0,0,0,0.4)',
     backgroundColor: '#40e0d0',
     justifyContent: 'center',
     alignContent: 'center',
     width: '100%',
     height: '100%',
     alignSelf: 'center',
-    // shadowColor: 'black',
-    // shadowOpacity: 0.4,
-    // shadowOffset: { height: 0, width: 0 },
-    // shadowRadius: 10,
-    // borderRadius: 1000,
-    // height: '116%'
   },
   botTapStyle: {
     // backgroundColor: 'black'

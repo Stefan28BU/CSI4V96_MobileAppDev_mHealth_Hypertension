@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Icon } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 
-import { completePart1, completePart2, completePart3, completePart4,  compP1, compP2, compP3, compP4, learningProgress} from '../globals/progress'
+import { completePart1, completePart2, completePart3, completePart4, compP1, compP2, compP3, compP4, learningProgress } from '../globals/progress'
 
 
 export const BackButton = ({ navigation }) => {
@@ -25,7 +25,7 @@ export const MHealthBackBtn = (props) => {
     const { title = {}, style = {}, textStyle = {}, onPress } = props;
 
     return (
-        <TouchableOpacity  title={title} onPress={onPress} style={[styles.mHealthContBack, style]}>
+        <TouchableOpacity title={title} onPress={onPress} style={[styles.mHealthContBack, style]}>
             <Icon
                 color={'#40e0d0'}
                 containerStyle={styles.mIconBack}
@@ -107,7 +107,7 @@ export const EditProfileBtn = (props) => {
 };
 
 export const VideoButton = (props) => {
-    const { num = {}, source = {}, title = {}, style = {}, label, imageStyle = {}, onPress, disabled, children, subTitle={} } = props;
+    const { num = {}, source = {}, title = {}, style = {}, label, imageStyle = {}, onPress, disabled, children, subTitle = {} } = props;
 
 
     return (
@@ -123,11 +123,12 @@ export const VideoButton = (props) => {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        textAlign: 'center'
+                        textAlign: 'center',
+
                     }}>
                         <Icon
-                            // color={'#40e0d0'}
-                            color={'white'}
+                            color={'#40e0d0'}
+                            // color={'white'}
                             name="lock-outline"
                             size={100}
                         />
@@ -142,8 +143,8 @@ export const VideoButton = (props) => {
                     </View>
                 }
                 {children}
-                
-               
+
+
             </ImageBackground>
 
 

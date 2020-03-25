@@ -7,8 +7,8 @@ import { CardGame } from './game1/CardGame';
 export class PlayGamesScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(235,235,235)' }}>
-        <CardGame/>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(70,70,70)' }}>
+        <CardGame />
       </View>
     );
   }

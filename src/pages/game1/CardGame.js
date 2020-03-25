@@ -86,7 +86,7 @@ export class CardGame extends Component {
             })
             // console.log("Update first pick: " + JSON.stringify(this.state.Images));
             console.log("clicked " + JSON.stringify(this.state.Images[cardID]));
-        } 
+        }
         // Select second card
         else if (this.state.selected !== -1 && this.state.Images[cardID].selected !== true && !this.state.Images[cardID][`removed`] && this.state.selected !== cardID) {
             console.log(this.state.Images[this.state.selected][`img`] + " ??? " + this.state.Images[cardID][`img`]);
@@ -117,7 +117,7 @@ export class CardGame extends Component {
                             Images: this.state.Images
                         });
                     }
-                , 1000)
+                    , 1000)
                 console.log("not same!!!");
                 console.log(JSON.stringify(this.state.Images[this.state.selected]) + " !== " + JSON.stringify(this.state.Images[cardID]));
             }
@@ -169,54 +169,102 @@ export class CardGame extends Component {
             'Congratualation!',
             'You win this game! You have unlock the next stage!',
             [
-                {text: 'continue', onPress: () => {
-                    console.log('resending');
-                }}
+                {
+                    text: 'continue', onPress: () => {
+                        console.log('resending');
+                    }
+                }
             ],
-            {cancelable: false}
+            { cancelable: false }
         )
     }
 
     async UNSAFE_componentWillMount() {
         try {
             const { sound: soundObject, status } = await Audio.Sound.createAsync(
-              require('./msc/bgm.mp3'),
-              {
-                  
-                  shouldPlay: false,
-                isLooping: true
-              }
+                require('./msc/bgm.mp3'),
+                {
+
+                    shouldPlay: false,
+                    isLooping: true
+                }
             );
             // Your sound is playing!
-          } catch (error) {
+        } catch (error) {
             // An error occurred!
         }
     }
 
     render() {
-        
+
         return (
             <View style={styles.bodys} >
                 <Text style={styles.title}>Score: {this.state.score}</Text>
                 <View style={styles.container}>
                     {this.state.Images.map((item, key) =>
-                        <TouchableOpacity key={key} onPress={this.handleClick.bind(this, key)}>
+                        <TouchableOpacity style={{
+                            width: '24%',
+                            height: '24%',
+                            resizeMode: 'stretch',
+                            display: 'flex',
+                            alignItems: "center",
+                            justifyContent: "center",
+                            textAlign: "center",
+
+
+                        }} key={key} onPress={this.handleClick.bind(this, key)}>
                             <Image style={styles.box} source={item.selected ? item.img : back} />
                         </TouchableOpacity>
                     )}
                     <View style={styles.buttons}>
-                        <Button title="reset" onPress={this.sortOrder}></Button>
-                        <Button title="remove" onPress={this.removeCard.bind(this)}></Button>
+                        <TouchableOpacity style={styles.gameBtn} onPress={this.sortOrder}>
+                            <Text style={{
+                                fontSize: 16,
+                                color: 'black'
+                            }}>
+                                Reset Game
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.gameBtn} onPress={this.removeCard.bind(this)}>
+                            <Text style={{
+                                fontSize: 16,
+                                color: 'black'
+                            }}>
+                                Remove Flipped Card
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
+                <View style={{
+                    minHeight: 140,
+                    width: '100%'
+                }} />
             </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    gameBtn: {
+        display: 'flex',
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        width: '100%',
+        color: 'white',
+        backgroundColor: '#40e0d0',
+        marginBottom: 14,
+        padding: 10,
+        // borderRadius: 10,
+
+
+        // shadowColor: '#00fa9a',
+        // shadowOpacity: 0.9,
+        // shadowOffset: { height: 0, width: 0 },
+        // shadowRadius: 18,
+    },
     bodys: {
-        flex: 1,
+        // flex: 1,
         flexDirection: 'column',
         // backgroundColor: 'green'
     },
@@ -225,33 +273,36 @@ const styles = StyleSheet.create({
         marginTop: 40,
         fontSize: 30,
         textAlign: 'center',
-        position: 'relative'
+        position: 'relative',
+        color: 'white'
     },
 
     container: {
-        // flex: 1,
-        height: 500,
-        position: 'relative',
         display: 'flex',
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        // flex: 1,
+        height: '65%',
         flexDirection: 'row',
         flexWrap: "wrap",
-        // backgroundColor: 'gray',
         marginTop: 30,
-        justifyContent: 'center',
         marginBottom: 30,
-        // borderWidth: 3,
-        // borderColor: 'black',
+
     },
 
     box: {
-        width: 90,
-        height: 120,
-        margin: 5,
+        resizeMode: 'stretch',
+        width: '100%',
+        height: '100%'
+
     },
     buttons: {
-        marginTop: 10,
-        position: 'relative',
-        flexDirection: 'column',
+        marginTop: 20,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
     },
 
     button: {
