@@ -26,7 +26,7 @@ import { CameraPage } from './src/camera/camera.page';
 import Amplify from 'aws-amplify';
 import config from './config';
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { Icon } from 'react-native-elements';
 
@@ -140,9 +140,9 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         tabBarLabel: ({ tintColor }) => (
           <View style={styles.tabbarIcon}>
 
-            <Icon
+            <Ionicons
               color={tintColor}
-              name="play-circle-outline"
+              name="md-play"
               size={26}
             />
           </View>
@@ -204,9 +204,9 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         tabBarLabel: ({ tintColor }) => (
           <View style={styles.tabbarIcon}>
 
-            <Icon
+            <MaterialCommunityIcons
               color={tintColor}
-              name="account-circle"
+              name="account"
               size={26}
             />
           </View>

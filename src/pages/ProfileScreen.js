@@ -3,11 +3,14 @@ import { TouchableOpacity, View, Text, StyleSheet, Button, FlatList, SafeAreaVie
 import { Avatar, Icon } from 'react-native-elements';
 import { Auth } from 'aws-amplify';
 
+import { LinearGradient } from 'expo-linear-gradient';
 
 import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn, EditProfileBtn } from '../customComponents/CustomButtons';
 
 import { completePart1, completePart2, completePart3, completePart4, compP1, compP2, compP3, compP4, learningProgress, getProgress } from '../globals/progress'
 import { NavigationEvents } from 'react-navigation';
+
+import { Entypo, MaterialCommunityIcons, MaterialIcons, Ionicons, AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
 
 const SignOutBtn = (props) => {
   const { title = {}, style = {}, textStyle = {}, onPress } = props;
@@ -145,14 +148,14 @@ export class ProfileScreen extends Component {
 
             shadowColor: 'black',
             shadowOpacity: 0.5,
-            shadowOffset: { height:10, width: 0 },
+            shadowOffset: { height: 10, width: 0 },
             shadowRadius: 18,
 
           }}
           >
 
             <TouchableOpacity style={{
-          
+
               aspectRatio: 1,
               height: '100%',
               display: "flex",
@@ -330,7 +333,7 @@ export class ProfileScreen extends Component {
 
 
               <Animated.View style={{
-                backgroundColor: 'rgba(70,70,70,0.8)',
+                backgroundColor: 'rgba(70,70,70,0.9)',
                 aspectRatio: 1,
                 borderRadius: 999,
                 height: this.state.progressSizeAnim,
@@ -357,9 +360,145 @@ export class ProfileScreen extends Component {
           </Animated.View>
 
         </View>
+
         <View style={styles.viewCont}>
 
-          <View style={styles.profileFields}>
+
+          <Animated.View style={{
+            borderRadius: 14,
+            shadowColor: 'white',
+            shadowOpacity: 0.4,
+            shadowOffset: { height: 10, width: 0 },
+            shadowRadius: 18,
+
+            backgroundColor: 'rgb(50,50,50)',
+            aspectRatio: 1,
+            height: '46%',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: 'center',
+            textAlign: 'center',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+          }}>
+            <Entypo
+              color={'#40e0d0'}
+              name="camera"
+              size={38}
+            />
+            <Text style={{
+              color: 'white',
+              fontSize: 14,
+              marginTop: 4
+            }}>
+              Log My Diet
+            </Text>
+
+
+          </Animated.View>
+
+          <Animated.View style={{
+            borderRadius: 14,
+            shadowColor: 'white',
+            shadowOpacity: 0.4,
+            shadowOffset: { height: 10, width: 0 },
+            shadowRadius: 18,
+
+            backgroundColor: 'rgb(50,50,50)',
+            aspectRatio: 1,
+            height: '46%',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: 'center',
+            textAlign: 'center',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+          }}>
+            <MaterialCommunityIcons
+
+              color={'#40e0d0'}
+              name="map-marker-radius"
+              size={38}
+            />
+            <Text style={{
+              color: 'white',
+              fontSize: 14,
+              marginTop: 4
+            }}>
+              Daily Routing
+            </Text>
+          </Animated.View>
+
+          <Animated.View style={{
+            borderRadius: 14,
+            shadowColor: 'white',
+            shadowOpacity: 0.4,
+            shadowOffset: { height: 10, width: 0 },
+            shadowRadius: 18,
+
+            backgroundColor: 'rgb(50,50,50)',
+            aspectRatio: 1,
+            height: '46%',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: 'center',
+            textAlign: 'center',
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+          }}>
+            <Entypo
+              color={'#40e0d0'}
+              name="star-outlined"
+              size={38}
+            />
+            <Text style={{
+              color: 'white',
+              fontSize: 14,
+              marginTop: 4
+            }}>
+              Achievements
+            </Text>
+          </Animated.View>
+
+          <Animated.View style={{
+            borderRadius: 14,
+            shadowColor: 'white',
+            shadowOpacity: 0.4,
+            shadowOffset: { height: 10, width: 0 },
+            shadowRadius: 18,
+
+            backgroundColor: 'rgb(50,50,50)',
+            aspectRatio: 1,
+            height: '46%',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: 'center',
+            textAlign: 'center',
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+          }}>
+            <Ionicons
+              color={'#40e0d0'}
+              name="md-information-circle-outline"
+              size={38}
+            />
+            <Text style={{
+              color: 'white',
+              fontSize: 14,
+              marginTop: 4
+            }}>
+              Information
+            </Text>
+
+          </Animated.View>
+
+
+
+          {/* <View style={styles.profileFields}>
             <Text style={styles.profileFieldText}>Hours Spent: 2 </Text>
           </View>
           <View style={styles.profileFields}>
@@ -370,13 +509,14 @@ export class ProfileScreen extends Component {
           </View>
           <View style={styles.profileFields}>
             <Text style={styles.profileFieldText}>My Information</Text>
-          </View>
-          <SignOutBtn title="Sign Out" onPress={this.signOut} />
+          </View> */}
           <View style={{
             height: 110,
             width: '100%'
           }} />
         </View>
+        <SignOutBtn title="Sign Out" onPress={this.signOut} />
+
       </View>
     );
   }
@@ -384,15 +524,29 @@ export class ProfileScreen extends Component {
 
 const styles = StyleSheet.create({
   viewCont: {
+    position: 'relative',
+    top: '38%',
     // backgroundColor: 'black',
-    width: '100%',
-    height: '65%',
-    bottom: 0,
+    height: '38%',
+    aspectRatio: 1,
+    // left: 0,
     position: "absolute",
     alignItems: 'center',
     justifyContent: 'center',
-    borderTopWidth: 1,
+  },
+
+  profileFields: {
+    flex: 1,
+    flexDirection: 'row',
+    padding: 20,
+    borderBottomWidth: 1,
+    minWidth: '100%',
+    backgroundColor: 'white',
     borderColor: 'rgb(235,235,235)',
+    alignItems: "center"
+  },
+  profileFieldText: {
+    fontSize: 16,
   },
   btnCont: {
     alignItems: 'center',
@@ -416,19 +570,6 @@ const styles = StyleSheet.create({
     borderColor: 'rgb(235,235,235)',
   },
 
-  profileFields: {
-    flex: 1,
-    flexDirection: 'row',
-    padding: 20,
-    borderBottomWidth: 1,
-    minWidth: '100%',
-    backgroundColor: 'white',
-    borderColor: 'rgb(235,235,235)',
-    alignItems: "center"
-  },
-  profileFieldText: {
-    fontSize: 16,
-  },
   bodyWrapper: {
     // flex: 2,
     backgroundColor: 'black',
@@ -486,23 +627,14 @@ const styles = StyleSheet.create({
     minHeight: '13%',
     minWidth: '100%',
     padding: 18,
-    // marginLeft: 15,
-    // marginRight: 15,
-    // borderTopLeftRadius: 25,
-    // borderTopRightRadius: 25,
+
     justifyContent: 'center',
     alignItems: 'center',
     // backgroundColor: '#40e0d0',
-    backgroundColor: 'rgb(70,70,70)',
-    borderWidth: 2,
-    // borderRadius: 5,
-    borderColor: 'transparent',
+    position: 'absolute',
+    bottom: 110,
 
-    // shadowColor: 'black',
-    // shadowOpacity: 0.4,
-    // shadowOffset: { height: 0, width: 0 },
-    // shadowRadius: 6,
-    // marginBottom: 0,
+    // backgroundColor: 'rgb(70,70,70)',
   },
 
   signOutText: {
