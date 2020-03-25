@@ -10,6 +10,8 @@ import VideoPlayer from 'expo-video-player';
 // const video1 = require('../../videoAssets/')
 import { LinearGradient } from 'expo-linear-gradient';
 
+import { completePart1, completePart2, completePart3, completePart4,  compP1, compP2, compP3, compP4, learningProgress, incrementProgress} from '../../globals/progress'
+
 export class VideoScreen_1 extends React.Component {
 
 
@@ -19,6 +21,8 @@ export class VideoScreen_1 extends React.Component {
         answer1: 'incorrect',
         answer2: 'incorrect',
         answer3: 'incorrect',
+
+        isComplete: false,
 
     };
 
@@ -44,6 +48,11 @@ export class VideoScreen_1 extends React.Component {
         }
 
         Alert.alert("You got " + count + " out of 3 answers correct!")
+
+        if (count === 3 && !compP1) {
+            incrementProgress();
+            completePart1();
+        }
     }
 
     render() {
@@ -88,8 +97,7 @@ export class VideoScreen_1 extends React.Component {
                                     this.setState({ answer1: itemValue })
                                 }
                             >
-                                <Picker.Item label="Choose an answer..." value="incorrect" />
-                                <Picker.Item label="False" value="incorrect1" />
+                                <Picker.Item label="False" value="incorrect" />
                                 <Picker.Item label="True" value="correct" />
                             </Picker>
                         </View>
@@ -111,8 +119,7 @@ export class VideoScreen_1 extends React.Component {
                                     this.setState({ answer2: itemValue })
                                 }
                             >
-                                <Picker.Item label="Choose an answer..." value="incorrect" />
-                                <Picker.Item label="It would look wider" value="incorrect1" />
+                                <Picker.Item label="It would look wider" value="incorrect" />
                                 <Picker.Item label="It would look narrower" value="correct" />
                             </Picker>
                         </View>
@@ -134,14 +141,13 @@ export class VideoScreen_1 extends React.Component {
                                     this.setState({ answer3: itemValue })
                                 }
                             >
-                                <Picker.Item label="Choose an answer..." value="incorrect" />
-                                <Picker.Item label="False" value="incorrect1" />
+                                <Picker.Item label="False" value="incorrect" />
                                 <Picker.Item label="True" value="correct" />
                             </Picker>
                         </View>
                     </ScrollView>
                     <LinearGradient
-                        colors={['#b06ab3', '#4568dc']}>
+                        colors={[ '#b06ab3','#4568dc' ]}>
                         <TouchableOpacity style={styles.confAns} onPress={this.onSubmitAnswers}>
                             <Text style={{ color: "white", fontSize: 20 }}>Confirm Answers</Text>
                         </TouchableOpacity>

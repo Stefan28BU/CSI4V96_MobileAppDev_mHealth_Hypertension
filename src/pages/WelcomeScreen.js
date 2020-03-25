@@ -19,6 +19,7 @@ export class WelcomeScreen extends Component {
 
         this.state = {
             isModalVisible: false,
+            
         }
     }
 
@@ -75,6 +76,9 @@ export class WelcomeScreen extends Component {
                     <LinearGradient
                         colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
                         <View style={styles.welcomeCont}>
+                            <Text style={styles.welcomeTextTitle}>
+                                Welcome to mHealth!
+                            </Text>
                             <Text style={styles.welcomeText}>
                                 Here, you will learn about{"\n"}Hypertension
                             </Text>
@@ -177,7 +181,17 @@ const styles = StyleSheet.create({
         // color: '#808080',
         color: 'white',
         // marginTop: 15,
-        marginBottom: 50,
+        marginBottom: 20,
+        marginLeft: 10,
+        marginRight: 10,
+        textAlign: 'center'
+    },
+    welcomeTextTitle: {
+        fontSize: 20,
+        // color: '#808080',
+        color: 'white',
+        // marginTop: 15,
+        marginBottom: 20,
         marginLeft: 10,
         marginRight: 10,
         textAlign: 'center'

@@ -147,14 +147,6 @@ export class Login extends Component {
               Login
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('Sign Up')} >
-            <Text style={{
-              fontSize: 18,
-              color: 'black'
-            }}>
-              Sign Up
-            </Text>
-          </TouchableOpacity>
           <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('VideoList')} >
             <Text style={{
               fontSize: 18,
@@ -163,6 +155,15 @@ export class Login extends Component {
               Play as Guest
                         </Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonT} onPress={() => this.props.navigation.navigate('Sign Up')} >
+            <Text style={{
+              fontSize: 16,
+              color: 'rgba(50,50,50,1)',
+              textDecorationLine: 'underline',
+            }}>
+              Go to Sign Up
+            </Text>
+          </TouchableOpacity>
         </Form>
       </KeyboardAvoidingView>
     );
@@ -170,6 +171,15 @@ export class Login extends Component {
 }
 
 const styles = StyleSheet.create({
+  buttonT: {
+    marginTop: 16,
+    width: 200,
+    display: 'flex',
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    backgroundColor: 'transparent'
+  },
   button: {
     marginTop: 20,
     display: "flex",

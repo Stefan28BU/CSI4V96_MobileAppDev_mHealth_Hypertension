@@ -90,7 +90,6 @@ export default class App extends React.Component {
 
     ]);
 
-
     await Promise.all([...imageAssets]);
   }
 
@@ -137,7 +136,7 @@ export default class App extends React.Component {
 export const DashboardTabNavigator = createBottomTabNavigator(
   {
 
-    Watch: {
+    'Watch': {
       screen: WatchVideosScreen,
 
       navigationOptions: {
@@ -150,7 +149,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         )
       },
     },
-    Play: {
+    'Play': {
       screen: PlayGamesScreen,
 
       navigationOptions: {
@@ -163,7 +162,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         )
       },
     },
-    Camera: {
+    'Camera': {
       screen: CameraPage,
 
       navigationOptions: {
@@ -184,7 +183,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         )
       },
     },
-    Pet:
+    'Pet':
     {
       screen: PetScreen,
 
@@ -198,7 +197,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         )
       },
     },
-    'My Profile': {
+    'Dashboard': {
       screen: ProfileScreen,
 
       navigationOptions: {
@@ -212,7 +211,11 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       },
     },
   },
+
   {
+    
+    initialRouteName: 'Dashboard',
+
     navigationOptions: ({ navigation }) => {
       const { routeName } = navigation.state.routes[navigation.state.index];
       return {
@@ -222,30 +225,28 @@ export const DashboardTabNavigator = createBottomTabNavigator(
     },
 
     tabBarOptions: {
+
       showIcon: true,
-      // showLabel: false,
+      showLabel: false,
       activeTintColor: 'white',
       inactiveTintColor: 'rgb(235,235,235)',
 
       style: {
-        // shadowColor: 'black',
-        // shadowOpacity: 0.5,
-        // shadowOffset: { height: 0, width: 0 },
-        // shadowRadius: 5,
+        borderTopColor: 'transparent',
         backgroundColor: '#40e0d0',
-        borderTopColor: 'white',
         borderTopWidth: 1,
         paddingTop: 10,
         height: 60
       }
     }
-  }
+  },
+
 );
 
 export const DashboardStackNavigator = createStackNavigator(
   {
 
-    mHealth: WelcomeScreen,
+    // mHealth: WelcomeScreen,
     VideoList: DashboardTabNavigator,
 
     'Part 1: Introduction': {
@@ -300,12 +301,21 @@ export const DashboardStackNavigator = createStackNavigator(
 
 export const switchNavigator = createSwitchNavigator(
   {
+    mHealth: {
+      screen: WelcomeScreen,
+
+      navigationOptions: {
+        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+        ></LinearGradient>,
+      },
+    },
+
     DashboardStackNavigator: DashboardStackNavigator,
-    Login: { 
+    Login: {
       screen: Login,
     },
-    'Sign Up': { 
-      screen: SignUpScreen ,
+    'Sign Up': {
+      screen: SignUpScreen,
     },
   },
   {

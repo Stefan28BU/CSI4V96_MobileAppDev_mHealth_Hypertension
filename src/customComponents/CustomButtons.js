@@ -4,6 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Icon } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 
+import { completePart1, completePart2, completePart3, completePart4,  compP1, compP2, compP3, compP4, learningProgress} from '../globals/progress'
+
+
 export const BackButton = ({ navigation }) => {
     const onPress = () => navigation.goBack();
 
@@ -104,12 +107,45 @@ export const EditProfileBtn = (props) => {
 };
 
 export const VideoButton = (props) => {
-    const { num = {}, source = {}, title = {}, style = {}, label, imageStyle = {}, onPress } = props;
+    const { num = {}, source = {}, title = {}, style = {}, label, imageStyle = {}, onPress, disabled, children } = props;
 
 
     return (
-        <TouchableOpacity title={title} onPress={onPress} style={[styles.videoBtnContainer, style]}>
-            <ImageBackground source={props.source} style={{ width: '100%', height: 240, resizeMode: "cover" }} ></ImageBackground>
+        <TouchableOpacity disabled={disabled} title={title} onPress={onPress} style={[styles.videoBtnContainer, style]}>
+
+            <ImageBackground source={props.source} style={{ width: '100%', height: 240, resizeMode: "cover" }} >
+                {disabled &&
+                    <View style={{
+                        width: '100%',
+                        height: 240,
+                        resizeMode: "cover",
+                        backgroundColor: 'rgba(0,0,0,0.5)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        textAlign: 'center'
+                    }}>
+                        <Icon
+                            // color={'#40e0d0'}
+                            color={'white'}
+                            name="lock-outline"
+                            size={100}
+                        />
+                        <Text style={{
+                            fontSize: 20,
+                            color: 'white',
+                            marginTop: 15
+                        }}>
+                            Please complete the previous part
+                        </Text>
+                    </View>
+                }
+                {children}
+                
+               
+            </ImageBackground>
+
+
 
             <View style={{
                 display: 'flex',
@@ -121,6 +157,7 @@ export const VideoButton = (props) => {
                 <Text style={{
                     fontWeight: '300',
                     fontSize: 20,
+                    color: 'white',
                 }}
                 >
                     {label}

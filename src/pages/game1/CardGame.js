@@ -181,7 +181,9 @@ export class CardGame extends Component {
         try {
             const { sound: soundObject, status } = await Audio.Sound.createAsync(
               require('./msc/bgm.mp3'),
-              { shouldPlay: true,
+              {
+                  
+                  shouldPlay: false,
                 isLooping: true
               }
             );
