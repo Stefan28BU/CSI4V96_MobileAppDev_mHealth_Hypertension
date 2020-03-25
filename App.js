@@ -197,7 +197,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         )
       },
     },
-    'Dashboard': {
+    'My Dashboard': {
       screen: ProfileScreen,
 
       navigationOptions: {
@@ -217,7 +217,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 
   {
 
-    initialRouteName: 'Dashboard',
+    initialRouteName: 'My Dashboard',
 
     navigationOptions: ({ navigation }) => {
       const { routeName } = navigation.state.routes[navigation.state.index];
@@ -259,6 +259,7 @@ export const DashboardStackNavigator = createStackNavigator(
 
     // mHealth: WelcomeScreen,
     VideoList: DashboardTabNavigator,
+    
 
     'Part 1: Introduction': {
       screen: VideoScreen_1,
@@ -321,26 +322,12 @@ export const switchNavigator = createSwitchNavigator(
       },
     },
 
-    DashboardStackNavigator: DashboardStackNavigator,
+    'DashboardStackNavigator': DashboardStackNavigator,
     Login: {
       screen: Login,
     },
     'Sign Up': {
       screen: SignUpScreen,
-    },
-  },
-  {
-
-    navigationOptions: ({ navigation }) => {
-      return {
-
-        headerBackTitle: ' ',
-        headerBackground: () => <View style={styles.headerStyle} />,
-        headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
-        headerBackImage: () => <BackButton navigation={navigation} />,
-        headerTintColor: 'white',
-        // ...TransitionPresets.ModalPresentationIOS, // add this line
-      };
     },
   },
 );

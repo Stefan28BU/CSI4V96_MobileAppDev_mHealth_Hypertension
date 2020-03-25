@@ -178,7 +178,7 @@ export class WatchVideosScreen extends Component {
                             </View>
                         }
                     </VideoButton>
-                    <VideoButton subTitle={3} disabled={this.state.lockLast} style={styles.img} onPress={() => this.props.navigation.navigate('Part 4: Treatments')} source={require('../imageAssets/01.jpg')} label={"Part 4: Diagnosis High BP"}>
+                    <VideoButton subTitle={3} disabled={this.state.lockLast} style={styles.img} onPress={() => this.props.navigation.navigate('Part 4: Treatments')} source={require('../imageAssets/01.jpg')} label={"Part 4: Diagnosis of High BP"}>
                         {learningProgress >= 100 &&
                             <View style={{
                                 width: '100%',

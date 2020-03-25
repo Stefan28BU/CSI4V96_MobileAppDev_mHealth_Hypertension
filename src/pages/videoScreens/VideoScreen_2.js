@@ -69,7 +69,8 @@ export class VideoScreen_2 extends React.Component {
                     volume={1.0}
                     isMuted={false}
                     resizeMode="contain"
-                    isLooping
+                    isLooping={false}
+                    shouldPlay={true}                    
                     style={{
                         width: '100%',
                         height: '30%',

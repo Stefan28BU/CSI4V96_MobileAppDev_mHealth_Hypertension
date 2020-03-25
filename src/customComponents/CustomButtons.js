@@ -154,7 +154,7 @@ export const VideoButton = (props) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 textAlign: 'center',
-                padding: 4,
+                padding: 6,
             }}>
                 <Text style={{
                     fontWeight: '300',

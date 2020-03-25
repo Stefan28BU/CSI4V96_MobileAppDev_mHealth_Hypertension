@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Text, StyleSheet, Button, FlatList, SafeAreaView, ScrollView } from 'react-native';
+import { TouchableOpacity, View, Text, StyleSheet, Button, FlatList, SafeAreaView, ScrollView, Animated, ImageBackground, Alert } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 import { Auth } from 'aws-amplify';
 
@@ -25,7 +25,58 @@ export class ProfileScreen extends Component {
     super(props);
     this.signOut = this.signOut.bind(this);
     this.focused = this.focused.bind(this)
+
+    this.state = {
+      progressShaAnim: new Animated.Value(0),
+      progressSizeAnim: new Animated.Value(40),
+      completeAnim: new Animated.Value(0),
+    }
   }
+
+  _startProgressAnim = () => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(this.state.progressShaAnim, {
+          toValue: 1,
+          duration: 1000,
+        }),
+        Animated.timing(this.state.progressShaAnim, {
+          toValue: 0,
+          duration: 1000
+        })
+      ]),
+    ).start()
+  };
+
+  _startProgressAnim2 = () => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(this.state.progressSizeAnim, {
+          toValue: 48,
+          duration: 1000,
+        }),
+        Animated.timing(this.state.progressSizeAnim, {
+          toValue: 40,
+          duration: 1000
+        })
+      ]),
+    ).start()
+  };
+
+  _startCompleteAnim = () => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(this.state.completeAnim, {
+          toValue: 0.4,
+          duration: 1000,
+        }),
+        Animated.timing(this.state.completeAnim, {
+          toValue: 0,
+          duration: 1000
+        })
+      ]),
+    ).start()
+  };
 
   navigateToHome() {
     this.props.navigation.navigate('mHealth');
@@ -43,8 +94,33 @@ export class ProfileScreen extends Component {
     this.forceUpdate();
   }
 
+  UNSAFE_componentWillMount() {
+    this._startProgressAnim();
+    this._startCompleteAnim();
+    this._startProgressAnim2();
+  }
+
+  progressStatus() {
+    if (learningProgress === 100) {
+      Alert.alert("Congratulations! You have learned about Hypertension!")
+    }
+    if (learningProgress === 75) {
+      Alert.alert("You have completed the thrid part, only one to go!")
+    }
+    if (learningProgress === 50) {
+      Alert.alert("You have completed the second part, you are half way there!")
+    }
+    if (learningProgress === 25) {
+      Alert.alert("You have completed the first part, please continue learning!")
+    }
+    if (learningProgress === 0) {
+      Alert.alert("Select the beginning tab at the bottom to learn about Hypertension!")
+    }
+  }
 
   render() {
+
+
 
     return (
       <View style={{
@@ -52,15 +128,237 @@ export class ProfileScreen extends Component {
 
       }}>
         <NavigationEvents onWillFocus={this.focused} />
-        <View style={styles.headerWrapper}>
-          <Avatar size="large" rounded title="JD" />
-          <Text style={styles.userName}>John Doe</Text>
-          <Text style={styles.location}>Waco, TX</Text>
+        <View onPress={this.progressStatus} style={styles.headerWrapper}>
+          <Animated.View style={{
+            position: 'relative',
+            display: "flex",
+            alignItems: "center",
+            justifyContent: 'center',
+            textAlign: 'center',
+            height: '80%',
+            aspectRatio: 1,
+            // borderRadius: 20,
+            backgroundColor: 'transparent',
+            borderWidth: 0,
+            borderColor: 'rgba(0,0,0,0.5)',
+
+
+            shadowColor: 'black',
+            shadowOpacity: 0.5,
+            shadowOffset: { height:10, width: 0 },
+            shadowRadius: 18,
+
+          }}
+          >
+
+            <TouchableOpacity style={{
+          
+              aspectRatio: 1,
+              height: '100%',
+              display: "flex",
+              alignItems: "center",
+              justifyContent: 'center',
+              textAlign: 'center',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+
+            }} onPress={this.progressStatus} >
+
+              <Animated.View style={{
+                // borderTopLeftRadius: 20,
+
+                // backgroundColor: 'white',
+                aspectRatio: 1,
+                height: '48%',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: 'center',
+                textAlign: 'center',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+
+              }}>
+                <ImageBackground source={require('../imageAssets/04.jpg')} style={{
+                  width: '100%', height: '100%', resizeMode: "cover",
+
+                }} >
+                  {learningProgress < 25 &&
+                    <Animated.View style={{
+                      backgroundColor: 'rgba(0,0,0,0.5)',
+                      width: '100%',
+                      height: '100%'
+                    }}>
+                    </Animated.View>
+                  }
+                  {learningProgress >= 25 &&
+                    <Animated.View style={{
+                      width: '100%',
+                      height: '100%',
+                      backgroundColor: '#40e0d0',
+                      opacity: this.state.completeAnim,
+
+                    }}>
+                    </Animated.View>
+                  }
+                </ImageBackground>
+              </Animated.View>
+
+              <Animated.View style={{
+                // borderTopRightRadius: 20,
+
+                backgroundColor: 'green',
+                aspectRatio: 1,
+                height: '48%',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: 'center',
+                textAlign: 'center',
+                position: 'absolute',
+                top: 0,
+                left: '52%',
+
+              }}>
+
+                <ImageBackground source={require('../imageAssets/03.jpg')} style={{
+                  width: '100%', height: '100%', resizeMode: "cover"
+
+                }} >
+
+                  {learningProgress < 50 &&
+                    <Animated.View style={{
+                      backgroundColor: 'rgba(0,0,0,0.7)',
+                      width: '100%',
+                      height: '100%'
+                    }}>
+                    </Animated.View>
+                  }
+                  {learningProgress >= 50 &&
+                    <Animated.View style={{
+                      width: '100%',
+                      height: '100%',
+                      backgroundColor: '#40e0d0',
+                      opacity: this.state.completeAnim,
+                    }}>
+                    </Animated.View>
+                  }
+                </ImageBackground>
+              </Animated.View>
+
+              <Animated.View style={{
+                // borderBottomLeftRadius: 20,
+
+                backgroundColor: 'black',
+                aspectRatio: 1,
+                height: '48%',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: 'center',
+                textAlign: 'center',
+                position: 'absolute',
+                top: '52%',
+                left: 0,
+
+              }}>
+                <ImageBackground source={require('../imageAssets/02.jpg')} style={{
+                  width: '100%', height: '100%', resizeMode: "cover"
+
+                }} >
+                  {learningProgress < 75 &&
+                    <Animated.View style={{
+                      backgroundColor: 'rgba(0,0,0,0.7)',
+                      width: '100%',
+                      height: '100%'
+                    }}>
+                    </Animated.View>
+                  }
+                  {learningProgress >= 75 &&
+                    <Animated.View style={{
+                      width: '100%',
+                      height: '100%',
+                      backgroundColor: '#40e0d0',
+                      opacity: this.state.completeAnim,
+                    }}>
+                    </Animated.View>
+                  }
+                </ImageBackground>
+
+              </Animated.View>
+
+
+              <Animated.View style={{
+                // borderBottomRightRadius: 20,
+
+                backgroundColor: 'pink',
+                aspectRatio: 1,
+                height: '48%',
+                display: "flex",
+                alignItems: "center",
+                justifyContent: 'center',
+                textAlign: 'center',
+                position: 'absolute',
+                top: '52%',
+                left: '52%',
+
+              }}>
+
+                <ImageBackground source={require('../imageAssets/01.jpg')} style={{
+                  width: '100%', height: '100%', resizeMode: "cover"
+
+                }} >
+
+                  {learningProgress < 100 &&
+                    <Animated.View style={{
+                      backgroundColor: 'rgba(0,0,0,0.7)',
+                      width: '100%',
+                      height: '100%'
+                    }}>
+                    </Animated.View>
+                  }
+                  {learningProgress >= 100 &&
+                    <Animated.View style={{
+                      width: '100%',
+                      height: '100%',
+                      backgroundColor: '#40e0d0',
+                      opacity: this.state.completeAnim,
+                    }}>
+                    </Animated.View>
+                  }
+                </ImageBackground>
+              </Animated.View>
+
+
+              <Animated.View style={{
+                backgroundColor: 'rgba(70,70,70,0.8)',
+                aspectRatio: 1,
+                borderRadius: 999,
+                height: this.state.progressSizeAnim,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: 'center',
+                textAlign: 'center',
+
+                shadowColor: '#00fa9a',
+                shadowOpacity: this.state.progressShaAnim,
+                shadowOffset: { height: 0, width: 0 },
+                shadowRadius: 18,
+              }}>
+                <Text style={{
+                  color: 'white',
+                  fontSize: 13,
+                }}>
+                  {learningProgress}%
+              </Text>
+
+              </Animated.View>
+            </TouchableOpacity>
+
+          </Animated.View>
+
         </View>
         <View style={styles.viewCont}>
-          <View style={styles.profileFields}>
-            <Text style={styles.profileFieldText}>Learning Progress: {learningProgress}% </Text>
-          </View>
+
           <View style={styles.profileFields}>
             <Text style={styles.profileFieldText}>Hours Spent: 2 </Text>
           </View>
@@ -75,7 +373,7 @@ export class ProfileScreen extends Component {
           </View>
           <SignOutBtn title="Sign Out" onPress={this.signOut} />
           <View style={{
-            height: 140,
+            height: 110,
             width: '100%'
           }} />
         </View>
