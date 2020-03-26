@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, Dimensions } from 'react-native';
 
-export class DailyRoutineScreen extends Component {
+export class InformationScreen extends Component {
     render() {
         return (
             <View style={styles.container}>

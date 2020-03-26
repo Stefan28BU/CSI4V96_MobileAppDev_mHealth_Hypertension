@@ -23,6 +23,11 @@ import { VideoScreen_2 } from './src/pages/videoScreens/VideoScreen_2';
 import { VideoScreen_3 } from './src/pages/videoScreens/VideoScreen_3';
 import { VideoScreen_4 } from './src/pages/videoScreens/VideoScreen_4';
 import { CameraPage } from './src/camera/camera.page';
+import { DailyRoutineScreen } from './src/pages/DailyRoutineScreen';
+import { InformationScreen } from './src/pages/InformationScreen';
+import { AchievementScreen } from './src/pages/AchievementScreen';
+
+
 import Amplify from 'aws-amplify';
 import config from './config';
 
@@ -284,7 +289,31 @@ export const DashboardStackNavigator = createStackNavigator(
         headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
         ></LinearGradient>,
       },
-    }
+    },
+
+    'Your Achievements': {
+      screen: AchievementScreen,
+      navigationOptions: {
+        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+        ></LinearGradient>,
+      },
+    },
+
+    'My Information': {
+      screen: InformationScreen,
+      navigationOptions: {
+        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+        ></LinearGradient>,
+      },
+    },
+
+    'My Routine': {
+      screen: DailyRoutineScreen,
+      navigationOptions: {
+        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+        ></LinearGradient>,
+      },
+    },
 
   },
   {
