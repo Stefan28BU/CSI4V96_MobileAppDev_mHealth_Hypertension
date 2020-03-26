@@ -37,8 +37,7 @@ export class CardGame extends Component {
         this.state = ({
             score: 0,
             Images: initArray,
-            selected: -1,
-            logIn: false
+            selected: -1
         });
         this.sortOrder = this.sortOrder.bind(this);
     }
@@ -202,11 +201,9 @@ export class CardGame extends Component {
     }
 
     render() {
-
         return (
             <View style={styles.bodys} >
-                {this.state.logIn === true ? <Text style={styles.title}>Signed in</Text> : <Text>Go fuck yourself</Text>}
-                {/* <Text style={styles.title}>Score: {this.state.score}</Text> */}
+                <Text style={styles.title}>Score: {this.state.score}</Text>
                 <View style={styles.container}>
                     {this.state.Images.map((item, key) =>
                         <TouchableOpacity style={{
