@@ -366,18 +366,23 @@ export class ProfileScreen extends Component {
             top: 0,
             left: 0,
           }}>
-            <Entypo
-              color={'#40e0d0'}
-              name="camera"
-              size={38}
-            />
-            <Text style={{
-              color: 'white',
-              fontSize: 14,
-              marginTop: 4
-            }}>
-              Log My Diet
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Log Your Meal')} style={styles.dashBtn}>
+
+              <Entypo
+                color={'#40e0d0'}
+                name="camera"
+                size={38}
+              />
+              <Text style={{
+                color: 'white',
+                fontSize: 14,
+                marginTop: 4
+              }}>
+                Log My Diet
             </Text>
+
+            </TouchableOpacity>
+
 
 
           </Animated.View>
@@ -412,7 +417,7 @@ export class ProfileScreen extends Component {
               fontSize: 14,
               marginTop: 4
             }}>
-              Daily Routing
+              Daily Routine
             </Text>
           </Animated.View>
 
@@ -496,6 +501,14 @@ export class ProfileScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  dashBtn: {
+    aspectRatio: 1,
+    height: '100%',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
   viewCont: {
     position: 'relative',
     top: '38%',
