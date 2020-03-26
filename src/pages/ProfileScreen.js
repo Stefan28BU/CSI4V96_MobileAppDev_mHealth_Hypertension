@@ -366,18 +366,23 @@ export class ProfileScreen extends Component {
             top: 0,
             left: 0,
           }}>
-            <Entypo
-              color={'#40e0d0'}
-              name="camera"
-              size={38}
-            />
-            <Text style={{
-              color: 'white',
-              fontSize: 14,
-              marginTop: 4
-            }}>
-              Log My Diet
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Log Your Meal')} style={styles.dashBtn}>
+
+              <Entypo
+                color={'#40e0d0'}
+                name="camera"
+                size={38}
+              />
+              <Text style={{
+                color: 'white',
+                fontSize: 14,
+                marginTop: 4
+              }}>
+                Log My Diet
             </Text>
+
+            </TouchableOpacity>
+
 
 
           </Animated.View>
@@ -401,19 +406,22 @@ export class ProfileScreen extends Component {
             top: 0,
             right: 0,
           }}>
-            <MaterialCommunityIcons
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('My Routine')} style={styles.dashBtn}>
 
-              color={'#40e0d0'}
-              name="map-marker-radius"
-              size={38}
-            />
-            <Text style={{
-              color: 'white',
-              fontSize: 14,
-              marginTop: 4
-            }}>
-              Daily Routing
+              <MaterialCommunityIcons
+
+                color={'#40e0d0'}
+                name="map-marker-radius"
+                size={38}
+              />
+              <Text style={{
+                color: 'white',
+                fontSize: 14,
+                marginTop: 4
+              }}>
+                Daily Routine
             </Text>
+            </TouchableOpacity>
           </Animated.View>
 
           <Animated.View style={{
@@ -435,18 +443,21 @@ export class ProfileScreen extends Component {
             bottom: 0,
             left: 0,
           }}>
-            <Entypo
-              color={'#40e0d0'}
-              name="star-outlined"
-              size={38}
-            />
-            <Text style={{
-              color: 'white',
-              fontSize: 14,
-              marginTop: 4
-            }}>
-              Achievements
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Your Achievements')} style={styles.dashBtn}>
+
+              <Entypo
+                color={'#40e0d0'}
+                name="star-outlined"
+                size={38}
+              />
+              <Text style={{
+                color: 'white',
+                fontSize: 14,
+                marginTop: 4
+              }}>
+                Achievements
             </Text>
+            </TouchableOpacity>
           </Animated.View>
 
           <Animated.View style={{
@@ -468,19 +479,21 @@ export class ProfileScreen extends Component {
             bottom: 0,
             right: 0,
           }}>
-            <Ionicons
-              color={'#40e0d0'}
-              name="md-information-circle-outline"
-              size={38}
-            />
-            <Text style={{
-              color: 'white',
-              fontSize: 14,
-              marginTop: 4
-            }}>
-              Information
-            </Text>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('My Information')} style={styles.dashBtn}>
 
+              <Ionicons
+                color={'#40e0d0'}
+                name="md-information-circle-outline"
+                size={38}
+              />
+              <Text style={{
+                color: 'white',
+                fontSize: 14,
+                marginTop: 4
+              }}>
+                Information
+            </Text>
+            </TouchableOpacity>
           </Animated.View>
 
           <View style={{
@@ -496,6 +509,14 @@ export class ProfileScreen extends Component {
 }
 
 const styles = StyleSheet.create({
+  dashBtn: {
+    aspectRatio: 1,
+    height: '100%',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: 'center',
+    textAlign: 'center',
+  },
   viewCont: {
     position: 'relative',
     top: '38%',

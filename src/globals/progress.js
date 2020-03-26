@@ -6,13 +6,10 @@ export let compP4 = false;
 
 export function incrementProgress() {
     learningProgress = learningProgress + 25;
-    console.log("Progress: " + learningProgress)
 }
 
 export function getProgress() {
-    console.log("Get Progress: " + learningProgress)
     return learningProgress;
-    
 }
 
 export function completePart1() {
@@ -26,4 +23,30 @@ export function completePart3() {
 }
 export function completePart4() {
     compP4 = true;
+}
+
+export let totalCredits = 0;
+export let achieve1 = false;
+export let achieve2 = false;
+export let achieve3 = false;
+
+
+export function addCredit(credit) {
+    totalCredits = totalCredits + credit;
+}
+
+export function getTotalCredit() {
+    return totalCredits;
+}
+
+export function completeAch1() {
+    achieve1 = true;
+}
+
+export function completeAch2() {
+    achieve2 = true;
+}
+
+export function completeAch3() {
+    achieve3 = true;
 }

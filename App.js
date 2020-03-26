@@ -23,6 +23,11 @@ import { VideoScreen_2 } from './src/pages/videoScreens/VideoScreen_2';
 import { VideoScreen_3 } from './src/pages/videoScreens/VideoScreen_3';
 import { VideoScreen_4 } from './src/pages/videoScreens/VideoScreen_4';
 import { CameraPage } from './src/camera/camera.page';
+import { DailyRoutineScreen } from './src/pages/DailyRoutineScreen';
+import { InformationScreen } from './src/pages/InformationScreen';
+import { AchievementScreen } from './src/pages/AchievementScreen';
+
+
 import Amplify from 'aws-amplify';
 import config from './config';
 
@@ -133,6 +138,7 @@ export default class App extends React.Component {
 export const DashboardTabNavigator = createBottomTabNavigator(
   {
 
+
     'Watch': {
       screen: WatchVideosScreen,
 
@@ -159,21 +165,6 @@ export const DashboardTabNavigator = createBottomTabNavigator(
             <Ionicons
               color={tintColor}
               name="logo-game-controller-b"
-              size={26}
-            />
-          </View>
-        )
-      },
-    },
-    'Camera': {
-      screen: CameraPage,
-
-      navigationOptions: {
-        tabBarLabel: ({ tintColor }) => (
-          <View style={styles.tabbarIcon}>
-            <Icon
-              color={tintColor}
-              name="photo-camera"
               size={26}
             />
           </View>
@@ -222,7 +213,6 @@ export const DashboardTabNavigator = createBottomTabNavigator(
     navigationOptions: ({ navigation }) => {
       const { routeName } = navigation.state.routes[navigation.state.index];
       return {
-        // ...TransitionPresets.SlideFromRightIOS, // add this line
         headerTitle: routeName,
       };
     },
@@ -259,7 +249,7 @@ export const DashboardStackNavigator = createStackNavigator(
 
     // mHealth: WelcomeScreen,
     VideoList: DashboardTabNavigator,
-    
+
 
     'Part 1: Introduction': {
       screen: VideoScreen_1,
@@ -288,6 +278,37 @@ export const DashboardStackNavigator = createStackNavigator(
     'Part 4: Treatments': {
       screen: VideoScreen_4,
 
+      navigationOptions: {
+        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+        ></LinearGradient>,
+      },
+    },
+    'Log Your Meal': {
+      screen: CameraPage,
+      navigationOptions: {
+        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+        ></LinearGradient>,
+      },
+    },
+
+    'Your Achievements': {
+      screen: AchievementScreen,
+      navigationOptions: {
+        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+        ></LinearGradient>,
+      },
+    },
+
+    'My Information': {
+      screen: InformationScreen,
+      navigationOptions: {
+        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+        ></LinearGradient>,
+      },
+    },
+
+    'My Routine': {
+      screen: DailyRoutineScreen,
       navigationOptions: {
         headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
         ></LinearGradient>,
