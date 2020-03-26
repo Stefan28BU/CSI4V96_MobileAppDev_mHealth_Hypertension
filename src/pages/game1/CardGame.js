@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image, Button, TouchableOpacity, Alert } from 'react-native';
 // import { back, removed, apple, apricot, orange, pear, pinaepple, popeyes, correct } from './imgIndex';
 import { Audio } from 'expo-av';
-
+import {checkLogInStatus, writeToCache, readFromCache} from './../../localCache/LocalCache';
+import * as SecureStore from 'expo-secure-store';
 
 const back = require('./img/back.png');
 const removed = require('./img/cross-wrong.png');
@@ -36,7 +37,7 @@ export class CardGame extends Component {
         this.state = ({
             score: 0,
             Images: initArray,
-            selected: -1,
+            selected: -1
         });
         this.sortOrder = this.sortOrder.bind(this);
     }
@@ -44,7 +45,7 @@ export class CardGame extends Component {
     /**
      * Sort the order of array every time entering to this page
      */
-    sortOrder() {
+    async sortOrder() {
         console.log(JSON.stringify(initArray));
         var i, j, temp;
         var arr = initArray;
@@ -134,8 +135,12 @@ export class CardGame extends Component {
     /**
      * Remove the card has been selected
      */
-    removeCard() {
-        console.log("remove: " + this.state.selected);
+    async removeCard() {
+        // console.log("remove: " + this.state.selected);
+        console.log("\nUser: " + await readFromCache("user"));
+        console.log("\naccessToken: " + await readFromCache("accessToken"));
+        console.log("\nidToken: " + await readFromCache("idToken"));
+        console.log("\nrefreshToken: " + await readFromCache("refreshToken"));
         // If the food is truly unhealthy
         if (this.state.selected !== -1) {
             this.state.Images[this.state.selected][`removed`] = true;
@@ -196,7 +201,6 @@ export class CardGame extends Component {
     }
 
     render() {
-
         return (
             <View style={styles.bodys} >
                 <Text style={styles.title}>Score: {this.state.score}</Text>

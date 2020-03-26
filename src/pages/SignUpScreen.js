@@ -3,7 +3,7 @@ import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView, TouchableO
 import { Form, TextValidator } from 'react-native-validator-form';
 import { Auth } from 'aws-amplify';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
-
+import * as SecureStore from 'expo-secure-store';
 
 export class SignUpScreen extends Component {
     constructor(props) {
@@ -58,7 +58,8 @@ export class SignUpScreen extends Component {
                 console.log('not a error');
                 console.log(signUpResponse);
                 this.setState({ submited: true });
-
+                // SecureStore.setItemAsync("key", JSON.stringify(signUpResponse));
+                SecureStore.setItemAsync("LogInStatus", "abcdefghijklmn")
                 // do some saving?
             } catch (error) {
                 console.log(error);
