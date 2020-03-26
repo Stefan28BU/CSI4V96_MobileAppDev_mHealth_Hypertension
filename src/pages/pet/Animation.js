@@ -2,15 +2,6 @@ import React, { Component } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import defineFrames from './define-frames';
 
-// Styles
-const styles = StyleSheet.create({
-  petScreenImage: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
-  },
-});
-
 // PetScreen component
 class Animation extends Component {
   constructor(props) {
@@ -94,7 +85,7 @@ class Animation extends Component {
       return f.frame === this.state.currentFrame;
     });
     return (
-      <View>
+      <View style={styles.petCnt}>
         <Image
           source={myFrame.imgSrc}
           style={styles.petScreenImage}
@@ -107,7 +98,7 @@ class Animation extends Component {
     this.handleAnimation();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.animationName !== this.state.animationName) {
       this.setState({
         animationName: nextProps.animationName,
@@ -121,5 +112,24 @@ class Animation extends Component {
     }
   }
 }
+
+// Styles
+const styles = StyleSheet.create({
+  petScreenImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'contain',
+    display: 'flex',
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  petCnt: {
+    width: '100%',
+    height: '22%',
+    padding: 20,
+    backgroundColor: '#40e0d0',
+  }
+});
+
 
 export default Animation;

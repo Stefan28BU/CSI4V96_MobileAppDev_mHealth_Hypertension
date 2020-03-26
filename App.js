@@ -43,6 +43,7 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import Spinner from 'react-native-loading-spinner-overlay';
 
+import {MyPet} from './src/pages/PetScreen';
 
 const Auth = {
   mandatorySignId: true,
@@ -67,6 +68,7 @@ function cacheImages(images) {
     }
   });
 }
+
 
 export default class App extends React.Component {
   constructor(props) {
@@ -99,6 +101,7 @@ export default class App extends React.Component {
     ]);
 
     await Promise.all([...imageAssets]);
+
   }
 
   getHeaderHeight = () => {
@@ -134,6 +137,7 @@ export default class App extends React.Component {
     );
   }
 }
+
 
 export const DashboardTabNavigator = createBottomTabNavigator(
   {
@@ -171,11 +175,13 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         )
       },
     },
-    'Pet':
+    'My Pet':
     {
       screen: PetScreen,
 
       navigationOptions: {
+        title: 'shit',
+
         tabBarLabel: ({ tintColor }) => (
           <View style={styles.tabbarIcon}>
 
@@ -192,6 +198,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       screen: ProfileScreen,
 
       navigationOptions: {
+        
         tabBarLabel: ({ tintColor }) => (
           <View style={styles.tabbarIcon}>
 
@@ -285,34 +292,34 @@ export const DashboardStackNavigator = createStackNavigator(
     },
     'Log Your Meal': {
       screen: CameraPage,
-      navigationOptions: {
-        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
-        ></LinearGradient>,
-      },
+      // navigationOptions: {
+      //   headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+      //   ></LinearGradient>,
+      // },
     },
 
     'Your Achievements': {
       screen: AchievementScreen,
-      navigationOptions: {
-        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
-        ></LinearGradient>,
-      },
+      // navigationOptions: {
+      //   headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+      //   ></LinearGradient>,
+      // },
     },
 
     'My Information': {
       screen: InformationScreen,
-      navigationOptions: {
-        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
-        ></LinearGradient>,
-      },
+      // navigationOptions: {
+      //   headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+      //   ></LinearGradient>,
+      // },
     },
 
     'My Routine': {
       screen: DailyRoutineScreen,
-      navigationOptions: {
-        headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
-        ></LinearGradient>,
-      },
+      // navigationOptions: {
+      //   headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
+      //   ></LinearGradient>,
+      // },
     },
 
   },
@@ -364,8 +371,8 @@ const styles = StyleSheet.create({
 
     backgroundColor: '#40e0d0',
     borderRadius: 20,
-    minWidth: 50,
-    maxWidth: 50,
+    minWidth: 54,
+    maxWidth: 54,
     aspectRatio: 1,
     top: -20,
     position: "absolute",

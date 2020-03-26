@@ -100,7 +100,7 @@ export class AchievementScreen extends Component {
                 <View style={{
                     height: '36%',
                     width: '100%',
-                    backgroundColor: 'rgb(20,20,20)',
+                    backgroundColor: 'rgb(70,70,70)',
                     display: "flex",
                     justifyContent: 'center',
                     alignItems: 'center',
@@ -124,7 +124,6 @@ export class AchievementScreen extends Component {
                         justifyContent: 'center',
                         alignItems: 'center',
                         textAlign: 'center',
-                        marginBottom: 20,
 
                         shadowColor: '#00fa9a',
                         shadowOpacity: this.state.achAnim,
