@@ -5,13 +5,16 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { NavigationEvents } from 'react-navigation';
 import { withTheme } from 'react-native-elements';
 
+let gold = 0;
+
 export class AchievementScreen extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             achAnim: new Animated.Value(0),
-            achievementList: []
+            achievementList: [],
+            totalGold: 0,
         }
 
         this.focused = this.focused.bind(this);
@@ -53,6 +56,8 @@ export class AchievementScreen extends Component {
             if (!achieve1) {
                 addCredit(credit);
                 completeAch1();
+
+                gold += credit
             }
         }
 
@@ -68,6 +73,8 @@ export class AchievementScreen extends Component {
             if (!achieve2) {
                 addCredit(credit);
                 completeAch2();
+
+                gold += credit
             }
 
         }
@@ -85,8 +92,12 @@ export class AchievementScreen extends Component {
             if (!achieve3) {
                 addCredit(credit);
                 completeAch3();
+
+                gold += credit
             }
         }
+
+        this.setState({totalGold: gold})
 
         console.log(this.state.achievementList.length)
     }
@@ -111,7 +122,7 @@ export class AchievementScreen extends Component {
                         fontSize: 20,
                         margin: 20
                     }}>
-                        Credits earned from achievements
+                        Gold earned from achievements
                     </Text>
 
 
@@ -134,7 +145,7 @@ export class AchievementScreen extends Component {
                             fontSize: 36,
                             color: 'white'
                         }}>
-                            {totalCredits}
+                            {this.state.totalGold}
                         </Text>
                     </Animated.View>
                 </View>

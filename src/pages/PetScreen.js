@@ -6,6 +6,7 @@ import { Asset } from 'expo-asset';
 import { Video } from 'expo-av';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { totalCredits } from '../globals/progress'
 
 export const MyPet = new Pet('Bob');
 
@@ -97,7 +98,7 @@ export class PetScreen extends Component {
 
   focused() {
 
-    // this.forceUpdate();
+    this.forceUpdate();
 
     this.setState({
       newPetStatus: MyPet.getCurrentStatus(),
@@ -179,12 +180,30 @@ export class PetScreen extends Component {
           </View>
         </View>
         <View style={styles.petActPane}>
+          <Text style={{
+            
+            color: '#ffd700',
+            fontSize: 20,
+            marginBottom: 30,
+            shadowColor: '#ffd700',
+            shadowOpacity: 1,
+            shadowOffset: { height: 0, width: 0 },
+            shadowRadius: 20,
+          }}>
+            Gold: {totalCredits}
+          </Text>
           <View style={styles.petActItem}>
             <TouchableOpacity onPress={this.pressPlay} style={styles.petActItemCnt}>
               <Text style={styles.petActText}>
                 Play with {MyPet.name}
               </Text>
             </TouchableOpacity>
+
+            <View style={styles.creditCnt}>
+              <Text style={styles.credit}>
+                10
+              </Text>
+            </View>
           </View>
           <View style={styles.petActItem}>
             <TouchableOpacity onPress={this.pressFeed} style={styles.petActItemCnt}>
@@ -192,6 +211,12 @@ export class PetScreen extends Component {
                 Feed {MyPet.name}
               </Text>
             </TouchableOpacity>
+
+            <View style={styles.creditCnt}>
+              <Text style={styles.credit}>
+                40
+              </Text>
+            </View>
           </View>
           <View style={styles.petActItem}>
             <TouchableOpacity onPress={this.pressClean} style={styles.petActItemCnt}>
@@ -199,6 +224,12 @@ export class PetScreen extends Component {
                 Clean {MyPet.name}
               </Text>
             </TouchableOpacity>
+
+            <View style={styles.creditCnt}>
+              <Text style={styles.credit}>
+                30
+              </Text>
+            </View>
           </View>
         </View>
       </View>
@@ -296,37 +327,68 @@ const styles = StyleSheet.create({
   },
   petActPane: {
     width: '100%',
-    paddingTop: 26,
+    marginBottom: '10%',
+    // paddingBottom: 100,
     display: 'flex',
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
+    // backgroundColor: 'red'
   },
 
   petActItemCnt: {
-    display: 'flex',
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
     minWidth: '60%',
-    padding: 14,
+    minHeight: '13%',
+
+    position: 'relative',
   },
   petActItem: {
+
+    position: 'relative',
     display: 'flex',
-    alignItems: "center",
+    paddingLeft: 10,
+
     justifyContent: "center",
-    textAlign: "center",
+
     backgroundColor: 'rgb(50,50,50)',
     marginBottom: 16,
     borderRadius: 10,
 
     shadowColor: '#00fa9a',
     shadowOpacity: 0.2,
-    shadowOffset: { height: 6, width: 0 },
+    shadowOffset: { height: 0, width: 0 },
     shadowRadius: 20,
   },
   petActText: {
     color: 'white',
-    fontSize: 18,
+    fontSize: 14,
+  },
+  creditCnt: {
+
+    aspectRatio: 1,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+
+    height: '100%',
+    // width: '35%',
+
+    display: 'flex',
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    backgroundColor: '#ffd700',
+    borderRadius: 5,
+    // borderTopRightRadius: 10,
+    // borderBottomRightRadius: 10,
+
+    shadowColor: '#ffd700',
+    shadowOpacity: 0.9,
+    shadowOffset: { height: 0, width: 0 },
+    shadowRadius: 12,
+  },
+  credit: {
+    color: 'black',
+    fontSize: 14
   }
 });

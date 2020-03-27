@@ -134,9 +134,9 @@ class Pet {
 
     play() {
         if (this.isAlive) {
-            this.fitness += 20;
-            this.fullness -= 5;
-            this.cleanliness -= 5;
+            this.fitness += 14;
+            this.fullness -= 4;
+            this.cleanliness -= 6;
 
             this.status = PET_STATUS.playing
 
@@ -150,9 +150,9 @@ class Pet {
 
     feed() {
         if (this.isAlive) {
-            this.fullness += 20;
-            this.cleanliness -= 5;
-            this.fitness -= 5;
+            this.fullness += 12;
+            this.cleanliness -= 4;
+            this.fitness -= 8;
 
             this.status = PET_STATUS.eating;
 
@@ -167,7 +167,7 @@ class Pet {
 
     clean() {
         if (this.isAlive) {
-            this.cleanliness += 20;
+            this.cleanliness += 16;
 
             this.status = PET_STATUS.talking;
 
