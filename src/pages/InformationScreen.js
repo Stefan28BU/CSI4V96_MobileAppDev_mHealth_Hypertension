@@ -135,7 +135,7 @@ export class InformationScreen extends Component {
                     <Ionicons
                         color={'#40e0d0'}
                         name="md-information-circle-outline"
-                        size={55}
+                        size={30}
                     />
                 </TouchableOpacity>
                 <Image style={styles.background} source={info} />
@@ -149,8 +149,8 @@ export class InformationScreen extends Component {
                         <Text style={styles.name}>Name</Text>
                         <TouchableOpacity style={styles.uname} onPress={this.handleInput.bind(this, "name")}>
                             {this.state.name === null?
-                                <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>Harry Potter</Text>:
-                                <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.name}</Text>
+                                <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>Harry Potter</Text>:
+                                <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.name}</Text>
                             }
                         </TouchableOpacity>
                         
@@ -167,15 +167,15 @@ export class InformationScreen extends Component {
 
                         <Text style={styles.gender}>Gender</Text>
                         <TouchableOpacity style={styles.ugender} onPress={this.handleInput.bind(this, "gender")}>
-                            {this.state.gender === null?<Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>Male</Text>:
-                            <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.gender}</Text>
+                            {this.state.gender === null?<Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>Male</Text>:
+                            <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.gender}</Text>
                             }     
                         </TouchableOpacity>
 
                         <Text style={styles.age}>Age</Text>
                         <TouchableOpacity style={styles.uage} onPress={this.handleInput.bind(this, "age")}>
-                            {this.state.age === null ? <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>18</Text>:
-                            <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.age}</Text>
+                            {this.state.age === null ? <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>18</Text>:
+                            <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.age}</Text>
                             }
                         </TouchableOpacity>
                         <DialogInput isDialogVisible={this.state.showAge}
@@ -194,8 +194,8 @@ export class InformationScreen extends Component {
                         <Text style={styles.title}>Detail Information</Text>
                         <Text style={styles.education}>Education</Text>
                         <TouchableOpacity style={styles.ueducation} onPress={this.handleInput.bind(this, "education")}>
-                            {this.state.education === null ? <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>Bachelor</Text>:
-                            <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.education}</Text>
+                            {this.state.education === null ? <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>Bachelor</Text>:
+                            <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.education}</Text>
                             }
                         </TouchableOpacity>
                         <DialogInput isDialogVisible={this.state.showEducation}
@@ -211,8 +211,8 @@ export class InformationScreen extends Component {
 
                         <Text style={styles.area}>Area</Text>
                         <TouchableOpacity style={styles.uarea} onPress={this.handleInput.bind(this, "area")}>
-                            {this.state.area === null ? <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>India Bombay</Text>:
-                            <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.area}</Text>
+                            {this.state.area === null ? <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>India Bombay</Text>:
+                            <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.area}</Text>
                             }
                         </TouchableOpacity>
                         <DialogInput isDialogVisible={this.state.showArea}
@@ -228,8 +228,8 @@ export class InformationScreen extends Component {
 
                         <Text style={styles.history}>Medical History</Text>
                         <TouchableOpacity style={styles.uhistory} onPress={this.handleInput.bind(this, "history")}>
-                            {this.state.medicalHistory === null?<Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>none</Text>:
-                            <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.medicalHistory}</Text>
+                            {this.state.medicalHistory === null?<Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>none</Text>:
+                            <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.medicalHistory}</Text>
                             }
                         </TouchableOpacity>
                         <DialogInput isDialogVisible={this.state.showHistory}
@@ -247,8 +247,8 @@ export class InformationScreen extends Component {
                 <TouchableOpacity style={styles.btn} onPress={() => {
                     this.state.page === 0 ? this.setState({page: 1}):this.setState({page: 0})}}>
                     {this.state.page === 0?
-                    <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center', padding: 10}}>Detail</Text>:
-                    <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center', padding: 10}}>Top</Text>
+                    <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center', padding: 10}}>Detail</Text>:
+                    <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center', padding: 10}}>Top</Text>
                     }
                 </TouchableOpacity>
             </View>
@@ -265,43 +265,43 @@ const styles = StyleSheet.create({
     },
 
     prompt: {
-        width: 45,
-        height: 45, 
+        width: 25,
+        height: 25, 
         // opacity: 0.6,
         // backgroundColor: "red",
         position: 'absolute',
-        top: 40,
-        right: 40,
+        top: 20,
+        right: 20,
         borderRadius: 100,
         zIndex: 998,
     },
 
     background: {
         width: '100%',
-        height: 250,
+        height: 200,
     },
 
     title: {
         position: 'absolute',
-        fontSize: 40,
+        fontSize: 29,
         color: "rgb(213, 216, 224)",
         alignSelf: 'center',
         top: 50,
     },
 
     avt: {
-        width: 150,
-        height: 150,
+        width: 120,
+        height: 120,
         borderRadius: 200,
         // backgroundColor: '#40e0d0',
         position: "absolute",
-        top: 150,
+        top: 120,
         alignSelf: 'center',
     },
 
     name: {
         position: 'absolute',
-        fontSize: 30,
+        fontSize: 25,
         color: "rgb(213, 216, 224)",
         alignSelf: 'center',
         top: 120,
@@ -315,54 +315,54 @@ const styles = StyleSheet.create({
         left: '10%',
         // borderColor: 'red',
         // borderWidth: 1,
-        padding: 5,
+        padding: 1,
         backgroundColor: 'rgba(63, 67, 80, 0.3)',
     },
 
     gender: {
         position: 'absolute',
-        fontSize: 30,
+        fontSize: 25,
         color: "rgb(213, 216, 224)",
         alignSelf: 'center',
-        top: 240,
+        top: 230,
     },
 
     ugender: {
         position: 'absolute',
         alignSelf: 'center',
-        top: 290,
+        top: 280,
         width: '80%',
         left: '10%',
         // borderColor: 'red',
         // borderWidth: 1,
-        padding: 5,
+        padding: 1,
         backgroundColor: 'rgba(63, 67, 80, 0.3)',
     },
 
     age: {
         position: 'absolute',
-        fontSize: 30,
+        fontSize: 25,
         color: "rgb(213, 216, 224)",
         alignSelf: 'center',
-        top: 360,
+        top: 340,
     },
 
     uage: {
         position: 'absolute',
         alignSelf: 'center',
-        top: 410,
+        top: 390,
         width: '80%',
         left: '10%',
         // borderColor: 'red',
         // borderWidth: 1,
-        padding: 5,
+        padding: 1,
         backgroundColor: 'rgba(63, 67, 80, 0.3)',
     },
 
 
     education: {
         position: 'absolute',
-        fontSize: 30,
+        fontSize: 25,
         color: "rgb(213, 216, 224)",
         alignSelf: 'center',
         top: 120,
@@ -376,47 +376,47 @@ const styles = StyleSheet.create({
         left: '10%',
         // borderColor: 'red',
         // borderWidth: 1,
-        padding: 5,
+        padding: 1,
         backgroundColor: 'rgba(63, 67, 80, 0.3)',
     },
 
     area: {
         position: 'absolute',
-        fontSize: 30,
+        fontSize: 25,
         color: "rgb(213, 216, 224)",
         alignSelf: 'center',
-        top: 240,
+        top: 230,
     },
 
     uarea: {
         position: 'absolute',
         alignSelf: 'center',
-        top: 290,
+        top: 280,
         width: '80%',
         left: '10%',
         // borderColor: 'red',
         // borderWidth: 1,
-        padding: 5,
+        padding: 1,
         backgroundColor: 'rgba(63, 67, 80, 0.3)',
     },
 
     history: {
         position: 'absolute',
-        fontSize: 30,
+        fontSize: 25,
         color: "rgb(213, 216, 224)",
         alignSelf: 'center',
-        top: 370,
+        top: 350,
     },
 
     uhistory: {
         position: 'absolute',
         alignSelf: 'center',
-        top: 430,
+        top: 400,
         width: '80%',
         left: '10%',
         // borderColor: 'red',
         // borderWidth: 1,
-        padding: 5,
+        padding: 1,
         backgroundColor: 'rgba(63, 67, 80, 0.3)',
     },
 
