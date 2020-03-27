@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Button, Dimensions, Animated } from 'react-native';
 import Animation from './pet/Animation';
 import Pet from './pet/Pet'
 import { Asset } from 'expo-asset';
 import { Video } from 'expo-av';
 import { NavigationEvents } from 'react-navigation';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const MyPet = new Pet('Bob');
 
@@ -14,12 +15,80 @@ export class PetScreen extends Component {
     super(props)
 
     this.state = {
-      fullnessStatus: 0,
-      cleanlinessStatus: 0,
-      fitnessStatus: 0,
+      fullnessStatus: new Animated.Value(0),
+      cleanlinessStatus: new Animated.Value(0),
+      fitnessStatus: new Animated.Value(0),
+
+      petStatus: MyPet.status,
+      newPetStatus: MyPet.status,
     }
 
     this.focused = this.focused.bind(this);
+    this.pressPlay = this.pressPlay.bind(this);
+    this.pressFeed = this.pressFeed.bind(this);
+    this.pressClean = this.pressClean.bind(this);
+  }
+
+  componentDidMount() {
+    setInterval(
+      () => {
+        MyPet.dayPass();
+
+        // this.forceUpdate();
+
+        this.setState({
+          newPetStatus: MyPet.getCurrentStatus(),
+          petStatus: MyPet.getCurrentStatus(),
+          fullnessStatus: MyPet.fullness,
+          cleanlinessStatus: MyPet.cleanliness,
+          fitnessStatus: MyPet.fitness,
+        })
+
+      },
+      60000);
+  }
+
+
+  pressPlay() {
+    MyPet.play();
+    MyPet.updatePetStatus()
+    // this.forceUpdate();
+
+    this.setState({
+      newPetStatus: MyPet.newStatus,
+      petStatus: MyPet.status,
+      fullnessStatus: MyPet.fullness,
+      cleanlinessStatus: MyPet.cleanliness,
+      fitnessStatus: MyPet.fitness,
+    })
+  }
+
+  pressFeed() {
+    MyPet.feed();
+    MyPet.updatePetStatus()
+    // this.forceUpdate();
+
+    this.setState({
+      newPetStatus: MyPet.newStatus,
+      petStatus: MyPet.status,
+      fullnessStatus: MyPet.fullness,
+      cleanlinessStatus: MyPet.cleanliness,
+      fitnessStatus: MyPet.fitness,
+    })
+  }
+
+  pressClean() {
+    MyPet.clean();
+    MyPet.updatePetStatus()
+    // this.forceUpdate();
+
+    this.setState({
+      newPetStatus: MyPet.newStatus,
+      petStatus: MyPet.status,
+      fullnessStatus: MyPet.fullness,
+      cleanlinessStatus: MyPet.cleanliness,
+      fitnessStatus: MyPet.fitness,
+    })
   }
 
   UNSAFE_componentWillMount() {
@@ -27,62 +96,109 @@ export class PetScreen extends Component {
   }
 
   focused() {
-    this.forceUpdate();
+
+    // this.forceUpdate();
 
     this.setState({
+      newPetStatus: MyPet.getCurrentStatus(),
+      petStatus: MyPet.getCurrentStatus(),
       fullnessStatus: MyPet.fullness,
       cleanlinessStatus: MyPet.cleanliness,
       fitnessStatus: MyPet.fitness,
     })
+
+    console.log("expected: " + this.state.newPetStatus)
+
   }
 
   render() {
+
+
+
     return (
       <View style={styles.container}>
         <NavigationEvents onWillFocus={this.focused} />
         <Animation
-          animationName={MyPet.updatePetStatus()}
+          prevAnimation={this.state.newPetStatus}
+          animationName={this.state.petStatus}
         >
         </Animation>
         <View style={styles.petDash}>
+          <View style={styles.petStatusBar}>
+            <Text style={styles.petBarTextS}>
+              Status: {this.state.newPetStatus}
+            </Text>
+          </View>
+
           <View style={styles.petStatusBarA}>
-            <View style={{
+            <Animated.View style={{
               width: this.state.fullnessStatus.toString().concat('%'),
-              padding: 6,
-              borderTopLeftRadius: 999,
-              borderBottomLeftRadius: 999,
+              height: '100%',
+
+              padding: 4,
+              borderRadius: 999,
               backgroundColor: 'rgba(255,255,255,0.7)',
+              position: 'relative'
             }}>
-              <Text style={styles.petBarText}>
-                Fullness: {MyPet.fullness}
-              </Text>
-            </View>
+            </Animated.View>
+            <Text style={styles.petBarText}>
+              Fullness: {MyPet.fullness}
+            </Text>
           </View>
           <View style={styles.petStatusBarB}>
-            <View style={{
+            <Animated.View style={{
               width: this.state.cleanlinessStatus.toString().concat('%'),
-              padding: 6,
-              borderTopLeftRadius: 999,
-              borderBottomLeftRadius: 999,
+              height: '100%',
+
+              padding: 4,
+              borderRadius: 999,
               backgroundColor: 'rgba(255,255,255,0.7)',
+              position: 'relative'
             }}>
-              <Text style={styles.petBarText}>
-                Cleanliness: {MyPet.cleanliness}
-              </Text>
-            </View>
+
+            </Animated.View>
+            <Text style={styles.petBarText}>
+              Cleanliness: {MyPet.cleanliness}
+            </Text>
           </View>
           <View style={styles.petStatusBarC}>
-            <View style={{
+            <Animated.View style={{
               width: this.state.fitnessStatus.toString().concat('%'),
-              padding: 6,
-              borderTopLeftRadius: 999,
-              borderBottomLeftRadius: 999,
+              height: '100%',
+
+              padding: 4,
+              borderRadius: 999,
               backgroundColor: 'rgba(255,255,255,0.7)',
+              position: 'relative'
             }}>
-              <Text style={styles.petBarText}>
-                Fitness: {MyPet.fitness}
+
+            </Animated.View>
+            <Text style={styles.petBarText}>
+              Fitness: {MyPet.fitness}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.petActPane}>
+          <View style={styles.petActItem}>
+            <TouchableOpacity onPress={this.pressPlay} style={styles.petActItemCnt}>
+              <Text style={styles.petActText}>
+                Play with {MyPet.name}
               </Text>
-            </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.petActItem}>
+            <TouchableOpacity onPress={this.pressFeed} style={styles.petActItemCnt}>
+              <Text style={styles.petActText}>
+                Feed {MyPet.name}
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.petActItem}>
+            <TouchableOpacity onPress={this.pressClean} style={styles.petActItemCnt}>
+              <Text style={styles.petActText}>
+                Clean {MyPet.name}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
       </View>
@@ -101,14 +217,39 @@ const styles = StyleSheet.create({
   },
   petDash: {
     width: '100%',
-    paddingTop: 20,
+    paddingBottom: 20,
     display: 'flex',
     alignItems: "center",
     justifyContent: "center",
-    textAlign: "center"
+    textAlign: "center",
+    backgroundColor: '#40e0d0',
+
+  },
+  petStatusBar: {
+    display: 'flex',
+    textAlign: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '36%',
+    padding: 10,
+
+    borderRadius: 999,
+    backgroundColor: 'rgb(50,50,50)',
+    marginBottom: 6,
+
+    shadowColor: 'black',
+    shadowOpacity: 0.5,
+    shadowOffset: { height: 0, width: 0 },
+    shadowRadius: 16,
+  },
+  petBarTextS: {
+    color: 'white',
+    fontSize: 13,
   },
   petStatusBarA: {
+    position: 'relative',
     width: '80%',
+    height: 20,
     borderRadius: 999,
     backgroundColor: '#ff1493',
     margin: 6,
@@ -119,6 +260,9 @@ const styles = StyleSheet.create({
     shadowRadius: 16,
   },
   petStatusBarB: {
+    position: 'relative',
+    height: 20,
+
     width: '80%',
     borderRadius: 999,
     backgroundColor: '#00ff00',
@@ -130,6 +274,9 @@ const styles = StyleSheet.create({
     shadowRadius: 16,
   },
   petStatusBarC: {
+    position: 'relative',
+    height: 20,
+
     width: '80%',
     borderRadius: 999,
     backgroundColor: '#00bfff',
@@ -142,6 +289,44 @@ const styles = StyleSheet.create({
   },
   petBarText: {
     color: 'black',
-    fontSize: 14,
+    fontSize: 13,
+    position: 'absolute',
+    top: 2,
+    left: 10,
+  },
+  petActPane: {
+    width: '100%',
+    paddingTop: 26,
+    display: 'flex',
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+
+  petActItemCnt: {
+    display: 'flex',
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    minWidth: '60%',
+    padding: 14,
+  },
+  petActItem: {
+    display: 'flex',
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+    backgroundColor: 'rgb(50,50,50)',
+    marginBottom: 16,
+    borderRadius: 10,
+
+    shadowColor: '#00fa9a',
+    shadowOpacity: 0.2,
+    shadowOffset: { height: 6, width: 0 },
+    shadowRadius: 20,
+  },
+  petActText: {
+    color: 'white',
+    fontSize: 18,
   }
 });

@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import defineFrames from './define-frames';
 
+import PET_STATUS from './Pet';
+
+
 // PetScreen component
 class Animation extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      prevAnimation: this.props.prevAnimation,
+
       currentFrame: 1,
       animationName: this.props.animationName,
       animationFrames: defineFrames[this.props.animationName].frames,
@@ -24,17 +29,42 @@ class Animation extends Component {
     let frameIndex = this.state.frameIndex;
 
     const nextFrame = () => {
+
+
       if (this.state.returnToDefault === true) {
         stopAnimation();
-        this.setState({
-          returnToDefault: false,
-          animationName: 'normalState',
-          animationFrames: defineFrames.normalState.frames,
-          currentFrame: 1,
-          loopIndex: 2,
-          frameIndex: 0,
-          actionAnimation: false,
-        });
+
+        if (this.state.shouldUsePrev) {
+
+          console.log(this.state.prevAnimation + " inside");
+
+
+          this.setState({
+            returnToDefault: false,
+            animationName: this.state.prevAnimation,
+            animationFrames: defineFrames[this.state.prevAnimation].frames,
+            currentFrame: 1,
+            loopIndex: 2,
+            frameIndex: 0,
+            actionAnimation: false,
+          });
+        } else {
+
+          console.log('B');
+
+
+          this.setState({
+            returnToDefault: false,
+            animationName: 'neutral',
+
+            animationFrames: defineFrames.neutral.frames,
+            currentFrame: 1,
+            loopIndex: 2,
+            frameIndex: 0,
+            actionAnimation: false,
+          });
+        }
+
         this.handleAnimation();
 
       } else if ((this.state.returnToDefault === false) && (this.state.actionAnimation === false) && (this.state.loopIndex === 0)) {
@@ -99,6 +129,22 @@ class Animation extends Component {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
+
+    console.log("Prev "  + nextProps.prevAnimation)
+
+    if (nextProps.prevAnimation === 'happy' ||
+      nextProps.prevAnimation === 'sad' ||
+      nextProps.prevAnimation === 'dead' ||
+      nextProps.prevAnimation === 'sick' ||
+      nextProps.prevAnimation === 'neutral') {
+
+        console.log('should repeat previous')
+        this.setState({
+          shouldUsePrev: true,
+          prevAnimation: nextProps.prevAnimation
+        });
+    }
+
     if (nextProps.animationName !== this.state.animationName) {
       this.setState({
         animationName: nextProps.animationName,

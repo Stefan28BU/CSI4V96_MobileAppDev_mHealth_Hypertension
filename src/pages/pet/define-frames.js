@@ -12,7 +12,7 @@ const defineFrames = {
             },
         ],
     },
-    normalState: {
+    neutral: {
         numOfFrames: 2,
         frames: [
             {
@@ -69,7 +69,7 @@ const defineFrames = {
     //         },
     //     ],
     // },
-    play: {
+    playing: {
         frames: [
             {
                 frame: 1,
@@ -97,7 +97,7 @@ const defineFrames = {
             },
         ],
     },
-    sleep: {
+    sleeping: {
         frames: [
             {
                 frame: 1,
