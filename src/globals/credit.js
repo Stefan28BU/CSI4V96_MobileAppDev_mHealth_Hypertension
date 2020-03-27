@@ -1,27 +1,36 @@
-credit.totalCredits = 0;
-credit.achieve1 = false;
-credit.achieve2 = false;
-credit.achieve3 = false;
+
+class Credit {
+    constructor() {
+        this.totalCredits = 10000;
+        this.achieve1 = false;
+        this.achieve2 = false;
+        this.achieve3 = false;
+    }
 
 
-credit.addCredit = function addCredit(c) {
-    credit.totalCredits = credit.totalCredits + c;
+    reduceCredit(c) {
+        this.totalCredits = this.totalCredits - c;
+    }
+
+    addCredit(c) {
+        this.totalCredits = this.totalCredits + c;
+    }
+
+    getTotalCredit() {
+        return this.totalCredits;
+    }
+
+    completeAch1() {
+        this.achieve1 = true;
+    }
+
+    completeAch2() {
+        this.achieve2 = true;
+    }
+    completeAch3() {
+        this.achieve3 = true;
+    }
+
 }
 
-credit.getTotalCredit = function getTotalCredit() {
-    return credit.totalCredits;
-}
-
-credit.completeAch1 = function completeAch1() {
-    credit.achieve1 = true;
-}
-
-credit.completeAch2 = function completeAch2() {
-    credit.achieve2 = true;
-}
-
-credit.completeAch3 = function completeAch3() {
-    credit.achieve3 = true;
-}
-
-export default credit;
+export default Credit;

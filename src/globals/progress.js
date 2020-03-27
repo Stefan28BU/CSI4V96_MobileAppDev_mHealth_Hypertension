@@ -1,29 +1,35 @@
 
-progress.learningProgress = 0;
-progress.compP1 = false;
-progress.compP2 = false;
-progress.compP3 = false;
-progress.compP4 = false;
+class Progress {
 
-progress.incrementProgress = function incrementProgress() {
-    progress.learningProgress = progress.learningProgress + 25;
+    constructor() {
+
+        this.learningProgress = 0;
+        this.compP1 = false;
+        this.compP2 = false;
+        this.compP3 = false;
+        this.compP4 = false;
+    }
+
+    incrementProgress() {
+        this.learningProgress = this.learningProgress + 25;
+    }
+
+    getProgress() {
+        return this.learningProgress;
+    }
+
+    completePart1() {
+        this.compP1 = true;
+    }
+    completePart2() {
+        this.compP2 = true;
+    }
+    completePart3() {
+        this.compP3 = true;
+    }
+    completePart4() {
+        this.compP4 = true;
+    }
 }
 
-progress.getProgress = function getProgress() {
-    return progress.learningProgress;
-}
-
-progress.completePart1 = function completePart1() {
-    progress.compP1 = true;
-}
-progress.completePart2 = function completePart2() {
-    progress.compP2 = true;
-}
-progress.completePart3 = function completePart3() {
-    progress.compP3 = true;
-}
-progress.completePart4 = function completePart4() {
-    progress.compP4 = true;
-}
-
-export default progress;
+export default Progress;

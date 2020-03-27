@@ -6,7 +6,8 @@ import { Asset } from 'expo-asset';
 import { Video } from 'expo-av';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import credit from '../globals/credit'
+
+import {AppCredit, AppProgress} from '../globals/appManager';
 
 export const MyPet = new Pet('Bob');
 
@@ -16,12 +17,14 @@ export class PetScreen extends Component {
     super(props)
 
     this.state = {
-      fullnessStatus: new Animated.Value(0),
-      cleanlinessStatus: new Animated.Value(0),
-      fitnessStatus: new Animated.Value(0),
+      fullnessStatus: new Animated.Value(MyPet.fullness),
+      cleanlinessStatus: new Animated.Value(MyPet.cleanliness),
+      fitnessStatus: new Animated.Value(MyPet.fitness),
 
       petStatus: MyPet.status,
       newPetStatus: MyPet.status,
+
+      goldStatus: AppCredit.totalCredits,
     }
 
     this.focused = this.focused.bind(this);
@@ -45,6 +48,8 @@ export class PetScreen extends Component {
           fullnessStatus: MyPet.fullness,
           cleanlinessStatus: MyPet.cleanliness,
           fitnessStatus: MyPet.fitness,
+
+          goldStatus: AppCredit.totalCredits,
         })
 
       },
@@ -58,6 +63,8 @@ export class PetScreen extends Component {
       fullnessStatus: MyPet.fullness,
       cleanlinessStatus: MyPet.cleanliness,
       fitnessStatus: MyPet.fitness,
+
+      goldStatus: AppCredit.totalCredits,
     })
   }
 
@@ -65,6 +72,7 @@ export class PetScreen extends Component {
   pressPlay() {
     MyPet.play();
     MyPet.updatePetStatus()
+    AppCredit.reduceCredit(10);
     // this.forceUpdate();
 
     this.setPetState();
@@ -73,6 +81,8 @@ export class PetScreen extends Component {
   pressFeed() {
     MyPet.feed();
     MyPet.updatePetStatus()
+    AppCredit.reduceCredit(40);
+
     // this.forceUpdate();
 
     this.setPetState();
@@ -82,6 +92,8 @@ export class PetScreen extends Component {
   pressClean() {
     MyPet.clean();
     MyPet.updatePetStatus()
+    AppCredit.reduceCredit(30);
+
     // this.forceUpdate();
 
     this.setPetState();
@@ -91,6 +103,7 @@ export class PetScreen extends Component {
   pressRevive() {
     MyPet.revive();
     MyPet.updatePetStatus()
+    AppCredit.reduceCredit(200);
     // this.forceUpdate();
 
     this.setPetState();
@@ -110,10 +123,9 @@ export class PetScreen extends Component {
       fullnessStatus: MyPet.fullness,
       cleanlinessStatus: MyPet.cleanliness,
       fitnessStatus: MyPet.fitness,
+
+      goldStatus: AppCredit.totalCredits,
     })
-
-    console.log("expected: " + this.state.newPetStatus)
-
   }
 
   render() {
@@ -195,7 +207,7 @@ export class PetScreen extends Component {
               shadowOffset: { height: 0, width: 0 },
               shadowRadius: 20,
             }}>
-              Gold: {credit.totalCredits}
+              Gold: {this.state.goldStatus}
             </Text>
             <View style={styles.petActItem}>
               <TouchableOpacity onPress={this.pressPlay} style={styles.petActItemCnt}>
@@ -251,7 +263,7 @@ export class PetScreen extends Component {
               shadowOffset: { height: 0, width: 0 },
               shadowRadius: 20,
             }}>
-              Gold: {credit.totalCredits}
+              Gold: {this.state.goldStatus}
             </Text>
 
             <View style={styles.petActItemR}>

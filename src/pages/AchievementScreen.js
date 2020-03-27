@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, Dimensions, TouchableOpacity, Alert, Animated } from 'react-native';
-// import { learningProgress, totalCredits, addCredit, achieve1, achieve2, achieve3, completeAch1, completeAch2, completeAch3 } from '../globals/progress'
 
-import progress from '../globals/progress'
-import credit from '../globals/credit'
+import { AppCredit, AppProgress } from '../globals/appManager';
+
 
 import { ScrollView } from 'react-native-gesture-handler';
 import { NavigationEvents } from 'react-navigation';
@@ -22,8 +21,52 @@ export class AchievementScreen extends Component {
         }
 
         this.focused = this.focused.bind(this);
+        this.claimGold = this.claimGold.bind(this);
     }
 
+    claimGold() {
+
+        this.forceUpdate()
+
+        if (AppProgress.learningProgress >= 25) {
+            const c = 50;
+
+            if (!AppCredit.achieve1) {
+                AppCredit.addCredit(c);
+                AppCredit.completeAch1();
+
+                goldTotal += c
+            }
+        }
+
+        if (AppProgress.learningProgress >= 75) {
+            const c = 25;
+
+
+            if (!AppCredit.achieve2) {
+                AppCredit.addCredit(c);
+                AppCredit.completeAch2();
+
+                goldTotal += c
+            }
+
+        }
+
+        if (AppProgress.learningProgress >= 100) {
+            const c = 100;
+
+            if (!AppCredit.achieve3) {
+                AppCredit.addCredit(c);
+                AppCredit.completeAch3();
+
+                goldTotal += c
+            }
+        }
+
+        this.setState({ totalGold: goldTotal })
+
+        Alert.alert("You earned " + goldTotal + " from your achievements!")
+    }
 
     _startAchAnim = () => {
         Animated.loop(
@@ -48,7 +91,7 @@ export class AchievementScreen extends Component {
 
         this.forceUpdate()
 
-        if (progress.learningProgress >= 25) {
+        if (AppProgress.learningProgress >= 25) {
             const c = 50;
             this.state.achievementList.push(
                 {
@@ -56,16 +99,9 @@ export class AchievementScreen extends Component {
                     gold: c
                 }
             );
-
-            if (!credit.achieve1) {
-                credit.addCredit(c);
-                credit.completeAch1();
-
-                goldTotal += c
-            }
         }
 
-        if (progress.learningProgress >= 75) {
+        if (AppProgress.learningProgress >= 75) {
             const c = 25;
             this.state.achievementList.push(
                 {
@@ -73,17 +109,9 @@ export class AchievementScreen extends Component {
                     gold: c
                 }
             );
-
-            if (!credit.achieve2) {
-                credit.addCredit(c);
-                credit.completeAch2();
-
-                goldTotal += c
-            }
-
         }
 
-        if (progress.learningProgress >= 100) {
+        if (AppProgress.learningProgress >= 100) {
             const c = 100;
             this.state.achievementList.push(
                 {
@@ -91,17 +119,9 @@ export class AchievementScreen extends Component {
                     gold: c
                 }
             );
-
-
-            if (!credit.achieve3) {
-                credit.addCredit(c);
-                credit.completeAch3();
-
-                goldTotal += c
-            }
         }
 
-        this.setState({totalGold: goldTotal})
+        this.setState({ totalGold: goldTotal })
 
     }
 
@@ -121,11 +141,16 @@ export class AchievementScreen extends Component {
                     textAlign: 'center'
                 }}>
                     <Text style={{
-                        color: 'white',
+                        color: '#ffd700',
                         fontSize: 20,
-                        margin: 20
+                        margin: 20,
+
+                        shadowColor: '#ffd700',
+                        shadowOpacity: 1,
+                        shadowOffset: { height: 0, width: 0 },
+                        shadowRadius: 14,
                     }}>
-                        Gold earned from achievements
+                        Claim Gold from Achievements
                     </Text>
 
 
@@ -144,12 +169,26 @@ export class AchievementScreen extends Component {
                         shadowOffset: { height: 0, width: 0 },
                         shadowRadius: 14,
                     }}>
-                        <Text style={{
-                            fontSize: 36,
-                            color: 'white'
-                        }}>
-                            {this.state.totalGold}
-                        </Text>
+                        <TouchableOpacity
+                            style={{
+                                height: '100%',
+                                aspectRatio: 1,
+                                borderRadius: 999,
+                                display: "flex",
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                textAlign: 'center',
+
+                            }}
+                            onPress={this.claimGold}
+                        >
+                            <Text style={{
+                                fontSize: 36,
+                                color: 'white'
+                            }}>
+                                {this.state.totalGold}
+                            </Text>
+                        </TouchableOpacity>
                     </Animated.View>
                 </View>
                 <ScrollView style={{

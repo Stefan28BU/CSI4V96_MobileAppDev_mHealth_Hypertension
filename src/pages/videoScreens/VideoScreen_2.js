@@ -9,9 +9,8 @@ import VideoPlayer from 'expo-video-player';
 
 // const video1 = require('../../videoAssets/')
 import { LinearGradient } from 'expo-linear-gradient';
-// import { completePart1, completePart2, completePart3, completePart4,  compP1, compP2, compP3, compP4, learningProgress, incrementProgress} from '../../globals/progress'
 
-import progress from '../../globals/progress'
+import {AppCredit, AppProgress} from '../../globals/appManager';
 
 
 export class VideoScreen_2 extends React.Component {
@@ -57,9 +56,9 @@ export class VideoScreen_2 extends React.Component {
         }
 
         Alert.alert("You got " + count + " out of 6 answers correct!")
-        if (count === 6 && !progress.compP2) {
-            progress.incrementProgress();
-            progress.completePart2();
+        if (count === 6 && !AppProgress.compP2) {
+            AppProgress.incrementProgress();
+            AppProgress.completePart2();
         }
     }
 

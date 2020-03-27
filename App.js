@@ -45,6 +45,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import {MyPet} from './src/pages/PetScreen';
 
+
 const Auth = {
   mandatorySignId: true,
   region: config.cognito.REGION,

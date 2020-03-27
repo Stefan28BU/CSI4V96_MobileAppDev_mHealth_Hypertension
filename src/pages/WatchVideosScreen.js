@@ -8,9 +8,8 @@ import VideoPlayer from 'expo-video-player';
 import FastImage from 'react-native-fast-image';
 import { findCoordinates } from '../utils/findCoordinate';
 import { Asset } from 'expo-asset';
-// import { completePart1, completePart2, completePart3, completePart4, compP1, compP2, compP3, compP4, learningProgress, getProgress } from '../globals/progress'
 
-import progress from '../globals/progress'
+import {AppCredit, AppProgress} from '../globals/appManager';
 
 
 import { Icon } from 'react-native-elements';
@@ -47,14 +46,14 @@ export class WatchVideosScreen extends Component {
         const loc = await findCoordinates();
         console.log(loc);
 
-        if (progress.learningProgress >= 25) {
+        if (AppProgress.learningProgress >= 25) {
             this.setState({ lockSecond: false })
         }
-        if (progress.learningProgress >= 50) {
+        if (AppProgress.learningProgress >= 50) {
             this.setState({ lockThird: false })
 
         }
-        if (progress.learningProgress >= 75) {
+        if (AppProgress.learningProgress >= 75) {
             this.setState({ lockLast: false })
         }
 
@@ -72,18 +71,17 @@ export class WatchVideosScreen extends Component {
     focused() {
         console.log("focused")
         console.log("Updating")
-        require('../globals/progress')
         this.forceUpdate();
 
-        console.log('Updated progress is: ' + progress.learningProgress)
-        if (progress.learningProgress >= 25) {
+        console.log('Updated progress is: ' + AppProgress.learningProgress)
+        if (AppProgress.learningProgress >= 25) {
             this.setState({ lockSecond: false })
         }
-        if (progress.learningProgress >= 50) {
+        if (AppProgress.learningProgress >= 50) {
             this.setState({ lockThird: false })
 
         }
-        if (progress.learningProgress >= 75) {
+        if (AppProgress.learningProgress >= 75) {
             this.setState({ lockLast: false })
         }
     }
@@ -97,7 +95,7 @@ export class WatchVideosScreen extends Component {
                         onWillFocus={this.focused}
                     />
                     <VideoButton subTitle={0} disabled={false} style={styles.img} onPress={() => this.props.navigation.navigate('Part 1: Introduction')} source={require('../imageAssets/04.jpg')} label={"Part 1: What is High BP?"}>
-                        {progress.learningProgress >= 25 &&
+                        {AppProgress.learningProgress >= 25 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
@@ -135,7 +133,7 @@ export class WatchVideosScreen extends Component {
                         }
                     </VideoButton>
                     <VideoButton subTitle={1} disabled={this.state.lockSecond} style={styles.img} onPress={() => this.props.navigation.navigate('Part 2: Causes')} source={require('../imageAssets/03.jpg')} label={"Part 2: What causes High BP?"}>
-                        {progress.learningProgress >= 50 &&
+                        {AppProgress.learningProgress >= 50 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
@@ -169,7 +167,7 @@ export class WatchVideosScreen extends Component {
                         }
                     </VideoButton>
                     <VideoButton subTitle={2} disabled={this.state.lockThird} style={styles.img} onPress={() => this.props.navigation.navigate('Part 3: Symptoms')} source={require('../imageAssets/02.jpg')} label={"Part 3: Symptoms of High BP"}>
-                        {progress.learningProgress >= 75 &&
+                        {AppProgress.learningProgress >= 75 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
@@ -203,7 +201,7 @@ export class WatchVideosScreen extends Component {
                         }
                     </VideoButton>
                     <VideoButton subTitle={3} disabled={this.state.lockLast} style={styles.img} onPress={() => this.props.navigation.navigate('Part 4: Treatments')} source={require('../imageAssets/01.jpg')} label={"Part 4: Diagnosis of High BP"}>
-                        {progress.learningProgress >= 100 &&
+                        {AppProgress.learningProgress >= 100 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
