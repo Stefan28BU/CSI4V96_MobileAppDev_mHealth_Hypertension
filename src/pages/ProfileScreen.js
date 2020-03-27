@@ -13,6 +13,8 @@ import {AppCredit, AppProgress} from '../globals/appManager';
 import { NavigationEvents } from 'react-navigation';
 
 import { Entypo, MaterialCommunityIcons, MaterialIcons, Ionicons, AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
+import { deleteItem } from './../localCache/LocalCache';
+
 
 const SignOutBtn = (props) => {
   const { title = {}, style = {}, textStyle = {}, onPress } = props;
@@ -72,11 +74,13 @@ export class ProfileScreen extends Component {
     this.props.navigation.navigate('mHealth');
   }
 
-  signOut() {
+  async signOut() {
     console.log('trying to sign out');
     Auth.signOut({ global: true })
       .then(data => console.log(data))
       .catch(err => console.log(err));
+    
+
     this.navigateToHome();
   }
 
