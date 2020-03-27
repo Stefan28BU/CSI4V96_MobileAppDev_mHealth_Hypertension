@@ -1,12 +1,256 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Button, Dimensions, Image, TouchableOpacity, Alert } from 'react-native';
+import { writeToCache, readFromCache } from './../localCache/LocalCache';
+import * as SecureStore from 'expo-secure-store';
+import { AuthSession } from 'expo';
+import DialogInput from 'react-native-dialog-input';
+import { Ionicons } from '@expo/vector-icons';
+
+
+const info = require('./../imageAssets/dark.jpg');
+const male = require('./../imageAssets/male.jpg');
+const female = require('./../imageAssets/fem.jpeg');
 
 export class InformationScreen extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            page: 0,
+            user: "",
+            name: "",
+            gender: "Male",
+            age: "",
+            education: "",
+            area: "",
+            medicalHistory: "",
+            showName: false,
+            showAge: false,
+            showEducation: false, 
+            showArea: false,
+            showHistory: false
+        }
+    }
+    
+    async UNSAFE_componentWillMount() {
+        console.log(await readFromCache("user"));
+        const u_user = await readFromCache("user");
+        const u_name = await readFromCache("name");
+        const u_gender = await readFromCache("gender");
+        const u_age = await readFromCache("age");
+        const u_edu = await readFromCache("education");
+        const u_area = await readFromCache("area");
+        const u_medicalHistory = await readFromCache("medicalHistory");
+        console.log(u_name);
+        this.setState({
+            user: u_user,
+            name: u_name,
+            gender: u_gender,
+            age: u_age,
+            education: u_edu,
+            area: u_area,
+            medicalHistory: u_medicalHistory,
+        })
+    
+    }
+
+    handleInput(type) {
+        console.log(type)
+        switch(type) {
+            case "name":
+                this.setState({
+                    showName: true
+                })
+                break;
+            case "gender": 
+                Alert.alert(
+                    'Select your answer: ',
+                    'Please select your gender.',
+                    [
+                        {
+                            text: 'Male', 
+                            onPress: async () => {
+                                this.setState({
+                                    gender: 'Male'
+                                });
+                                await writeToCache("gender", this.state.gender);
+                                console.log(await readFromCache("gender"));
+                            }
+                        },
+                        {
+                            text: 'Female', 
+                            onPress: async () => {
+                                this.setState({
+                                    gender: 'Female'
+                                });
+                                await writeToCache("gender", this.state.gender);
+                                console.log(await readFromCache("gender"));
+                            }
+                        }
+                    ],
+                    { cancelable: false }
+                );
+                break;
+            case "age": 
+                this.setState({
+                    showAge: true
+                })
+                break;
+            case "education":
+                this.setState({
+                    showEducation: true
+                })
+                break;
+            case "area":
+                this.setState({
+                    showArea: true
+                })
+                break;
+            case "history": 
+                this.setState({
+                    showHistory: true
+                })
+                break;
+            default:
+                return;
+        }
+    }
+
+    prompt() {
+        Alert.alert(
+            'Helping',
+            'To help our study of hypertension, you can provide your information. Select and edit the information you want to share with us.',
+            [
+                {
+                    text: 'OK', 
+                },
+            ],
+            { cancelable: false }
+        );
+    }
+
     render() {
         return (
             <View style={styles.container}>
+                <TouchableOpacity style={styles.prompt} onPress={this.prompt.bind(this)}>
+                    <Ionicons
+                        color={'#40e0d0'}
+                        name="md-information-circle-outline"
+                        size={55}
+                    />
+                </TouchableOpacity>
+                <Image style={styles.background} source={info} />
+                {this.state.gender==="Female"?<Image style={styles.avt} source={female}></Image>:
+                <Image style={styles.avt} source={male}></Image>
+                }
+                
+                {this.state.page === 0 ? 
+                    <View>
+                        <Text style={styles.title}>General Information</Text>
+                        <Text style={styles.name}>Name</Text>
+                        <TouchableOpacity style={styles.uname} onPress={this.handleInput.bind(this, "name")}>
+                            {this.state.name === null?
+                                <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>Harry Potter</Text>:
+                                <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.name}</Text>
+                            }
+                        </TouchableOpacity>
+                        
+                        <DialogInput isDialogVisible={this.state.showName}
+                            title={"Enter your answer"}
+                            message={"Please enter your name"}
+                            hintInput ={"Harry Potter"}
+                            submitInput={ async (inputText) => {
+                                this.setState({name: inputText, showName: false});
+                                await writeToCache("name", inputText);
+                            }}
+                            closeDialog={ () => {this.setState({showName: false})}}>
+                        </DialogInput>
 
-                <Text> This page is in progress... </Text>
+                        <Text style={styles.gender}>Gender</Text>
+                        <TouchableOpacity style={styles.ugender} onPress={this.handleInput.bind(this, "gender")}>
+                            {this.state.gender === null?<Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>Male</Text>:
+                            <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.gender}</Text>
+                            }     
+                        </TouchableOpacity>
+
+                        <Text style={styles.age}>Age</Text>
+                        <TouchableOpacity style={styles.uage} onPress={this.handleInput.bind(this, "age")}>
+                            {this.state.age === null ? <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>18</Text>:
+                            <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.age}</Text>
+                            }
+                        </TouchableOpacity>
+                        <DialogInput isDialogVisible={this.state.showAge}
+                            title={"Enter your answer"}
+                            message={"Please enter your Age"}
+                            hintInput ={"18"}
+                            submitInput={ async (inputText) => {
+                                this.setState({age: inputText, showAge: false});
+                                await writeToCache("age", inputText);
+                            }}
+                            closeDialog={ () => {this.setState({showAge: false})}}>
+                        </DialogInput>
+                    </View>
+                    :
+                    <View>
+                        <Text style={styles.title}>Detail Information</Text>
+                        <Text style={styles.education}>Education</Text>
+                        <TouchableOpacity style={styles.ueducation} onPress={this.handleInput.bind(this, "education")}>
+                            {this.state.education === null ? <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>Bachelor</Text>:
+                            <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.education}</Text>
+                            }
+                        </TouchableOpacity>
+                        <DialogInput isDialogVisible={this.state.showEducation}
+                            title={"Enter your answer"}
+                            message={"Please enter your degree of education"}
+                            hintInput ={"Bachelor"}
+                            submitInput={ async (inputText) => {
+                                this.setState({education: inputText, showEducation: false});
+                                await writeToCache("education", inputText);
+                            }}
+                            closeDialog={ () => {this.setState({showEducation: false})}}>
+                        </DialogInput>
+
+                        <Text style={styles.area}>Area</Text>
+                        <TouchableOpacity style={styles.uarea} onPress={this.handleInput.bind(this, "area")}>
+                            {this.state.area === null ? <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>India Bombay</Text>:
+                            <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.area}</Text>
+                            }
+                        </TouchableOpacity>
+                        <DialogInput isDialogVisible={this.state.showArea}
+                            title={"Enter your answer"}
+                            message={"Please enter your Area"}
+                            hintInput ={"Bombay"}
+                            submitInput={ async (inputText) => {
+                                this.setState({area: inputText, showArea: false});
+                                await writeToCache("area", inputText);
+                            }}
+                            closeDialog={ () => {this.setState({showArea: false})}}>
+                        </DialogInput>
+
+                        <Text style={styles.history}>Medical History</Text>
+                        <TouchableOpacity style={styles.uhistory} onPress={this.handleInput.bind(this, "history")}>
+                            {this.state.medicalHistory === null?<Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>none</Text>:
+                            <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center'}}>{this.state.medicalHistory}</Text>
+                            }
+                        </TouchableOpacity>
+                        <DialogInput isDialogVisible={this.state.showHistory}
+                            title={"Enter your answer"}
+                            message={"Please enter your medical history"}
+                            hintInput ={"Coronary Heart Disease"}
+                            submitInput={ async (inputText) => {
+                                this.setState({medicalHistory: inputText, showHistory: false});
+                                await writeToCache("history", inputText);
+                            }}
+                            closeDialog={ () => {this.setState({showHistory: false})}}>
+                        </DialogInput>
+                    </View>
+                }
+                <TouchableOpacity style={styles.btn} onPress={() => {
+                    this.state.page === 0 ? this.setState({page: 1}):this.setState({page: 0})}}>
+                    {this.state.page === 0?
+                    <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center', padding: 10}}>Detail</Text>:
+                    <Text style={{fontSize: 30, color: "rgb(213, 216, 224)", textAlign: 'center', padding: 10}}>Top</Text>
+                    }
+                </TouchableOpacity>
             </View>
         );
     }
@@ -17,5 +261,171 @@ const styles = StyleSheet.create({
         flex: 1,
         height: '100%',
         width: '100%',
-    }
+        backgroundColor: 'rgb(32, 34, 41)'
+    },
+
+    prompt: {
+        width: 45,
+        height: 45, 
+        // opacity: 0.6,
+        // backgroundColor: "red",
+        position: 'absolute',
+        top: 40,
+        right: 40,
+        borderRadius: 100,
+        zIndex: 998,
+    },
+
+    background: {
+        width: '100%',
+        height: 250,
+    },
+
+    title: {
+        position: 'absolute',
+        fontSize: 40,
+        color: "rgb(213, 216, 224)",
+        alignSelf: 'center',
+        top: 50,
+    },
+
+    avt: {
+        width: 150,
+        height: 150,
+        borderRadius: 200,
+        // backgroundColor: '#40e0d0',
+        position: "absolute",
+        top: 150,
+        alignSelf: 'center',
+    },
+
+    name: {
+        position: 'absolute',
+        fontSize: 30,
+        color: "rgb(213, 216, 224)",
+        alignSelf: 'center',
+        top: 120,
+    },
+
+    uname: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: 170,
+        width: '80%',
+        left: '10%',
+        // borderColor: 'red',
+        // borderWidth: 1,
+        padding: 5,
+        backgroundColor: 'rgba(63, 67, 80, 0.3)',
+    },
+
+    gender: {
+        position: 'absolute',
+        fontSize: 30,
+        color: "rgb(213, 216, 224)",
+        alignSelf: 'center',
+        top: 240,
+    },
+
+    ugender: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: 290,
+        width: '80%',
+        left: '10%',
+        // borderColor: 'red',
+        // borderWidth: 1,
+        padding: 5,
+        backgroundColor: 'rgba(63, 67, 80, 0.3)',
+    },
+
+    age: {
+        position: 'absolute',
+        fontSize: 30,
+        color: "rgb(213, 216, 224)",
+        alignSelf: 'center',
+        top: 360,
+    },
+
+    uage: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: 410,
+        width: '80%',
+        left: '10%',
+        // borderColor: 'red',
+        // borderWidth: 1,
+        padding: 5,
+        backgroundColor: 'rgba(63, 67, 80, 0.3)',
+    },
+
+
+    education: {
+        position: 'absolute',
+        fontSize: 30,
+        color: "rgb(213, 216, 224)",
+        alignSelf: 'center',
+        top: 120,
+    },
+
+    ueducation: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: 170,
+        width: '80%',
+        left: '10%',
+        // borderColor: 'red',
+        // borderWidth: 1,
+        padding: 5,
+        backgroundColor: 'rgba(63, 67, 80, 0.3)',
+    },
+
+    area: {
+        position: 'absolute',
+        fontSize: 30,
+        color: "rgb(213, 216, 224)",
+        alignSelf: 'center',
+        top: 240,
+    },
+
+    uarea: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: 290,
+        width: '80%',
+        left: '10%',
+        // borderColor: 'red',
+        // borderWidth: 1,
+        padding: 5,
+        backgroundColor: 'rgba(63, 67, 80, 0.3)',
+    },
+
+    history: {
+        position: 'absolute',
+        fontSize: 30,
+        color: "rgb(213, 216, 224)",
+        alignSelf: 'center',
+        top: 370,
+    },
+
+    uhistory: {
+        position: 'absolute',
+        alignSelf: 'center',
+        top: 430,
+        width: '80%',
+        left: '10%',
+        // borderColor: 'red',
+        // borderWidth: 1,
+        padding: 5,
+        backgroundColor: 'rgba(63, 67, 80, 0.3)',
+    },
+
+    btn: {
+        position: 'absolute',
+        width: '100%',
+        height: 70,
+        backgroundColor: 'rgba(13, 130, 110, 1)',
+        bottom: 0,
+    },
+
 });

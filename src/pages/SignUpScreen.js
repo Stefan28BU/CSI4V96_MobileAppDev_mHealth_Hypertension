@@ -3,7 +3,7 @@ import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView, TouchableO
 import { Form, TextValidator } from 'react-native-validator-form';
 import { Auth } from 'aws-amplify';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
-import * as SecureStore from 'expo-secure-store';
+import { writeToCache } from './../localCache/LocalCache';
 
 export class SignUpScreen extends Component {
     constructor(props) {
@@ -59,7 +59,7 @@ export class SignUpScreen extends Component {
                 console.log(signUpResponse);
                 this.setState({ submited: true });
                 // SecureStore.setItemAsync("key", JSON.stringify(signUpResponse));
-                SecureStore.setItemAsync("LogInStatus", "abcdefghijklmn")
+            
                 // do some saving?
             } catch (error) {
                 console.log(error);
@@ -82,10 +82,11 @@ export class SignUpScreen extends Component {
         }
     }
 
-    handleResendSignUp() {
+    async handleResendSignUp() {
         Auth.resendSignUp(this.state.username)
             .then(() => console.log('successfully resend'))
             .catch((err) => console.log(err));
+        await writeToCache("user", this.state.username)
     }
 
     navigateToHome() {
