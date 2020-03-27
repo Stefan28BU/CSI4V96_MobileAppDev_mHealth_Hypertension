@@ -6,7 +6,7 @@ import { Asset } from 'expo-asset';
 import { Video } from 'expo-av';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { totalCredits } from '../globals/progress'
+import credit from '../globals/credit'
 
 export const MyPet = new Pet('Bob');
 
@@ -28,6 +28,8 @@ export class PetScreen extends Component {
     this.pressPlay = this.pressPlay.bind(this);
     this.pressFeed = this.pressFeed.bind(this);
     this.pressClean = this.pressClean.bind(this);
+    this.pressRevive = this.pressRevive.bind(this);
+    this.setPetState = this.setPetState.bind(this);
   }
 
   componentDidMount() {
@@ -46,7 +48,17 @@ export class PetScreen extends Component {
         })
 
       },
-      60000);
+      100000);
+  }
+
+  setPetState() {
+    this.setState({
+      newPetStatus: MyPet.newStatus,
+      petStatus: MyPet.status,
+      fullnessStatus: MyPet.fullness,
+      cleanlinessStatus: MyPet.cleanliness,
+      fitnessStatus: MyPet.fitness,
+    })
   }
 
 
@@ -55,13 +67,7 @@ export class PetScreen extends Component {
     MyPet.updatePetStatus()
     // this.forceUpdate();
 
-    this.setState({
-      newPetStatus: MyPet.newStatus,
-      petStatus: MyPet.status,
-      fullnessStatus: MyPet.fullness,
-      cleanlinessStatus: MyPet.cleanliness,
-      fitnessStatus: MyPet.fitness,
-    })
+    this.setPetState();
   }
 
   pressFeed() {
@@ -69,13 +75,8 @@ export class PetScreen extends Component {
     MyPet.updatePetStatus()
     // this.forceUpdate();
 
-    this.setState({
-      newPetStatus: MyPet.newStatus,
-      petStatus: MyPet.status,
-      fullnessStatus: MyPet.fullness,
-      cleanlinessStatus: MyPet.cleanliness,
-      fitnessStatus: MyPet.fitness,
-    })
+    this.setPetState();
+
   }
 
   pressClean() {
@@ -83,13 +84,16 @@ export class PetScreen extends Component {
     MyPet.updatePetStatus()
     // this.forceUpdate();
 
-    this.setState({
-      newPetStatus: MyPet.newStatus,
-      petStatus: MyPet.status,
-      fullnessStatus: MyPet.fullness,
-      cleanlinessStatus: MyPet.cleanliness,
-      fitnessStatus: MyPet.fitness,
-    })
+    this.setPetState();
+
+  }
+
+  pressRevive() {
+    MyPet.revive();
+    MyPet.updatePetStatus()
+    // this.forceUpdate();
+
+    this.setPetState();
   }
 
   UNSAFE_componentWillMount() {
@@ -179,59 +183,92 @@ export class PetScreen extends Component {
             </Text>
           </View>
         </View>
-        <View style={styles.petActPane}>
-          <Text style={{
-            
-            color: '#ffd700',
-            fontSize: 20,
-            marginBottom: 30,
-            shadowColor: '#ffd700',
-            shadowOpacity: 1,
-            shadowOffset: { height: 0, width: 0 },
-            shadowRadius: 20,
-          }}>
-            Gold: {totalCredits}
-          </Text>
-          <View style={styles.petActItem}>
-            <TouchableOpacity onPress={this.pressPlay} style={styles.petActItemCnt}>
-              <Text style={styles.petActText}>
-                Play with {MyPet.name}
-              </Text>
-            </TouchableOpacity>
+        {MyPet.isAlive &&
+          <View style={styles.petActPane}>
+            <Text style={{
 
-            <View style={styles.creditCnt}>
-              <Text style={styles.credit}>
-                10
+              color: '#ffd700',
+              fontSize: 20,
+              marginBottom: 30,
+              shadowColor: '#ffd700',
+              shadowOpacity: 1,
+              shadowOffset: { height: 0, width: 0 },
+              shadowRadius: 20,
+            }}>
+              Gold: {credit.totalCredits}
+            </Text>
+            <View style={styles.petActItem}>
+              <TouchableOpacity onPress={this.pressPlay} style={styles.petActItemCnt}>
+                <Text style={styles.petActText}>
+                  Play with {MyPet.name}
+                </Text>
+              </TouchableOpacity>
+
+              <View style={styles.creditCnt}>
+                <Text style={styles.creditTxt}>
+                  10
               </Text>
+              </View>
+            </View>
+            <View style={styles.petActItem}>
+              <TouchableOpacity onPress={this.pressFeed} style={styles.petActItemCnt}>
+                <Text style={styles.petActText}>
+                  Feed {MyPet.name}
+                </Text>
+              </TouchableOpacity>
+
+              <View style={styles.creditCnt}>
+                <Text style={styles.creditTxt}>
+                  40
+              </Text>
+              </View>
+            </View>
+            <View style={styles.petActItem}>
+              <TouchableOpacity onPress={this.pressClean} style={styles.petActItemCnt}>
+                <Text style={styles.petActText}>
+                  Clean {MyPet.name}
+                </Text>
+              </TouchableOpacity>
+
+              <View style={styles.creditCnt}>
+                <Text style={styles.creditTxt}>
+                  30
+              </Text>
+              </View>
+            </View>
+
+          </View>
+        }
+        {!MyPet.isAlive &&
+          <View style={styles.petActPane}>
+            <Text style={{
+
+              color: '#ffd700',
+              fontSize: 20,
+              marginBottom: 30,
+              shadowColor: '#ffd700',
+              shadowOpacity: 1,
+              shadowOffset: { height: 0, width: 0 },
+              shadowRadius: 20,
+            }}>
+              Gold: {credit.totalCredits}
+            </Text>
+
+            <View style={styles.petActItemR}>
+              <TouchableOpacity onPress={this.pressRevive} style={styles.petActItemCntR}>
+                <Text style={styles.petActText}>
+                  Revive {MyPet.name}
+                </Text>
+              </TouchableOpacity>
+
+              <View style={styles.creditCnt}>
+                <Text style={styles.creditTxt}>
+                  200
+                </Text>
+              </View>
             </View>
           </View>
-          <View style={styles.petActItem}>
-            <TouchableOpacity onPress={this.pressFeed} style={styles.petActItemCnt}>
-              <Text style={styles.petActText}>
-                Feed {MyPet.name}
-              </Text>
-            </TouchableOpacity>
-
-            <View style={styles.creditCnt}>
-              <Text style={styles.credit}>
-                40
-              </Text>
-            </View>
-          </View>
-          <View style={styles.petActItem}>
-            <TouchableOpacity onPress={this.pressClean} style={styles.petActItemCnt}>
-              <Text style={styles.petActText}>
-                Clean {MyPet.name}
-              </Text>
-            </TouchableOpacity>
-
-            <View style={styles.creditCnt}>
-              <Text style={styles.credit}>
-                30
-              </Text>
-            </View>
-          </View>
-        </View>
+        }
       </View>
     );
   }
@@ -336,6 +373,30 @@ const styles = StyleSheet.create({
     // backgroundColor: 'red'
   },
 
+  petActItemCntR: {
+    minWidth: '60%',
+    minHeight: '24%',
+
+    position: 'relative',
+  },
+  petActItemR: {
+
+    position: 'relative',
+    display: 'flex',
+    paddingLeft: 10,
+
+    justifyContent: "center",
+
+    backgroundColor: 'rgb(50,50,50)',
+    marginBottom: 16,
+    borderRadius: 10,
+
+    shadowColor: '#00fa9a',
+    shadowOpacity: 0.2,
+    shadowOffset: { height: 0, width: 0 },
+    shadowRadius: 20,
+  },
+
   petActItemCnt: {
     minWidth: '60%',
     minHeight: '13%',
@@ -387,7 +448,7 @@ const styles = StyleSheet.create({
     shadowOffset: { height: 0, width: 0 },
     shadowRadius: 12,
   },
-  credit: {
+  creditTxt: {
     color: 'black',
     fontSize: 14
   }

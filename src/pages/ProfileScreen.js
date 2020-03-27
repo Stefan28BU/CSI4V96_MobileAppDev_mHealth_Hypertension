@@ -7,7 +7,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn, EditProfileBtn } from '../customComponents/CustomButtons';
 
-import { completePart1, completePart2, completePart3, completePart4, compP1, compP2, compP3, compP4, learningProgress, getProgress } from '../globals/progress'
+// import { completePart1, completePart2, completePart3, completePart4, compP1, compP2, compP3, compP4, learningProgress, getProgress } from '../globals/progress'
+
+import progress from '../globals/progress'
+
 import { NavigationEvents } from 'react-navigation';
 
 import { Entypo, MaterialCommunityIcons, MaterialIcons, Ionicons, AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
@@ -88,19 +91,19 @@ export class ProfileScreen extends Component {
   }
 
   progressStatus() {
-    if (learningProgress === 100) {
+    if (progress.learningProgress === 100) {
       Alert.alert("Congratulations! You have learned about Hypertension!")
     }
-    if (learningProgress === 75) {
+    if (progress.learningProgress === 75) {
       Alert.alert("You have completed the thrid part, only one to go!")
     }
-    if (learningProgress === 50) {
+    if (progress.learningProgress === 50) {
       Alert.alert("You have completed the second part, you are half way there!")
     }
-    if (learningProgress === 25) {
+    if (progress.learningProgress === 25) {
       Alert.alert("You have completed the first part, please continue learning!")
     }
-    if (learningProgress === 0) {
+    if (progress.learningProgress === 0) {
       Alert.alert("Select the beginning tab at the bottom to learn about Hypertension!")
     }
   }
@@ -171,7 +174,7 @@ export class ProfileScreen extends Component {
                   width: '100%', height: '100%', resizeMode: "cover",
 
                 }} >
-                  {learningProgress < 25 &&
+                  {progress.learningProgress < 25 &&
                     <Animated.View style={{
                       backgroundColor: 'rgba(0,0,0,0.5)',
                       width: '100%',
@@ -179,7 +182,7 @@ export class ProfileScreen extends Component {
                     }}>
                     </Animated.View>
                   }
-                  {learningProgress >= 25 &&
+                  {progress.learningProgress >= 25 &&
                     <Animated.View style={{
                       width: '100%',
                       height: '100%',
@@ -213,7 +216,7 @@ export class ProfileScreen extends Component {
 
                 }} >
 
-                  {learningProgress < 50 &&
+                  {progress.learningProgress < 50 &&
                     <Animated.View style={{
                       backgroundColor: 'rgba(0,0,0,0.7)',
                       width: '100%',
@@ -221,7 +224,7 @@ export class ProfileScreen extends Component {
                     }}>
                     </Animated.View>
                   }
-                  {learningProgress >= 50 &&
+                  {progress.learningProgress >= 50 &&
                     <Animated.View style={{
                       width: '100%',
                       height: '100%',
@@ -252,7 +255,7 @@ export class ProfileScreen extends Component {
                   width: '100%', height: '100%', resizeMode: "cover"
 
                 }} >
-                  {learningProgress < 75 &&
+                  {progress.learningProgress < 75 &&
                     <Animated.View style={{
                       backgroundColor: 'rgba(0,0,0,0.7)',
                       width: '100%',
@@ -260,7 +263,7 @@ export class ProfileScreen extends Component {
                     }}>
                     </Animated.View>
                   }
-                  {learningProgress >= 75 &&
+                  {progress.learningProgress >= 75 &&
                     <Animated.View style={{
                       width: '100%',
                       height: '100%',
@@ -295,7 +298,7 @@ export class ProfileScreen extends Component {
 
                 }} >
 
-                  {learningProgress < 100 &&
+                  {progress.learningProgress < 100 &&
                     <Animated.View style={{
                       backgroundColor: 'rgba(0,0,0,0.7)',
                       width: '100%',
@@ -303,7 +306,7 @@ export class ProfileScreen extends Component {
                     }}>
                     </Animated.View>
                   }
-                  {learningProgress >= 100 &&
+                  {progress.learningProgress >= 100 &&
                     <Animated.View style={{
                       width: '100%',
                       height: '100%',
@@ -335,7 +338,7 @@ export class ProfileScreen extends Component {
                   color: 'white',
                   fontSize: 13,
                 }}>
-                  {learningProgress}%
+                  {progress.learningProgress}%
               </Text>
 
               </Animated.View>

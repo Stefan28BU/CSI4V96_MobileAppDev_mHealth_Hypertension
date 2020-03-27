@@ -1,52 +1,29 @@
-export let learningProgress = 0;
-export let compP1 = false;
-export let compP2 = false;
-export let compP3 = false;
-export let compP4 = false;
 
-export function incrementProgress() {
-    learningProgress = learningProgress + 25;
-}
+progress.learningProgress = 0;
+progress.compP1 = false;
+progress.compP2 = false;
+progress.compP3 = false;
+progress.compP4 = false;
 
-export function getProgress() {
-    return learningProgress;
+progress.incrementProgress = function incrementProgress() {
+    progress.learningProgress = progress.learningProgress + 25;
 }
 
-export function completePart1() {
-    compP1 = true;
-}
-export function completePart2() {
-    compP2 = true;
-}
-export function completePart3() {
-    compP3 = true;
-}
-export function completePart4() {
-    compP4 = true;
+progress.getProgress = function getProgress() {
+    return progress.learningProgress;
 }
 
-export let totalCredits = 0;
-export let achieve1 = false;
-export let achieve2 = false;
-export let achieve3 = false;
-
-
-export function addCredit(credit) {
-    totalCredits = totalCredits + credit;
+progress.completePart1 = function completePart1() {
+    progress.compP1 = true;
+}
+progress.completePart2 = function completePart2() {
+    progress.compP2 = true;
+}
+progress.completePart3 = function completePart3() {
+    progress.compP3 = true;
+}
+progress.completePart4 = function completePart4() {
+    progress.compP4 = true;
 }
 
-export function getTotalCredit() {
-    return totalCredits;
-}
-
-export function completeAch1() {
-    achieve1 = true;
-}
-
-export function completeAch2() {
-    achieve2 = true;
-}
-
-export function completeAch3() {
-    achieve3 = true;
-}
+export default progress;

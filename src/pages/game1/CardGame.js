@@ -224,7 +224,7 @@ export class CardGame extends Component {
                         <TouchableOpacity style={styles.gameBtn} onPress={this.sortOrder}>
                             <Text style={{
                                 fontSize: 16,
-                                color: 'black'
+                                color: 'white'
                             }}>
                                 Reset Game
                             </Text>
@@ -232,7 +232,7 @@ export class CardGame extends Component {
                         <TouchableOpacity style={styles.gameBtn} onPress={this.removeCard.bind(this)}>
                             <Text style={{
                                 fontSize: 16,
-                                color: 'black'
+                                color: 'white'
                             }}>
                                 Remove Flipped Card
                             </Text>
@@ -256,16 +256,15 @@ const styles = StyleSheet.create({
         textAlign: "center",
         width: '100%',
         color: 'white',
-        backgroundColor: '#40e0d0',
+        backgroundColor: 'rgb(50,50,50)',
         marginBottom: 14,
-        padding: 10,
-        // borderRadius: 10,
+        padding: 12,
+        borderRadius: 10,
 
-
-        // shadowColor: '#00fa9a',
-        // shadowOpacity: 0.9,
-        // shadowOffset: { height: 0, width: 0 },
-        // shadowRadius: 18,
+        shadowColor: '#00fa9a',
+        shadowOpacity: 0.2,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 20,
     },
     bodys: {
         // flex: 1,

@@ -31,7 +31,7 @@ import { AchievementScreen } from './src/pages/AchievementScreen';
 import Amplify from 'aws-amplify';
 import config from './config';
 
-import { Ionicons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons, Entypo, MaterialCommunityIcons, Feather } from '@expo/vector-icons';
 
 import { Icon } from 'react-native-elements';
 
@@ -150,9 +150,9 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         tabBarLabel: ({ tintColor }) => (
           <View style={styles.tabbarIcon}>
 
-            <Ionicons
+            <Feather
               color={tintColor}
-              name="md-play"
+              name="play"
               size={26}
             />
           </View>

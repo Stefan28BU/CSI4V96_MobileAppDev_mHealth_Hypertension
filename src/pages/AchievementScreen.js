@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, Dimensions, TouchableOpacity, Alert, Animated } from 'react-native';
-import { learningProgress, totalCredits, addCredit, achieve1, achieve2, achieve3, completeAch1, completeAch2, completeAch3 } from '../globals/progress'
+// import { learningProgress, totalCredits, addCredit, achieve1, achieve2, achieve3, completeAch1, completeAch2, completeAch3 } from '../globals/progress'
+
+import progress from '../globals/progress'
+import credit from '../globals/credit'
+
 import { ScrollView } from 'react-native-gesture-handler';
 import { NavigationEvents } from 'react-navigation';
 import { withTheme } from 'react-native-elements';
 
-let gold = 0;
+let goldTotal = 0;
 
 export class AchievementScreen extends Component {
     constructor(props) {
@@ -44,62 +48,61 @@ export class AchievementScreen extends Component {
 
         this.forceUpdate()
 
-        if (learningProgress >= 25) {
-            const credit = 50;
+        if (progress.learningProgress >= 25) {
+            const c = 50;
             this.state.achievementList.push(
                 {
                     title: 'Live and learn',
-                    credit: credit
+                    gold: c
                 }
             );
 
-            if (!achieve1) {
-                addCredit(credit);
-                completeAch1();
+            if (!credit.achieve1) {
+                credit.addCredit(c);
+                credit.completeAch1();
 
-                gold += credit
+                goldTotal += c
             }
         }
 
-        if (learningProgress >= 75) {
-            const credit = 25;
+        if (progress.learningProgress >= 75) {
+            const c = 25;
             this.state.achievementList.push(
                 {
                     title: 'No longer a rookie',
-                    credit: credit
+                    gold: c
                 }
             );
 
-            if (!achieve2) {
-                addCredit(credit);
-                completeAch2();
+            if (!credit.achieve2) {
+                credit.addCredit(c);
+                credit.completeAch2();
 
-                gold += credit
+                goldTotal += c
             }
 
         }
 
-        if (learningProgress >= 100) {
-            const credit = 100;
+        if (progress.learningProgress >= 100) {
+            const c = 100;
             this.state.achievementList.push(
                 {
                     title: 'Say no to Hypertension!',
-                    credit: credit
+                    gold: c
                 }
             );
 
 
-            if (!achieve3) {
-                addCredit(credit);
-                completeAch3();
+            if (!credit.achieve3) {
+                credit.addCredit(c);
+                credit.completeAch3();
 
-                gold += credit
+                goldTotal += c
             }
         }
 
-        this.setState({totalGold: gold})
+        this.setState({totalGold: goldTotal})
 
-        console.log(this.state.achievementList.length)
     }
 
     render() {
@@ -129,17 +132,17 @@ export class AchievementScreen extends Component {
                     <Animated.View style={{
                         height: '50%',
                         aspectRatio: 1,
-                        backgroundColor: '#40e0d0',
+                        backgroundColor: '#ffd700',
                         borderRadius: 999,
                         display: "flex",
                         justifyContent: 'center',
                         alignItems: 'center',
                         textAlign: 'center',
 
-                        shadowColor: '#00fa9a',
+                        shadowColor: '#ffd700',
                         shadowOpacity: this.state.achAnim,
                         shadowOffset: { height: 0, width: 0 },
-                        shadowRadius: 18,
+                        shadowRadius: 14,
                     }}>
                         <Text style={{
                             fontSize: 36,
@@ -154,7 +157,7 @@ export class AchievementScreen extends Component {
                 }}>
                     <View style={styles.scroll}>
                         {this.state.achievementList.map((item, key) =>
-                            <TouchableOpacity style={styles.achCnt} key={key} onPress={() => Alert.alert('You have earned ' + item.credit + ' credits from this achievement')}>
+                            <TouchableOpacity style={styles.achCnt} key={key} onPress={() => Alert.alert('You have earned ' + item.gold + ' credits from this achievement')}>
                                 <Text style={styles.achItem}>
                                     {item.title}
                                 </Text>

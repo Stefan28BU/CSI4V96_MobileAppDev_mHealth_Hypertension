@@ -8,8 +8,13 @@ import VideoPlayer from 'expo-video-player';
 import FastImage from 'react-native-fast-image';
 import { findCoordinates } from '../utils/findCoordinate';
 import { Asset } from 'expo-asset';
-import { completePart1, completePart2, completePart3, completePart4, compP1, compP2, compP3, compP4, learningProgress, getProgress } from '../globals/progress'
+// import { completePart1, completePart2, completePart3, completePart4, compP1, compP2, compP3, compP4, learningProgress, getProgress } from '../globals/progress'
+
+import progress from '../globals/progress'
+
+
 import { Icon } from 'react-native-elements';
+import { Feather, Ionicons, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { AppLoading } from 'expo';
 
@@ -42,14 +47,14 @@ export class WatchVideosScreen extends Component {
         const loc = await findCoordinates();
         console.log(loc);
 
-        if (learningProgress >= 25) {
+        if (progress.learningProgress >= 25) {
             this.setState({ lockSecond: false })
         }
-        if (learningProgress >= 50) {
+        if (progress.learningProgress >= 50) {
             this.setState({ lockThird: false })
 
         }
-        if (learningProgress >= 75) {
+        if (progress.learningProgress >= 75) {
             this.setState({ lockLast: false })
         }
 
@@ -70,15 +75,15 @@ export class WatchVideosScreen extends Component {
         require('../globals/progress')
         this.forceUpdate();
 
-        console.log('Updated progress is: ' + learningProgress)
-        if (learningProgress >= 25) {
+        console.log('Updated progress is: ' + progress.learningProgress)
+        if (progress.learningProgress >= 25) {
             this.setState({ lockSecond: false })
         }
-        if (learningProgress >= 50) {
+        if (progress.learningProgress >= 50) {
             this.setState({ lockThird: false })
 
         }
-        if (learningProgress >= 75) {
+        if (progress.learningProgress >= 75) {
             this.setState({ lockLast: false })
         }
     }
@@ -92,28 +97,37 @@ export class WatchVideosScreen extends Component {
                         onWillFocus={this.focused}
                     />
                     <VideoButton subTitle={0} disabled={false} style={styles.img} onPress={() => this.props.navigation.navigate('Part 1: Introduction')} source={require('../imageAssets/04.jpg')} label={"Part 1: What is High BP?"}>
-                        {learningProgress >= 25 &&
+                        {progress.learningProgress >= 25 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
                                 resizeMode: "cover",
-                                backgroundColor: 'rgba(255,255,255,0.6)',
+                                backgroundColor: 'rgba(255,255,255,0.4)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                textAlign: 'center'
+                                textAlign: 'center',
+
+                                shadowColor: '#40e0d0',
+                                shadowOpacity: 1,
+                                shadowOffset: { height: 0, width: 0 },
+                                shadowRadius: 10,
                             }}>
-                                <Icon
+                                <Feather
                                     // color={'#40e0d0'}
-                                    color={'black'}
-                                    name="check"
+                                    color={'white'}
+                                    name="check-circle"
                                     size={100}
                                 />
                                 <Text style={{
                                     fontSize: 20,
-                                    color: 'black',
+                                    color: 'white',
                                     marginTop: 15,
-                                    fontWeight: 'bold'
+                                    fontWeight: 'bold',
+
+                                    
+
+                                  
                                 }}>
                                     Part 1 completed
                                 </Text>
@@ -121,26 +135,31 @@ export class WatchVideosScreen extends Component {
                         }
                     </VideoButton>
                     <VideoButton subTitle={1} disabled={this.state.lockSecond} style={styles.img} onPress={() => this.props.navigation.navigate('Part 2: Causes')} source={require('../imageAssets/03.jpg')} label={"Part 2: What causes High BP?"}>
-                        {learningProgress >= 50 &&
+                        {progress.learningProgress >= 50 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
                                 resizeMode: "cover",
-                                backgroundColor: 'rgba(255,255,255,0.6)',
+                                backgroundColor: 'rgba(255,255,255,0.4)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                textAlign: 'center'
+                                textAlign: 'center',
+
+                                shadowColor: '#40e0d0',
+                                shadowOpacity: 1,
+                                shadowOffset: { height: 0, width: 0 },
+                                shadowRadius: 10,
                             }}>
-                                <Icon
+                                <Feather
                                     // color={'#40e0d0'}
-                                    color={'black'}
-                                    name="check"
+                                    color={'white'}
+                                    name="check-circle"
                                     size={100}
                                 />
                                 <Text style={{
                                     fontSize: 20,
-                                    color: 'black',
+                                    color: 'white',
                                     marginTop: 15,
                                     fontWeight: 'bold'
                                 }}>
@@ -150,26 +169,31 @@ export class WatchVideosScreen extends Component {
                         }
                     </VideoButton>
                     <VideoButton subTitle={2} disabled={this.state.lockThird} style={styles.img} onPress={() => this.props.navigation.navigate('Part 3: Symptoms')} source={require('../imageAssets/02.jpg')} label={"Part 3: Symptoms of High BP"}>
-                        {learningProgress >= 75 &&
+                        {progress.learningProgress >= 75 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
                                 resizeMode: "cover",
-                                backgroundColor: 'rgba(255,255,255,0.6)',
+                                backgroundColor: 'rgba(255,255,255,0.4)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                textAlign: 'center'
+                                textAlign: 'center',
+
+                                shadowColor: '#40e0d0',
+                                shadowOpacity: 1,
+                                shadowOffset: { height: 0, width: 0 },
+                                shadowRadius: 10,
                             }}>
-                                <Icon
+                                <Feather
                                     // color={'#40e0d0'}
-                                    color={'black'}
-                                    name="check"
+                                    color={'white'}
+                                    name="check-circle"
                                     size={100}
                                 />
                                 <Text style={{
                                     fontSize: 20,
-                                    color: 'black',
+                                    color: 'white',
                                     marginTop: 15,
                                     fontWeight: 'bold'
                                 }}>
@@ -179,26 +203,31 @@ export class WatchVideosScreen extends Component {
                         }
                     </VideoButton>
                     <VideoButton subTitle={3} disabled={this.state.lockLast} style={styles.img} onPress={() => this.props.navigation.navigate('Part 4: Treatments')} source={require('../imageAssets/01.jpg')} label={"Part 4: Diagnosis of High BP"}>
-                        {learningProgress >= 100 &&
+                        {progress.learningProgress >= 100 &&
                             <View style={{
                                 width: '100%',
                                 height: 240,
                                 resizeMode: "cover",
-                                backgroundColor: 'rgba(255,255,255,0.6)',
+                                backgroundColor: 'rgba(255,255,255,0.4)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                textAlign: 'center'
+                                textAlign: 'center',
+
+                                shadowColor: '#40e0d0',
+                                shadowOpacity: 1,
+                                shadowOffset: { height: 0, width: 0 },
+                                shadowRadius: 10,
                             }}>
-                                <Icon
+                                <Feather
                                     // color={'#40e0d0'}
-                                    color={'black'}
-                                    name="check"
+                                    color={'white'}
+                                    name="check-circle"
                                     size={100}
                                 />
                                 <Text style={{
                                     fontSize: 20,
-                                    color: 'black',
+                                    color: 'white',
                                     marginTop: 15,
                                     fontWeight: 'bold'
                                 }}>

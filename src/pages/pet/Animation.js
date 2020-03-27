@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import defineFrames from './define-frames';
 
-import PET_STATUS from './Pet';
-
 
 // PetScreen component
 class Animation extends Component {
@@ -13,6 +11,9 @@ class Animation extends Component {
       prevAnimation: this.props.prevAnimation,
 
       currentFrame: 1,
+      // animationName: 'neutral',
+
+      // animationFrames: defineFrames.neutral.frames,
       animationName: this.props.animationName,
       animationFrames: defineFrames[this.props.animationName].frames,
       loopIndex: 2,

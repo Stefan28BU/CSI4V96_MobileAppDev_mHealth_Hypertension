@@ -55,17 +55,7 @@ class Pet {
             this.cleanliness = PET_CONSTANTS.DEAD_CLEAN;
         }
     }
-
-    isAlive() {
-        return this.isAlive;
-    }
-
-    revive() {
-        this.fullness = 50;
-        this.fitness = 50;
-        this.cleanliness = 50;
-    }
-
+  
     kill_ThisIsOnlyForTexting() {
         this.fullness = PET_STATUS.DEAD_FULL;
         this.fitness = PET_STATUS.DEAD_FITNESS;
@@ -131,6 +121,19 @@ class Pet {
 
         this.reset()
     };
+
+    revive() {
+        if (!this.isAlive) {
+            this.fullness = 50;
+            this.fitness = 50;
+            this.cleanliness = 50;
+        } else {
+
+        }
+
+        this.reset()
+    }
+
 
     play() {
         if (this.isAlive) {

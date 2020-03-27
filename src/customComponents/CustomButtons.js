@@ -4,7 +4,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { Icon } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
 
-import { completePart1, completePart2, completePart3, completePart4, compP1, compP2, compP3, compP4, learningProgress } from '../globals/progress'
 
 
 export const BackButton = ({ navigation }) => {
