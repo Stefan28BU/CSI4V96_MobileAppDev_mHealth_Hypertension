@@ -9,7 +9,11 @@ class Credit {
 
 
     reduceCredit(c) {
-        this.totalCredits = this.totalCredits - c;
+        let temp = this.totalCredits;
+
+        // if (temp - c >= 0) {
+            this.totalCredits = this.totalCredits - c;
+        // }
     }
 
     addCredit(c) {

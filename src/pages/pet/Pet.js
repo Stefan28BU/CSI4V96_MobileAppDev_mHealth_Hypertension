@@ -55,7 +55,7 @@ class Pet {
             this.cleanliness = PET_CONSTANTS.DEAD_CLEAN;
         }
     }
-  
+
     kill_ThisIsOnlyForTexting() {
         this.fullness = PET_STATUS.DEAD_FULL;
         this.fitness = PET_STATUS.DEAD_FITNESS;
@@ -77,9 +77,10 @@ class Pet {
 
                 return PET_STATUS.happy;
             } else if (this.fullness < 50 && this.fitness < 50 && this.cleanliness < 50) {
+                if (this.cleanliness <= 35) {
+                    return PET_STATUS.sick;
+                }
                 return PET_STATUS.sad;
-            } else if (this.cleanliness <= 35) {
-                return PET_STATUS.sick;
             } 
         }
 
@@ -100,8 +101,11 @@ class Pet {
                 this.newStatus = PET_STATUS.happy;
             } else if (this.fullness < 50 && this.fitness < 50 && this.cleanliness < 50) {
                 this.newStatus = PET_STATUS.sad;
-            } else if (this.cleanliness <= 35) {
-                this.newStatus = PET_STATUS.sick;
+
+                if (this.cleanliness <= 35) {
+                    this.newStatus = PET_STATUS.sick;
+                }
+
             } else {
                 this.newStatus = PET_STATUS.neutral;
             }

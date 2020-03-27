@@ -65,7 +65,11 @@ export class AchievementScreen extends Component {
 
         this.setState({ totalGold: goldTotal })
 
-        Alert.alert("You earned " + goldTotal + " from your achievements!")
+        if (this.state.achievementList.length > 0) {
+            Alert.alert("You earned " + goldTotal + " from your achievements!")
+        } else {
+            Alert.alert("You have no achievements yet!")
+        }
     }
 
     _startAchAnim = () => {

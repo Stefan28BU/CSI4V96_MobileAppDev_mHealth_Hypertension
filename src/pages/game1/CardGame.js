@@ -5,6 +5,8 @@ import { Audio } from 'expo-av';
 import {checkLogInStatus, writeToCache, readFromCache} from './../../localCache/LocalCache';
 import * as SecureStore from 'expo-secure-store';
 
+import {AppCredit, AppProgress} from '../../globals/appManager'
+
 const back = require('./img/back.png');
 const removed = require('./img/cross-wrong.png');
 const apple = require('./img/apple.jpg');
@@ -170,9 +172,12 @@ export class CardGame extends Component {
                 return
             }
         }
+        
+        AppCredit.addCredit(30);
+
         Alert.alert(
             'Congratualation!',
-            'You win this game! You have unlock the next stage!',
+            'You win this game! You have earned 30 gold from this game' ,
             [
                 {
                     text: 'continue', onPress: () => {

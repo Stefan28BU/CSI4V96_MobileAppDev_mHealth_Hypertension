@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, Dimensions, Animated } from 'react-native';
+import { View, Text, StyleSheet, Button, Dimensions, Animated, Alert } from 'react-native';
 import Animation from './pet/Animation';
 import Pet from './pet/Pet'
 import { Asset } from 'expo-asset';
@@ -7,7 +7,8 @@ import { Video } from 'expo-av';
 import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-import {AppCredit, AppProgress} from '../globals/appManager';
+import { AppCredit, AppProgress } from '../globals/appManager';
+import App from '../../App';
 
 export const MyPet = new Pet('Bob');
 
@@ -70,18 +71,29 @@ export class PetScreen extends Component {
 
 
   pressPlay() {
-    MyPet.play();
-    MyPet.updatePetStatus()
-    AppCredit.reduceCredit(10);
+
+    if (AppCredit.totalCredits >= 10) {
+      AppCredit.reduceCredit(10);
+      MyPet.play();
+      MyPet.updatePetStatus()
+    } else {
+      Alert.alert("Not enough credit")
+    }
     // this.forceUpdate();
 
     this.setPetState();
   }
 
   pressFeed() {
-    MyPet.feed();
-    MyPet.updatePetStatus()
-    AppCredit.reduceCredit(40);
+    if (AppCredit.totalCredits >= 40) {
+
+      MyPet.feed();
+      MyPet.updatePetStatus()
+      AppCredit.reduceCredit(40);
+    } else {
+      Alert.alert("Not enough credit")
+
+    }
 
     // this.forceUpdate();
 
@@ -90,9 +102,15 @@ export class PetScreen extends Component {
   }
 
   pressClean() {
-    MyPet.clean();
-    MyPet.updatePetStatus()
-    AppCredit.reduceCredit(30);
+    if (AppCredit.totalCredits >= 30) {
+
+      MyPet.clean();
+      MyPet.updatePetStatus()
+      AppCredit.reduceCredit(30);
+    } else {
+      Alert.alert("Not enough credit")
+
+    }
 
     // this.forceUpdate();
 
@@ -101,9 +119,15 @@ export class PetScreen extends Component {
   }
 
   pressRevive() {
-    MyPet.revive();
-    MyPet.updatePetStatus()
-    AppCredit.reduceCredit(200);
+    if (AppCredit.totalCredits >= 200) {
+
+      MyPet.revive();
+      MyPet.updatePetStatus()
+      AppCredit.reduceCredit(200);
+    } else {
+      Alert.alert("Not enough credit")
+
+    }
     // this.forceUpdate();
 
     this.setPetState();
