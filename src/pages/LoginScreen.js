@@ -129,7 +129,6 @@ export class Login extends Component {
             value={this.state.username}
             onChangeText={(username) => this.setState({ username })}
           />
-          <Text style={styles.name}>Password: </Text>
           <TextValidator
             title="Password: "
             style={styles.input}
