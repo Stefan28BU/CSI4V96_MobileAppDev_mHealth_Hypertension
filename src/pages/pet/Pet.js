@@ -73,13 +73,12 @@ class Pet {
         } else {
             this.isAlive = true;
 
-            if (this.fullness >= 75 && this.fitness >= 75 && this.cleanliness >= 75) {
+            if (this.cleanliness <= 35) {
+                return PET_STATUS.sick;
+            } else if (this.fullness >= 75 && this.fitness >= 75 && this.cleanliness >= 75) {
 
                 return PET_STATUS.happy;
             } else if (this.fullness < 50 && this.fitness < 50 && this.cleanliness < 50) {
-                if (this.cleanliness <= 35) {
-                    return PET_STATUS.sick;
-                }
                 return PET_STATUS.sad;
             } 
         }
@@ -97,15 +96,12 @@ class Pet {
         } else {
             this.isAlive = true;
 
-            if (this.fullness >= 75 && this.fitness >= 75 && this.cleanliness >= 75) {
+            if (this.cleanliness <= 35) {
+                this.newStatus = PET_STATUS.sick;
+            } else if (this.fullness >= 75 && this.fitness >= 75 && this.cleanliness >= 75) {
                 this.newStatus = PET_STATUS.happy;
             } else if (this.fullness < 50 && this.fitness < 50 && this.cleanliness < 50) {
                 this.newStatus = PET_STATUS.sad;
-
-                if (this.cleanliness <= 35) {
-                    this.newStatus = PET_STATUS.sick;
-                }
-
             } else {
                 this.newStatus = PET_STATUS.neutral;
             }

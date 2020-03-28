@@ -172,12 +172,14 @@ export class CardGame extends Component {
                 return
             }
         }
+
+        const gold = this.state.score * 2;
         
-        AppCredit.addCredit(30);
+        AppCredit.addCredit(gold);
 
         Alert.alert(
             'Congratualation!',
-            'You win this game! You have earned 30 gold from this game' ,
+            'You win this game! You have earned ' + gold +  ' gold from this game' ,
             [
                 {
                     text: 'continue', onPress: () => {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, Dimensions, Animated, Alert } from 'react-native';
+import { View, Text, StyleSheet, Button, Dimensions, Animated, Alert, Platform } from 'react-native';
 import Animation from './pet/Animation';
 import Pet from './pet/Pet'
 import { Asset } from 'expo-asset';
@@ -8,7 +8,6 @@ import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { AppCredit, AppProgress } from '../globals/appManager';
-import App from '../../App';
 
 export const MyPet = new Pet('Bob');
 
@@ -18,9 +17,9 @@ export class PetScreen extends Component {
     super(props)
 
     this.state = {
-      fullnessStatus: new Animated.Value(MyPet.fullness),
-      cleanlinessStatus: new Animated.Value(MyPet.cleanliness),
-      fitnessStatus: new Animated.Value(MyPet.fitness),
+      fullnessStatus: MyPet.fullness,
+      cleanlinessStatus: MyPet.cleanliness,
+      fitnessStatus: MyPet.fitness,
 
       petStatus: MyPet.status,
       newPetStatus: MyPet.status,
@@ -172,7 +171,7 @@ export class PetScreen extends Component {
           </View>
 
           <View style={styles.petStatusBarA}>
-            <Animated.View style={{
+            <View style={{
               width: this.state.fullnessStatus.toString().concat('%'),
               height: '100%',
 
@@ -181,13 +180,13 @@ export class PetScreen extends Component {
               backgroundColor: 'rgba(255,255,255,0.7)',
               position: 'relative'
             }}>
-            </Animated.View>
+            </View>
             <Text style={styles.petBarText}>
               Fullness: {MyPet.fullness}
             </Text>
           </View>
           <View style={styles.petStatusBarB}>
-            <Animated.View style={{
+            <View style={{
               width: this.state.cleanlinessStatus.toString().concat('%'),
               height: '100%',
 
@@ -197,13 +196,13 @@ export class PetScreen extends Component {
               position: 'relative'
             }}>
 
-            </Animated.View>
+            </View>
             <Text style={styles.petBarText}>
               Cleanliness: {MyPet.cleanliness}
             </Text>
           </View>
           <View style={styles.petStatusBarC}>
-            <Animated.View style={{
+            <View style={{
               width: this.state.fitnessStatus.toString().concat('%'),
               height: '100%',
 
@@ -213,7 +212,7 @@ export class PetScreen extends Component {
               position: 'relative'
             }}>
 
-            </Animated.View>
+            </View>
             <Text style={styles.petBarText}>
               Fitness: {MyPet.fitness}
             </Text>
@@ -341,10 +340,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(50,50,50)',
     marginBottom: 6,
 
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    shadowOffset: { height: 0, width: 0 },
-    shadowRadius: 16,
+
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 16,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
+
   },
   petBarTextS: {
     color: 'white',
@@ -358,10 +366,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#ff1493',
     margin: 6,
 
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    shadowOffset: { height: 6, width: 0 },
-    shadowRadius: 16,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 16,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
   },
   petStatusBarB: {
     position: 'relative',
@@ -372,10 +387,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#00ff00',
     margin: 6,
 
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    shadowOffset: { height: 6, width: 0 },
-    shadowRadius: 16,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 16,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
   },
   petStatusBarC: {
     position: 'relative',
@@ -386,10 +408,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#00bfff',
     margin: 6,
 
-    shadowColor: 'black',
-    shadowOpacity: 0.5,
-    shadowOffset: { height: 6, width: 0 },
-    shadowRadius: 16,
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 16,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
   },
   petBarText: {
     color: 'black',
@@ -427,10 +456,19 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 10,
 
-    shadowColor: '#00fa9a',
-    shadowOpacity: 0.2,
-    shadowOffset: { height: 0, width: 0 },
-    shadowRadius: 20,
+    ...Platform.select({
+      ios: {
+
+        shadowColor: '#00fa9a',
+        shadowOpacity: 0.2,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 20,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
+
   },
 
   petActItemCnt: {
@@ -451,10 +489,18 @@ const styles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 10,
 
-    shadowColor: '#00fa9a',
-    shadowOpacity: 0.2,
-    shadowOffset: { height: 0, width: 0 },
-    shadowRadius: 20,
+    ...Platform.select({
+      ios: {
+
+        shadowColor: '#00fa9a',
+        shadowOpacity: 0.2,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 20,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
   },
   petActText: {
     color: 'white',
@@ -478,6 +524,19 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     // borderTopRightRadius: 10,
     // borderBottomRightRadius: 10,
+
+    ...Platform.select({
+      ios: {
+
+        shadowColor: '#ffd700',
+        shadowOpacity: 0.9,
+        shadowOffset: { height: 0, width: 0 },
+        shadowRadius: 12,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
 
     shadowColor: '#ffd700',
     shadowOpacity: 0.9,

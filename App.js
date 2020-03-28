@@ -233,6 +233,11 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 
 
       style: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+
         marginTop: 100,
         paddingLeft: 20,
         paddingRight: 20,
@@ -331,7 +336,7 @@ export const DashboardStackNavigator = createStackNavigator(
 
         headerBackTitle: ' ',
         headerBackground: () => <View style={styles.headerStyle} />,
-        headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
+        // headerRight: () => <Text style={styles.headerRight}>Hypertension</Text>,
         headerBackImage: () => <BackButton navigation={navigation} />,
         headerTintColor: 'white',
         // ...TransitionPresets.ModalPresentationIOS, // add this line
