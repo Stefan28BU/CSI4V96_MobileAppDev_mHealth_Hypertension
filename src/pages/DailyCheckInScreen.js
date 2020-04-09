@@ -20,14 +20,56 @@ export class DailyCheckinScreen extends Component {
         super(props)
 
         this.state = {
-
+            checkItemOpa: [
+                new Animated.Value(0),
+                new Animated.Value(0),
+                new Animated.Value(0),
+                new Animated.Value(0),
+            ]
         }
+    }
+
+    startItemAnimation = () => {
+        Animated.sequence([
+            Animated.timing(this.state.checkItemOpa[0], {
+                toValue: 1,
+                duration: 100,
+                useNativeDriver: true,
+            }),
+            Animated.timing(this.state.checkItemOpa[1], {
+                toValue: 1,
+                duration: 100,
+                useNativeDriver: true,
+            }),
+            Animated.timing(this.state.checkItemOpa[2], {
+                toValue: 1,
+                duration: 100,
+                useNativeDriver: true,
+            }),
+            Animated.timing(this.state.checkItemOpa[3], {
+                toValue: 1,
+                duration: 100,
+                useNativeDriver: true,
+            }),
+        ]).start();
     }
     render() {
         return (
             <View style={styles.container}>
-                <View style={styles.checkItem}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Log Your Meal')}  style={styles.checkinTouch}>
+                <NavigationEvents onWillFocus={() => this.startItemAnimation()} />
+                <Animated.View style={[styles.checkItem, {
+                    opacity: this.state.checkItemOpa[0],
+
+                    transform: [
+                        {
+                            scale: this.state.checkItemOpa[0].interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.5, 1],
+                            })
+                        }
+                    ]
+                }]}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Log Your Meal')} style={styles.checkinTouch}>
                         <MaterialCommunityIcons
                             color={'#1e90ff'}
                             name="food-fork-drink"
@@ -37,9 +79,20 @@ export class DailyCheckinScreen extends Component {
                             Log My Meal
                         </Text>
                     </TouchableOpacity>
-                </View>
-                <View style={styles.checkItem}>
-                    <TouchableOpacity  style={styles.checkinTouch}>
+                </Animated.View>
+                <Animated.View style={[styles.checkItem, {
+                    opacity: this.state.checkItemOpa[1],
+
+                    transform: [
+                        {
+                            scale: this.state.checkItemOpa[1].interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.5, 1],
+                            })
+                        }
+                    ]
+                }]}>
+                    <TouchableOpacity style={styles.checkinTouch}>
                         <FontAwesome
                             color={'#ff6347'}
                             name="tachometer"
@@ -49,9 +102,20 @@ export class DailyCheckinScreen extends Component {
                             Log My Blood Pressure
                         </Text>
                     </TouchableOpacity>
-                </View>
-                <View style={styles.checkItem}>
-                    <TouchableOpacity  style={styles.checkinTouch}>
+                </Animated.View>
+                <Animated.View style={[styles.checkItem, {
+                    opacity: this.state.checkItemOpa[2],
+
+                    transform: [
+                        {
+                            scale: this.state.checkItemOpa[2].interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.5, 1],
+                            })
+                        }
+                    ]
+                }]}>
+                    <TouchableOpacity style={styles.checkinTouch}>
                         <MaterialCommunityIcons
                             color={'#ffe4c4'}
                             name="medical-bag"
@@ -61,9 +125,20 @@ export class DailyCheckinScreen extends Component {
                             Log My Medicine
                         </Text>
                     </TouchableOpacity>
-                </View>
-                <View style={styles.checkItem}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('My Routine')}style={styles.checkinTouch}>
+                </Animated.View>
+                <Animated.View style={[styles.checkItem, {
+                    opacity: this.state.checkItemOpa[3],
+
+                    transform: [
+                        {
+                            scale: this.state.checkItemOpa[3].interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.5, 1],
+                            })
+                        }
+                    ]
+                }]}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('My Routine')} style={styles.checkinTouch}>
                         <MaterialCommunityIcons
                             color={'#8a2be2'}
                             name="run"
@@ -73,7 +148,7 @@ export class DailyCheckinScreen extends Component {
                             Log My Exercise Routine
                         </Text>
                     </TouchableOpacity>
-                </View>
+                </Animated.View>
             </View>
         );
     }
@@ -91,13 +166,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     checkItem: {
-   
+
         width: '100%',
         // height: '10%',
         borderRadius: 20,
         backgroundColor: '#40e0d0',
 
-        shadowColor: '#00fa9a',
+        shadowColor: 'black',
         shadowOpacity: 0.3,
         shadowOffset: { height: 0, width: 0 },
         shadowRadius: 18,

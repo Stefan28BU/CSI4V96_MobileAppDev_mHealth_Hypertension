@@ -53,7 +53,9 @@ export class DailyQuestScreen extends Component {
                 new Animated.Value(1),
                 new Animated.Value(1),
                 new Animated.Value(1),
-            ]
+            ],
+
+            cntOpacity: new Animated.Value(0),
 
         }
     }
@@ -62,12 +64,20 @@ export class DailyQuestScreen extends Component {
         this._startQueAnim();
 
         this.setState({
-            
+
         })
     }
 
     focused = () => {
+        this.startCntAnim();
+    }
 
+    startCntAnim = () => {
+        Animated.timing(this.state.cntOpacity, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+        }).start()
     }
 
     _startQueAnim = () => {
@@ -88,7 +98,7 @@ export class DailyQuestScreen extends Component {
     takeQuestOnPress = (index) => {
         Animated.timing(this.state.takeQOpa[index], {
             toValue: 0,
-            duration: 500,
+            duration: 300,
         }).start(
             () => {
                 this.state.inProgress[index] = true;
@@ -97,6 +107,8 @@ export class DailyQuestScreen extends Component {
             }
         )
     }
+
+
 
     render() {
         return (
@@ -116,371 +128,384 @@ export class DailyQuestScreen extends Component {
                         alignItems: 'center',
                     }}
                 >
-                    <View style={styles.queCnt}>
-                        <View style={styles.questItem}>
-                            <Text style={styles.questTxt}>
-                                Log Your Breakfast
-                            </Text>
-                        </View>
-                        <View style={styles.questBot}>
-                            <View style={styles.quesItInline}>
-                                <Text style={styles.questTxt}>
-                                    Status:
-                                 </Text>
-                                {this.state.complete[0] && !this.state.inProgress[0] &&
-                                    <Text style={[styles.questTxt, { color: '#40e0d0' }]}>
-                                        {" "}complete
-                                    </Text>
-                                }
-                                {!this.state.complete[0] && !this.state.inProgress[0] &&
-                                    <Text style={[styles.questTxt, { color: '#ff4500' }]}>
-                                        {" "}new
-                                    </Text>
-                                }
-                                {this.state.inProgress[0] &&
-                                    <Text style={[styles.questTxt, { color: '#00ff00' }]}>
-                                        {" "}in progress
-                                    </Text>
-                                }
-                            </View>
-
-                            <View style={styles.quesItInline}>
-                                <Text style={styles.questTxt}>
-                                    Reward:
-                                </Text>
-                                <Text style={[styles.questTxt, { color: '#ffd700' }]}>
-                                    {" "}50 gold
-                                </Text>
-                            </View>
-
-
-                            {!this.state.inProgress[0] &&
-                                <Animated.View style={[styles.takeQuest, {
-                                    shadowOpacity: this.state.queAnim,
-                                    opacity: this.state.takeQOpa[0],
-
-                                    transform: [
-                                        {
-                                            translateX: this.state.takeQOpa[0].interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [50, 0],
-                                            })
-                                        },
-                                        {
-                                            scale: this.state.takeQOpa[0].interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [2, 1],
-                                            })
-                                        }
-                                    ]
-                                }]}>
-
-                                    <TouchableOpacity onPress={() => this.takeQuestOnPress(0)} style={styles.checkTouch}>
-                                        <MaterialCommunityIcons
-                                            color={'black'}
-                                            name="check"
-                                            size={22}
-                                        />
-                                    </TouchableOpacity>
-
-                                </Animated.View>
+                    <Animated.View style={{
+                        width: '100%',
+                        height: '100%',
+                        opacity: this.state.cntOpacity,
+                        transform: [
+                            {
+                                translateY: this.state.cntOpacity.interpolate({
+                                    inputRange: [0, 1],
+                                    outputRange: [-100, 0]
+                                })
                             }
-
-                        </View>
-                    </View>
-
-                    <View style={styles.queCnt}>
-                        <View style={styles.questItem}>
-                            <Text style={styles.questTxt}>
-                                Log Your Lunch
+                        ]
+                    }}>
+                        <View style={styles.queCnt}>
+                            <View style={styles.questItem}>
+                                <Text style={styles.questTxt}>
+                                    Log Your Breakfast
                             </Text>
-                        </View>
-                        <View style={styles.questBot}>
-                            <View style={styles.quesItInline}>
-                                <Text style={styles.questTxt}>
-                                    Status:
+                            </View>
+                            <View style={styles.questBot}>
+                                <View style={styles.quesItInline}>
+                                    <Text style={styles.questTxt}>
+                                        Status:
                                  </Text>
-                                {this.state.complete[1] && !this.state.inProgress[1] &&
-                                    <Text style={[styles.questTxt, { color: '#40e0d0' }]}>
-                                        {" "}complete
+                                    {this.state.complete[0] && !this.state.inProgress[0] &&
+                                        <Text style={[styles.questTxt, { color: '#40e0d0' }]}>
+                                            {" "}complete
                                     </Text>
-                                }
-                                {!this.state.complete[1] && !this.state.inProgress[1] &&
-                                    <Text style={[styles.questTxt, { color: '#ff4500' }]}>
-                                        {" "}new
+                                    }
+                                    {!this.state.complete[0] && !this.state.inProgress[0] &&
+                                        <Text style={[styles.questTxt, { color: '#ff4500' }]}>
+                                            {" "}new
                                     </Text>
-                                }
-                                {this.state.inProgress[1] &&
-                                    <Text style={[styles.questTxt, { color: '#00ff00' }]}>
-                                        {" "}in progress
+                                    }
+                                    {this.state.inProgress[0] &&
+                                        <Text style={[styles.questTxt, { color: '#00ff00' }]}>
+                                            {" "}in progress
                                     </Text>
-                                }
-                            </View>
+                                    }
+                                </View>
 
-                            <View style={styles.quesItInline}>
-                                <Text style={styles.questTxt}>
-                                    Reward:
+                                <View style={styles.quesItInline}>
+                                    <Text style={styles.questTxt}>
+                                        Reward:
                                 </Text>
-                                <Text style={[styles.questTxt, { color: '#ffd700' }]}>
-                                    {" "}50 gold
+                                    <Text style={[styles.questTxt, { color: '#ffd700' }]}>
+                                        {" "}50 gold
                                 </Text>
+                                </View>
+
+
+                                {!this.state.inProgress[0] &&
+                                    <Animated.View style={[styles.takeQuest, {
+                                        shadowOpacity: this.state.queAnim,
+                                        opacity: this.state.takeQOpa[0],
+
+                                        transform: [
+                                            {
+                                                translateX: this.state.takeQOpa[0].interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [50, 0],
+                                                })
+                                            },
+                                            {
+                                                scale: this.state.takeQOpa[0].interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [2, 1],
+                                                })
+                                            }
+                                        ]
+                                    }]}>
+
+                                        <TouchableOpacity onPress={() => this.takeQuestOnPress(0)} style={styles.checkTouch}>
+                                            <MaterialCommunityIcons
+                                                color={'black'}
+                                                name="check"
+                                                size={22}
+                                            />
+                                        </TouchableOpacity>
+
+                                    </Animated.View>
+                                }
+
                             </View>
-
-
-                            {!this.state.inProgress[1] &&
-                                <Animated.View style={[styles.takeQuest, {
-                                    shadowOpacity: this.state.queAnim,
-                                    opacity: this.state.takeQOpa[1],
-
-                                    transform: [
-                                        {
-                                            translateX: this.state.takeQOpa[1].interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [50, 0],
-                                            })
-                                        },
-                                        {
-                                            scale: this.state.takeQOpa[1].interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [2, 1],
-                                            })
-                                        }
-                                    ]
-                                }]}>
-
-                                    <TouchableOpacity onPress={() => this.takeQuestOnPress(1)} style={styles.checkTouch}>
-                                        <MaterialCommunityIcons
-                                            color={'black'}
-                                            name="check"
-                                            size={22}
-                                        />
-                                    </TouchableOpacity>
-
-                                </Animated.View>
-                            }
-
                         </View>
-                    </View>
 
-                    <View style={styles.queCnt}>
-                        <View style={styles.questItem}>
-                            <Text style={styles.questTxt}>
-                                Log Your Dinner
+                        <View style={styles.queCnt}>
+                            <View style={styles.questItem}>
+                                <Text style={styles.questTxt}>
+                                    Log Your Lunch
                             </Text>
-                        </View>
-                        <View style={styles.questBot}>
-                            <View style={styles.quesItInline}>
-                                <Text style={styles.questTxt}>
-                                    Status:
+                            </View>
+                            <View style={styles.questBot}>
+                                <View style={styles.quesItInline}>
+                                    <Text style={styles.questTxt}>
+                                        Status:
                                  </Text>
-                                {this.state.complete[2] && !this.state.inProgress[2] &&
-                                    <Text style={[styles.questTxt, { color: '#40e0d0' }]}>
-                                        {" "}complete
+                                    {this.state.complete[1] && !this.state.inProgress[1] &&
+                                        <Text style={[styles.questTxt, { color: '#40e0d0' }]}>
+                                            {" "}complete
                                     </Text>
-                                }
-                                {!this.state.complete[2] && !this.state.inProgress[2] &&
-                                    <Text style={[styles.questTxt, { color: '#ff4500' }]}>
-                                        {" "}new
+                                    }
+                                    {!this.state.complete[1] && !this.state.inProgress[1] &&
+                                        <Text style={[styles.questTxt, { color: '#ff4500' }]}>
+                                            {" "}new
                                     </Text>
-                                }
-                                {this.state.inProgress[2] &&
-                                    <Text style={[styles.questTxt, { color: '#00ff00' }]}>
-                                        {" "}in progress
+                                    }
+                                    {this.state.inProgress[1] &&
+                                        <Text style={[styles.questTxt, { color: '#00ff00' }]}>
+                                            {" "}in progress
                                     </Text>
-                                }
-                            </View>
+                                    }
+                                </View>
 
-                            <View style={styles.quesItInline}>
-                                <Text style={styles.questTxt}>
-                                    Reward:
+                                <View style={styles.quesItInline}>
+                                    <Text style={styles.questTxt}>
+                                        Reward:
                                 </Text>
-                                <Text style={[styles.questTxt, { color: '#ffd700' }]}>
-                                    {" "}50 gold
+                                    <Text style={[styles.questTxt, { color: '#ffd700' }]}>
+                                        {" "}50 gold
                                 </Text>
+                                </View>
+
+
+                                {!this.state.inProgress[1] &&
+                                    <Animated.View style={[styles.takeQuest, {
+                                        shadowOpacity: this.state.queAnim,
+                                        opacity: this.state.takeQOpa[1],
+
+                                        transform: [
+                                            {
+                                                translateX: this.state.takeQOpa[1].interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [50, 0],
+                                                })
+                                            },
+                                            {
+                                                scale: this.state.takeQOpa[1].interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [2, 1],
+                                                })
+                                            }
+                                        ]
+                                    }]}>
+
+                                        <TouchableOpacity onPress={() => this.takeQuestOnPress(1)} style={styles.checkTouch}>
+                                            <MaterialCommunityIcons
+                                                color={'black'}
+                                                name="check"
+                                                size={22}
+                                            />
+                                        </TouchableOpacity>
+
+                                    </Animated.View>
+                                }
+
                             </View>
-
-
-                            {!this.state.inProgress[2] &&
-                                <Animated.View style={[styles.takeQuest, {
-                                    shadowOpacity: this.state.queAnim,
-                                    opacity: this.state.takeQOpa[2],
-
-                                    transform: [
-                                        {
-                                            translateX: this.state.takeQOpa[2].interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [50, 0],
-                                            })
-                                        },
-                                        {
-                                            scale: this.state.takeQOpa[2].interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [2, 1],
-                                            })
-                                        }
-                                    ]
-                                }]}>
-
-                                    <TouchableOpacity onPress={() => this.takeQuestOnPress(2)} style={styles.checkTouch}>
-                                        <MaterialCommunityIcons
-                                            color={'black'}
-                                            name="check"
-                                            size={22}
-                                        />
-                                    </TouchableOpacity>
-
-                                </Animated.View>
-                            }
-
                         </View>
-                    </View>
 
-                    <View style={styles.queCnt}>
-                        <View style={styles.questItem}>
-                            <Text style={styles.questTxt}>
-                                Log Your Blood Pressure
+                        <View style={styles.queCnt}>
+                            <View style={styles.questItem}>
+                                <Text style={styles.questTxt}>
+                                    Log Your Dinner
                             </Text>
-                        </View>
-                        <View style={styles.questBot}>
-                            <View style={styles.quesItInline}>
-                                <Text style={styles.questTxt}>
-                                    Status:
+                            </View>
+                            <View style={styles.questBot}>
+                                <View style={styles.quesItInline}>
+                                    <Text style={styles.questTxt}>
+                                        Status:
                                  </Text>
-                                {this.state.complete[3] && !this.state.inProgress[3] &&
-                                    <Text style={[styles.questTxt, { color: '#40e0d0' }]}>
-                                        {" "}complete
+                                    {this.state.complete[2] && !this.state.inProgress[2] &&
+                                        <Text style={[styles.questTxt, { color: '#40e0d0' }]}>
+                                            {" "}complete
                                     </Text>
-                                }
-                                {!this.state.complete[3] && !this.state.inProgress[3] &&
-                                    <Text style={[styles.questTxt, { color: '#ff4500' }]}>
-                                        {" "}new
+                                    }
+                                    {!this.state.complete[2] && !this.state.inProgress[2] &&
+                                        <Text style={[styles.questTxt, { color: '#ff4500' }]}>
+                                            {" "}new
                                     </Text>
-                                }
-                                {this.state.inProgress[3] &&
-                                    <Text style={[styles.questTxt, { color: '#00ff00' }]}>
-                                        {" "}in progress
+                                    }
+                                    {this.state.inProgress[2] &&
+                                        <Text style={[styles.questTxt, { color: '#00ff00' }]}>
+                                            {" "}in progress
                                     </Text>
-                                }
-                            </View>
+                                    }
+                                </View>
 
-                            <View style={styles.quesItInline}>
-                                <Text style={styles.questTxt}>
-                                    Reward:
+                                <View style={styles.quesItInline}>
+                                    <Text style={styles.questTxt}>
+                                        Reward:
                                 </Text>
-                                <Text style={[styles.questTxt, { color: '#ffd700' }]}>
-                                    {" "}50 gold
+                                    <Text style={[styles.questTxt, { color: '#ffd700' }]}>
+                                        {" "}50 gold
                                 </Text>
+                                </View>
+
+
+                                {!this.state.inProgress[2] &&
+                                    <Animated.View style={[styles.takeQuest, {
+                                        shadowOpacity: this.state.queAnim,
+                                        opacity: this.state.takeQOpa[2],
+
+                                        transform: [
+                                            {
+                                                translateX: this.state.takeQOpa[2].interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [50, 0],
+                                                })
+                                            },
+                                            {
+                                                scale: this.state.takeQOpa[2].interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [2, 1],
+                                                })
+                                            }
+                                        ]
+                                    }]}>
+
+                                        <TouchableOpacity onPress={() => this.takeQuestOnPress(2)} style={styles.checkTouch}>
+                                            <MaterialCommunityIcons
+                                                color={'black'}
+                                                name="check"
+                                                size={22}
+                                            />
+                                        </TouchableOpacity>
+
+                                    </Animated.View>
+                                }
+
                             </View>
-
-
-                            {!this.state.inProgress[3] &&
-                                <Animated.View style={[styles.takeQuest, {
-                                    shadowOpacity: this.state.queAnim,
-                                    opacity: this.state.takeQOpa[3],
-
-                                    transform: [
-                                        {
-                                            translateX: this.state.takeQOpa[3].interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [50, 0],
-                                            })
-                                        },
-                                        {
-                                            scale: this.state.takeQOpa[3].interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [2, 1],
-                                            })
-                                        }
-                                    ]
-                                }]}>
-
-                                    <TouchableOpacity onPress={() => this.takeQuestOnPress(3)} style={styles.checkTouch}>
-                                        <MaterialCommunityIcons
-                                            color={'black'}
-                                            name="check"
-                                            size={22}
-                                        />
-                                    </TouchableOpacity>
-
-                                </Animated.View>
-                            }
-
                         </View>
-                    </View>
 
-                    <View style={styles.queCnt}>
-                        <View style={styles.questItem}>
-                            <Text style={styles.questTxt}>
-                                Log Your Medicine
+                        <View style={styles.queCnt}>
+                            <View style={styles.questItem}>
+                                <Text style={styles.questTxt}>
+                                    Log Your Blood Pressure
                             </Text>
-                        </View>
-                        <View style={styles.questBot}>
-                            <View style={styles.quesItInline}>
-                                <Text style={styles.questTxt}>
-                                    Status:
+                            </View>
+                            <View style={styles.questBot}>
+                                <View style={styles.quesItInline}>
+                                    <Text style={styles.questTxt}>
+                                        Status:
                                  </Text>
-                                {this.state.complete[4] && !this.state.inProgress[4] &&
-                                    <Text style={[styles.questTxt, { color: '#40e0d0' }]}>
-                                        {" "}complete
+                                    {this.state.complete[3] && !this.state.inProgress[3] &&
+                                        <Text style={[styles.questTxt, { color: '#40e0d0' }]}>
+                                            {" "}complete
                                     </Text>
-                                }
-                                {!this.state.complete[4] && !this.state.inProgress[4] &&
-                                    <Text style={[styles.questTxt, { color: '#ff4500' }]}>
-                                        {" "}new
+                                    }
+                                    {!this.state.complete[3] && !this.state.inProgress[3] &&
+                                        <Text style={[styles.questTxt, { color: '#ff4500' }]}>
+                                            {" "}new
                                     </Text>
-                                }
-                                {this.state.inProgress[4] &&
-                                    <Text style={[styles.questTxt, { color: '#00ff00' }]}>
-                                        {" "}in progress
+                                    }
+                                    {this.state.inProgress[3] &&
+                                        <Text style={[styles.questTxt, { color: '#00ff00' }]}>
+                                            {" "}in progress
                                     </Text>
-                                }
-                            </View>
+                                    }
+                                </View>
 
-                            <View style={styles.quesItInline}>
-                                <Text style={styles.questTxt}>
-                                    Reward:
+                                <View style={styles.quesItInline}>
+                                    <Text style={styles.questTxt}>
+                                        Reward:
                                 </Text>
-                                <Text style={[styles.questTxt, { color: '#ffd700' }]}>
-                                    {" "}50 gold
+                                    <Text style={[styles.questTxt, { color: '#ffd700' }]}>
+                                        {" "}50 gold
                                 </Text>
+                                </View>
+
+
+                                {!this.state.inProgress[3] &&
+                                    <Animated.View style={[styles.takeQuest, {
+                                        shadowOpacity: this.state.queAnim,
+                                        opacity: this.state.takeQOpa[3],
+
+                                        transform: [
+                                            {
+                                                translateX: this.state.takeQOpa[3].interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [50, 0],
+                                                })
+                                            },
+                                            {
+                                                scale: this.state.takeQOpa[3].interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [2, 1],
+                                                })
+                                            }
+                                        ]
+                                    }]}>
+
+                                        <TouchableOpacity onPress={() => this.takeQuestOnPress(3)} style={styles.checkTouch}>
+                                            <MaterialCommunityIcons
+                                                color={'black'}
+                                                name="check"
+                                                size={22}
+                                            />
+                                        </TouchableOpacity>
+
+                                    </Animated.View>
+                                }
+
                             </View>
-
-
-                            {!this.state.inProgress[4] &&
-                                <Animated.View style={[styles.takeQuest, {
-                                    shadowOpacity: this.state.queAnim,
-                                    opacity: this.state.takeQOpa[4],
-
-                                    transform: [
-                                        {
-                                            translateX: this.state.takeQOpa[4].interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [50, 0],
-                                            })
-                                        },
-                                        {
-                                            scale: this.state.takeQOpa[4].interpolate({
-                                                inputRange: [0, 1],
-                                                outputRange: [2, 1],
-                                            })
-                                        }
-                                    ]
-                                }]}>
-
-                                    <TouchableOpacity onPress={() => this.takeQuestOnPress(4)} style={styles.checkTouch}>
-                                        <MaterialCommunityIcons
-                                            color={'black'}
-                                            name="check"
-                                            size={22}
-                                        />
-                                    </TouchableOpacity>
-
-                                </Animated.View>
-                            }
-
                         </View>
-                    </View>
 
+                        <View style={styles.queCnt}>
+                            <View style={styles.questItem}>
+                                <Text style={styles.questTxt}>
+                                    Log Your Medicine
+                            </Text>
+                            </View>
+                            <View style={styles.questBot}>
+                                <View style={styles.quesItInline}>
+                                    <Text style={styles.questTxt}>
+                                        Status:
+                                 </Text>
+                                    {this.state.complete[4] && !this.state.inProgress[4] &&
+                                        <Text style={[styles.questTxt, { color: '#40e0d0' }]}>
+                                            {" "}complete
+                                    </Text>
+                                    }
+                                    {!this.state.complete[4] && !this.state.inProgress[4] &&
+                                        <Text style={[styles.questTxt, { color: '#ff4500' }]}>
+                                            {" "}new
+                                    </Text>
+                                    }
+                                    {this.state.inProgress[4] &&
+                                        <Text style={[styles.questTxt, { color: '#00ff00' }]}>
+                                            {" "}in progress
+                                    </Text>
+                                    }
+                                </View>
+
+                                <View style={styles.quesItInline}>
+                                    <Text style={styles.questTxt}>
+                                        Reward:
+                                </Text>
+                                    <Text style={[styles.questTxt, { color: '#ffd700' }]}>
+                                        {" "}50 gold
+                                </Text>
+                                </View>
+
+
+                                {!this.state.inProgress[4] &&
+                                    <Animated.View style={[styles.takeQuest, {
+                                        shadowOpacity: this.state.queAnim,
+                                        opacity: this.state.takeQOpa[4],
+
+                                        transform: [
+                                            {
+                                                translateX: this.state.takeQOpa[4].interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [50, 0],
+                                                })
+                                            },
+                                            {
+                                                scale: this.state.takeQOpa[4].interpolate({
+                                                    inputRange: [0, 1],
+                                                    outputRange: [2, 1],
+                                                })
+                                            }
+                                        ]
+                                    }]}>
+
+                                        <TouchableOpacity onPress={() => this.takeQuestOnPress(4)} style={styles.checkTouch}>
+                                            <MaterialCommunityIcons
+                                                color={'black'}
+                                                name="check"
+                                                size={22}
+                                            />
+                                        </TouchableOpacity>
+
+                                    </Animated.View>
+                                }
+
+                            </View>
+                        </View>
+                    </Animated.View>
                 </ScrollView>
             </View>
         );
@@ -530,6 +555,13 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         borderRadius: 20,
         marginBottom: 20,
+
+
+        shadowColor: 'black',
+        shadowOpacity: 0.4,
+        shadowOffset: { height: 10, width: 0 },
+        shadowRadius: 30,
+
     },
     questBot: {
         width: '100%',
