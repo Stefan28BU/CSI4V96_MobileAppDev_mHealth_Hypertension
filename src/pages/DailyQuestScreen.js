@@ -60,6 +60,10 @@ export class DailyQuestScreen extends Component {
 
     componentDidMount() {
         this._startQueAnim();
+
+        this.setState({
+            
+        })
     }
 
     focused = () => {
@@ -161,6 +165,12 @@ export class DailyQuestScreen extends Component {
                                                 inputRange: [0, 1],
                                                 outputRange: [50, 0],
                                             })
+                                        },
+                                        {
+                                            scale: this.state.takeQOpa[0].interpolate({
+                                                inputRange: [0, 1],
+                                                outputRange: [2, 1],
+                                            })
                                         }
                                     ]
                                 }]}>
@@ -227,6 +237,12 @@ export class DailyQuestScreen extends Component {
                                             translateX: this.state.takeQOpa[1].interpolate({
                                                 inputRange: [0, 1],
                                                 outputRange: [50, 0],
+                                            })
+                                        },
+                                        {
+                                            scale: this.state.takeQOpa[1].interpolate({
+                                                inputRange: [0, 1],
+                                                outputRange: [2, 1],
                                             })
                                         }
                                     ]
@@ -295,6 +311,12 @@ export class DailyQuestScreen extends Component {
                                                 inputRange: [0, 1],
                                                 outputRange: [50, 0],
                                             })
+                                        },
+                                        {
+                                            scale: this.state.takeQOpa[2].interpolate({
+                                                inputRange: [0, 1],
+                                                outputRange: [2, 1],
+                                            })
                                         }
                                     ]
                                 }]}>
@@ -362,6 +384,12 @@ export class DailyQuestScreen extends Component {
                                                 inputRange: [0, 1],
                                                 outputRange: [50, 0],
                                             })
+                                        },
+                                        {
+                                            scale: this.state.takeQOpa[3].interpolate({
+                                                inputRange: [0, 1],
+                                                outputRange: [2, 1],
+                                            })
                                         }
                                     ]
                                 }]}>
@@ -428,6 +456,12 @@ export class DailyQuestScreen extends Component {
                                             translateX: this.state.takeQOpa[4].interpolate({
                                                 inputRange: [0, 1],
                                                 outputRange: [50, 0],
+                                            })
+                                        },
+                                        {
+                                            scale: this.state.takeQOpa[4].interpolate({
+                                                inputRange: [0, 1],
+                                                outputRange: [2, 1],
                                             })
                                         }
                                     ]
