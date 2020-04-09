@@ -62,6 +62,18 @@ export class DailyCheckinScreen extends Component {
                         </Text>
                     </TouchableOpacity>
                 </View>
+                <View style={styles.checkItem}>
+                    <TouchableOpacity  style={styles.checkinTouch}>
+                        <MaterialCommunityIcons
+                            color={'#8a2be2'}
+                            name="run"
+                            size={50}
+                        />
+                        <Text style={styles.checkTxt}>
+                            Log My Exercise Routine
+                        </Text>
+                    </TouchableOpacity>
+                </View>
             </View>
         );
     }
@@ -92,6 +104,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     checkTxt: {
+        marginTop: 4,
         color: 'white',
         fontSize: 20,
     },
