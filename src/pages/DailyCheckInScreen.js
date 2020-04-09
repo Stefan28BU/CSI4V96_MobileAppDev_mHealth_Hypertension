@@ -63,7 +63,7 @@ export class DailyCheckinScreen extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.checkItem}>
-                    <TouchableOpacity  style={styles.checkinTouch}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('My Routine')}style={styles.checkinTouch}>
                         <MaterialCommunityIcons
                             color={'#8a2be2'}
                             name="run"
