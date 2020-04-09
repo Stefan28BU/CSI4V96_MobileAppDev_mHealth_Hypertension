@@ -13,7 +13,7 @@ import {AppCredit, AppProgress} from '../globals/appManager';
 import { NavigationEvents } from 'react-navigation';
 
 import { Entypo, MaterialCommunityIcons, MaterialIcons, Ionicons, AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
-import { deleteItem } from './../localCache/LocalCache';
+import { deleteItem } from '../localCache/LocalCache';
 
 
 const SignOutBtn = (props) => {
@@ -372,11 +372,11 @@ export class ProfileScreen extends Component {
             top: 0,
             left: 0,
           }}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Log Your Meal')} style={styles.dashBtn}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Check In')} style={styles.dashBtn}>
 
-              <Entypo
+              <MaterialCommunityIcons
                 color={'#40e0d0'}
-                name="camera"
+                name="playlist-check"
                 size={38}
               />
               <Text style={{
@@ -384,7 +384,7 @@ export class ProfileScreen extends Component {
                 fontSize: 14,
                 marginTop: 4
               }}>
-                Log My Diet
+                Check In
             </Text>
 
             </TouchableOpacity>
@@ -412,12 +412,12 @@ export class ProfileScreen extends Component {
             top: 0,
             right: 0,
           }}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('My Routine')} style={styles.dashBtn}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Quests')} style={styles.dashBtn}>
 
               <MaterialCommunityIcons
 
                 color={'#40e0d0'}
-                name="map-marker-radius"
+                name="calendar-question"
                 size={38}
               />
               <Text style={{
@@ -425,7 +425,7 @@ export class ProfileScreen extends Component {
                 fontSize: 14,
                 marginTop: 4
               }}>
-                Daily Routine
+                Daily Quests
             </Text>
             </TouchableOpacity>
           </Animated.View>

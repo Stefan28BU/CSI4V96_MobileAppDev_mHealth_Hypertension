@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView, Platform, Alert } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView, Platform, Alert, Animated } from 'react-native';
 import { createAppContainer, createSwitchNavigator, CreateNavigatorConfig, NavigationStackRouterConfig, NavigationRoute } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { createDrawerNavigator } from 'react-navigation-drawer';
@@ -12,7 +12,7 @@ import {
 import { PlayGamesScreen } from "./src/pages/PlayGamesScreen";
 import { Login } from './src/pages/LoginScreen';
 import { PetScreen } from './src/pages/PetScreen';
-import { ProfileScreen } from './src/pages/ProfileScreen';
+import { ProfileScreen } from './src/pages/DashboardScreen';
 import { WatchVideosScreen } from './src/pages/WatchVideosScreen';
 import { WelcomeScreen } from './src/pages/WelcomeScreen';
 import { SignUpScreen } from './src/pages/SignUpScreen';
@@ -24,6 +24,7 @@ import { VideoScreen_3 } from './src/pages/videoScreens/VideoScreen_3';
 import { VideoScreen_4 } from './src/pages/videoScreens/VideoScreen_4';
 import { CameraPage } from './src/camera/camera.page';
 import { DailyRoutineScreen } from './src/pages/DailyRoutineScreen';
+import { DailyQuestScreen } from './src/pages/DailyQuestScreen';
 import { InformationScreen } from './src/pages/InformationScreen';
 import { AchievementScreen } from './src/pages/AchievementScreen';
 
@@ -43,7 +44,9 @@ import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import Spinner from 'react-native-loading-spinner-overlay';
 
-import {MyPet} from './src/pages/PetScreen';
+import { MyPet } from './src/pages/PetScreen';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { DailyCheckinScreen } from './src/pages/DailyCheckInScreen';
 
 
 const Auth = {
@@ -78,7 +81,8 @@ export default class App extends React.Component {
     this.state = {
       headerHeight: 0,
       isReady: false,
-      spinner: false
+      spinner: false,
+
     }
   }
 
@@ -139,6 +143,16 @@ export default class App extends React.Component {
   }
 }
 
+const scaleTab = [
+  new Animated.Value(1),
+  new Animated.Value(1),
+  new Animated.Value(1),
+  new Animated.Value(1),
+  new Animated.Value(1),
+  new Animated.Value(1),
+]
+
+
 
 export const DashboardTabNavigator = createBottomTabNavigator(
   {
@@ -150,12 +164,13 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: ({ tintColor }) => (
           <View style={styles.tabbarIcon}>
-
-            <Feather
-              color={tintColor}
-              name="play"
-              size={26}
-            />
+            <TouchableOpacity style={styles.tabbarTouch}>
+              <Feather
+                color={tintColor}
+                name="play"
+                size={26}
+              />
+            </TouchableOpacity>
           </View>
         )
       },
@@ -166,12 +181,13 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: ({ tintColor }) => (
           <View style={styles.tabbarIcon}>
-
-            <Ionicons
-              color={tintColor}
-              name="logo-game-controller-b"
-              size={26}
-            />
+            <TouchableOpacity style={styles.tabbarTouch}>
+              <Ionicons
+                color={tintColor}
+                name="logo-game-controller-b"
+                size={26}
+              />
+            </TouchableOpacity>
           </View>
         )
       },
@@ -185,12 +201,14 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 
         tabBarLabel: ({ tintColor }) => (
           <View style={styles.tabbarIcon}>
+            <TouchableOpacity style={styles.tabbarTouch}>
 
-            <Icon
-              color={tintColor}
-              name="child-care"
-              size={26}
-            />
+              <Icon
+                color={tintColor}
+                name="child-care"
+                size={26}
+              />
+            </TouchableOpacity>
           </View>
         )
       },
@@ -199,15 +217,17 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       screen: ProfileScreen,
 
       navigationOptions: {
-        
+
         tabBarLabel: ({ tintColor }) => (
           <View style={styles.tabbarIcon}>
+            <TouchableOpacity style={styles.tabbarTouch}>
 
-            <MaterialCommunityIcons
-              color={tintColor}
-              name="account"
-              size={26}
-            />
+              <MaterialCommunityIcons
+                color={tintColor}
+                name="account"
+                size={26}
+              />
+            </TouchableOpacity>
           </View>
         )
       },
@@ -298,34 +318,26 @@ export const DashboardStackNavigator = createStackNavigator(
     },
     'Log Your Meal': {
       screen: CameraPage,
-      // navigationOptions: {
-      //   headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
-      //   ></LinearGradient>,
-      // },
     },
 
     'Your Achievements': {
       screen: AchievementScreen,
-      // navigationOptions: {
-      //   headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
-      //   ></LinearGradient>,
-      // },
     },
 
     'My Information': {
       screen: InformationScreen,
-      // navigationOptions: {
-      //   headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
-      //   ></LinearGradient>,
-      // },
     },
 
     'My Routine': {
       screen: DailyRoutineScreen,
-      // navigationOptions: {
-      //   headerBackground: () => <LinearGradient colors={['#4568dc', '#b06ab3']} style={[StyleSheet.absoluteFill]}
-      //   ></LinearGradient>,
-      // },
+    },
+
+    'Quests': {
+      screen: DailyQuestScreen,
+    },
+
+    'Check In': {
+      screen: DailyCheckinScreen,
     },
 
   },
@@ -426,5 +438,14 @@ const styles = StyleSheet.create({
   },
   tabIcon: {
     paddingTop: '15px',
+  },
+  tabbarTouch: {
+    width: '100%',
+    height: '100%',
+    aspectRatio: 1,
+    borderRadius: 20,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });
