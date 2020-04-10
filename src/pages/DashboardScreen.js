@@ -15,11 +15,6 @@ import { NavigationEvents } from 'react-navigation';
 import { Entypo, MaterialCommunityIcons, MaterialIcons, Ionicons, AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
 import { deleteItem } from '../localCache/LocalCache';
 
-import { Platform } from 'react-native';
-import { Notifications } from 'expo';
-import * as Permissions from 'expo-permissions';
-import Constants from 'expo-constants';
-
 
 const SignOutBtn = (props) => {
   const { title = {}, style = {}, textStyle = {}, onPress } = props;
@@ -31,14 +26,6 @@ const SignOutBtn = (props) => {
   );
 };
 
-async function getiOSNotificationPermission() {
-  const { status } = await Permissions.getAsync(
-    Permissions.NOTIFICATIONS
-  );
-  if (status !== 'granted') {
-    await Permissions.askAsync(Permissions.NOTIFICATIONS);
-  }
-}
 
 export class ProfileScreen extends Component {
 
@@ -105,8 +92,6 @@ export class ProfileScreen extends Component {
   UNSAFE_componentWillMount() {
     this._startProgressAnim();
     this._startProgressAnim2();
-    getiOSNotificationPermission();
-    this.listenForNotifications();
   }
 
   progressStatus() {
@@ -127,35 +112,6 @@ export class ProfileScreen extends Component {
     }
   }
 
-  _handleButtonPress = () => {
-    const localnotification = {
-      title: 'Example Title!',
-      body: 'This is the body text of the local notification',
-      android: {
-        sound: true,
-      },
-      ios: {
-        sound: true,
-      },
-    };
-    let sendAfterThreeSeconds = Date.now();
-    sendAfterThreeSeconds += 3000;
-
-    const schedulingOptions = { time: sendAfterThreeSeconds };
-    Notifications.scheduleLocalNotificationAsync(
-      localnotification,
-      schedulingOptions
-    );
-  };
-
-  listenForNotifications = () => {
-    Notifications.addListener(notification => {
-      if (notification.origin === 'received' && Platform.OS === 'ios') {
-        Alert.alert(notification.title, notification.body);
-      }
-    });
-  };
-
 
   render() {
 
@@ -168,12 +124,6 @@ export class ProfileScreen extends Component {
       }}>
         <NavigationEvents onWillFocus={this.focused} />
         <View onPress={this.progressStatus} style={styles.headerWrapper}>
-  
-        <Button
-          title="Send a notification in 3 seconds!"
-          onPress={this._handleButtonPress}
-        />
-
           <Animated.View style={{
             position: 'relative',
             display: "flex",
