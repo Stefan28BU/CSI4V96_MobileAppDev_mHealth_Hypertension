@@ -92,7 +92,7 @@ export class DailyCheckinScreen extends Component {
                         }
                     ]
                 }]}>
-                    <TouchableOpacity style={styles.checkinTouch}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Blood Pressure')} style={styles.checkinTouch}>
                         <FontAwesome
                             color={'#ff6347'}
                             name="tachometer"

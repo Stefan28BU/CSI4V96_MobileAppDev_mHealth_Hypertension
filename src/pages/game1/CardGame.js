@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, TouchableOpacity, Alert, Animated } from 'react-native';
 // import { back, removed, apple, apricot, orange, pear, pinaepple, popeyes, correct } from './imgIndex';
 import { Audio } from 'expo-av';
 import {checkLogInStatus, writeToCache, readFromCache} from './../../localCache/LocalCache';
 import * as SecureStore from 'expo-secure-store';
 
 import {AppCredit, AppProgress} from '../../globals/appManager'
+import {NavigationEvents} from "react-navigation";
+import CardFlip from 'react-native-card-flip';
 
 const back = require('./img/back.png');
 const removed = require('./img/cross-wrong.png');
@@ -17,9 +19,15 @@ const pinaepple = require('./img/pineapple.png');
 const popeyes = require('./img/popeyes.jpg');
 const correct = require('./img/correct.png');
 
+const alcohol = require('./img/alcohol.jpg');
+const workout = require('./img/Workout.jpg');
+const lie = require('./img/lie.jpg');
+const late = require('./img/late.jpg');
+const run = require('./img/run.jpg');
+const smoke = require('./img/smoke.jpg');
 
 
-let initArray = [{ id: 0, img: apple, selected: false, type: 'healthy', removed: false, name: apple },
+let initArray1 = [{ id: 0, img: apple, selected: false, type: 'healthy', removed: false, name: apple },
 { id: 1, img: apricot, selected: false, type: 'healthy', removed: false, name: apricot },
 { id: 2, img: orange, selected: false, type: 'healthy', removed: false, name: orange },
 { id: 3, img: pear, selected: false, type: 'healthy', removed: false, name: pear },
@@ -33,13 +41,28 @@ let initArray = [{ id: 0, img: apple, selected: false, type: 'healthy', removed:
 { id: 11, img: popeyes, selected: false, type: 'unhealthy', removed: false, name: popeyes }];
 
 
+let initArray2 = [{ id: 0, img: alcohol, selected: false, type: 'unhealthy', removed: false, name: alcohol },
+    { id: 1, img: workout, selected: false, type: 'healthy', removed: false, name: workout },
+    { id: 2, img: lie, selected: false, type: 'unhealthy', removed: false, name: lie },
+    { id: 3, img: late, selected: false, type: 'unhealthy', removed: false, name: late },
+    { id: 4, img: run, selected: false, type: 'healthy', removed: false, name: run },
+    { id: 5, img: smoke, selected: false, type: 'unhealthy', removed: false, name: smoke },
+    { id: 6, img: alcohol, selected: false, type: 'unhealthy', removed: false, name: alcohol },
+    { id: 7, img: workout, selected: false, type: 'healthy', removed: false, name: workout },
+    { id: 8, img: lie, selected: false, type: 'unhealthy', removed: false, name: lie },
+    { id: 9, img: late, selected: false, type: 'unhealthy', removed: false, name: late },
+    { id: 10, img: run, selected: false, type: 'healthy', removed: false, name: run },
+    { id: 11, img: smoke, selected: false, type: 'unhealthy', removed: false, name: smoke }];
+
 export class CardGame extends Component {
     constructor(props) {
         super(props);
         this.state = ({
             score: 0,
-            Images: initArray,
-            selected: -1
+            Images: initArray1,
+            selected: -1,
+            level: 1,
+            fail: false
         });
         this.sortOrder = this.sortOrder.bind(this);
     }
@@ -48,9 +71,9 @@ export class CardGame extends Component {
      * Sort the order of array every time entering to this page
      */
     async sortOrder() {
-        console.log(JSON.stringify(initArray));
+        console.log(JSON.stringify(initArray1));
         var i, j, temp;
-        var arr = initArray;
+        var arr = this.state.level===1?initArray1:initArray2;
         for (let k = 0; k < arr.length; k++) {
             arr[k][`selected`] = false;
             // arr[k][`removed`] = false;
@@ -65,7 +88,7 @@ export class CardGame extends Component {
             arr[i] = arr[j];
             arr[j] = temp;
         }
-        // let array = initArray.sort(()=>Math.random() - 0.5);
+        // let array = initArray1.sort(()=>Math.random() - 0.5);
         this.setState({
             score: 0,
             selected: -1,
@@ -80,6 +103,7 @@ export class CardGame extends Component {
      * @param {int} cardID the id of selected card 
      */
     handleClick(cardID) {
+        this.flipCard();
         // Select first card
         if (this.state.selected === -1 && !this.state.Images[cardID][`removed`]) {
             this.state.Images[cardID][`selected`] = true;
@@ -98,6 +122,9 @@ export class CardGame extends Component {
                 // Check for healthy
                 if (this.state.Images[cardID][`type`] === 'unhealthy') {
                     this.state.score -= 5;
+                    this.setState({
+                        fail: true
+                    })
                 } else {
                     this.state.score += 2;
                 }
@@ -161,42 +188,128 @@ export class CardGame extends Component {
                     score: this.state.score,
                     selected: -1,
                     Images: this.state.Images,
+                    fail: true
                 })
             }
         }
     }
 
-    componentDidUpdate() {
+    async componentDidUpdate() {
         for (let i = 0; i < this.state.Images.length; i++) {
             if (this.state.Images[i][`selected`] === false) {
                 return
             }
         }
-
-        const gold = this.state.score * 2;
-        
-        AppCredit.addCredit(gold);
-
-        Alert.alert(
-            'Congratualation!',
-            'You win this game! You have earned ' + gold +  ' gold from this game' ,
-            [
-                {
-                    text: 'continue', onPress: () => {
-                        console.log('resending');
+        if (this.state.fail === true) {
+            Alert.alert(
+                'Game Over!',
+                'You lose! Learn more knowledge about hypertension from video first!' ,
+                [
+                    {
+                        text: 'continue', onPress:
+                            () => {
+                                console.log('fail');
+                            }
                     }
-                }
-            ],
-            { cancelable: false }
-        )
+                ],
+                { cancelable: false }
+            );
+        }
+        else {
+            const gold = this.state.score * 2;
+            await writeToCache("level", "2");
+            AppCredit.addCredit(gold);
+            Alert.alert(
+                'Level Up!',
+                'You win this game! You have earned ' + gold +  ' gold from this game' ,
+                [
+                    {
+                        text: 'continue', onPress:
+                            () => {
+                                console.log('resending');
+                            }
+                    }
+                ],
+                { cancelable: false }
+            );
+        }
+    }
+
+    flipCard() {
+        if (this.value >= 90) {
+            Animated.timing(this.animatedValue, {
+                toValue: 0,
+                duration: 800
+            }).start();
+        } else {
+            Animated.timing(this.animatedValue, {
+                toValue: 180,
+                duration: 800
+            }).start();
+        }
     }
 
     async UNSAFE_componentWillMount() {
+        this.animatedValue = new Animated.Value(0);
+        this.value = 0;
+        this.animatedValue.addListener(({ value }) => {
+            this.value = value
+        })
+        this.frontInterpolate = this.animatedValue.interpolate({
+            inputRange: [0, 180],
+            outputRange: ['0deg', '180deg']
+        });
+
+        this.backInterpolate = this.animatedValue.interpolate({
+            inputRange: [0, 180],
+            outputRange: ['180deg', '360deg']
+        });
+
+        let level = await readFromCache("level");
+        console.log(this.state.Images);
+
+        this.setState({
+            score: 0,
+            selected: -1,
+        });
+        if (level !== null) {
+            if (level === "2") {
+                this.setState({
+                    level: 2
+                })
+            } else {
+                this.setState({
+                    level: 1
+                })
+            }
+
+        }
+
+        if (this.state.level === 2) {
+            this.setState({
+                Images: initArray2,
+            })
+        } else {
+            this.setState({
+                Images: initArray1,
+            })
+        }
+        let l = this.state.Images;
+        this.sortOrder();
+        // for (let i = 0; i < this.state.Images.length; i++) {
+        //     l[i][`selected`] = false;
+        //     if (l[i][`removed`] === true) {
+        //         l[i][`img`] = l[i][`name`];
+        //         l[i][`removed`] = false;
+        //     }
+        // }
+        this.setState({
+            Images: l
+        })
         try {
             const { sound: soundObject, status } = await Audio.Sound.createAsync(
                 require('./msc/bgm.mp3'),
                 {
-
                     shouldPlay: false,
                     isLooping: true
                 }
@@ -207,11 +320,53 @@ export class CardGame extends Component {
         }
     }
 
+
+
     render() {
+        const frontAnimatedStyle = {
+            transform: [
+                { rotateX: this.frontInterpolate }
+            ]
+        };
+
+        const backAnimatedStyle = {
+            transform: [
+                { rotateX: this.backInterpolate }
+            ]
+        };
+
         return (
             <View style={styles.bodys} >
+                <NavigationEvents onWillFocus={()=>this.UNSAFE_componentWillMount()}></NavigationEvents>
                 <Text style={styles.title}>Score: {this.state.score}</Text>
                 <View style={styles.container}>
+                    {/*<Animated.View style={[frontAnimatedStyle, {width: 400, height: 800, backfaceVisibility: 'hidden'}]}>*/}
+                    {/*    <TouchableOpacity style={{*/}
+                    {/*            width: '24%',*/}
+                    {/*            height: '24%',*/}
+                    {/*            resizeMode: 'stretch',*/}
+                    {/*            display: 'flex',*/}
+                    {/*            alignItems: "center",*/}
+                    {/*            justifyContent: "center",*/}
+                    {/*            textAlign: "center",*/}
+
+                    {/*        }} onPress={()=>this.flipCard()}>*/}
+                    {/*            <Image style={styles.box} source={back} />*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*</Animated.View>*/}
+                    {/*<Animated.View style={[backAnimatedStyle, {width: 400, height: 800, backfaceVisibility: 'hidden'}]}>*/}
+                    {/*    <TouchableOpacity style={{*/}
+                    {/*        width: '24%',*/}
+                    {/*        height: '24%',*/}
+                    {/*        resizeMode: 'stretch',*/}
+                    {/*        display: 'flex',*/}
+                    {/*        alignItems: "center",*/}
+                    {/*        justifyContent: "center",*/}
+                    {/*        textAlign: "center",*/}
+                    {/*    }} onPress={()=>this.flipCard()}>*/}
+                    {/*        <Image style={styles.box} source={apple} />*/}
+                    {/*    </TouchableOpacity>*/}
+                    {/*</Animated.View>*/}
                     {this.state.Images.map((item, key) =>
                         <TouchableOpacity style={{
                             width: '24%',
@@ -221,10 +376,9 @@ export class CardGame extends Component {
                             alignItems: "center",
                             justifyContent: "center",
                             textAlign: "center",
-
-
+                            backfaceVisibility: "hidden"
                         }} key={key} onPress={this.handleClick.bind(this, key)}>
-                            <Image style={styles.box} source={item.selected ? item.img : back} />
+                            <Image style={styles.box} source={item.selected === true?item.img:back} />
                         </TouchableOpacity>
                     )}
                     <View style={styles.buttons}>
