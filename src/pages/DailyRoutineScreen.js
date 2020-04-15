@@ -111,7 +111,7 @@ export class DailyRoutineScreen extends Component {
             },
             error => {
                 this.setState({
-                    isPedometerAvailable: 'Could not get isPedometerAvailable: ' + error,
+                    isPedometerAvailable: 'ERROR',
                 });
             }
         );
@@ -125,7 +125,7 @@ export class DailyRoutineScreen extends Component {
             },
             error => {
                 this.setState({
-                    pastStepCount: 'Could not get stepCount: ' + error,
+                    pastStepCount: 'ERROR',
                 });
             }
         );
