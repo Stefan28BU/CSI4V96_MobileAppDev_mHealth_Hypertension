@@ -28,6 +28,7 @@ import { DailyQuestScreen } from './src/pages/DailyQuestScreen';
 import { InformationScreen } from './src/pages/InformationScreen';
 import { AchievementScreen } from './src/pages/AchievementScreen';
 import { BloodPressure } from './src/pages/BloodPressureScreen';
+import { MedicineLog } from './src/pages/MedicineLog'
 
 import Amplify from 'aws-amplify';
 import config from './config';
@@ -342,6 +343,10 @@ export const DashboardStackNavigator = createStackNavigator(
 
     'Blood Pressure': {
       screen: BloodPressure,
+    },
+
+    'Medicine Log': {
+      screen: MedicineLog,
     }
 
   },
