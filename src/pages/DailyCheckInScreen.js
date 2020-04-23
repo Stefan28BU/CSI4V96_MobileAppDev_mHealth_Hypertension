@@ -115,7 +115,7 @@ export class DailyCheckinScreen extends Component {
                         }
                     ]
                 }]}>
-                    <TouchableOpacity style={styles.checkinTouch}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Medicine Log')} style={styles.checkinTouch}>
                         <MaterialCommunityIcons
                             color={'#ffe4c4'}
                             name="medical-bag"
