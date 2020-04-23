@@ -49,11 +49,16 @@ export class PetScreen extends Component {
           cleanlinessStatus: MyPet.cleanliness,
           fitnessStatus: MyPet.fitness,
 
-          goldStatus: AppCredit.totalCredits,
         })
 
       },
       100000);
+
+      setInterval(() => {
+        this.setState({
+          goldStatus: AppCredit.totalCredits,
+        })
+      }, 1000);
   }
 
   setPetState() {

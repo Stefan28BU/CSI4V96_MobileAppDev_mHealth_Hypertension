@@ -44,7 +44,7 @@ export class WatchVideosScreen extends Component {
     async UNSAFE_componentWillMount() {
 
         const loc = await findCoordinates();
-        console.log(loc);
+        // console.log(loc);
 
         if (AppProgress.learningProgress >= 25) {
             this.setState({ lockSecond: false })
@@ -69,8 +69,7 @@ export class WatchVideosScreen extends Component {
 
 
     focused() {
-        console.log("focused")
-        console.log("Updating")
+    
         this.forceUpdate();
 
         console.log('Updated progress is: ' + AppProgress.learningProgress)

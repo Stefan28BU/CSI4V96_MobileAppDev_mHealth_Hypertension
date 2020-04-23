@@ -38,6 +38,11 @@ export class ProfileScreen extends Component {
       progressShaAnim: new Animated.Value(0),
       progressSizeAnim: new Animated.Value(40),
       completeAnim: new Animated.Value(0),
+
+      topTranslateY: new Animated.Value(-200),
+
+      topOpacity: new Animated.Value(0),
+
     }
   }
 
@@ -71,6 +76,14 @@ export class ProfileScreen extends Component {
     ).start()
   };
 
+  startHeaderAnimation = () => {
+    Animated.timing(this.state.topOpacity, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start()
+  }
+
   navigateToHome() {
     this.props.navigation.navigate('mHealth');
   }
@@ -89,9 +102,10 @@ export class ProfileScreen extends Component {
     this.forceUpdate();
   }
 
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
     this._startProgressAnim();
     this._startProgressAnim2();
+    this.startHeaderAnimation();
   }
 
   progressStatus() {
@@ -123,7 +137,19 @@ export class ProfileScreen extends Component {
 
       }}>
         <NavigationEvents onWillFocus={this.focused} />
-        <View onPress={this.progressStatus} style={styles.headerWrapper}>
+        <Animated.View onPress={this.progressStatus} style={[styles.headerWrapper,{
+          opacity: this.state.topOpacity,
+
+          transform: [
+            {
+              translateY: this.state.topOpacity.interpolate({
+                inputRange:[0, 1],
+                outputRange: [-200, 0],
+                // useNativeDriver: true,
+              }),
+            }
+          ]
+        }]}>
           <Animated.View style={{
             position: 'relative',
             display: "flex",
@@ -351,9 +377,28 @@ export class ProfileScreen extends Component {
 
           </Animated.View>
 
-        </View>
+        </Animated.View>
 
-        <View style={styles.viewCont}>
+        <Animated.View style={[styles.viewCont, {
+            opacity: this.state.topOpacity,
+
+            transform: [
+              {
+                translateY: this.state.topOpacity.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [300, 0],
+                  // useNativeDriver: true,
+                })
+              },
+              {
+                scale: this.state.topOpacity.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, 1],
+                  // useNativeDriver: true,
+                })
+              }
+            ]
+        }]}>
 
 
           <Animated.View style={{
@@ -508,7 +553,7 @@ export class ProfileScreen extends Component {
             height: 110,
             width: '100%'
           }} />
-        </View>
+        </Animated.View>
         <SignOutBtn title="Sign Out" onPress={this.signOut} />
 
       </View>

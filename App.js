@@ -143,15 +143,44 @@ export default class App extends React.Component {
   }
 }
 
-const scaleTab = [
-  new Animated.Value(1),
-  new Animated.Value(1),
-  new Animated.Value(1),
-  new Animated.Value(1),
-  new Animated.Value(1),
-  new Animated.Value(1),
-]
+const tab1 = new Animated.Value(1);
+const tab2 = new Animated.Value(1);
+const tab3 = new Animated.Value(1);
+const tab4 = new Animated.Value(1);
 
+const tab1y = new Animated.Value(0);
+const tab2y = new Animated.Value(0);
+const tab3y = new Animated.Value(0);
+const tab4y = new Animated.Value(0);
+
+function tabAnimation(tab, translateY) {
+  Animated.sequence([
+    Animated.parallel([
+      Animated.timing(tab, {
+        toValue: 1.2,
+        duration: 80,
+        useNativeDriver: true,
+      }),
+      Animated.timing(translateY, {
+        toValue: -10,
+        duration: 80,
+        useNativeDriver: true,
+      }),
+    ]),
+    Animated.parallel([
+      Animated.timing(tab, {
+        toValue: 1,
+        duration: 80,
+        useNativeDriver: true,
+      }),
+      Animated.timing(translateY, {
+        toValue: 0,
+        duration: 80,
+        useNativeDriver: true,
+      }),
+    ]),
+  ]).start()
+}
 
 
 export const DashboardTabNavigator = createBottomTabNavigator(
@@ -163,15 +192,25 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 
       navigationOptions: {
         tabBarLabel: ({ tintColor }) => (
-          <View style={styles.tabbarIcon}>
-            <TouchableOpacity style={styles.tabbarTouch}>
+          <Animated.View style={[styles.tabbarIcon, {
+            transform: [
+              {
+                scale: tab1
+                
+              },
+              {
+                translateY: tab1y
+              }
+            ]
+          }]}>
+            <TouchableOpacity onPress={() => tabAnimation(tab1, tab1y)} style={styles.tabbarTouch}>
               <Feather
                 color={tintColor}
                 name="play"
-                size={26}
+                size={28}
               />
             </TouchableOpacity>
-          </View>
+          </Animated.View>
         )
       },
     },
@@ -180,15 +219,24 @@ export const DashboardTabNavigator = createBottomTabNavigator(
 
       navigationOptions: {
         tabBarLabel: ({ tintColor }) => (
-          <View style={styles.tabbarIcon}>
-            <TouchableOpacity style={styles.tabbarTouch}>
+          <Animated.View style={[styles.tabbarIcon, {
+            transform: [
+              {
+                scale: tab2
+              },
+              {
+                translateY: tab2y
+              }
+            ]
+          }]}>
+            <TouchableOpacity onPress={() => tabAnimation(tab2, tab2y)} style={styles.tabbarTouch}>
               <Ionicons
                 color={tintColor}
                 name="logo-game-controller-b"
-                size={26}
+                size={28}
               />
             </TouchableOpacity>
-          </View>
+          </Animated.View>
         )
       },
     },
@@ -200,16 +248,25 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         title: 'shit',
 
         tabBarLabel: ({ tintColor }) => (
-          <View style={styles.tabbarIcon}>
-            <TouchableOpacity style={styles.tabbarTouch}>
+          <Animated.View style={[styles.tabbarIcon, {
+            transform: [
+              {
+                scale: tab3
+              },
+              {
+                translateY: tab3y
+              }
+            ]
+          }]}>
+            <TouchableOpacity onPress={() => tabAnimation(tab3, tab3y)} style={styles.tabbarTouch}>
 
               <Icon
                 color={tintColor}
                 name="child-care"
-                size={26}
+                size={28}
               />
             </TouchableOpacity>
-          </View>
+          </Animated.View>
         )
       },
     },
@@ -219,16 +276,25 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
 
         tabBarLabel: ({ tintColor }) => (
-          <View style={styles.tabbarIcon}>
-            <TouchableOpacity style={styles.tabbarTouch}>
+          <Animated.View style={[styles.tabbarIcon, {
+            transform: [
+              {
+                scale: tab4
+              },
+              {
+                translateY: tab4y
+              }
+            ]
+          }]}>
+            <TouchableOpacity onPress={() => tabAnimation(tab4, tab4y)} style={styles.tabbarTouch}>
 
               <MaterialCommunityIcons
                 color={tintColor}
                 name="account"
-                size={26}
+                size={28}
               />
             </TouchableOpacity>
-          </View>
+          </Animated.View>
         )
       },
     },
@@ -248,8 +314,8 @@ export const DashboardTabNavigator = createBottomTabNavigator(
     tabBarOptions: {
 
       showLabel: true,
-      activeTintColor: 'black',
-      inactiveTintColor: 'rgb(85,85,85)',
+      activeTintColor: '#40e0d0',
+      inactiveTintColor: 'rgb(230,230,230)',
 
 
       style: {
@@ -266,11 +332,15 @@ export const DashboardTabNavigator = createBottomTabNavigator(
         left: 0,
         width: '100%',
         borderTopColor: 'transparent',
-        backgroundColor: '#40e0d0',
+        backgroundColor: 'rgba(70,70,70, 0.8)',
         borderTopWidth: 1,
         paddingTop: 10,
         height: 60,
-        backgroundColor: 'transparent'
+        // shadowColor: 'black',
+        // shadowOpacity: 0.4,
+        // shadowOffset: { height: -4, width: 0 },
+        // shadowRadius: 10,
+        // backgroundColor: 'transparent'
       }
     }
   },
@@ -391,18 +461,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
 
-    backgroundColor: '#40e0d0',
+    backgroundColor: 'transparent',
     borderRadius: 20,
     minWidth: 54,
     maxWidth: 54,
+
     aspectRatio: 1,
-    top: -20,
-    position: "absolute",
+    // top: -20,
+    // position: "absolute",
 
     shadowColor: '#00fa9a',
     shadowOpacity: 0.9,
     shadowOffset: { height: 0, width: 0 },
-    shadowRadius: 18,
+    shadowRadius: 10,
   },
   appContainer: {
     justifyContent: 'center',

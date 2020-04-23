@@ -71,7 +71,7 @@ export class CardGame extends Component {
      * Sort the order of array every time entering to this page
      */
     async sortOrder() {
-        console.log(JSON.stringify(initArray1));
+        // console.log(JSON.stringify(initArray1));
         var i, j, temp;
         var arr = this.state.level===1?initArray1:initArray2;
         for (let k = 0; k < arr.length; k++) {
@@ -94,7 +94,7 @@ export class CardGame extends Component {
             selected: -1,
             Images: arr,
         });
-        console.log(JSON.stringify(this.state.Images));
+        // console.log(JSON.stringify(this.state.Images));
     }
 
 
@@ -112,7 +112,7 @@ export class CardGame extends Component {
                 Images: this.state.Images,
             })
             // console.log("Update first pick: " + JSON.stringify(this.state.Images));
-            console.log("clicked " + JSON.stringify(this.state.Images[cardID]));
+            // console.log("clicked " + JSON.stringify(this.state.Images[cardID]));
         }
         // Select second card
         else if (this.state.selected !== -1 && this.state.Images[cardID].selected !== true && !this.state.Images[cardID][`removed`] && this.state.selected !== cardID) {

@@ -37,7 +37,7 @@ class Animation extends Component {
 
         if (this.state.shouldUsePrev) {
 
-          console.log(this.state.prevAnimation + " inside");
+          // console.log(this.state.prevAnimation + " inside");
 
 
           this.setState({
@@ -51,7 +51,7 @@ class Animation extends Component {
           });
         } else {
 
-          console.log('B');
+          // console.log('B');
 
 
           this.setState({
@@ -131,7 +131,7 @@ class Animation extends Component {
 
   UNSAFE_componentWillReceiveProps(nextProps) {
 
-    console.log("Prev "  + nextProps.prevAnimation)
+    // console.log("Prev "  + nextProps.prevAnimation)
 
     if (nextProps.prevAnimation === 'happy' ||
       nextProps.prevAnimation === 'sad' ||
@@ -139,7 +139,7 @@ class Animation extends Component {
       nextProps.prevAnimation === 'sick' ||
       nextProps.prevAnimation === 'neutral') {
 
-        console.log('should repeat previous')
+        // console.log('should repeat previous')
         this.setState({
           shouldUsePrev: true,
           prevAnimation: nextProps.prevAnimation

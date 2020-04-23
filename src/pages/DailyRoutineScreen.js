@@ -15,15 +15,32 @@ import { NavigationEvents } from 'react-navigation';
 import { Entypo, MaterialCommunityIcons, MaterialIcons, Ionicons, AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
 import { deleteItem } from '../localCache/LocalCache';
 import { Pedometer } from 'expo-sensors';
+import Credit from '../globals/credit';
+
+let c1 = false;
+let c2 = false;
+let c3 = false;
+let c4 = false;
+
+let c1S = 1;
+let c2S = 1;
+let c3S = 1;
+let c4S = 1;
 
 export class DailyRoutineScreen extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
+            claimGoldMsg: '',
             isPedometerAvailable: 'checking',
             pastStepCount: 0,
             currentStepCount: 0,
+
+            complete1: c1,
+            complete2: c2,
+            complete3: c3,
+            complete4: c4,
 
             topOpacity: new Animated.Value(0),
             bottomOpacity: new Animated.Value(0),
@@ -35,6 +52,12 @@ export class DailyRoutineScreen extends Component {
                 new Animated.Value(0),
                 new Animated.Value(0),
                 new Animated.Value(0),
+            ],
+            rewardScale: [
+                new Animated.Value(c1S),
+                new Animated.Value(c2S),
+                new Animated.Value(c3S),
+                new Animated.Value(c4S),
             ]
 
         }
@@ -42,6 +65,26 @@ export class DailyRoutineScreen extends Component {
 
     componentDidMount() {
         this._subscribe();
+
+        setInterval(() => {
+            c1 = false;
+            c2 = false;
+            c3 = false;
+            c4 = false;
+
+            c1S = 1;
+            c2S = 1;
+            c3S = 1;
+            c4S = 1;
+
+            this.setState({
+                complete1: c1,
+                complete2: c2,
+                complete3: c3,
+                complete4: c4,
+
+            })
+        }, 86400000);
     }
 
     componentWillUnmount() {
@@ -97,10 +140,12 @@ export class DailyRoutineScreen extends Component {
     }
 
     _subscribe = () => {
+
         this._subscription = Pedometer.watchStepCount(result => {
             this.setState({
                 currentStepCount: result.steps,
             });
+
         });
 
         Pedometer.isAvailableAsync().then(
@@ -119,6 +164,7 @@ export class DailyRoutineScreen extends Component {
         const end = new Date();
         const start = new Date();
         start.setDate(end.getDate() - 1);
+
         Pedometer.getStepCountAsync(start, end).then(
             result => {
                 this.setState({ pastStepCount: result.steps });
@@ -135,6 +181,114 @@ export class DailyRoutineScreen extends Component {
         this._subscription && this._subscription.remove();
         this._subscription = null;
     };
+
+
+    claimGold = (steps, gold, complete, index) => {
+
+
+        if (index === 0) {
+            if (!this.state.complete1) {
+                if (steps > this.state.pastStepCount) {
+                    const temp = steps - this.state.pastStepCount;
+                    Alert.alert('You need ' + temp + ' more steps to claim such reward!')
+                } else {
+                    Alert.alert('Congradulations! You earned ' + gold + ' gold')
+
+                    AppCredit.addCredit(gold);
+
+                    c1 = true;
+                    
+                    c1S = 0.8
+                    Animated.timing(this.state.rewardScale[0], {
+                        toValue: c1S,
+                        duration: 500,
+                        useNativeDriver: true,
+                    }).start()
+
+                    this.setState({ complete1: c1 })
+                }
+
+            } else {
+                Alert.alert('You have already claimed such reward for today!')
+            }
+
+        } else if (index === 1) {
+            if (!this.state.complete2) {
+
+
+                if (steps > this.state.pastStepCount) {
+                    const temp = steps - this.state.pastStepCount;
+                    Alert.alert('You need ' + temp + ' more steps to claim such reward!')
+                } else {
+                    Alert.alert('Congradulations! You earned ' + gold + ' gold')
+
+                    AppCredit.addCredit(gold);
+                    c2 = true;
+
+                    c2S = 0.8
+                    Animated.timing(this.state.rewardScale[1], {
+                        toValue: c2S,
+                        duration: 500,
+                        useNativeDriver: true,
+                    }).start()
+
+                    this.setState({ complete2: c2 })
+                }
+            } else {
+                Alert.alert('You have already claimed such reward for today!')
+            }
+        } else if (index === 2) {
+            if (!this.state.complete3) {
+
+                if (steps > this.state.pastStepCount) {
+                    const temp = steps - this.state.pastStepCount;
+                    Alert.alert('You need ' + temp + ' more steps to claim such reward!')
+                } else {
+                    Alert.alert('Congradulations! You earned ' + gold + ' gold')
+
+                    AppCredit.addCredit(gold);
+                    c3 = true;
+                    c3S = 0.8
+                    Animated.timing(this.state.rewardScale[2], {
+                        toValue: c3S,
+                        duration: 500,
+                        useNativeDriver: true,
+                    }).start()
+
+                    this.setState({ complete3: c3 })
+                }
+            } else {
+                Alert.alert('You have already claimed such reward for today!')
+            }
+        } else {
+            if (!this.state.complete4) {
+
+                if (steps > this.state.pastStepCount) {
+                    const temp = steps - this.state.pastStepCount;
+                    Alert.alert('You need ' + temp + ' more steps to claim such reward!')
+                } else {
+                    Alert.alert('Congradulations! You earned ' + gold + ' gold')
+
+                    AppCredit.addCredit(gold);
+                    c4 = true;
+                    c4S = 0.8
+                    Animated.timing(this.state.rewardScale[3], {
+                        toValue: c4S,
+                        duration: 500,
+                        useNativeDriver: true,
+                    }).start()
+
+                    this.setState({ complete4: c4 })
+                }
+            } else {
+                Alert.alert('You have already claimed such reward for today!')
+            }
+        }
+
+
+
+    }
+
 
     render() {
         return (
@@ -169,7 +323,7 @@ export class DailyRoutineScreen extends Component {
 
                     }]}>
                         <Text style={styles.stepsDisplayText}>
-                            {this.state.pastStepCount}
+                            {this.state.pastStepCount + this.state.currentStepCount}
                         </Text>
                     </Animated.View>
                 </Animated.View>
@@ -196,10 +350,14 @@ export class DailyRoutineScreen extends Component {
                                     inputRange: [0, 0.5, 1],
                                     outputRange: [-1000, 10, 0],
                                 })
-                            }
-                        ]
+                            },
+                            {
+                                scale: this.state.complete1 ? this.state.rewardScale[0] : 1
+                            },
+                        ],
+                        backgroundColor: this.state.complete1 ? 'rgb(0,0,0)' : 'rgb(30,30,30)'
                     }]}>
-                        <TouchableOpacity style={styles.rewardTouch}>
+                        <TouchableOpacity style={styles.rewardTouch} onPress={() => this.claimGold(500, 20, this.state.complete1, 0)}>
                             <Text style={styles.rewardReq}>
                                 500 steps for
                             </Text>
@@ -217,10 +375,15 @@ export class DailyRoutineScreen extends Component {
                                     inputRange: [0, 0.5, 1],
                                     outputRange: [1000, -10, 0],
                                 })
-                            }
-                        ]
+                            },
+                            {
+                                scale: this.state.complete2 ? this.state.rewardScale[1] : 1
+                            },
+                        ],
+                        backgroundColor: this.state.complete2 ? 'rgb(0,0,0)' : 'rgb(30,30,30)'
+
                     }]}>
-                        <TouchableOpacity style={styles.rewardTouch}>
+                        <TouchableOpacity style={styles.rewardTouch} onPress={() => this.claimGold(1000, 50, this.state.complete2, 1)}>
                             <Text style={styles.rewardReq}>
                                 1000 steps for
                             </Text>
@@ -238,10 +401,15 @@ export class DailyRoutineScreen extends Component {
                                     inputRange: [0, 0.5, 1],
                                     outputRange: [-1000, 10, 0],
                                 })
-                            }
-                        ]
+                            },
+                            {
+                                scale: this.state.complete3 ? this.state.rewardScale[2] : 1
+                            },
+                        ],
+                        backgroundColor: this.state.complete3 ? 'rgb(0,0,0)' : 'rgb(30,30,30)'
+
                     }]}>
-                        <TouchableOpacity style={styles.rewardTouch}>
+                        <TouchableOpacity style={styles.rewardTouch} onPress={() => this.claimGold(2000, 150, this.state.complete3, 2)}>
                             <Text style={styles.rewardReq}>
                                 2000 steps for
                             </Text>
@@ -259,10 +427,15 @@ export class DailyRoutineScreen extends Component {
                                     inputRange: [0, 0.5, 1],
                                     outputRange: [1000, -10, 0],
                                 })
-                            }
-                        ]
+                            },
+                            {
+                                scale: this.state.complete4 ? this.state.rewardScale[3] : 1
+                            },
+                        ],
+                        backgroundColor: this.state.complete4 ? 'rgb(0,0,0)' : 'rgb(30,30,30)'
+
                     }]}>
-                        <TouchableOpacity style={styles.rewardTouch}>
+                        <TouchableOpacity style={styles.rewardTouch} onPress={() => this.claimGold(10000, 1000, this.state.complete4, 3)}>
                             <Text style={styles.rewardReq}>
                                 10000 steps for
                             </Text>
@@ -275,7 +448,7 @@ export class DailyRoutineScreen extends Component {
 
                 </Animated.View>
 
-            </View>
+            </View >
         );
     }
 }
