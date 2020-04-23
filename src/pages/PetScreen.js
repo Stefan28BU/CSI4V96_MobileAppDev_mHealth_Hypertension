@@ -11,6 +11,9 @@ import { AppCredit, AppProgress } from '../globals/appManager';
 
 export const MyPet = new Pet('Bob');
 
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
+
 export class PetScreen extends Component {
 
   constructor(props) {
@@ -25,6 +28,8 @@ export class PetScreen extends Component {
       newPetStatus: MyPet.status,
 
       goldStatus: AppCredit.totalCredits,
+
+      petOpacity: new Animated.Value(0),
     }
 
     this.focused = this.focused.bind(this);
@@ -50,16 +55,41 @@ export class PetScreen extends Component {
           fitnessStatus: MyPet.fitness,
 
         })
-
       },
       100000);
 
-      setInterval(() => {
-        this.setState({
-          goldStatus: AppCredit.totalCredits,
-        })
-      }, 1000);
+    setInterval(() => {
+      this.setState({
+        goldStatus: AppCredit.totalCredits,
+      })
+    }, 1000);
   }
+
+
+  focused() {
+
+    Animated.timing(this.state.petOpacity, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true
+    }).start()
+
+
+    this.setState({
+      newPetStatus: MyPet.getCurrentStatus(),
+      petStatus: MyPet.getCurrentStatus(),
+      fullnessStatus: MyPet.fullness,
+      cleanlinessStatus: MyPet.cleanliness,
+      fitnessStatus: MyPet.fitness,
+
+      goldStatus: AppCredit.totalCredits,
+    })
+  }
+
+  blured = () => {
+    this.state.petOpacity.setValue(0);
+  }
+
 
   setPetState() {
     this.setState({
@@ -71,6 +101,7 @@ export class PetScreen extends Component {
 
       goldStatus: AppCredit.totalCredits,
     })
+
   }
 
 
@@ -137,38 +168,32 @@ export class PetScreen extends Component {
     this.setPetState();
   }
 
-  UNSAFE_componentWillMount() {
-
-  }
-
-  focused() {
-
-    this.forceUpdate();
-
-    this.setState({
-      newPetStatus: MyPet.getCurrentStatus(),
-      petStatus: MyPet.getCurrentStatus(),
-      fullnessStatus: MyPet.fullness,
-      cleanlinessStatus: MyPet.cleanliness,
-      fitnessStatus: MyPet.fitness,
-
-      goldStatus: AppCredit.totalCredits,
-    })
-  }
 
   render() {
 
 
 
     return (
-      <View style={styles.container}>
-        <NavigationEvents onWillFocus={this.focused} />
-        <Animation
-          prevAnimation={this.state.newPetStatus}
-          animationName={this.state.petStatus}
-        >
-        </Animation>
-        <View style={styles.petDash}>
+      <Animated.View style={[styles.container, {
+
+      }]}>
+        <NavigationEvents onWillFocus={this.focused} onWillBlur={this.blured} />
+
+        <Animated.View style={[styles.petDash, {
+          opacity: this.state.petOpacity,
+          transform: [
+            {translateY: this.state.petOpacity.interpolate({
+              inputRange: [0,1],
+              outputRange: [-screenHeight / 2, 0]
+            })}
+          ]
+
+        }]}>
+          <Animation
+            prevAnimation={this.state.newPetStatus}
+            animationName={this.state.petStatus}
+          >
+          </Animation>
           <View style={styles.petStatusBar}>
             <Text style={styles.petBarTextS}>
               Status: {this.state.newPetStatus}
@@ -176,7 +201,7 @@ export class PetScreen extends Component {
           </View>
 
           <View style={styles.petStatusBarA}>
-            <View style={{
+            <Animated.View style={{
               width: this.state.fullnessStatus.toString().concat('%'),
               height: '100%',
 
@@ -185,13 +210,13 @@ export class PetScreen extends Component {
               backgroundColor: 'rgba(255,255,255,0.7)',
               position: 'relative'
             }}>
-            </View>
+            </Animated.View>
             <Text style={styles.petBarText}>
               Fullness: {MyPet.fullness}
             </Text>
           </View>
           <View style={styles.petStatusBarB}>
-            <View style={{
+            <Animated.View style={{
               width: this.state.cleanlinessStatus.toString().concat('%'),
               height: '100%',
 
@@ -201,13 +226,13 @@ export class PetScreen extends Component {
               position: 'relative'
             }}>
 
-            </View>
+            </Animated.View>
             <Text style={styles.petBarText}>
               Cleanliness: {MyPet.cleanliness}
             </Text>
           </View>
           <View style={styles.petStatusBarC}>
-            <View style={{
+            <Animated.View style={{
               width: this.state.fitnessStatus.toString().concat('%'),
               height: '100%',
 
@@ -217,14 +242,22 @@ export class PetScreen extends Component {
               position: 'relative'
             }}>
 
-            </View>
+            </Animated.View>
             <Text style={styles.petBarText}>
               Fitness: {MyPet.fitness}
             </Text>
           </View>
-        </View>
+        </Animated.View>
         {MyPet.isAlive &&
-          <View style={styles.petActPane}>
+          <Animated.View style={[styles.petActPane,{
+            opacity: this.state.petOpacity,
+            transform: [
+              {scale: this.state.petOpacity.interpolate({
+                inputRange: [0,1 ],
+                outputRange: [0.8, 1]
+              })}
+            ]
+          }]}>
             <Text style={{
 
               color: '#ffd700',
@@ -277,7 +310,7 @@ export class PetScreen extends Component {
               </View>
             </View>
 
-          </View>
+          </Animated.View>
         }
         {!MyPet.isAlive &&
           <View style={styles.petActPane}>
@@ -309,7 +342,7 @@ export class PetScreen extends Component {
             </View>
           </View>
         }
-      </View>
+      </Animated.View>
     );
   }
 }
@@ -324,8 +357,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(70,70,70)',
   },
   petDash: {
+   
     width: '100%',
-    paddingBottom: 20,
+    // paddingBottom: 20,
+    height: screenHeight / 2.5,
     display: 'flex',
     alignItems: "center",
     justifyContent: "center",

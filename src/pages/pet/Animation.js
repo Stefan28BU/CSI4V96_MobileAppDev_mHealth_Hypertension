@@ -169,12 +169,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: "center",
     justifyContent: "center",
+
   },
   petCnt: {
     width: '100%',
-    height: '22%',
-    padding: 20,
-    backgroundColor: '#40e0d0',
+    height: '35%',
+    // padding: 20,
+    marginBottom: 20,
+    backgroundColor: 'transparent',
   }
 });
 

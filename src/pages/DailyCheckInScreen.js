@@ -71,7 +71,7 @@ export class DailyCheckinScreen extends Component {
                 }]}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Log Your Meal')} style={styles.checkinTouch}>
                         <MaterialCommunityIcons
-                            color={'#1e90ff'}
+                            color={'#ff4573'}
                             name="food-fork-drink"
                             size={50}
                         />
@@ -94,7 +94,7 @@ export class DailyCheckinScreen extends Component {
                 }]}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Blood Pressure')} style={styles.checkinTouch}>
                         <FontAwesome
-                            color={'#ff6347'}
+                            color={'#c945ff'}
                             name="tachometer"
                             size={50}
                         />
@@ -117,7 +117,7 @@ export class DailyCheckinScreen extends Component {
                 }]}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Medicine Log')} style={styles.checkinTouch}>
                         <MaterialCommunityIcons
-                            color={'#ffe4c4'}
+                            color={'#4573ff'}
                             name="medical-bag"
                             size={50}
                         />
@@ -140,7 +140,7 @@ export class DailyCheckinScreen extends Component {
                 }]}>
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('My Routine')} style={styles.checkinTouch}>
                         <MaterialCommunityIcons
-                            color={'#8a2be2'}
+                            color={'#ffb045'}
                             name="run"
                             size={50}
                         />
@@ -170,17 +170,17 @@ const styles = StyleSheet.create({
         width: '100%',
         // height: '10%',
         borderRadius: 20,
-        backgroundColor: '#40e0d0',
+        backgroundColor: 'rgb(30,30,30)',
 
         shadowColor: 'black',
-        shadowOpacity: 0.3,
+        shadowOpacity: 0.5,
         shadowOffset: { height: 0, width: 0 },
         shadowRadius: 18,
         marginBottom: 20,
     },
     checkTxt: {
         marginTop: 4,
-        color: 'white',
+        color: 'rgb(220,220,220)',
         fontSize: 20,
     },
     checkinTouch: {

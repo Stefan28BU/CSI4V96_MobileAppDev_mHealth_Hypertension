@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, SafeAreaView, ScrollView, ImageBackground, View, Dimensions } from 'react-native';
+import { StyleSheet, Text, SafeAreaView, ScrollView, ImageBackground, View, Dimensions, Animated } from 'react-native';
 import Constants from 'expo-constants';
 import { VideoButton } from '../customComponents/CustomButtons';
 import { Video, Audio } from 'expo-av';
@@ -35,6 +35,8 @@ export class WatchVideosScreen extends Component {
             lockSecond: true,
             lockThird: true,
             lockLast: true,
+
+            watchOpacity: new Animated.Value(0),
 
         };
 
@@ -72,6 +74,12 @@ export class WatchVideosScreen extends Component {
     
         this.forceUpdate();
 
+        Animated.timing(this.state.watchOpacity, {
+            toValue: 1,
+            duration: 300,
+            useNativeDriver: true,
+        }).start()
+
         console.log('Updated progress is: ' + AppProgress.learningProgress)
         if (AppProgress.learningProgress >= 25) {
             this.setState({ lockSecond: false })
@@ -85,13 +93,26 @@ export class WatchVideosScreen extends Component {
         }
     }
 
+    blured = () => {
+        this.state.watchOpacity.setValue(0)
+    }
+
     render() {
 
         return (
-            <View style={styles.container}>
-                <ScrollView style={styles.scrollView}>
+            <Animated.View style={[styles.container]}>
+                <Animated.ScrollView style={[styles.scrollView,{
+                opacity: this.state.watchOpacity,
+                transform: [
+                    {translateY: this.state.watchOpacity.interpolate({
+                        inputRange: [0,1],
+                        outputRange: [Dimensions.get('window').height, 0]
+                    })}
+                ]
+            }]}>
                     <NavigationEvents
                         onWillFocus={this.focused}
+                        onWillBlur={this.blured}
                     />
                     <VideoButton subTitle={0} disabled={false} style={styles.img} onPress={() => this.props.navigation.navigate('Part 1: Introduction')} source={require('../imageAssets/04.jpg')} label={"Part 1: What is High BP?"}>
                         {AppProgress.learningProgress >= 25 &&
@@ -237,8 +258,8 @@ export class WatchVideosScreen extends Component {
                         height: 140,
                         width: '100%'
                     }}/>
-                </ScrollView>
-            </View>
+                </Animated.ScrollView>
+            </Animated.View>
         );
     }
 }
@@ -246,7 +267,7 @@ export class WatchVideosScreen extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgb(70,70,70)',
         width: Dimensions.get('window').width,
         height: Dimensions.get('window').height,
     },

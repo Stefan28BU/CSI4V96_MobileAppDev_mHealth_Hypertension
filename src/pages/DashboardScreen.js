@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn, EditProfileBtn } from '../customComponents/CustomButtons';
 
 
-import {AppCredit, AppProgress} from '../globals/appManager';
+import { AppCredit, AppProgress } from '../globals/appManager';
 
 import { NavigationEvents } from 'react-navigation';
 
@@ -65,7 +65,7 @@ export class ProfileScreen extends Component {
     Animated.loop(
       Animated.sequence([
         Animated.timing(this.state.progressSizeAnim, {
-          toValue: 48,
+          toValue: 44,
           duration: 1000,
         }),
         Animated.timing(this.state.progressSizeAnim, {
@@ -79,7 +79,7 @@ export class ProfileScreen extends Component {
   startHeaderAnimation = () => {
     Animated.timing(this.state.topOpacity, {
       toValue: 1,
-      duration: 300,
+      duration: 200,
       useNativeDriver: true,
     }).start()
   }
@@ -93,19 +93,23 @@ export class ProfileScreen extends Component {
     Auth.signOut({ global: true })
       .then(data => console.log(data))
       .catch(err => console.log(err));
-    
+
 
     this.navigateToHome();
   }
 
   focused() {
     this.forceUpdate();
+    this.startHeaderAnimation();
+  }
+
+  blured = () => {
+    this.state.topOpacity.setValue(0)
   }
 
   componentDidMount() {
     this._startProgressAnim();
     this._startProgressAnim2();
-    this.startHeaderAnimation();
   }
 
   progressStatus() {
@@ -136,14 +140,14 @@ export class ProfileScreen extends Component {
         flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(70,70,70)',
 
       }}>
-        <NavigationEvents onWillFocus={this.focused} />
-        <Animated.View onPress={this.progressStatus} style={[styles.headerWrapper,{
+        <NavigationEvents onWillFocus={this.focused} onWillBlur={this.blured} />
+        <Animated.View onPress={this.progressStatus} style={[styles.headerWrapper, {
           opacity: this.state.topOpacity,
 
           transform: [
             {
               translateY: this.state.topOpacity.interpolate({
-                inputRange:[0, 1],
+                inputRange: [0, 1],
                 outputRange: [-200, 0],
                 // useNativeDriver: true,
               }),
@@ -380,24 +384,18 @@ export class ProfileScreen extends Component {
         </Animated.View>
 
         <Animated.View style={[styles.viewCont, {
-            opacity: this.state.topOpacity,
+          opacity: this.state.topOpacity,
 
-            transform: [
-              {
-                translateY: this.state.topOpacity.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [300, 0],
-                  // useNativeDriver: true,
-                })
-              },
-              {
-                scale: this.state.topOpacity.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, 1],
-                  // useNativeDriver: true,
-                })
-              }
-            ]
+          transform: [
+            {
+              translateY: this.state.topOpacity.interpolate({
+                inputRange: [0, 1],
+                outputRange: [300, 0],
+                // useNativeDriver: true,
+              })
+            },
+
+          ]
         }]}>
 
 
@@ -549,12 +547,15 @@ export class ProfileScreen extends Component {
             </TouchableOpacity>
           </Animated.View>
 
-          <View style={{
+          {/* <View style={{
             height: 110,
             width: '100%'
-          }} />
+          }} /> */}
+
         </Animated.View>
-        <SignOutBtn title="Sign Out" onPress={this.signOut} />
+        {/* <Animated.View> */}
+          <SignOutBtn title={"Sign Out"} onPress={this.signOut} />
+        {/* </Animated.View> */}
 
       </View>
     );

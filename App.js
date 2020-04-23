@@ -154,7 +154,7 @@ const tab2y = new Animated.Value(0);
 const tab3y = new Animated.Value(0);
 const tab4y = new Animated.Value(0);
 
-function tabAnimation(tab, translateY) {
+function tabAnimation(tab) {
   Animated.sequence([
     Animated.parallel([
       Animated.timing(tab, {
@@ -162,11 +162,7 @@ function tabAnimation(tab, translateY) {
         duration: 80,
         useNativeDriver: true,
       }),
-      Animated.timing(translateY, {
-        toValue: -10,
-        duration: 80,
-        useNativeDriver: true,
-      }),
+   
     ]),
     Animated.parallel([
       Animated.timing(tab, {
@@ -174,11 +170,7 @@ function tabAnimation(tab, translateY) {
         duration: 80,
         useNativeDriver: true,
       }),
-      Animated.timing(translateY, {
-        toValue: 0,
-        duration: 80,
-        useNativeDriver: true,
-      }),
+   
     ]),
   ]).start()
 }
@@ -200,11 +192,14 @@ export const DashboardTabNavigator = createBottomTabNavigator(
                 
               },
               {
-                translateY: tab1y
+                translateY: tab1.interpolate({
+                  inputRange: [1, 1.2],
+                  outputRange: [0, -10]
+                })
               }
             ]
           }]}>
-            <TouchableOpacity onPress={() => tabAnimation(tab1, tab1y)} style={styles.tabbarTouch}>
+            <TouchableOpacity onPress={() => tabAnimation(tab1)} style={styles.tabbarTouch}>
               <Feather
                 color={tintColor}
                 name="play"
@@ -225,12 +220,16 @@ export const DashboardTabNavigator = createBottomTabNavigator(
               {
                 scale: tab2
               },
+              
               {
-                translateY: tab2y
+                translateY: tab2.interpolate({
+                  inputRange: [1, 1.2],
+                  outputRange: [0, -10]
+                })
               }
             ]
           }]}>
-            <TouchableOpacity onPress={() => tabAnimation(tab2, tab2y)} style={styles.tabbarTouch}>
+            <TouchableOpacity onPress={() => tabAnimation(tab2)} style={styles.tabbarTouch}>
               <Ionicons
                 color={tintColor}
                 name="logo-game-controller-b"
@@ -255,11 +254,14 @@ export const DashboardTabNavigator = createBottomTabNavigator(
                 scale: tab3
               },
               {
-                translateY: tab3y
+                translateY: tab3.interpolate({
+                  inputRange: [1, 1.2],
+                  outputRange: [0, -10]
+                })
               }
             ]
           }]}>
-            <TouchableOpacity onPress={() => tabAnimation(tab3, tab3y)} style={styles.tabbarTouch}>
+            <TouchableOpacity onPress={() => tabAnimation(tab3)} style={styles.tabbarTouch}>
 
               <Icon
                 color={tintColor}
@@ -283,11 +285,14 @@ export const DashboardTabNavigator = createBottomTabNavigator(
                 scale: tab4
               },
               {
-                translateY: tab4y
+                translateY: tab4.interpolate({
+                  inputRange: [1, 1.2],
+                  outputRange: [0, -10]
+                })
               }
             ]
           }]}>
-            <TouchableOpacity onPress={() => tabAnimation(tab4, tab4y)} style={styles.tabbarTouch}>
+            <TouchableOpacity onPress={() => tabAnimation(tab4)} style={styles.tabbarTouch}>
 
               <MaterialCommunityIcons
                 color={tintColor}
