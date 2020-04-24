@@ -353,6 +353,7 @@ export class CardGame extends Component {
                 <Animated.View style={{
                     opacity: this.state.gameOpacity
                 }}>
+                    <Text style={styles.title}>Level: {this.state.level}</Text>
                     <Text style={styles.title}>Score: {this.state.score}</Text>
                 </Animated.View>
                 <Animated.View style={[styles.container, {
