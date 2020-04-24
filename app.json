@@ -25,6 +25,10 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android": {
+      "package": "com.mHealth.Hypertension",
+      "versionCode": 1
     }
   }
 }
