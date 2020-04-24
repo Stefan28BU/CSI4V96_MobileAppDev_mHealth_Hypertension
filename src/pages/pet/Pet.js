@@ -107,7 +107,7 @@ class Pet {
             }
         }
 
-        console.log("should be " + this.newStatus)
+        // console.log("should be " + this.newStatus)
     }
 
     dayPass() {

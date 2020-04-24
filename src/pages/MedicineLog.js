@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import DialogInput from 'react-native-dialog-input';
 import { writeToCache, readFromCache } from './../localCache/LocalCache';
+import { NavigationEvents } from 'react-navigation';
 
 
 export class MedicineLog extends Component {
@@ -22,7 +23,7 @@ export class MedicineLog extends Component {
         if (medicine !== null) {
             let x = medicine;
             x = x.substring(1);
-            x = x.substring(0, x.length-1);
+            x = x.substring(0, x.length - 1);
             const m = x.split(",");
             let arr = [];
             for (let i = 0; i < m.length; i++) {
@@ -35,10 +36,11 @@ export class MedicineLog extends Component {
         }
     }
 
-    
+
     render() {
         return (
             <View style={{ flex: 1 }}>
+                <NavigationEvents />
                 <ScrollView horizontal={false} style={{
                     width: "94%",
                     borderRadius: 1,
@@ -47,11 +49,18 @@ export class MedicineLog extends Component {
                     left: "3%",
                     right: "3%",
                 }}>
-                    <Text>
+                    {
+                        this.state.medicine.map(result => (
+                            <Text>
+                                {result.toString()}{'\n'}
+                            </Text>
+                        ))
+                    }
+                    {/* <Text>
                         {this.state.medicine}{'\n'}
-                    </Text>
+                    </Text> */}
                 </ScrollView>
-        
+
                 <View style={styles.description}>
                     <Text style={{ textAlign: "center", fontSize: 25 }}>Today's Medicine</Text>
                     <View style={{ bottom: 0, top: 50, position: "absolute" }}>

@@ -8,7 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn, EditProfileBtn } from '../customComponents/CustomButtons';
 
 
-import {AppCredit, AppProgress} from '../globals/appManager';
+import { AppCredit, AppProgress } from '../globals/appManager';
 
 import { NavigationEvents } from 'react-navigation';
 
@@ -38,6 +38,11 @@ export class ProfileScreen extends Component {
       progressShaAnim: new Animated.Value(0),
       progressSizeAnim: new Animated.Value(40),
       completeAnim: new Animated.Value(0),
+
+      topTranslateY: new Animated.Value(-200),
+
+      topOpacity: new Animated.Value(0),
+
     }
   }
 
@@ -60,7 +65,7 @@ export class ProfileScreen extends Component {
     Animated.loop(
       Animated.sequence([
         Animated.timing(this.state.progressSizeAnim, {
-          toValue: 48,
+          toValue: 44,
           duration: 1000,
         }),
         Animated.timing(this.state.progressSizeAnim, {
@@ -71,6 +76,14 @@ export class ProfileScreen extends Component {
     ).start()
   };
 
+  startHeaderAnimation = () => {
+    Animated.timing(this.state.topOpacity, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true,
+    }).start()
+  }
+
   navigateToHome() {
     this.props.navigation.navigate('mHealth');
   }
@@ -80,16 +93,21 @@ export class ProfileScreen extends Component {
     Auth.signOut({ global: true })
       .then(data => console.log(data))
       .catch(err => console.log(err));
-    
+
 
     this.navigateToHome();
   }
 
   focused() {
     this.forceUpdate();
+    this.startHeaderAnimation();
   }
 
-  UNSAFE_componentWillMount() {
+  blured = () => {
+    this.state.topOpacity.setValue(0)
+  }
+
+  componentDidMount() {
     this._startProgressAnim();
     this._startProgressAnim2();
   }
@@ -122,8 +140,20 @@ export class ProfileScreen extends Component {
         flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(70,70,70)',
 
       }}>
-        <NavigationEvents onWillFocus={this.focused} />
-        <View onPress={this.progressStatus} style={styles.headerWrapper}>
+        <NavigationEvents onWillFocus={this.focused} onDidBlur={this.blured} />
+        <Animated.View onPress={this.progressStatus} style={[styles.headerWrapper, {
+          opacity: this.state.topOpacity,
+
+          transform: [
+            {
+              translateY: this.state.topOpacity.interpolate({
+                inputRange: [0, 1],
+                outputRange: [-200, 0],
+                // useNativeDriver: true,
+              }),
+            }
+          ]
+        }]}>
           <Animated.View style={{
             position: 'relative',
             display: "flex",
@@ -351,9 +381,22 @@ export class ProfileScreen extends Component {
 
           </Animated.View>
 
-        </View>
+        </Animated.View>
 
-        <View style={styles.viewCont}>
+        <Animated.View style={[styles.viewCont, {
+          opacity: this.state.topOpacity,
+
+          transform: [
+            {
+              translateY: this.state.topOpacity.interpolate({
+                inputRange: [0, 1],
+                outputRange: [300, 0],
+                // useNativeDriver: true,
+              })
+            },
+
+          ]
+        }]}>
 
 
           <Animated.View style={{
@@ -504,12 +547,15 @@ export class ProfileScreen extends Component {
             </TouchableOpacity>
           </Animated.View>
 
-          <View style={{
+          {/* <View style={{
             height: 110,
             width: '100%'
-          }} />
-        </View>
-        <SignOutBtn title="Sign Out" onPress={this.signOut} />
+          }} /> */}
+
+        </Animated.View>
+        {/* <Animated.View> */}
+          <SignOutBtn title={"Sign Out"} onPress={this.signOut} />
+        {/* </Animated.View> */}
 
       </View>
     );

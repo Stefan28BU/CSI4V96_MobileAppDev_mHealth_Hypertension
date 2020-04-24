@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image, Button, TouchableOpacity, Alert, Animated } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, TouchableOpacity, Alert, Animated, Dimensions } from 'react-native';
 // import { back, removed, apple, apricot, orange, pear, pinaepple, popeyes, correct } from './imgIndex';
 import { Audio } from 'expo-av';
-import {checkLogInStatus, writeToCache, readFromCache} from './../../localCache/LocalCache';
+import { checkLogInStatus, writeToCache, readFromCache } from './../../localCache/LocalCache';
 import * as SecureStore from 'expo-secure-store';
 
-import {AppCredit, AppProgress} from '../../globals/appManager'
-import {NavigationEvents} from "react-navigation";
+import { AppCredit, AppProgress } from '../../globals/appManager'
+import { NavigationEvents } from "react-navigation";
 import CardFlip from 'react-native-card-flip';
 
 const back = require('./img/back.png');
@@ -42,17 +42,17 @@ let initArray1 = [{ id: 0, img: apple, selected: false, type: 'healthy', removed
 
 
 let initArray2 = [{ id: 0, img: alcohol, selected: false, type: 'unhealthy', removed: false, name: alcohol },
-    { id: 1, img: workout, selected: false, type: 'healthy', removed: false, name: workout },
-    { id: 2, img: lie, selected: false, type: 'unhealthy', removed: false, name: lie },
-    { id: 3, img: late, selected: false, type: 'unhealthy', removed: false, name: late },
-    { id: 4, img: run, selected: false, type: 'healthy', removed: false, name: run },
-    { id: 5, img: smoke, selected: false, type: 'unhealthy', removed: false, name: smoke },
-    { id: 6, img: alcohol, selected: false, type: 'unhealthy', removed: false, name: alcohol },
-    { id: 7, img: workout, selected: false, type: 'healthy', removed: false, name: workout },
-    { id: 8, img: lie, selected: false, type: 'unhealthy', removed: false, name: lie },
-    { id: 9, img: late, selected: false, type: 'unhealthy', removed: false, name: late },
-    { id: 10, img: run, selected: false, type: 'healthy', removed: false, name: run },
-    { id: 11, img: smoke, selected: false, type: 'unhealthy', removed: false, name: smoke }];
+{ id: 1, img: workout, selected: false, type: 'healthy', removed: false, name: workout },
+{ id: 2, img: lie, selected: false, type: 'unhealthy', removed: false, name: lie },
+{ id: 3, img: late, selected: false, type: 'unhealthy', removed: false, name: late },
+{ id: 4, img: run, selected: false, type: 'healthy', removed: false, name: run },
+{ id: 5, img: smoke, selected: false, type: 'unhealthy', removed: false, name: smoke },
+{ id: 6, img: alcohol, selected: false, type: 'unhealthy', removed: false, name: alcohol },
+{ id: 7, img: workout, selected: false, type: 'healthy', removed: false, name: workout },
+{ id: 8, img: lie, selected: false, type: 'unhealthy', removed: false, name: lie },
+{ id: 9, img: late, selected: false, type: 'unhealthy', removed: false, name: late },
+{ id: 10, img: run, selected: false, type: 'healthy', removed: false, name: run },
+{ id: 11, img: smoke, selected: false, type: 'unhealthy', removed: false, name: smoke }];
 
 export class CardGame extends Component {
     constructor(props) {
@@ -62,7 +62,8 @@ export class CardGame extends Component {
             Images: initArray1,
             selected: -1,
             level: 1,
-            fail: false
+            fail: false,
+            gameOpacity: new Animated.Value(0),
         });
         this.sortOrder = this.sortOrder.bind(this);
     }
@@ -71,9 +72,9 @@ export class CardGame extends Component {
      * Sort the order of array every time entering to this page
      */
     async sortOrder() {
-        console.log(JSON.stringify(initArray1));
+        // console.log(JSON.stringify(initArray1));
         var i, j, temp;
-        var arr = this.state.level===1?initArray1:initArray2;
+        var arr = this.state.level === 1 ? initArray1 : initArray2;
         for (let k = 0; k < arr.length; k++) {
             arr[k][`selected`] = false;
             // arr[k][`removed`] = false;
@@ -94,7 +95,7 @@ export class CardGame extends Component {
             selected: -1,
             Images: arr,
         });
-        console.log(JSON.stringify(this.state.Images));
+        // console.log(JSON.stringify(this.state.Images));
     }
 
 
@@ -112,7 +113,7 @@ export class CardGame extends Component {
                 Images: this.state.Images,
             })
             // console.log("Update first pick: " + JSON.stringify(this.state.Images));
-            console.log("clicked " + JSON.stringify(this.state.Images[cardID]));
+            // console.log("clicked " + JSON.stringify(this.state.Images[cardID]));
         }
         // Select second card
         else if (this.state.selected !== -1 && this.state.Images[cardID].selected !== true && !this.state.Images[cardID][`removed`] && this.state.selected !== cardID) {
@@ -203,7 +204,7 @@ export class CardGame extends Component {
         if (this.state.fail === true) {
             Alert.alert(
                 'Game Over!',
-                'You lose! Learn more knowledge about hypertension from video first!' ,
+                'You lose! Learn more knowledge about hypertension from video first!',
                 [
                     {
                         text: 'continue', onPress:
@@ -221,7 +222,7 @@ export class CardGame extends Component {
             AppCredit.addCredit(gold);
             Alert.alert(
                 'Level Up!',
-                'You win this game! You have earned ' + gold +  ' gold from this game' ,
+                'You win this game! You have earned ' + gold + ' gold from this game',
                 [
                     {
                         text: 'continue', onPress:
@@ -295,7 +296,6 @@ export class CardGame extends Component {
             })
         }
         let l = this.state.Images;
-        this.sortOrder();
         // for (let i = 0; i < this.state.Images.length; i++) {
         //     l[i][`selected`] = false;
         //     if (l[i][`removed`] === true) {
@@ -320,7 +320,19 @@ export class CardGame extends Component {
         }
     }
 
+    focused = () => {
+        this.sortOrder();
 
+        Animated.timing(this.state.gameOpacity, {
+            toValue: 1,
+            duration: 300,
+            useNativeDriver: true,
+        }).start()
+    }
+
+    blured = () => {
+        this.state.gameOpacity.setValue(0)
+    }
 
     render() {
         const frontAnimatedStyle = {
@@ -337,9 +349,30 @@ export class CardGame extends Component {
 
         return (
             <View style={styles.bodys} >
-                <NavigationEvents onWillFocus={()=>this.UNSAFE_componentWillMount()}></NavigationEvents>
-                <Text style={styles.title}>Score: {this.state.score}</Text>
-                <View style={styles.container}>
+                <NavigationEvents onWillFocus={this.focused} onDidBlur={this.blured} ></NavigationEvents>
+                <Animated.View style={{
+                    opacity: this.state.gameOpacity
+                }}>
+                    <Text style={styles.title}>Score: {this.state.score}</Text>
+                </Animated.View>
+                <Animated.View style={[styles.container, {
+                    opacity: this.state.gameOpacity,
+
+                    transform: [
+                        {
+                            scale: this.state.gameOpacity.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.8, 1]
+                            })
+                        },
+                        {
+                            translateY: this.state.gameOpacity.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [200, 1]
+                            })
+                        }
+                    ]
+                }]}>
                     {/*<Animated.View style={[frontAnimatedStyle, {width: 400, height: 800, backfaceVisibility: 'hidden'}]}>*/}
                     {/*    <TouchableOpacity style={{*/}
                     {/*            width: '24%',*/}
@@ -378,7 +411,7 @@ export class CardGame extends Component {
                             textAlign: "center",
                             backfaceVisibility: "hidden"
                         }} key={key} onPress={this.handleClick.bind(this, key)}>
-                            <Image style={styles.box} source={item.selected === true?item.img:back} />
+                            <Image style={styles.box} source={item.selected === true ? item.img : back} />
                         </TouchableOpacity>
                     )}
                     <View style={styles.buttons}>
@@ -399,7 +432,7 @@ export class CardGame extends Component {
                             </Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </Animated.View>
                 <View style={{
                     minHeight: 140,
                     width: '100%'
