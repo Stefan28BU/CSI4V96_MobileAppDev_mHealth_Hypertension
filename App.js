@@ -317,36 +317,33 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       };
     },
 
+    
+
     tabBarOptions: {
 
       showLabel: true,
       activeTintColor: '#40e0d0',
       inactiveTintColor: 'rgb(230,230,230)',
 
+      tabStyle: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        textAlign: 'center',
+      },
+
 
       style: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-
-        marginTop: 100,
-        // paddingLeft: 20,
-        // paddingRight: 20,
+      
         position: "absolute",
         bottom: 0,
-        left: 0,
-        width: '100%',
+      
         borderTopColor: 'rgb(100,100,100)',
         backgroundColor: 'rgba(70,70,70, 0.8)',
         borderTopWidth: 1,
-        paddingTop: 10,
+        // paddingTop: 10,
         height: 60,
-        // shadowColor: 'black',
-        // shadowOpacity: 0.4,
-        // shadowOffset: { height: -4, width: 0 },
-        // shadowRadius: 10,
-        // backgroundColor: 'transparent'
+    
       }
     }
   },
@@ -466,19 +463,10 @@ const AppContainer = createAppContainer(switchNavigator);
 
 const styles = StyleSheet.create({
   tabbarIcon: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
+    
 
-    backgroundColor: 'transparent',
-    borderRadius: 20,
-    minWidth: 54,
-    maxWidth: 54,
+    paddingBottom: 10,
 
-    aspectRatio: 1,
-    // top: -20,
-    // position: "absolute",
 
     shadowColor: '#00fa9a',
     shadowOpacity: 0.9,
@@ -525,12 +513,12 @@ const styles = StyleSheet.create({
     paddingTop: '15px',
   },
   tabbarTouch: {
-    width: '100%',
-    height: '100%',
-    aspectRatio: 1,
-    borderRadius: 20,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    // width: '100%',
+    // height: '100%',
+    // aspectRatio: 1,
+    // borderRadius: 20,
+    // display: 'flex',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   }
 });
