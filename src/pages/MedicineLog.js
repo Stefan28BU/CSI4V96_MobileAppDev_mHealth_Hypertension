@@ -4,13 +4,14 @@ import DialogInput from 'react-native-dialog-input';
 import { writeToCache, readFromCache } from './../localCache/LocalCache';
 import { NavigationEvents } from 'react-navigation';
 
+let md = [];
 
 export class MedicineLog extends Component {
     constructor(props) {
         super(props);
         this.state = ({
             date: [],
-            medicine: ['medicine'],
+            medicine: [],
             today: false,
             enter: false,
             value: 0,
@@ -27,7 +28,7 @@ export class MedicineLog extends Component {
             const m = x.split(",");
             let arr = [];
             for (let i = 0; i < m.length; i++) {
-                arr.push(parseInt(m[i]));
+                arr.push(m[i]);
             }
             console.log(arr);
             this.setState({
