@@ -58,15 +58,20 @@ export class PetScreen extends Component {
       },
       100000);
 
-    setInterval(() => {
-      this.setState({
-        goldStatus: AppCredit.totalCredits,
-      })
-    }, 1000);
+    // setInterval(() => {
+    //   this.setState({
+    //     goldStatus: AppCredit.totalCredits,
+    //   })
+    // }, 1000);
   }
 
 
   focused() {
+
+    this.forceUpdate();
+
+    console.log('pet focused')
+
 
     Animated.timing(this.state.petOpacity, {
       toValue: 1,
@@ -114,7 +119,7 @@ export class PetScreen extends Component {
     } else {
       Alert.alert("Not enough credit")
     }
-    // this.forceUpdate();
+    this.forceUpdate();
 
     this.setPetState();
   }
@@ -130,7 +135,7 @@ export class PetScreen extends Component {
 
     }
 
-    // this.forceUpdate();
+    this.forceUpdate();
 
     this.setPetState();
 
@@ -147,7 +152,7 @@ export class PetScreen extends Component {
 
     }
 
-    // this.forceUpdate();
+    this.forceUpdate();
 
     this.setPetState();
 
@@ -163,7 +168,7 @@ export class PetScreen extends Component {
       Alert.alert("Not enough credit")
 
     }
-    // this.forceUpdate();
+    this.forceUpdate();
 
     this.setPetState();
   }
@@ -177,7 +182,7 @@ export class PetScreen extends Component {
       <Animated.View style={[styles.container, {
 
       }]}>
-        <NavigationEvents onWillFocus={this.focused} onWillBlur={this.blured} />
+        <NavigationEvents onWillFocus={this.focused} onDidBlur={this.blured} />
 
         <Animated.View style={[styles.petDash, {
           opacity: this.state.petOpacity,

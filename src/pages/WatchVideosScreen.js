@@ -9,7 +9,7 @@ import FastImage from 'react-native-fast-image';
 import { findCoordinates } from '../utils/findCoordinate';
 import { Asset } from 'expo-asset';
 
-import {AppCredit, AppProgress} from '../globals/appManager';
+import { AppCredit, AppProgress } from '../globals/appManager';
 
 
 import { Icon } from 'react-native-elements';
@@ -71,7 +71,7 @@ export class WatchVideosScreen extends Component {
 
 
     focused() {
-    
+
         this.forceUpdate();
 
         Animated.timing(this.state.watchOpacity, {
@@ -101,18 +101,26 @@ export class WatchVideosScreen extends Component {
 
         return (
             <Animated.View style={[styles.container]}>
-                <Animated.ScrollView style={[styles.scrollView,{
-                opacity: this.state.watchOpacity,
-                transform: [
-                    {translateY: this.state.watchOpacity.interpolate({
-                        inputRange: [0,1],
-                        outputRange: [Dimensions.get('window').height, 0]
-                    })}
-                ]
-            }]}>
+                <Animated.ScrollView style={[styles.scrollView, {
+                    opacity: this.state.watchOpacity,
+                    transform: [
+                        {
+                            scale: this.state.watchOpacity.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.8, 1]
+                            })
+                        },
+                        {
+                            translateY: this.state.watchOpacity.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [200, 1]
+                            })
+                        }
+                    ]
+                }]}>
                     <NavigationEvents
                         onWillFocus={this.focused}
-                        onWillBlur={this.blured}
+                        onDidBlur={this.blured}
                     />
                     <VideoButton subTitle={0} disabled={false} style={styles.img} onPress={() => this.props.navigation.navigate('Part 1: Introduction')} source={require('../imageAssets/04.jpg')} label={"Part 1: What is High BP?"}>
                         {AppProgress.learningProgress >= 25 &&
@@ -143,9 +151,9 @@ export class WatchVideosScreen extends Component {
                                     marginTop: 15,
                                     fontWeight: 'bold',
 
-                                    
 
-                                  
+
+
                                 }}>
                                     Part 1 completed
                                 </Text>
@@ -257,7 +265,7 @@ export class WatchVideosScreen extends Component {
                     <View style={{
                         height: 140,
                         width: '100%'
-                    }}/>
+                    }} />
                 </Animated.ScrollView>
             </Animated.View>
         );

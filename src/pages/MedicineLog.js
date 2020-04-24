@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import DialogInput from 'react-native-dialog-input';
 import { writeToCache, readFromCache } from './../localCache/LocalCache';
+import { NavigationEvents } from 'react-navigation';
 
 
 export class MedicineLog extends Component {
@@ -39,6 +40,7 @@ export class MedicineLog extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
+                <NavigationEvents />
                 <ScrollView horizontal={false} style={{
                     width: "94%",
                     borderRadius: 1,

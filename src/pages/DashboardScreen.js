@@ -79,7 +79,7 @@ export class ProfileScreen extends Component {
   startHeaderAnimation = () => {
     Animated.timing(this.state.topOpacity, {
       toValue: 1,
-      duration: 200,
+      duration: 300,
       useNativeDriver: true,
     }).start()
   }
@@ -140,7 +140,7 @@ export class ProfileScreen extends Component {
         flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(70,70,70)',
 
       }}>
-        <NavigationEvents onWillFocus={this.focused} onWillBlur={this.blured} />
+        <NavigationEvents onWillFocus={this.focused} onDidBlur={this.blured} />
         <Animated.View onPress={this.progressStatus} style={[styles.headerWrapper, {
           opacity: this.state.topOpacity,
 

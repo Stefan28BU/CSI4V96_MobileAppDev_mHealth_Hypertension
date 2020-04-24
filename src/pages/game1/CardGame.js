@@ -349,7 +349,7 @@ export class CardGame extends Component {
 
         return (
             <View style={styles.bodys} >
-                <NavigationEvents onWillFocus={this.focused} onWillBlur={this.blured} ></NavigationEvents>
+                <NavigationEvents onWillFocus={this.focused} onDidBlur={this.blured} ></NavigationEvents>
                 <Animated.View style={{
                     opacity: this.state.gameOpacity
                 }}>
@@ -360,9 +360,15 @@ export class CardGame extends Component {
 
                     transform: [
                         {
+                            scale: this.state.gameOpacity.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.8, 1]
+                            })
+                        },
+                        {
                             translateY: this.state.gameOpacity.interpolate({
                                 inputRange: [0, 1],
-                                outputRange: [Dimensions.get('window').height, 0]
+                                outputRange: [200, 1]
                             })
                         }
                     ]

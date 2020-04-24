@@ -3,6 +3,7 @@ import {Text, View, StyleSheet, TouchableOpacity, ScrollView} from 'react-native
 import { LineChart } from "react-native-chart-kit";
 import DialogInput from 'react-native-dialog-input';
 import { writeToCache, readFromCache } from './../localCache/LocalCache';
+import { NavigationEvents } from 'react-navigation';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -40,6 +41,7 @@ export class BloodPressure extends Component {
     render() {
         return(
             <View style={{flex: 1}}>
+                <NavigationEvents/>
                 <ScrollView horizontal={true} style={{
                     width: "94%",
                     borderRadius: 16,
