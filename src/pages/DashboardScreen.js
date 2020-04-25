@@ -14,6 +14,7 @@ import { NavigationEvents } from 'react-navigation';
 
 import { Entypo, MaterialCommunityIcons, MaterialIcons, Ionicons, AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
 import { deleteItem } from '../localCache/LocalCache';
+import Colors from '../globals/Colors';
 
 
 const SignOutBtn = (props) => {
@@ -221,7 +222,7 @@ export class ProfileScreen extends Component {
                     <Animated.View style={{
                       width: '100%',
                       height: '100%',
-                      backgroundColor: '#40e0d0',
+                      backgroundColor: Colors.themeColorPrimary,
                       opacity: this.state.completeAnim,
 
                     }}>
@@ -263,7 +264,7 @@ export class ProfileScreen extends Component {
                     <Animated.View style={{
                       width: '100%',
                       height: '100%',
-                      backgroundColor: '#40e0d0',
+                      backgroundColor:  Colors.themeColorPrimary,
                       opacity: this.state.completeAnim,
                     }}>
                     </Animated.View>
@@ -302,7 +303,7 @@ export class ProfileScreen extends Component {
                     <Animated.View style={{
                       width: '100%',
                       height: '100%',
-                      backgroundColor: '#40e0d0',
+                      backgroundColor: Colors.themeColorPrimary,
                       opacity: this.state.completeAnim,
                     }}>
                     </Animated.View>
@@ -345,7 +346,7 @@ export class ProfileScreen extends Component {
                     <Animated.View style={{
                       width: '100%',
                       height: '100%',
-                      backgroundColor: '#40e0d0',
+                      backgroundColor:  Colors.themeColorPrimary,
                       opacity: this.state.completeAnim,
                     }}>
                     </Animated.View>
@@ -420,7 +421,7 @@ export class ProfileScreen extends Component {
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Check In')} style={styles.dashBtn}>
 
               <MaterialCommunityIcons
-                color={'#40e0d0'}
+                color={ Colors.themeColorPrimary}
                 name="playlist-check"
                 size={38}
               />
@@ -461,7 +462,7 @@ export class ProfileScreen extends Component {
 
               <MaterialCommunityIcons
 
-                color={'#40e0d0'}
+                color={ Colors.themeColorPrimary}
                 name="calendar-question"
                 size={38}
               />
@@ -497,7 +498,7 @@ export class ProfileScreen extends Component {
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Your Achievements')} style={styles.dashBtn}>
 
               <Entypo
-                color={'#40e0d0'}
+                color={ Colors.themeColorPrimary}
                 name="star-outlined"
                 size={38}
               />
@@ -533,7 +534,7 @@ export class ProfileScreen extends Component {
             <TouchableOpacity onPress={() => this.props.navigation.navigate('My Information')} style={styles.dashBtn}>
 
               <Ionicons
-                color={'#40e0d0'}
+                color={ Colors.themeColorPrimary}
                 name="md-information-circle-outline"
                 size={38}
               />
@@ -599,7 +600,7 @@ const styles = StyleSheet.create({
   btnCont: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#40e0d0',
+    backgroundColor:  Colors.themeColorPrimary,
     height: '15%',
     width: '100%',
     bottom: 0,
@@ -644,7 +645,7 @@ const styles = StyleSheet.create({
     height: '35%',
     // flex: 1,
     width: '100%',
-    backgroundColor: '#40e0d0',
+    backgroundColor:  Colors.themeColorPrimary,
     alignItems: 'center',
     // padding: 20,
     top: 0,
@@ -678,7 +679,6 @@ const styles = StyleSheet.create({
 
     justifyContent: 'center',
     alignItems: 'center',
-    // backgroundColor: '#40e0d0',
     position: 'absolute',
     bottom: 110,
 

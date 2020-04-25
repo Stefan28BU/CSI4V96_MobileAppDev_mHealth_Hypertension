@@ -3,6 +3,7 @@ import { TouchableOpacity, StyleSheet, Text, Image, ImageBackground, View } from
 import { LinearGradient } from 'expo-linear-gradient';
 import { Icon } from 'react-native-elements';
 import FastImage from 'react-native-fast-image';
+import Colors from './../globals/Colors';
 
 
 
@@ -26,7 +27,7 @@ export const MHealthBackBtn = (props) => {
     return (
         <TouchableOpacity title={title} onPress={onPress} style={[styles.mHealthContBack, style]}>
             <Icon
-                color={'#40e0d0'}
+                color={Colors.themeColorPrimary}
                 containerStyle={styles.mIconBack}
                 name="expand-more"
                 size={60}
@@ -126,7 +127,7 @@ export const VideoButton = (props) => {
 
                     }}>
                         <Icon
-                            color={'#40e0d0'}
+                            color={Colors.themeColorPrimary}
                             // color={'white'}
                             name="lock-outline"
                             size={100}
@@ -195,9 +196,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         minHeight: '10%',
         minWidth: '100%',
-        // padding: 50,
-        // borderColor: '#40e0d0',
-        // borderWidth: 1,
+       
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
@@ -243,7 +242,7 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         marginRight: 15,
         borderRadius: 5,
-        borderColor: '#40e0d0',
+        borderColor: Colors.themeColorPrimary,
         // borderWidth: 1,
         justifyContent: 'center',
         alignItems: 'center',
@@ -252,7 +251,7 @@ const styles = StyleSheet.create({
 
     signUpText: {
         fontSize: 16,
-        color: '#40e0d0',
+        color: Colors.themeColorPrimary,
         textTransform: 'uppercase'
     },
     signInCont: {
@@ -273,7 +272,7 @@ const styles = StyleSheet.create({
         // borderColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#40e0d0'
+        backgroundColor: Colors.themeColorPrimary
     },
     signInText: {
         fontSize: 16,
@@ -290,11 +289,11 @@ const styles = StyleSheet.create({
         marginRight: 15,
         borderRadius: 5,
         borderWidth: 1,
-        borderColor: '#40e0d0',
+        borderColor: Colors.themeColorPrimary,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'transparent'
-        // backgroundColor: '#40e0d0',
+        // backgroundColor: Colors.themeColorPrimary,
         // backgroundColor: 'rgba(0,0,0,0.75)'
         // borderBottomLeftRadius: 99999999,
         // borderBottomRightRadius: 99999999,
@@ -304,7 +303,7 @@ const styles = StyleSheet.create({
 
     playText: {
         fontSize: 16,
-        color: '#40e0d0',
+        color: Colors.themeColorPrimary,
         textTransform: 'uppercase'
     },
 
@@ -319,7 +318,7 @@ const styles = StyleSheet.create({
         // borderTopRightRadius: 25,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#40e0d0',
+        backgroundColor: Colors.themeColorPrimary,
         borderWidth: 2,
         // borderRadius: 5,
         borderColor: 'transparent',
@@ -347,7 +346,7 @@ const styles = StyleSheet.create({
         // borderTopRightRadius: 25,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#40e0d0',
+        backgroundColor: Colors.themeColorPrimary,
         borderWidth: 2,
         // borderRadius: 5,
         borderColor: 'transparent',

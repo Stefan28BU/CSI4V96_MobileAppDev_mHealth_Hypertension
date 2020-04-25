@@ -18,6 +18,7 @@ import { Feather, Ionicons, Entypo, MaterialCommunityIcons } from '@expo/vector-
 import { AppLoading } from 'expo';
 
 import { NavigationEvents } from 'react-navigation';
+import Colors from '../globals/Colors';
 
 const img1 = require('../imageAssets/04.jpg');
 const img2 = require('../imageAssets/03.jpg')
@@ -134,13 +135,12 @@ export class WatchVideosScreen extends Component {
                                 justifyContent: 'center',
                                 textAlign: 'center',
 
-                                shadowColor: '#40e0d0',
+                                shadowColor: Colors.themeColorPrimary,
                                 shadowOpacity: 1,
                                 shadowOffset: { height: 0, width: 0 },
                                 shadowRadius: 10,
                             }}>
                                 <Feather
-                                    // color={'#40e0d0'}
                                     color={'white'}
                                     name="check-circle"
                                     size={100}
@@ -172,13 +172,12 @@ export class WatchVideosScreen extends Component {
                                 justifyContent: 'center',
                                 textAlign: 'center',
 
-                                shadowColor: '#40e0d0',
+                                shadowColor:  Colors.themeColorPrimary,
                                 shadowOpacity: 1,
                                 shadowOffset: { height: 0, width: 0 },
                                 shadowRadius: 10,
                             }}>
                                 <Feather
-                                    // color={'#40e0d0'}
                                     color={'white'}
                                     name="check-circle"
                                     size={100}
@@ -206,13 +205,12 @@ export class WatchVideosScreen extends Component {
                                 justifyContent: 'center',
                                 textAlign: 'center',
 
-                                shadowColor: '#40e0d0',
+                                shadowColor:  Colors.themeColorPrimary,
                                 shadowOpacity: 1,
                                 shadowOffset: { height: 0, width: 0 },
                                 shadowRadius: 10,
                             }}>
                                 <Feather
-                                    // color={'#40e0d0'}
                                     color={'white'}
                                     name="check-circle"
                                     size={100}
@@ -240,13 +238,12 @@ export class WatchVideosScreen extends Component {
                                 justifyContent: 'center',
                                 textAlign: 'center',
 
-                                shadowColor: '#40e0d0',
+                                shadowColor: Colors.themeColorPrimary,
                                 shadowOpacity: 1,
                                 shadowOffset: { height: 0, width: 0 },
                                 shadowRadius: 10,
                             }}>
                                 <Feather
-                                    // color={'#40e0d0'}
                                     color={'white'}
                                     name="check-circle"
                                     size={100}

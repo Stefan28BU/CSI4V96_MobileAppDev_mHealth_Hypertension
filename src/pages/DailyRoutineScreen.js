@@ -16,6 +16,7 @@ import { Entypo, MaterialCommunityIcons, MaterialIcons, Ionicons, AntDesign, Oct
 import { deleteItem } from '../localCache/LocalCache';
 import { Pedometer } from 'expo-sensors';
 import Credit from '../globals/credit';
+import Colors from '../globals/Colors';
 
 let c1 = false;
 let c2 = false;
@@ -488,7 +489,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        backgroundColor: '#40e0d0',
+        backgroundColor: Colors.themeColorPrimary,
         position: 'absolute',
         width: '100%',
         height: '36%',
@@ -507,7 +508,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         textAlign: 'center',
-        // backgroundColor: '#40e0d0',
         position: 'absolute',
 
         width: '100%',

@@ -8,6 +8,7 @@ import { NavigationEvents } from 'react-navigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 import { AppCredit, AppProgress } from '../globals/appManager';
+import Colors from '../globals/Colors';
 
 export const MyPet = new Pet('Bob');
 
@@ -370,7 +371,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     textAlign: "center",
-    backgroundColor: '#40e0d0',
+    backgroundColor: Colors.themeColorPrimary,
 
   },
   petStatusBar: {

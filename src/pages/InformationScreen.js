@@ -133,7 +133,7 @@ export class InformationScreen extends Component {
             <View style={styles.container}>
                 <TouchableOpacity style={styles.prompt} onPress={this.prompt.bind(this)}>
                     <Ionicons
-                        color={'#40e0d0'}
+                        color={ Colors.themeColorPrimary}
                         name="md-information-circle-outline"
                         size={30}
                     />
@@ -293,7 +293,6 @@ const styles = StyleSheet.create({
         width: 120,
         height: 120,
         borderRadius: 200,
-        // backgroundColor: '#40e0d0',
         position: "absolute",
         top: 120,
         alignSelf: 'center',

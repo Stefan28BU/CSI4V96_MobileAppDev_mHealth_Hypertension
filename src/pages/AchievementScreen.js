@@ -7,6 +7,7 @@ import { AppCredit, AppProgress } from '../globals/appManager';
 import { ScrollView } from 'react-native-gesture-handler';
 import { NavigationEvents } from 'react-navigation';
 import { withTheme } from 'react-native-elements';
+import Colors from '../globals/Colors';
 
 let goldTotal = 0;
 
@@ -239,7 +240,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
 
         width: '80%',
-        backgroundColor: '#40e0d0',
+        backgroundColor: Colors.themeColorPrimary,
         marginBottom: 20,
         borderRadius: 10,
 

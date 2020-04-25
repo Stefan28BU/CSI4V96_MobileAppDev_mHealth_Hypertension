@@ -48,6 +48,7 @@ import Spinner from 'react-native-loading-spinner-overlay';
 import { MyPet } from './src/pages/PetScreen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { DailyCheckinScreen } from './src/pages/DailyCheckInScreen';
+import Colors from './src/globals/Colors';
 
 
 const Auth = {
@@ -322,7 +323,7 @@ export const DashboardTabNavigator = createBottomTabNavigator(
     tabBarOptions: {
 
       showLabel: true,
-      activeTintColor: '#40e0d0',
+      activeTintColor: Colors.themeColorPrimary,
       inactiveTintColor: 'rgb(230,230,230)',
 
       tabStyle: {
@@ -487,7 +488,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   headerStyle: {
-    backgroundColor: '#40e0d0',
+    backgroundColor: Colors.themeColorPrimary,
     justifyContent: 'center',
     alignContent: 'center',
     width: '100%',

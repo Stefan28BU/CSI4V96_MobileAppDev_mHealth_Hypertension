@@ -3,6 +3,7 @@ import { Alert, Button, Text, View, StyleSheet, KeyboardAvoidingView, ImageBackg
 import { Form, TextValidator } from 'react-native-validator-form';
 import { Auth } from 'aws-amplify';
 import { writeToCache } from './../localCache/LocalCache';
+import Colors from '../globals/Colors';
 
 export class Login extends Component {
   constructor(props) {
@@ -146,7 +147,7 @@ export class Login extends Component {
           <TouchableOpacity style={styles.button} onPress={this.handleSubmit} >
             <Text style={{
               fontSize: 18,
-              color: '#40e0d0'
+              color: Colors.themeColorPrimary
             }}>
               Login
             </Text>
@@ -219,7 +220,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#40e0d0',
+    backgroundColor: Colors.themeColorPrimary,
   },
   input: {
     width: 200,
