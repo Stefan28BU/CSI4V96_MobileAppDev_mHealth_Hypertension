@@ -6,6 +6,8 @@ import { AuthSession } from 'expo';
 import DialogInput from 'react-native-dialog-input';
 import { Ionicons } from '@expo/vector-icons';
 
+import Colors from './../globals/Colors'
+
 
 const info = require('./../imageAssets/dark.jpg');
 const male = require('./../imageAssets/male.jpg');

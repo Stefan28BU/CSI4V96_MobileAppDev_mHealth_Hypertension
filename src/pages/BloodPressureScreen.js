@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Dimensions, KeyboardAvoidingView } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 import DialogInput from 'react-native-dialog-input';
 import { writeToCache, readFromCache } from './../localCache/LocalCache';
@@ -18,16 +18,19 @@ export class BloodPressure extends Component {
         this.state = ({
             date: [],
             pressure: [123, 114, 100, 103, 102],
+            lowPressure: [72, 78, 80, 78, 76],
             today: false,
             enter: false,
+            enterLow: false,
             value: 0,
         });
     }
 
     async UNSAFE_componentWillMount() {
         let bloodPressure = await readFromCache("bloodPressure");
-        console.log(bloodPressure);
-        if (bloodPressure !== null) {
+        let bloodPressureLow = await readFromCache("bloodPressureLow");
+
+        if (bloodPressure) {
             let x = bloodPressure;
             x = x.substring(1);
             x = x.substring(0, x.length - 1);
@@ -41,6 +44,23 @@ export class BloodPressure extends Component {
                 pressure: arr
             })
         }
+
+        if (bloodPressureLow) {
+            let x = bloodPressureLow;
+            x = x.substring(1);
+            x = x.substring(0, x.length - 1);
+            const m = x.split(",");
+            let arr = [];
+            for (let i = 0; i < m.length; i++) {
+                arr.push(parseInt(m[i]));
+            }
+            console.log(arr);
+            this.setState({
+                lowPressure: arr
+            })
+        }
+
+
     }
 
     render() {
@@ -62,7 +82,7 @@ export class BloodPressure extends Component {
                                     data: this.state.pressure
                                 },
                                 {
-                                    data: [200, 33, 123, 22, 90]
+                                    data: this.state.lowPressure
                                 }
                             ]
                         }}
@@ -91,7 +111,8 @@ export class BloodPressure extends Component {
                         }}
                     />
                 </ScrollView>
-                <View style={styles.description}>
+                <KeyboardAvoidingView
+      behavior={Platform.OS == "ios" ? "padding" : "height"}style={styles.description}>
                     <Text style={{
                         color: 'rgb(220,220,220)',
                         textAlign: "center", fontSize: 25
@@ -112,25 +133,44 @@ export class BloodPressure extends Component {
                         </Text>
                     <DialogInput isDialogVisible={this.state.enter}
                         title={"Enter your Blood Pressure"}
-                        message={"Please enter your blood Pressure"}
+                        message={"Please enter your Systolic blood Pressure"}
                         hintInput={"eg. 120(mmHg)"}
                         submitInput={async (inputText) => {
                             let arr = [];
-                            if (this.state.pressure !== null) {
+                            if (this.state.pressure) {
                                 arr = this.state.pressure;
                             }
                             arr.push(inputText);
                             this.setState({ value: inputText, enter: false, pressure: arr });
-                            console.log(arr.toString());
                             await writeToCache("bloodPressure", "[" + arr.toString() + "]");
                             // await writeToCache("name", inputText);
                         }}
                         closeDialog={() => { this.setState({ enter: false }) }}>
                     </DialogInput>
 
-                </View>
-                <TouchableOpacity style={styles.button} onPress={() => this.setState({ enter: true })}>
-                    <Text style={{ height: "100%", textAlign: "center", textAlignVertical: "center", fontSize: 20, color: 'black' }}>Enter</Text>
+                    <DialogInput isDialogVisible={this.state.enterLow}
+                        title={"Enter your Blood Pressure"}
+                        message={"Please enter your Diastolic blood Pressure"}
+                        hintInput={"eg. 80(mmHg)"}
+                        submitInput={async (inputText) => {
+                            let arr = [];
+                            if (this.state.lowPressure) {
+                                arr = this.state.lowPressure;
+                            }
+                            arr.push(inputText);
+                            this.setState({ value: inputText, enterLow: false, lowPressure: arr });
+                            await writeToCache("bloodPressureLow", "[" + arr.toString() + "]");
+                            // await writeToCache("name", inputText);
+                        }}
+                        closeDialog={() => { this.setState({ enterLow: false }) }}>
+                    </DialogInput>
+
+                </KeyboardAvoidingView>
+                <TouchableOpacity style={styles.button1} onPress={() => this.setState({ enter: true })}>
+                    <Text style={{ height: "100%", textAlign: "center", textAlignVertical: "center", fontSize: 20, color: 'black' }}>Enter Systolic</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button2} onPress={() => this.setState({ enterLow: true })}>
+                    <Text style={{ height: "100%", textAlign: "center", textAlignVertical: "center", fontSize: 20, color: 'black' }}>Enter Diastolic</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -142,19 +182,44 @@ const styles = StyleSheet.create({
         marginTop: 20,
         flex: 1,
     },
-    button: {
+    button1: {
         position: "absolute",
         bottom: 0,
         left: 0,
 
-        width: width,
+        width: width /2 ,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
         // height: 30,
-        padding: 26,
+        padding: 30,
         // height: 60,
-        backgroundColor: Colors.themeColorPrimary
+        backgroundColor: Colors.themeColorPrimary,
+
+        borderRightColor: 'rgb(70,70,70)',
+        borderRightWidth: 1,
+        borderTopRightRadius: 16,
+        // borderright
+    },
+    button2: {
+        position: "absolute",
+        bottom: 0,
+        left: width / 2,
+
+        width: width / 2,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        // height: 30,
+        padding: 30,
+        // height: 60,
+        backgroundColor: Colors.themeColorPrimary,
+
+
+        borderLeftColor: 'rgb(70,70,70)',
+        borderLeftWidth: 1,
+        borderTopLeftRadius: 16,
     }
 });
