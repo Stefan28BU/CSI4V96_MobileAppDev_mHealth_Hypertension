@@ -1,4 +1,5 @@
 
 export default {
-    themeColorPrimary: '#2bebd4',
+    themeColorPrimary: '#79aaff',
+    themeShadowColorPrimary: '#79ffff'
 }

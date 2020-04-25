@@ -244,8 +244,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         borderRadius: 10,
 
-        shadowColor: '#00fa9a',
-        shadowOpacity: 0.9,
+        shadowColor: Colors.themeShadowColorPrimary,
+        shadowOpacity: 0.4,
         shadowOffset: { height: 0, width: 0 },
         shadowRadius: 18,
     },

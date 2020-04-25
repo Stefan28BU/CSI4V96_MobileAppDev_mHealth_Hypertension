@@ -505,7 +505,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
 
-        shadowColor: '#00fa9a',
+        shadowColor: Colors.themeShadowColorPrimary,
         shadowOpacity: 0.2,
         shadowOffset: { height: 0, width: 0 },
         shadowRadius: 20,
@@ -538,7 +538,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
 
-        shadowColor: '#00fa9a',
+        shadowColor: Colors.themeShadowColorPrimary,
         shadowOpacity: 0.2,
         shadowOffset: { height: 0, width: 0 },
         shadowRadius: 20,

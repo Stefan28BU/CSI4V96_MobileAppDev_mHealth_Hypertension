@@ -466,10 +466,12 @@ const styles = StyleSheet.create({
   tabbarIcon: {
     
 
-    paddingBottom: 10,
+    padding: 10,
+
+    // backgroundColor: 'red',
 
 
-    shadowColor: '#00fa9a',
+    shadowColor: Colors.themeShadowColorPrimary,
     shadowOpacity: 0.9,
     shadowOffset: { height: 0, width: 0 },
     shadowRadius: 10,

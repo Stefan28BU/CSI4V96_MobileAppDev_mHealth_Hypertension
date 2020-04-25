@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: '100%',
         height: 70,
-        backgroundColor: 'rgba(13, 130, 110, 1)',
+        backgroundColor: Colors.themeColorPrimary,
         bottom: 0,
     },
 

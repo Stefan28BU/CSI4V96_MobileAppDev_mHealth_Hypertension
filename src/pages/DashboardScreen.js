@@ -365,7 +365,7 @@ export class ProfileScreen extends Component {
                 justifyContent: 'center',
                 textAlign: 'center',
 
-                shadowColor: '#00fa9a',
+                shadowColor: Colors.themeShadowColorPrimary,
                 shadowOpacity: this.state.progressShaAnim,
                 shadowOffset: { height: 0, width: 0 },
                 shadowRadius: 18,

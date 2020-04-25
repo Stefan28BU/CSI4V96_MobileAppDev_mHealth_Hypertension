@@ -183,7 +183,6 @@ export class VideoScreen_4 extends React.Component {
         );
     }
 }
-
 var styles = StyleSheet.create({
     videoContainer: {
         flex: 1,
@@ -196,7 +195,6 @@ var styles = StyleSheet.create({
         shadowRadius: 10,
     },
     sfQuizCnt: {
-        backgroundColor: 'white',
 
         width: '100%',
         top: '30%',
@@ -207,37 +205,29 @@ var styles = StyleSheet.create({
     quizCnt: {
         height: '70%',
         width: '100%',
-        // padding: 30,
+        backgroundColor: 'rgb(30,30,30)',
     },
     quizItemCont: {
-        backgroundColor: 'white',
-
-        // marginBottom: 20,
-
+     
         aspectRatio: 1,
         width: '100%',
-
-        // shadowColor: 'black',
-        // shadowOpacity: 0.25,
-        // shadowOffset: { height: 10, width: 0 },
-        // shadowRadius: 10,
-
     },
     quizItem: {
         padding: 20,
 
         fontSize: 20,
-        // backgroundColor: '#40e0d0',
-        color: 'white'
+        color: 'white',
     },
     quizOptionsCnt: {
         marginTop: 10,
-        padding: 0
+        padding: 0,
+        color: 'white',
     },
     quizOptions: {
+        color: 'white',
+
     },
     confAns: {
-        // backgroundColor: '#40e0d0',
         width: '100%',
         height: 100,
         display: 'flex',
@@ -250,4 +240,3 @@ var styles = StyleSheet.create({
         shadowRadius: 10,
     }
 });
-// export default VideoScreen_2;

@@ -14,6 +14,7 @@ import { NavigationEvents } from 'react-navigation';
 
 import { Entypo, MaterialCommunityIcons, MaterialIcons, Ionicons, AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
 import { deleteItem } from '../localCache/LocalCache';
+import Colors from '../globals/Colors';
 
 export class DailyQuestScreen extends Component {
     constructor(props) {
@@ -533,9 +534,9 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
 
-        backgroundColor: '#40e0d0',
+        backgroundColor: Colors.themeColorPrimary,
 
-        shadowColor: '#00fa9a',
+        shadowColor: Colors.themeShadowColorPrimary,
         shadowOpacity: 0.3,
         shadowOffset: { height: 0, width: 0 },
         shadowRadius: 18,

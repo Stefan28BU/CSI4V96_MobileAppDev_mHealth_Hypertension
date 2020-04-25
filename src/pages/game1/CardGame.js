@@ -8,6 +8,7 @@ import * as SecureStore from 'expo-secure-store';
 import { AppCredit, AppProgress } from '../../globals/appManager'
 import { NavigationEvents } from "react-navigation";
 import CardFlip from 'react-native-card-flip';
+import Colors from '../../globals/Colors';
 
 const back = require('./img/back.png');
 const removed = require('./img/cross-wrong.png');
@@ -456,7 +457,7 @@ const styles = StyleSheet.create({
         padding: 12,
         borderRadius: 10,
 
-        shadowColor: '#00fa9a',
+        shadowColor: Colors.themeShadowColorPrimary,
         shadowOpacity: 0.2,
         shadowOffset: { height: 0, width: 0 },
         shadowRadius: 20,
