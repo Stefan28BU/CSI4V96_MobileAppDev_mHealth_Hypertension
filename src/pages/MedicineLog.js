@@ -47,10 +47,9 @@ export class MedicineLog extends Component {
                 <NavigationEvents />
                 <ScrollView  contentContainerStyle={{
                     padding: 20,
-
                 }} style={{
                     width: "100%",
-                    height: 0,
+                    maxHeight: height / 2.5,
                     borderRadius: 16,
                     backgroundColor: "rgb(30,30,30)",
                 }}>
@@ -61,7 +60,6 @@ export class MedicineLog extends Component {
                             </Text>
                         ))
                     }
-                   
                 </ScrollView>
 
                 <View style={styles.description}>
