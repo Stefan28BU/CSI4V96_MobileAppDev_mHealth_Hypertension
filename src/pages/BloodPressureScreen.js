@@ -59,8 +59,6 @@ export class BloodPressure extends Component {
                 lowPressure: arr
             })
         }
-
-
     }
 
     render() {
@@ -68,11 +66,11 @@ export class BloodPressure extends Component {
             <View style={{ flex: 1, padding: 12, alignItems: 'center', justifyContent: 'center', textAlign: 'center', backgroundColor: 'rgb(70,70,70)' }}>
                 <NavigationEvents />
                 <ScrollView horizontal={true} contentContainerStyle={{
-                    height: 0,
-                   
                 }} style={{
                     borderRadius: 16,
                     backgroundColor: "rgb(30,30,30)",
+
+                    maxHeight: height / 2.5,
                 }}>
                     <LineChart
                         data={{
@@ -112,7 +110,7 @@ export class BloodPressure extends Component {
                     />
                 </ScrollView>
                 <KeyboardAvoidingView
-      behavior={Platform.OS == "ios" ? "padding" : "height"}style={styles.description}>
+                    behavior={Platform.OS == "ios" ? "padding" : "height"} style={styles.description}>
                     <Text style={{
                         color: 'rgb(220,220,220)',
                         textAlign: "center", fontSize: 25
@@ -129,7 +127,7 @@ export class BloodPressure extends Component {
                         color: 'rgb(220,220,220)',
                         marginTop: 20, paddingLeft: 15, paddingRight: 15, fontSize: 20
                     }}>
-                        (Start entering your blood pressure by press "Enter" button below.)Î
+                        (Start entering your blood pressure by press "Enter" button below)
                         </Text>
                     <DialogInput isDialogVisible={this.state.enter}
                         title={"Enter your Blood Pressure"}
@@ -187,7 +185,7 @@ const styles = StyleSheet.create({
         bottom: 0,
         left: 0,
 
-        width: width /2 ,
+        width: width / 2,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
