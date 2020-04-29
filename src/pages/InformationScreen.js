@@ -119,8 +119,8 @@ export class InformationScreen extends Component {
 
     prompt() {
         Alert.alert(
-            'Helping',
-            'To help our study of hypertension, you can provide your information. Select and edit the information you want to share with us.',
+            'mHealth Hypertension Research',
+            'To help our study of hypertension, you can provide your information. Select and edit the information that you want to share with us',
             [
                 {
                     text: 'OK', 
@@ -249,8 +249,8 @@ export class InformationScreen extends Component {
                 <TouchableOpacity style={styles.btn} onPress={() => {
                     this.state.page === 0 ? this.setState({page: 1}):this.setState({page: 0})}}>
                     {this.state.page === 0?
-                    <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center', padding: 10}}>Detail</Text>:
-                    <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center', padding: 10}}>Top</Text>
+                    <Text style={{fontSize: 22, color: "white", textAlign: 'center', padding: 10}}>More Information</Text>:
+                    <Text style={{fontSize: 22, color: "white", textAlign: 'center', padding: 10}}>General Information</Text>
                     }
                 </TouchableOpacity>
             </View>

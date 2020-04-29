@@ -358,6 +358,8 @@ export class CardGame extends Component {
     }
 
     focused = () => {
+        this.state.gameOpacity.setValue(0)
+
         this.sortOrder();
 
         Animated.timing(this.state.gameOpacity, {
@@ -368,7 +370,7 @@ export class CardGame extends Component {
     }
 
     blured = () => {
-        this.state.gameOpacity.setValue(0)
+        // this.state.gameOpacity.setValue(0)
     }
 
     levelup() {

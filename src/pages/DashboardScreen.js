@@ -78,6 +78,7 @@ export class ProfileScreen extends Component {
   };
 
   startHeaderAnimation = () => {
+    this.state.topOpacity.setValue(0)
     Animated.timing(this.state.topOpacity, {
       toValue: 1,
       duration: 300,
@@ -105,7 +106,7 @@ export class ProfileScreen extends Component {
   }
 
   blured = () => {
-    this.state.topOpacity.setValue(0)
+    // this.state.topOpacity.setValue(0)
   }
 
   componentDidMount() {

@@ -46,6 +46,13 @@ export class PetScreen extends Component {
   }
 
   componentDidMount() {
+    Animated.timing(this.state.petOpacity, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true
+    }).start()
+
+
     setInterval(
       () => {
         MyPet.dayPass();
@@ -71,12 +78,15 @@ export class PetScreen extends Component {
   }
 
 
+
+
   focused() {
 
     this.forceUpdate();
 
     console.log('pet focused')
 
+    this.state.petOpacity.setValue(0);
 
     Animated.timing(this.state.petOpacity, {
       toValue: 1,
@@ -97,7 +107,7 @@ export class PetScreen extends Component {
   }
 
   blured = () => {
-    this.state.petOpacity.setValue(0);
+    // this.state.petOpacity.setValue(0);
   }
 
 

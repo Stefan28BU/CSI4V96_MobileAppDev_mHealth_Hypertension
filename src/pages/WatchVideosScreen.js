@@ -74,6 +74,7 @@ export class WatchVideosScreen extends Component {
     focused() {
 
         this.forceUpdate();
+        this.state.watchOpacity.setValue(0)
 
         Animated.timing(this.state.watchOpacity, {
             toValue: 1,
@@ -95,7 +96,7 @@ export class WatchVideosScreen extends Component {
     }
 
     blured = () => {
-        this.state.watchOpacity.setValue(0)
+        // this.state.watchOpacity.setValue(0)
     }
 
     render() {
