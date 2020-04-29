@@ -40,23 +40,26 @@ export class Login extends Component {
 
   async handleSubmit() {
     if (this.state.submitted) {
-      Auth.signIn(this.state.username, this.state.password).then((user) => {
-        console.log(user);
-        // Auth.confirmSignIn(user).then(() => {
-        //   this.navigateToHome();
-        //   console.log('successful confirm signed up')
-        // });
-        writeToCache("accessToken", user.signInUserSession.accessToken.jwtToken);
-        writeToCache("idToken", user.signInUserSession.idToken.jwtToken);
-        writeToCache("refreshToken", user.signInUserSession.refreshToken.token);
-        writeToCache("user", user.signInUserSession.idToken.payload.email);
-        this.navigateToHome();
-      })
-        .catch(err => {
-          console.log(err);
-          Alert.alert(err.message);
+      if (this.state.username === '' || this.state.password === '') {
+        Alert.alert("Username and password cannot be empty")
+      } else {
+        Auth.signIn(this.state.username, this.state.password).then((user) => {
+          console.log(user);
+          // Auth.confirmSignIn(user).then(() => {
+          //   this.navigateToHome();
+          //   console.log('successful confirm signed up')
+          // });
+          writeToCache("accessToken", user.signInUserSession.accessToken.jwtToken);
+          writeToCache("idToken", user.signInUserSession.idToken.jwtToken);
+          writeToCache("refreshToken", user.signInUserSession.refreshToken.token);
+          writeToCache("user", user.signInUserSession.idToken.payload.email);
+          this.navigateToHome();
         })
-
+          .catch(err => {
+            console.log(err);
+            Alert.alert(err.message);
+          })
+      }
     } else {
       Alert.alert(
         'Wrong information!',
@@ -154,14 +157,14 @@ export class Login extends Component {
           </TouchableOpacity>
 
 
-          <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('VideoList')} >
+          {/* <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('VideoList')} >
             <Text style={{
               fontSize: 18,
               color: 'black'
             }}>
               Play as Guest
                         </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
           <TouchableOpacity style={styles.buttonT} onPress={() => this.props.navigation.navigate('Sign Up')} >
             <Text style={{
               fontSize: 16,

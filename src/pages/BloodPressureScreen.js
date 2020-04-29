@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Dimensions, KeyboardAvoidingView } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Dimensions, KeyboardAvoidingView, Alert } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 import DialogInput from 'react-native-dialog-input';
-import { writeToCache, readFromCache } from './../localCache/LocalCache';
+import { writeToCache, readFromCache, deleteItem } from './../localCache/LocalCache';
 import { NavigationEvents } from 'react-navigation';
 import Colors from '../globals/Colors';
 
@@ -27,6 +27,8 @@ export class BloodPressure extends Component {
     }
 
     async UNSAFE_componentWillMount() {
+        // await deleteItem("bloodPressure")
+        // await deleteItem("bloodPressureLow")
         let bloodPressure = await readFromCache("bloodPressure");
         let bloodPressureLow = await readFromCache("bloodPressureLow");
 
@@ -141,7 +143,8 @@ export class BloodPressure extends Component {
                             arr.push(inputText);
                             this.setState({ value: inputText, enter: false, pressure: arr });
                             await writeToCache("bloodPressure", "[" + arr.toString() + "]");
-                            // await writeToCache("name", inputText);
+
+                            await writeToCache("name", inputText);
                         }}
                         closeDialog={() => { this.setState({ enter: false }) }}>
                     </DialogInput>

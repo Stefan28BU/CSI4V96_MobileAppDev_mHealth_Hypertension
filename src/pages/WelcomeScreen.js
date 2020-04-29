@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Button, TouchableOpacity, Image, ImageBackground, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableOpacity, Image, ImageBackground, TouchableHighlight, Animated } from 'react-native';
 import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn, EditProfileBtn, SignOutBtn } from '../customComponents/CustomButtons';
 import { colors } from 'react-native-elements';
 import { Video, Audio } from 'expo-av';
@@ -8,10 +8,13 @@ import VideoPlayer from 'expo-video-player';
 import { BlurView } from 'expo-blur';
 import { LinearGradient } from 'expo-linear-gradient';
 
+import { AntDesign, MaterialCommunityIcons, MaterialIcons, Ionicons, Feather, FontAwesome, Foundation } from '@expo/vector-icons';
 
 
 import Modal from "react-native-modal";
 import { Icon } from 'react-native-elements';
+import Form from 'react-native-validator-form/lib/Form';
+import Colors from './../globals/Colors'
 
 export class WelcomeScreen extends Component {
     constructor(props) {
@@ -19,7 +22,9 @@ export class WelcomeScreen extends Component {
 
         this.state = {
             isModalVisible: false,
-            
+
+            heartScale: new Animated.Value(1),
+
         }
     }
 
@@ -52,6 +57,7 @@ export class WelcomeScreen extends Component {
     }
 
     UNSAFE_componentWillMount() {
+        this.startHeartAnimation();
         this.background = (
             <ImageBackground style={styles.welcomeBackground} resizeMode={'cover'} source={require('../imageAssets/wallpaper.jpg')} >
                 <View style={styles.blank} />
@@ -59,12 +65,124 @@ export class WelcomeScreen extends Component {
         );
     }
 
+    startHeartAnimation = () => {
+        Animated.loop(Animated.sequence([
+            Animated.timing(this.state.heartScale, {
+                toValue: 1.1,
+                delay: 500,
+                duration: 120,
+                useNativeDriver: true,
+            }),
+            Animated.timing(this.state.heartScale, {
+                toValue: 1,
+                duration: 120,
+                useNativeDriver: true,
+            }),
+            Animated.timing(this.state.heartScale, {
+                toValue: 1.2,
+                duration: 120,
+                useNativeDriver: true,
+            }),
+            Animated.timing(this.state.heartScale, {
+                toValue: 1,
+                duration: 120,
+                useNativeDriver: true,
+            }),
+        ])
+        ).start()
+    }
+
     render() {
         const { open } = this.state
+
+        const topBackground = (
+            <Animated.View style={{
+                width: '100%',
+                height: '50%',
+                position: 'absolute',
+                // backgroundColor: 'red',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                top: 0,
+            }}>
+                <Animated.View style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    margin: 10,
+                    paddingTop: 80
+                }}>
+                    <MaterialIcons
+                        color={Colors.themeColorPrimary}
+                        name="directions-walk"
+                        size={48}
+                    />
+
+                    <MaterialCommunityIcons
+                        color={Colors.themeColorPrimary}
+                        name="food"
+                        size={50}
+                    />
+                    <MaterialIcons
+                        color={Colors.themeColorPrimary}
+                        name="smoking-rooms"
+                        size={50}
+                    />
+                </Animated.View>
+                <Animated.View style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    margin: 10,
+
+                    transform: [
+                        {
+                            scale: this.state.heartScale
+                        }
+                    ]
+                }}>
+                    <FontAwesome
+                        color={'#ff095a'}
+                        name="heartbeat"
+                        size={66}
+                    />
+                </Animated.View>
+                <Animated.View style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    margin: 10,
+                }}>
+                    <Ionicons
+                        color={Colors.themeColorPrimary}
+                        name="md-medkit"
+                        size={50}
+                    />
+                    <MaterialCommunityIcons
+                        color={Colors.themeColorPrimary}
+                        name="doctor"
+                        size={48}
+                    />
+                    <Ionicons
+                        color={Colors.themeColorPrimary}
+                        name="md-bed"
+                        size={58}
+                    />
+                </Animated.View>
+
+            </Animated.View>
+
+        )
 
         return (
             <View style={styles.welcomeScreenWrapper}>
                 {this.background}
+                <LinearGradient
+                    colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']} style={{
+                        position: 'absolute',
+                        width: '100%',
+                        height: '100%'
+                    }} />
+                {topBackground}
                 <View
                     isVisible={this.state.isModalVisible}
                     style={styles.modalStyle}
@@ -73,8 +191,7 @@ export class WelcomeScreen extends Component {
                     animationOutTiming={500}
                     hasBackdrop={false}
                 >
-                    <LinearGradient
-                        colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']} style={styles.centerContainer}>
+                    <View style={styles.centerContainer}>
                         <View style={styles.welcomeCont}>
                             <Text style={styles.welcomeTextTitle}>
                                 Welcome to mHealth!
@@ -84,10 +201,9 @@ export class WelcomeScreen extends Component {
                             </Text>
                         </View>
                         <SignInBtn title="Sign In" onPress={this.toSignIn} />
-                        <SignInBtn title="Sign Up" onPress={this.toSignUp} />
-                        <PlayBtn title="Play and Learn" onPress={this.toPlay} />
-
-                    </LinearGradient>
+                        {/* <SignInBtn title="Sign Up" onPress={this.toSignUp} /> */}
+                        <PlayBtn title="Sign Up" onPress={this.toSignUp} />
+                    </View>
                 </View>
             </View>
         );
@@ -108,7 +224,7 @@ const styles = StyleSheet.create({
     },
     modalStyle: {
         // marginTop: '100%',
-        minHeight: 400,
+        height: '50%',
         bottom: 0,
         position: "absolute",
         width: '100%',
@@ -159,22 +275,12 @@ const styles = StyleSheet.create({
     },
     centerContainer: {
         width: '100%',
-        // backgroundColor: 'rgba(0,0,0,0.7)',
-        // borderColor: 'white',
-        // borderWidth: 1,
-        // borderTopLeftRadius: 20,
-        // borderTopRightRadius: 20,
+
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
 
-        // shadowColor: 'black',
-        // shadowOpacity: 0.8,
-        // shadowOffset: { height: 0, width: 0 },
-        // shadowRadius: 7,
-        // top: '-18%',
-        // zIndex: 2
     },
     welcomeText: {
         fontSize: 20,

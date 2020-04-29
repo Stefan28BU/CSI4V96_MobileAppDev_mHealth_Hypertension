@@ -45,27 +45,31 @@ export class SignUpScreen extends Component {
         console.log(this.state.checked);
 
         if (this.state.checked && this.state.password === this.state.confirmPassword) {
-            const username = this.state.username;
-            const password = this.state.password;
-            console.log(username + " " + password);
-            try {
-                const signUpResponse = await Auth.signUp({
-                    username,
-                    password,
-                    attributes: {
-                        email: username
-                    }
-                });
-                console.log('not a error');
-                console.log(signUpResponse);
-                this.setState({ submited: true });
-                // SecureStore.setItemAsync("key", JSON.stringify(signUpResponse));
-            
-                // do some saving?
-            } catch (error) {
-                console.log(error);
-                this.setState({ submited: false });
-                Alert.alert(error.message);
+            if (this.state.username === '' || this.state.password === '') {
+                Alert.alert("Username and password cannot be empty")
+            } else {
+                const username = this.state.username;
+                const password = this.state.password;
+                console.log(username + " " + password);
+                try {
+                    const signUpResponse = await Auth.signUp({
+                        username,
+                        password,
+                        attributes: {
+                            email: username
+                        }
+                    });
+                    console.log('not a error');
+                    console.log(signUpResponse);
+                    this.setState({ submited: true });
+                    // SecureStore.setItemAsync("key", JSON.stringify(signUpResponse));
+
+                    // do some saving?
+                } catch (error) {
+                    console.log(error);
+                    this.setState({ submited: false });
+                    Alert.alert(error.message);
+                }
             }
         } else {
             Alert.alert(
@@ -176,14 +180,14 @@ export class SignUpScreen extends Component {
                         </Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('VideoList')} >
+                    {/* <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('VideoList')} >
                         <Text style={{
                             fontSize: 18,
                             color: 'black'
                         }}>
                             Play as Guest
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity style={styles.buttonT} onPress={() => this.props.navigation.navigate('Login')} >
                         <Text style={{
                             fontSize: 16,
@@ -199,12 +203,8 @@ export class SignUpScreen extends Component {
 
                     <Form ref="Signup" onSubmit={this.handleSubmit}>
                         <Text style={styles.title}>Confirmation</Text>
-                        <Text style={styles.name}>Confirm Key: </Text>
                         <TextValidator
-                            title="Confirm Key: "
                             style={styles.input}
-                            name="Confirm Key"
-                            lable="Confirm Key"
                             validators={['required']}
                             errorMessages={['This field is required!']}
                             placeholder="Confirm key"
@@ -213,7 +213,14 @@ export class SignUpScreen extends Component {
                             value={this.state.confirmKey}
                             onChangeText={(confirmKey) => this.setState({ confirmKey })}
                         />
-                        <Button style={styles.button} title="Confirm" onPress={this.handleConfirm} />
+                        <TouchableOpacity style={styles.button} onPress={this.handleConfirm} >
+                            <Text style={{
+                                fontSize: 18,
+                                color: Colors.themeColorPrimary
+                            }}>
+                                Confirm
+                        </Text>
+                        </TouchableOpacity>
                     </Form>
                 }
             </KeyboardAvoidingView>

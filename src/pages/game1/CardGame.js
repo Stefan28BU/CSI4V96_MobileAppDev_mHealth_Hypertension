@@ -20,12 +20,12 @@ const pinaepple = require('./img/pineapple.png');
 const popeyes = require('./img/popeyes.jpg');
 const correct = require('./img/correct.png');
 
-const alcohol = require('./img/alcohol.jpg');
-const workout = require('./img/Workout.jpg');
-const lie = require('./img/lie.jpg');
-const late = require('./img/late.jpg');
-const run = require('./img/run.jpg');
-const smoke = require('./img/smoke.jpg');
+const alcohol = require('./img/alcohol.png');
+const workout = require('./img/workout.png');
+const lie = require('./img/lie.png');
+const bpMeasure = require('./img/bpTest.png');
+const run = require('./img/run.png');
+const smoke = require('./img/smoke.png');
 
 
 let initArray1 = [{ id: 0, img: apple, selected: false, type: 'healthy', removed: false, name: apple },
@@ -45,13 +45,13 @@ let initArray1 = [{ id: 0, img: apple, selected: false, type: 'healthy', removed
 let initArray2 = [{ id: 0, img: alcohol, selected: false, type: 'unhealthy', removed: false, name: alcohol },
 { id: 1, img: workout, selected: false, type: 'healthy', removed: false, name: workout },
 { id: 2, img: lie, selected: false, type: 'unhealthy', removed: false, name: lie },
-{ id: 3, img: late, selected: false, type: 'unhealthy', removed: false, name: late },
+{ id: 3, img: bpMeasure, selected: false, type: 'healthy', removed: false, name: bpMeasure },
 { id: 4, img: run, selected: false, type: 'healthy', removed: false, name: run },
 { id: 5, img: smoke, selected: false, type: 'unhealthy', removed: false, name: smoke },
 { id: 6, img: alcohol, selected: false, type: 'unhealthy', removed: false, name: alcohol },
 { id: 7, img: workout, selected: false, type: 'healthy', removed: false, name: workout },
 { id: 8, img: lie, selected: false, type: 'unhealthy', removed: false, name: lie },
-{ id: 9, img: late, selected: false, type: 'unhealthy', removed: false, name: late },
+{ id: 9, img: bpMeasure, selected: false, type: 'healthy', removed: false, name: bpMeasure },
 { id: 10, img: run, selected: false, type: 'healthy', removed: false, name: run },
 { id: 11, img: smoke, selected: false, type: 'unhealthy', removed: false, name: smoke }];
 
@@ -404,14 +404,17 @@ export class CardGame extends Component {
                     {/*</Animated.View>*/}
                     {this.state.Images.map((item, key) =>
                         <TouchableOpacity style={{
-                            width: '24%',
-                            height: '24%',
+                            // borderRadius: 5,
+                            width: '20%',
+                            height: '20%',
+                            margin: 4,
                             resizeMode: 'stretch',
                             display: 'flex',
                             alignItems: "center",
                             justifyContent: "center",
                             textAlign: "center",
-                            backfaceVisibility: "hidden"
+                            backfaceVisibility: "hidden",
+                            backgroundColor: 'white'
                         }} key={key} onPress={this.handleClick.bind(this, key)}>
                             <Image style={styles.box} source={item.selected === true ? item.img : back} />
                         </TouchableOpacity>

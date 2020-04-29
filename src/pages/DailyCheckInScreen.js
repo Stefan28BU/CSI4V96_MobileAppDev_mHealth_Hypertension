@@ -76,7 +76,7 @@ export class DailyCheckinScreen extends Component {
                             size={50}
                         />
                         <Text style={styles.checkTxt}>
-                            Log My Meal
+                            Take Picture of Meal
                         </Text>
                     </TouchableOpacity>
                 </Animated.View>
@@ -145,7 +145,7 @@ export class DailyCheckinScreen extends Component {
                             size={50}
                         />
                         <Text style={styles.checkTxt}>
-                            Log My Exercise Routine
+                            Steps Walked for Today
                         </Text>
                     </TouchableOpacity>
                 </Animated.View>

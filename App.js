@@ -150,11 +150,6 @@ const tab2 = new Animated.Value(1);
 const tab3 = new Animated.Value(1);
 const tab4 = new Animated.Value(1);
 
-const tab1y = new Animated.Value(0);
-const tab2y = new Animated.Value(0);
-const tab3y = new Animated.Value(0);
-const tab4y = new Animated.Value(0);
-
 function tabAnimation(tab) {
   Animated.sequence([
     Animated.parallel([
@@ -187,6 +182,8 @@ export const DashboardTabNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: ({ tintColor }) => (
           <Animated.View style={[styles.tabbarIcon, {
+            // backgroundColor: activeTintColor,
+
             transform: [
               {
                 scale: tab1
@@ -466,9 +463,17 @@ const styles = StyleSheet.create({
   tabbarIcon: {
     
 
-    padding: 10,
+    width: 50,
+    height: 50,
+    aspectRatio: 1,
 
-    // backgroundColor: 'red',
+    display: 'flex',
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+
+    borderRadius: 999,
 
 
     shadowColor: Colors.themeShadowColorPrimary,
