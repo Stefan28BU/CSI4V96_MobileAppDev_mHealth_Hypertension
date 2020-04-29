@@ -107,7 +107,7 @@ export class PetScreen extends Component {
   }
 
   blured = () => {
-    // this.state.petOpacity.setValue(0);
+    this.state.petOpacity.setValue(1);
   }
 
 

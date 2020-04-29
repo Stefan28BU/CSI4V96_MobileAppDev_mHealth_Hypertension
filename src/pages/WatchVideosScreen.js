@@ -96,7 +96,7 @@ export class WatchVideosScreen extends Component {
     }
 
     blured = () => {
-        // this.state.watchOpacity.setValue(0)
+        this.state.watchOpacity.setValue(1)
     }
 
     render() {

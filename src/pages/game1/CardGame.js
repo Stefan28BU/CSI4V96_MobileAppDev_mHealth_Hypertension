@@ -370,7 +370,7 @@ export class CardGame extends Component {
     }
 
     blured = () => {
-        // this.state.gameOpacity.setValue(0)
+        this.state.gameOpacity.setValue(1)
     }
 
     levelup() {

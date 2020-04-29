@@ -106,7 +106,7 @@ export class ProfileScreen extends Component {
   }
 
   blured = () => {
-    // this.state.topOpacity.setValue(0)
+    this.state.topOpacity.setValue(1)
   }
 
   componentDidMount() {
