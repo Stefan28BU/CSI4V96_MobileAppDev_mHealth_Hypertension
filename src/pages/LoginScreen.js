@@ -60,7 +60,7 @@ export class Login extends Component {
           useNativeDriver: true,
         }).start()
 
-        Auth.signIn(this.state.username, this.state.password).then((user) => {
+        Auth.signIn(this.state.username.toLowerCase(), this.state.password).then((user) => {
           console.log(user);
           // Auth.confirmSignIn(user).then(() => {
           //   this.navigateToHome();

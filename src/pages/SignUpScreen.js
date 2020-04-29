@@ -61,7 +61,7 @@ export class SignUpScreen extends Component {
                     useNativeDriver: true,
                 }).start()
 
-                const username = this.state.username;
+                const username = this.state.username.toLowerCase();
                 const password = this.state.password;
                 console.log(username + " " + password);
                 try {
@@ -103,15 +103,15 @@ export class SignUpScreen extends Component {
         }
     }
 
-    async handleResendSignUp (){
+    async handleResendSignUp() {
 
-        Auth.resendSignUp(this.state.username)
+        Auth.resendSignUp(this.state.username.toLowerCase())
             .then(() => {
                 console.log('successfully resend');
                 Alert.alert("A new confirmation has been sent to your email")
             })
             .catch((err) => console.log(err));
-        await writeToCache("user", this.state.username)
+        await writeToCache("user", this.state.username.toLowerCase())
     }
 
     navigateToHome() {
@@ -123,6 +123,8 @@ export class SignUpScreen extends Component {
 
         if (this.state.confirmKey === '') {
             Alert.alert('Confirmation code cannot be empty')
+        } else if (isNaN(this.state.confirmKey)) {
+            Alert.alert('Please enter a number')
         } else {
             Animated.timing(this.state.splashOpacity, {
                 toValue: 1,
@@ -130,7 +132,7 @@ export class SignUpScreen extends Component {
                 useNativeDriver: true,
             }).start()
 
-            Auth.confirmSignUp(this.state.username, this.state.confirmKey)
+            Auth.confirmSignUp(this.state.username.toLowerCase(), this.state.confirmKey)
                 .then(() => {
                     this.navigateToHome();
                     console.log('successful confirm signed up')
