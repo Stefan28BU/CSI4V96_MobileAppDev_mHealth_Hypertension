@@ -65,6 +65,7 @@ export class CardGame extends Component {
             level: 1,
             fail: false,
             gameOpacity: new Animated.Value(0),
+            unlocked: false
         });
         this.sortOrder = this.sortOrder.bind(this);
     }
@@ -74,6 +75,12 @@ export class CardGame extends Component {
      */
     async sortOrder() {
         // console.log(JSON.stringify(initArray1));
+        console.log(this.state.level);
+        // if (this.state.level === 2) {
+        //     this.setState({
+        //         unlocked: true
+        //     })
+        // }
         var i, j, temp;
         var arr = this.state.level === 1 ? initArray1 : initArray2;
         for (let k = 0; k < arr.length; k++) {
@@ -95,6 +102,8 @@ export class CardGame extends Component {
             score: 0,
             selected: -1,
             Images: arr,
+            fail: false,
+
         });
         // console.log(JSON.stringify(this.state.Images));
     }
@@ -221,6 +230,7 @@ export class CardGame extends Component {
             const gold = this.state.score * 2;
             await writeToCache("level", "2");
             AppCredit.addCredit(gold);
+            // this.levelup();
             Alert.alert(
                 'Level Up!',
                 'You win this game! You have earned ' + gold + ' gold from this game',
@@ -232,7 +242,13 @@ export class CardGame extends Component {
                             }
                     }
                 ],
-                { cancelable: false }
+                {
+                    cancelable: true,
+                    onPress: ()=>{
+                        this.setState({unlocked: true});
+                        this.props.navigation.navigate('Play');
+                    }
+                }
             );
         }
     }
@@ -256,7 +272,7 @@ export class CardGame extends Component {
         this.value = 0;
         this.animatedValue.addListener(({ value }) => {
             this.value = value
-        })
+        });
         this.frontInterpolate = this.animatedValue.interpolate({
             inputRange: [0, 180],
             outputRange: ['0deg', '180deg']
@@ -275,16 +291,16 @@ export class CardGame extends Component {
             selected: -1,
         });
         if (level !== null) {
-            if (level === "2") {
+            // if (level === "2") {
+            //     this.setState({
+            //         level: 2
+            //     })
+            // } else {
                 this.setState({
-                    level: 2
+                    level: 1,
+                    unlocked: true
                 })
-            } else {
-                this.setState({
-                    level: 1
-                })
-            }
-
+            // }
         }
 
         if (this.state.level === 2) {
@@ -306,7 +322,7 @@ export class CardGame extends Component {
         // }
         this.setState({
             Images: l
-        })
+        });
         try {
             const { sound: soundObject, status } = await Audio.Sound.createAsync(
                 require('./msc/bgm.mp3'),
@@ -319,6 +335,26 @@ export class CardGame extends Component {
         } catch (error) {
             // An error occurred!
         }
+        this.sortOrder();
+    }
+
+    async changeLevel(lv) {
+        console.log("1: "+lv);
+        let l = lv;
+        await this.setState({
+            level: l
+        });
+        console.log("2: "+this.state.level);
+        // if (this.state.level === 1) {
+        //     this.setState({
+        //         level: lv
+        //     })
+        // } else {
+        //     this.setState({
+        //         level: lv
+        //     })
+        // }
+        this.sortOrder();
     }
 
     focused = () => {
@@ -333,6 +369,12 @@ export class CardGame extends Component {
 
     blured = () => {
         this.state.gameOpacity.setValue(0)
+    }
+
+    levelup() {
+        this.setState({
+            unlocked: true
+        })
     }
 
     render() {
@@ -354,7 +396,11 @@ export class CardGame extends Component {
                 <Animated.View style={{
                     opacity: this.state.gameOpacity
                 }}>
-                    <Text style={styles.title}>Level: {this.state.level}</Text>
+                    <View style={styles.line}>
+                        <Text style={styles.title}>Level: </Text>
+                        <TouchableOpacity style={this.state.level === 1 || this.state.unlocked===false ? styles.level_sel:styles.level} onPress={this.changeLevel.bind(this, 1)}><Text style={styles.lv}>1</Text></TouchableOpacity>
+                        {this.state.unlocked?<TouchableOpacity style={this.state.level === 2 ? styles.level_sel:styles.level} onPress={this.changeLevel.bind(this, 2)}><Text style={styles.lv}>2</Text></TouchableOpacity>:<View/>}
+                    </View>
                     <Text style={styles.title}>Score: {this.state.score}</Text>
                 </Animated.View>
                 <Animated.View style={[styles.container, {
@@ -471,8 +517,42 @@ const styles = StyleSheet.create({
         // backgroundColor: 'green'
     },
 
-    title: {
+    line: {
         marginTop: 40,
+        // display: "flex",
+        flexDirection: "row",
+        // borderWidth: 1,
+        justifyContent: "center",
+        alignItems: "center"
+    },
+
+    level_sel: {
+        width: 50,
+        height: "80%",
+        borderWidth: 1,
+        backgroundColor: "#81FF33",
+        marginRight: 5,
+        // justifyContent: "center",
+        alignItems: "center"
+    },
+
+    level: {
+        width: 50,
+        height: "80%",
+        borderWidth: 1,
+        // backgroundColor: "#81FF33",
+        marginRight: 5,
+        // justifyContent: "center",
+        alignItems: "center"
+    },
+    lv: {
+        textAlign: "center",
+        // color: "#FF3333",
+        fontSize: 23
+    },
+
+    title: {
+        // marginTop: 40,
         fontSize: 30,
         textAlign: 'center',
         position: 'relative',
