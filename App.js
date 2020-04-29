@@ -99,12 +99,18 @@ export default class App extends React.Component {
       require('./src/pages/game1/img/apricot.jpg'),
       require('./src/pages/game1/img/back.png'),
       require('./src/pages/game1/img/correct.png'),
-      require('./src/pages/game1/img/cross-wrong.png'),
-      require('./src/pages/game1/img/orange.png'),
-      require('./src/pages/game1/img/pear.jpg'),
+      require('./src/pages/game1/img/milker_X_icon.png'),
+      require('./src/pages/game1/img/salt.jpg'),
       require('./src/pages/game1/img/pineapple.png'),
-      require('./src/pages/game1/img/popeyes.jpg'),
-
+      require('./src/pages/game1/img/popeyes.png'),
+      require('./src/pages/game1/img/alcohol.png'),
+      require('./src/pages/game1/img/bpTest.png'),
+      require('./src/pages/game1/img/late.png'),
+      require('./src/pages/game1/img/lie.png'),
+      require('./src/pages/game1/img/run.png'),
+      require('./src/pages/game1/img/smoke.png'),
+      require('./src/pages/game1/img/workout.png'),
+      require('./src/pages/game1/img/burger.jpg'),
     ]);
 
     await Promise.all([...imageAssets]);
