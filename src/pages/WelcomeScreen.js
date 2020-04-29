@@ -15,6 +15,7 @@ import Modal from "react-native-modal";
 import { Icon } from 'react-native-elements';
 import Form from 'react-native-validator-form/lib/Form';
 import Colors from './../globals/Colors'
+import { NavigationEvents } from 'react-navigation';
 
 export class WelcomeScreen extends Component {
     constructor(props) {
@@ -24,6 +25,8 @@ export class WelcomeScreen extends Component {
             isModalVisible: false,
 
             heartScale: new Animated.Value(1),
+
+            screenOpacity: new Animated.Value(0),
 
         }
     }
@@ -65,6 +68,15 @@ export class WelcomeScreen extends Component {
         );
     }
 
+    componentDidMount() {
+        Animated.timing(this.state.screenOpacity, {
+            delay: 100,
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+        }).start()
+    }
+
     startHeartAnimation = () => {
         Animated.loop(Animated.sequence([
             Animated.timing(this.state.heartScale, {
@@ -90,6 +102,18 @@ export class WelcomeScreen extends Component {
             }),
         ])
         ).start()
+    }
+
+    focused = () => {
+        Animated.timing(this.state.screenOpacity, {
+            toValue: 1,
+            duration: 500,
+            useNativeDriver: true,
+        }).start()
+    }
+
+    blurred = () => {
+        this.state.screenOpacity.setValue(0)
     }
 
     render() {
@@ -173,8 +197,12 @@ export class WelcomeScreen extends Component {
 
         )
 
+
         return (
-            <View style={styles.welcomeScreenWrapper}>
+            <Animated.View style={[styles.welcomeScreenWrapper, {
+                backgroundColor: Colors.themeColorPrimary
+            }]}>
+                <NavigationEvents onWillFocus={this.focused} onWillBlur={this.blurred} />
                 {this.background}
                 <LinearGradient
                     colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']} style={{
@@ -183,15 +211,26 @@ export class WelcomeScreen extends Component {
                         height: '100%'
                     }} />
                 {topBackground}
-                <View
+                <Animated.View
                     isVisible={this.state.isModalVisible}
-                    style={styles.modalStyle}
+                    style={[styles.modalStyle, {
+                        opacity: this.state.screenOpacity,
+
+                        transform: [
+                            {
+                                translateY: this.state.screenOpacity.interpolate({
+                                    inputRange: [0,1],
+                                    outputRange: [50, 0]
+                                })
+                            }
+                        ]
+                    }]}
                     animationIn={"slideInUp"}
                     animationInTiming={400}
                     animationOutTiming={500}
                     hasBackdrop={false}
                 >
-                    <View style={styles.centerContainer}>
+                    <Animated.View style={styles.centerContainer}>
                         <View style={styles.welcomeCont}>
                             <Text style={styles.welcomeTextTitle}>
                                 Welcome to mHealth!
@@ -203,9 +242,9 @@ export class WelcomeScreen extends Component {
                         <PlayBtn title="Sign In" onPress={this.toSignIn} />
                         {/* <SignInBtn title="Sign Up" onPress={this.toSignUp} /> */}
                         <SignInBtn title="Sign Up" onPress={this.toSignUp} />
-                    </View>
-                </View>
-            </View>
+                    </Animated.View>
+                </Animated.View>
+            </Animated.View>
         );
     }
 }

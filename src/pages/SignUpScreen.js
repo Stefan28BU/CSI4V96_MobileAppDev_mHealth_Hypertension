@@ -5,6 +5,7 @@ import { Auth } from 'aws-amplify';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
 import { writeToCache } from './../localCache/LocalCache';
 import Colors from '../globals/Colors';
+import { NavigationEvents } from 'react-navigation';
 
 export class SignUpScreen extends Component {
     constructor(props) {
@@ -17,10 +18,13 @@ export class SignUpScreen extends Component {
             submited: false,
             confirmKey: '',
             splashOpacity: new Animated.Value(0),
+            midOpacity: new Animated.Value(0),
+
 
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleConfirm = this.handleConfirm.bind(this);
+        this.handleResendSignUp = this.handleResendSignUp.bind(this);
     }
 
 
@@ -42,6 +46,7 @@ export class SignUpScreen extends Component {
     componentWillUnmount() {
         Form.removeValidationRule('passwordMatch');
     }
+
 
     async handleSubmit() {
         console.log(this.state.checked);
@@ -98,9 +103,13 @@ export class SignUpScreen extends Component {
         }
     }
 
-    async handleResendSignUp() {
+    async handleResendSignUp (){
+
         Auth.resendSignUp(this.state.username)
-            .then(() => console.log('successfully resend'))
+            .then(() => {
+                console.log('successfully resend');
+                Alert.alert("A new confirmation has been sent to your email")
+            })
             .catch((err) => console.log(err));
         await writeToCache("user", this.state.username)
     }
@@ -111,93 +120,138 @@ export class SignUpScreen extends Component {
 
     handleConfirm() {
         // const go = this.props.navigation.navigate('Learn');
-        Animated.timing(this.state.splashOpacity, {
+
+        if (this.state.confirmKey === '') {
+            Alert.alert('Confirmation code cannot be empty')
+        } else {
+            Animated.timing(this.state.splashOpacity, {
+                toValue: 1,
+                duration: 120,
+                useNativeDriver: true,
+            }).start()
+
+            Auth.confirmSignUp(this.state.username, this.state.confirmKey)
+                .then(() => {
+                    this.navigateToHome();
+                    console.log('successful confirm signed up')
+
+                })
+                .catch(err => {
+                    this.state.splashOpacity.setValue(0)
+
+                    console.log('error confirm signing up: ', err)
+                    Alert.alert(
+                        'Incorrect confirmation code',
+                        // 'A new code has been resent to your email address',
+                        [
+                            {
+                                text: 'Retry', onPress: () => {
+                                    console.log('Press button!')
+                                    // this.handleResendSignUp();
+                                }
+                            }
+                        ],
+                        { cancelable: false }
+                    )
+                });
+        }
+
+
+    }
+
+    componentDidMount() {
+        Animated.timing(this.state.midOpacity, {
+            delay: 100,
             toValue: 1,
-            duration: 120,
+            duration: 250,
             useNativeDriver: true,
         }).start()
+    }
 
-        Auth.confirmSignUp(this.state.username, this.state.confirmKey)
-            .then(() => {
-                this.navigateToHome();
-                console.log('successful confirm signed up')
+    focused = () => {
+        Animated.timing(this.state.midOpacity, {
+            toValue: 1,
+            duration: 250,
+            useNativeDriver: true,
+        }).start()
+    }
 
-            })
-            .catch(err => {
-                this.state.splashOpacity.setValue(0)
-
-                console.log('error confirm signing up: ', err)
-                Alert.alert(
-                    'Wrong confirm key!',
-                    'Please check your confirm key and try again!',
-                    [
-                        {
-                            text: 'Retry', onPress: () => {
-                                console.log('Press button!')
-                                this.handleResendSignUp();
-                            }
-                        }
-                    ],
-                    { cancelable: false }
-                )
-            });
+    blurred = () => {
+        Animated.timing(this.state.midOpacity, {
+            toValue: 1,
+            duration: 250,
+            useNativeDriver: true,
+        }).start()
     }
 
     render() {
         return (
             <KeyboardAvoidingView style={styles.keyboardInput} behavior="padding" enabled>
-                {this.state.submited === false ? <Form ref="Signup" onSubmit={this.handleSubmit}>
-                    <Text style={styles.title}>Sign Up</Text>
-                    <TextValidator
-                        title="Email: "
-                        style={styles.input}
-                        name="email"
-                        lable="Email"
-                        validators={['required', 'isEmail']}
-                        errorMessages={['This field is required!', 'Email invalid!']}
-                        onError={errors => this.setState({ checked: false })}
-                        placeholder="Email"
-                        type="text"
-                        keyboardTypes="email-address"
-                        value={this.state.username}
-                        onChangeText={(username) => this.setState({ username })}
-                    />
-                    <TextValidator
-                        title="Password: "
-                        style={styles.input}
-                        name="password"
-                        lable="Password"
-                        validators={['required']}
-                        errorMessages={['This field is required!']}
-                        placeholder="Password"
-                        type="text"
-                        value={this.state.password}
-                        onChangeText={(password) => this.setState({ password })}
-                        secureTextEntry={true}
-                    />
-                    <TextValidator
-                        title="Re-enter Password: "
-                        style={styles.input}
-                        name="repeatPassword"
-                        lable="Confirm Password"
-                        validators={['required']}
-                        errorMessages={['This field is required!']}
-                        placeholder="Confirm Password"
-                        type="text"
-                        value={this.state.confirmPassword}
-                        onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
-                        secureTextEntry={true}
-                    />
-                    <TouchableOpacity style={styles.button} onPress={this.handleSubmit} >
-                        <Text style={{
-                            fontSize: 18,
-                            color: Colors.themeColorPrimary
-                        }}>
-                            Create Account
-                        </Text>
-                    </TouchableOpacity>
+                <NavigationEvents onWillFocus={this.focused} onDidBlur={this.blurred} />
+                <Animated.View style={{
+                    opacity: this.state.midOpacity,
 
-                    {/* <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('VideoList')} >
+                    transform: [
+                        {
+                            scale: this.state.midOpacity.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [0.6, 1],
+                            })
+                        }
+                    ]
+                }}>
+                    {this.state.submited === false ? <Form ref="Signup" onSubmit={this.handleSubmit}>
+                        <Text style={styles.title}>Sign Up</Text>
+                        <TextValidator
+                            title="Email: "
+                            style={styles.input}
+                            name="email"
+                            lable="Email"
+                            validators={['required', 'isEmail']}
+                            errorMessages={['This field is required!', 'Email invalid!']}
+                            onError={errors => this.setState({ checked: false })}
+                            placeholder="Email"
+                            type="text"
+                            keyboardTypes="email-address"
+                            value={this.state.username}
+                            onChangeText={(username) => this.setState({ username })}
+                        />
+                        <TextValidator
+                            title="Password: "
+                            style={styles.input}
+                            name="password"
+                            lable="Password"
+                            validators={['required']}
+                            errorMessages={['This field is required!']}
+                            placeholder="Password"
+                            type="text"
+                            value={this.state.password}
+                            onChangeText={(password) => this.setState({ password })}
+                            secureTextEntry={true}
+                        />
+                        <TextValidator
+                            title="Re-enter Password: "
+                            style={styles.input}
+                            name="repeatPassword"
+                            lable="Confirm Password"
+                            validators={['required']}
+                            errorMessages={['This field is required!']}
+                            placeholder="Confirm Password"
+                            type="text"
+                            value={this.state.confirmPassword}
+                            onChangeText={(confirmPassword) => this.setState({ confirmPassword })}
+                            secureTextEntry={true}
+                        />
+                        <TouchableOpacity style={styles.button} onPress={this.handleSubmit} >
+                            <Text style={{
+                                fontSize: 18,
+                                color: Colors.themeColorPrimary
+                            }}>
+                                Create Account
+                        </Text>
+                        </TouchableOpacity>
+
+                        {/* <TouchableOpacity style={styles.buttonUp} onPress={() => this.props.navigation.navigate('VideoList')} >
                         <Text style={{
                             fontSize: 18,
                             color: 'black'
@@ -205,41 +259,61 @@ export class SignUpScreen extends Component {
                             Play as Guest
                         </Text>
                     </TouchableOpacity> */}
-                    <TouchableOpacity style={styles.buttonT} onPress={() => this.props.navigation.navigate('Login')} >
-                        <Text style={{
-                            fontSize: 16,
-                            color: 'rgba(50,50,50,1)',
-                            textDecorationLine: 'underline',
-                        }}>
-                            Go to Sign In
-                     </Text>
-                    </TouchableOpacity>
-                </Form>
-
-                    :
-
-                    <Form ref="Signup" onSubmit={this.handleSubmit}>
-                        <Text style={styles.title}>Confirmation</Text>
-                        <TextValidator
-                            style={styles.input}
-                            validators={['required']}
-                            errorMessages={['This field is required!']}
-                            placeholder="Confirm key"
-                            type="text"
-                            keyboardTypes="text"
-                            value={this.state.confirmKey}
-                            onChangeText={(confirmKey) => this.setState({ confirmKey })}
-                        />
-                        <TouchableOpacity style={styles.button} onPress={this.handleConfirm} >
+                        <TouchableOpacity style={styles.buttonT} onPress={() => this.props.navigation.navigate('Login')} >
                             <Text style={{
-                                fontSize: 18,
-                                color: Colors.themeColorPrimary
+                                fontSize: 16,
+                                color: 'rgba(50,50,50,1)',
+                                textDecorationLine: 'underline',
                             }}>
-                                Confirm
-                        </Text>
+                                Go to Sign In
+                     </Text>
                         </TouchableOpacity>
                     </Form>
-                }
+
+                        :
+
+                        <Form ref="Signup" onSubmit={this.handleSubmit}>
+                            <Text style={styles.title}>Confirmation</Text>
+                            <TextValidator
+                                style={styles.input}
+                                validators={['required']}
+                                errorMessages={['This field is required!']}
+                                placeholder="Confirm key"
+                                type="text"
+                                keyboardTypes="text"
+                                value={this.state.confirmKey}
+                                onChangeText={(confirmKey) => this.setState({ confirmKey })}
+                            />
+                            <TouchableOpacity style={styles.button} onPress={this.handleConfirm} >
+                                <Text style={{
+                                    fontSize: 18,
+                                    color: Colors.themeColorPrimary
+                                }}>
+                                    Confirm
+                        </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.buttonT} onPress={this.handleResendSignUp} >
+                                <Text style={{
+                                    fontSize: 16,
+                                    color: 'rgba(50,50,50,1)',
+                                    textDecorationLine: 'underline',
+                                }}>
+                                    Resend Confirmation Code
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.buttonT} onPress={() => this.props.navigation.navigate('mHealth')} >
+                                <Text style={{
+                                    fontSize: 16,
+                                    color: 'rgba(50,50,50,1)',
+                                    textDecorationLine: 'underline',
+                                }}>
+                                    Go to Home
+                                </Text>
+                            </TouchableOpacity>
+                        </Form>
+                    }
+                </Animated.View>
+
                 <Animated.View style={{
                     backgroundColor: 'rgba(0,0,0,0.7)',
                     width: '100%',

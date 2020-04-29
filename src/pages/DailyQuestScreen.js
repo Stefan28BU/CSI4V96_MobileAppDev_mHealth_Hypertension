@@ -145,7 +145,7 @@ export class DailyQuestScreen extends Component {
                         <View style={styles.queCnt}>
                             <View style={styles.questItem}>
                                 <Text style={styles.questTxt}>
-                                    Log Your Breakfast
+                                    Take Picture of Your Breakfast
                             </Text>
                             </View>
                             <View style={styles.questBot}>
@@ -218,7 +218,7 @@ export class DailyQuestScreen extends Component {
                         <View style={styles.queCnt}>
                             <View style={styles.questItem}>
                                 <Text style={styles.questTxt}>
-                                    Log Your Lunch
+                                    Take Picture of Your Lunch
                             </Text>
                             </View>
                             <View style={styles.questBot}>
@@ -291,7 +291,7 @@ export class DailyQuestScreen extends Component {
                         <View style={styles.queCnt}>
                             <View style={styles.questItem}>
                                 <Text style={styles.questTxt}>
-                                    Log Your Dinner
+                                    Take Picture of Your Dinner
                             </Text>
                             </View>
                             <View style={styles.questBot}>
