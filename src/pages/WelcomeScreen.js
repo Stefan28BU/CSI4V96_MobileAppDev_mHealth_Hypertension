@@ -68,7 +68,7 @@ export class WelcomeScreen extends Component {
     startHeartAnimation = () => {
         Animated.loop(Animated.sequence([
             Animated.timing(this.state.heartScale, {
-                toValue: 1.1,
+                toValue: 1.2,
                 delay: 500,
                 duration: 120,
                 useNativeDriver: true,
@@ -79,7 +79,7 @@ export class WelcomeScreen extends Component {
                 useNativeDriver: true,
             }),
             Animated.timing(this.state.heartScale, {
-                toValue: 1.2,
+                toValue: 1.1,
                 duration: 120,
                 useNativeDriver: true,
             }),
@@ -200,9 +200,9 @@ export class WelcomeScreen extends Component {
                                 Here, you will learn about{"\n"}Hypertension
                             </Text>
                         </View>
-                        <SignInBtn title="Sign In" onPress={this.toSignIn} />
+                        <PlayBtn title="Sign In" onPress={this.toSignIn} />
                         {/* <SignInBtn title="Sign Up" onPress={this.toSignUp} /> */}
-                        <PlayBtn title="Sign Up" onPress={this.toSignUp} />
+                        <SignInBtn title="Sign Up" onPress={this.toSignUp} />
                     </View>
                 </View>
             </View>
