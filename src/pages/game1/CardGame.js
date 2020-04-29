@@ -530,10 +530,11 @@ const styles = StyleSheet.create({
         width: 50,
         height: "80%",
         borderWidth: 1,
-        backgroundColor: "#81FF33",
+        backgroundColor: Colors.themeColorPrimary,
         marginRight: 5,
         // justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        borderColor: Colors.themeColorPrimary
     },
 
     level: {
@@ -543,12 +544,14 @@ const styles = StyleSheet.create({
         // backgroundColor: "#81FF33",
         marginRight: 5,
         // justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        borderColor: Colors.themeColorPrimary,
     },
     lv: {
         textAlign: "center",
         // color: "#FF3333",
-        fontSize: 23
+        fontSize: 23,
+        color: 'white',
     },
 
     title: {

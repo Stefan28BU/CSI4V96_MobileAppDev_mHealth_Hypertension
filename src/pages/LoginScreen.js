@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Alert, Button, Text, View, StyleSheet, KeyboardAvoidingView, ImageBackground, TouchableOpacity } from 'react-native';
+import { Alert, Button, Text, View, StyleSheet, KeyboardAvoidingView, ImageBackground, TouchableOpacity, Dimensions, Animated, ActivityIndicator } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
 import { Auth } from 'aws-amplify';
 import { writeToCache } from './../localCache/LocalCache';
 import Colors from '../globals/Colors';
+import { LinearGradient } from 'react-native-svg';
+
+
 
 export class Login extends Component {
   constructor(props) {
@@ -13,6 +16,10 @@ export class Login extends Component {
       username: '',
       password: '',
       submitted: true,
+
+      splashOpacity: new Animated.Value(0),
+
+      signInPressed: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -39,10 +46,17 @@ export class Login extends Component {
   }
 
   async handleSubmit() {
+
     if (this.state.submitted) {
       if (this.state.username === '' || this.state.password === '') {
         Alert.alert("Username and password cannot be empty")
       } else {
+        Animated.timing(this.state.splashOpacity, {
+          toValue: 1,
+          duration: 120,
+          useNativeDriver: true,
+        }).start()
+
         Auth.signIn(this.state.username, this.state.password).then((user) => {
           console.log(user);
           // Auth.confirmSignIn(user).then(() => {
@@ -72,45 +86,6 @@ export class Login extends Component {
     }
   }
 
-  UNSAFE_componentWillMount() {
-    this.background = (
-      <ImageBackground style={styles.welcomeBackground} resizeMode={'cover'} source={require('../imageAssets/wallpaper.jpg')} >
-        <KeyboardAvoidingView style={styles.keyboardInput} behavior="padding" enabled>
-          <Form ref="Log In" onSubmit={this.handleSubmit}>
-            <Text style={styles.title}>Log In</Text>
-            <TextValidator
-              title="Email: "
-              style={styles.input}
-              name="email"
-              lable="Email"
-              validators={['required', 'isEmail']}
-              errorMessages={['This field is required!', 'Email invalid!']}
-              onError={errors => this.setState({ submitted: false })}
-              placeholder="Email"
-              type="text"
-              keyboardTypes="email-address"
-              value={this.state.username}
-              onChangeText={(username) => this.setState({ username })}
-            />
-            <TextValidator
-              title="Password: "
-              style={styles.input}
-              name="password"
-              lable="Password"
-              validators={['required']}
-              errorMessages={['This field is required!']}
-              placeholder="Password"
-              type="text"
-              value={this.state.password}
-              onChangeText={(password) => this.setState({ password })}
-              secureTextEntry={true}
-            />
-            <Button style={styles.button} title="Log In" onPress={this.handleSubmit} />
-          </Form>
-        </KeyboardAvoidingView>
-      </ImageBackground>
-    );
-  }
   render() {
     return (
       // <View>
@@ -118,7 +93,7 @@ export class Login extends Component {
       // </View>
       <KeyboardAvoidingView style={styles.keyboardInput} behavior="padding" enabled>
         <Form ref="Log In" onSubmit={this.handleSubmit}>
-          <Text style={styles.title}>Log In</Text>
+          <Text style={styles.title}>Sign In</Text>
           <TextValidator
             title="Email: "
             style={styles.input}
@@ -175,6 +150,29 @@ export class Login extends Component {
                      </Text>
           </TouchableOpacity>
         </Form>
+        <Animated.View style={{
+          backgroundColor: 'rgba(0,0,0,0.7)',
+          width: '100%',
+          height: Dimensions.get('window').height,
+          position: 'absolute',
+          bottom: 0,
+          opacity: this.state.splashOpacity,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+
+          transform: [
+            {
+              translateY: this.state.splashOpacity.interpolate({
+                inputRange: [0, 1],
+                outputRange: [Dimensions.get('window').height, 0]
+              })
+            }
+          ]
+        }}>
+          <ActivityIndicator size="large" color={'white'} />
+        </Animated.View>
       </KeyboardAvoidingView>
     );
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
+import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView, TouchableOpacity, Animated, Dimensions, ActivityIndicator } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
 import { Auth } from 'aws-amplify';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
@@ -16,6 +16,8 @@ export class SignUpScreen extends Component {
             checked: true,
             submited: false,
             confirmKey: '',
+            splashOpacity: new Animated.Value(0),
+
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleConfirm = this.handleConfirm.bind(this);
@@ -48,6 +50,12 @@ export class SignUpScreen extends Component {
             if (this.state.username === '' || this.state.password === '') {
                 Alert.alert("Username and password cannot be empty")
             } else {
+                Animated.timing(this.state.splashOpacity, {
+                    toValue: 1,
+                    duration: 120,
+                    useNativeDriver: true,
+                }).start()
+
                 const username = this.state.username;
                 const password = this.state.password;
                 console.log(username + " " + password);
@@ -61,11 +69,14 @@ export class SignUpScreen extends Component {
                     });
                     console.log('not a error');
                     console.log(signUpResponse);
-                    this.setState({ submited: true });
+                    this.setState({ submited: true }, () => {
+                        this.state.splashOpacity.setValue(0);
+                    });
                     // SecureStore.setItemAsync("key", JSON.stringify(signUpResponse));
 
                     // do some saving?
                 } catch (error) {
+                    this.state.splashOpacity.setValue(0);
                     console.log(error);
                     this.setState({ submited: false });
                     Alert.alert(error.message);
@@ -100,14 +111,20 @@ export class SignUpScreen extends Component {
 
     handleConfirm() {
         // const go = this.props.navigation.navigate('Learn');
+        Animated.timing(this.state.splashOpacity, {
+            toValue: 1,
+            duration: 120,
+            useNativeDriver: true,
+        }).start()
 
         Auth.confirmSignUp(this.state.username, this.state.confirmKey)
             .then(() => {
-
                 this.navigateToHome();
                 console.log('successful confirm signed up')
+
             })
             .catch(err => {
+                this.state.splashOpacity.setValue(0)
 
                 console.log('error confirm signing up: ', err)
                 Alert.alert(
@@ -223,6 +240,29 @@ export class SignUpScreen extends Component {
                         </TouchableOpacity>
                     </Form>
                 }
+                <Animated.View style={{
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    width: '100%',
+                    height: Dimensions.get('window').height,
+                    position: 'absolute',
+                    bottom: 0,
+                    opacity: this.state.splashOpacity,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+
+                    transform: [
+                        {
+                            translateY: this.state.splashOpacity.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: [Dimensions.get('window').height, 0]
+                            })
+                        }
+                    ]
+                }}>
+                    <ActivityIndicator size="large" color={'white'} />
+                </Animated.View>
             </KeyboardAvoidingView>
         )
     }
