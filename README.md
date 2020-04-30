@@ -1,5 +1,5 @@
 # CSI4V96_MobileAppDev_mHealth_Hypertension
-# Environment setup:
+# Environment setup
 Install npm: https://www.npmjs.com/get-npm
 
 Install Expo App on your mobile device:  https://expo.io/tools
@@ -14,7 +14,7 @@ Install Node: https://nodejs.org/en/
 
 Install React: https://reactjs.org/
 
-# To run the application on your IDE:
+# To run the application on your IDE
 Clone the app from https://github.com/Stefan28BU/CSI4V96_MobileAppDev_mHealth_Hypertension.git into your local git directory
 	
 Open the project root folder on an IDE
@@ -27,12 +27,12 @@ In the popped-up bowser tab, go to the QR code at the bottom left corner, choose
 
 The app should be opened on your Expo application
 
-# Customize theme colors:
+# Customize theme colors
 Go to the project root directory
 
 Under ./globals/Colors.js, you can edit and add new color constants
 
-# Customize components: 
+# Customize components
 Go to the project root directory
 
 Under ./customComponents/, you can define new customComponents or edit existing components
