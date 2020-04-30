@@ -130,6 +130,10 @@ export class InformationScreen extends Component {
         );
     }
 
+    handleSubmit() {
+        this.props.navigation.navigate('My Dashboard');
+    }
+
     render() {
         return (
             <View style={styles.container}>
@@ -247,12 +251,15 @@ export class InformationScreen extends Component {
                         </DialogInput>
                     </View>
                 }
-                <TouchableOpacity style={styles.btn} onPress={() => {
+                <TouchableOpacity style={styles.btn1} onPress={() => {
                     this.state.page === 0 ? this.setState({page: 1}):this.setState({page: 0})}}>
                     {this.state.page === 0?
-                    <Text style={{fontSize: 22, color: "white", textAlign: 'center', padding: 10}}>More Information</Text>:
-                    <Text style={{fontSize: 22, color: "white", textAlign: 'center', padding: 10}}>General Information</Text>
+                    <Text style={{fontSize: 22, color: "white", textAlign: 'center', padding: 10}}>Detail</Text>:
+                    <Text style={{fontSize: 22, color: "white", textAlign: 'center', padding: 10}}>General</Text>
                     }
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.btn2} onPress={this.handleSubmit.bind(this)}>
+                    <Text style={{fontSize: 22, color: "white", textAlign: 'center', padding: 10}}>Submit</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -422,12 +429,24 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(63, 67, 80, 0.3)',
     },
 
-    btn: {
+    btn1: {
         position: 'absolute',
-        width: '100%',
+        width: '50%',
+        left: 0,
         height: 70,
         backgroundColor: Colors.themeColorPrimary,
         bottom: 0,
+        borderTopRightRadius: 20,
+        borderRightWidth: 1,
     },
-
+    btn2: {
+        position: 'absolute',
+        width: '50%',
+        right: 0,
+        height: 70,
+        backgroundColor: Colors.themeColorPrimary,
+        bottom: 0,
+        borderTopLeftRadius: 20,
+        borderLeftWidth: 1,
+    },
 });

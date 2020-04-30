@@ -23,6 +23,8 @@ export class BloodPressure extends Component {
             enter: false,
             enterLow: false,
             value: 0,
+            v1: false,
+            v2: false,
         });
     }
 
@@ -61,6 +63,10 @@ export class BloodPressure extends Component {
                 lowPressure: arr
             })
         }
+    }
+
+    handleSubmit() {
+        this.props.navigation.navigate('My Dashboard');
     }
 
     render() {
@@ -172,12 +178,18 @@ export class BloodPressure extends Component {
                     </DialogInput>
 
                 </KeyboardAvoidingView>
-                <TouchableOpacity style={styles.button1} onPress={() => this.setState({ enter: true })}>
-                    <Text style={{ height: "100%", textAlign: "center", textAlignVertical: "center", fontSize: 20, color: 'black' }}>Enter Systolic</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button2} onPress={() => this.setState({ enterLow: true })}>
-                    <Text style={{ height: "100%", textAlign: "center", textAlignVertical: "center", fontSize: 20, color: 'black' }}>Enter Diastolic</Text>
-                </TouchableOpacity>
+                {this.state.v1 === false || this.state.v2 === false ?
+                    <View style={styles.bottomArea}>
+                    <TouchableOpacity style={styles.button1} onPress={() => this.setState({ enter: true, v1: true })}>
+                        <Text style={{ height: "100%", textAlign: "center", textAlignVertical: "center", fontSize: 20, color: 'black' }}>Enter Systolic</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button2} onPress={() => this.setState({ enterLow: true, v2: true  })}>
+                        <Text style={{ height: "100%", textAlign: "center", textAlignVertical: "center", fontSize: 20, color: 'black' }}>Enter Diastolic</Text>
+                    </TouchableOpacity></View>
+                    :
+                    <TouchableOpacity style={styles.button3} onPress={this.handleSubmit.bind(this)}>
+                        <Text style={{ height: "100%", textAlign: "center", textAlignVertical: "center", fontSize: 20, color: 'black' }}>Submit</Text>
+                    </TouchableOpacity>}
             </View>
         )
     }
@@ -227,5 +239,30 @@ const styles = StyleSheet.create({
         borderLeftColor: 'rgb(70,70,70)',
         borderLeftWidth: 1,
         borderTopLeftRadius: 16,
+    },
+
+    button3: {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        width: width,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: 30,
+        // height: 60,
+        backgroundColor: Colors.themeColorPrimary,
+
+
+        borderLeftColor: 'rgb(70,70,70)',
+    },
+    bottomArea: {
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        width: width,
     }
 });
