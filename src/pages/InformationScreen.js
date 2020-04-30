@@ -56,7 +56,7 @@ export class InformationScreen extends Component {
     }
 
     handleInput(type) {
-        console.log(type)
+        console.log(type);
         switch(type) {
             case "name":
                 this.setState({
