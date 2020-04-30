@@ -245,8 +245,8 @@ export class CardGame extends Component {
                 {
                     cancelable: true,
                     onPress: ()=>{
-                        this.setState({unlocked: true});
-                        this.props.navigation.navigate('Play');
+                        // this.setState({unlocked: true});
+                        // this.props.navigation.navigate('Play');
                     }
                 }
             );
