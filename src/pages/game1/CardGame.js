@@ -11,13 +11,13 @@ import CardFlip from 'react-native-card-flip';
 import Colors from '../../globals/Colors';
 
 const back = require('./img/back.png');
-const removed = require('./img/cross-wrong.png');
+const removed = require('./img/milker_X_icon.png');
 const apple = require('./img/apple.jpg');
 const apricot = require('./img/apricot.jpg');
-const orange = require('./img/orange.png');
-const pear = require('./img/pear.jpg');
+const salt = require('./img/salt.jpg');
+const burger = require('./img/burger.jpg');
 const pinaepple = require('./img/pineapple.png');
-const popeyes = require('./img/popeyes.jpg');
+const popeyes = require('./img/popeyes.png');
 const correct = require('./img/correct.png');
 
 const alcohol = require('./img/alcohol.png');
@@ -30,14 +30,14 @@ const smoke = require('./img/smoke.png');
 
 let initArray1 = [{ id: 0, img: apple, selected: false, type: 'healthy', removed: false, name: apple },
 { id: 1, img: apricot, selected: false, type: 'healthy', removed: false, name: apricot },
-{ id: 2, img: orange, selected: false, type: 'healthy', removed: false, name: orange },
-{ id: 3, img: pear, selected: false, type: 'healthy', removed: false, name: pear },
+{ id: 2, img: salt, selected: false, type: 'unhealthy', removed: false, name: salt },
+{ id: 3, img: burger, selected: false, type: 'unhealthy', removed: false, name: burger },
 { id: 4, img: pinaepple, selected: false, type: 'healthy', removed: false, name: pinaepple },
 { id: 5, img: popeyes, selected: false, type: 'unhealthy', removed: false, name: popeyes },
 { id: 6, img: apple, selected: false, type: 'healthy', removed: false, name: apple },
 { id: 7, img: apricot, selected: false, type: 'healthy', removed: false, name: apricot },
-{ id: 8, img: orange, selected: false, type: 'healthy', removed: false, name: orange },
-{ id: 9, img: pear, selected: false, type: 'healthy', removed: false, name: pear },
+{ id: 8, img: salt, selected: false, type: 'unhealthy', removed: false, name: salt },
+{ id: 9, img: burger, selected: false, type: 'unhealthy', removed: false, name: burger },
 { id: 10, img: pinaepple, selected: false, type: 'healthy', removed: false, name: pinaepple },
 { id: 11, img: popeyes, selected: false, type: 'unhealthy', removed: false, name: popeyes }];
 
@@ -358,6 +358,8 @@ export class CardGame extends Component {
     }
 
     focused = () => {
+        this.state.gameOpacity.setValue(0)
+
         this.sortOrder();
 
         Animated.timing(this.state.gameOpacity, {
@@ -368,7 +370,7 @@ export class CardGame extends Component {
     }
 
     blured = () => {
-        this.state.gameOpacity.setValue(0)
+        this.state.gameOpacity.setValue(1)
     }
 
     levelup() {
@@ -530,10 +532,11 @@ const styles = StyleSheet.create({
         width: 50,
         height: "80%",
         borderWidth: 1,
-        backgroundColor: "#81FF33",
+        backgroundColor: Colors.themeColorPrimary,
         marginRight: 5,
         // justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        borderColor: Colors.themeColorPrimary
     },
 
     level: {
@@ -543,12 +546,14 @@ const styles = StyleSheet.create({
         // backgroundColor: "#81FF33",
         marginRight: 5,
         // justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        borderColor: Colors.themeColorPrimary,
     },
     lv: {
         textAlign: "center",
         // color: "#FF3333",
-        fontSize: 23
+        fontSize: 23,
+        color: 'white',
     },
 
     title: {

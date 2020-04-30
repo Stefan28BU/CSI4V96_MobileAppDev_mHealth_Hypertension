@@ -4,7 +4,7 @@ import { writeToCache, readFromCache } from './../localCache/LocalCache';
 import * as SecureStore from 'expo-secure-store';
 import { AuthSession } from 'expo';
 import DialogInput from 'react-native-dialog-input';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign } from '@expo/vector-icons';
 
 import Colors from './../globals/Colors'
 
@@ -119,8 +119,8 @@ export class InformationScreen extends Component {
 
     prompt() {
         Alert.alert(
-            'Helping',
-            'To help our study of hypertension, you can provide your information. Select and edit the information you want to share with us.',
+            'mHealth Hypertension Research',
+            'To help our study of hypertension, you can provide your information. Select and edit the information that you want to share with us',
             [
                 {
                     text: 'OK', 
@@ -134,10 +134,10 @@ export class InformationScreen extends Component {
         return (
             <View style={styles.container}>
                 <TouchableOpacity style={styles.prompt} onPress={this.prompt.bind(this)}>
-                    <Ionicons
+                    <AntDesign
                         color={ Colors.themeColorPrimary}
-                        name="md-information-circle-outline"
-                        size={30}
+                        name="questioncircleo"
+                        size={26}
                     />
                 </TouchableOpacity>
                 <Image style={styles.background} source={info} />
@@ -249,8 +249,8 @@ export class InformationScreen extends Component {
                 <TouchableOpacity style={styles.btn} onPress={() => {
                     this.state.page === 0 ? this.setState({page: 1}):this.setState({page: 0})}}>
                     {this.state.page === 0?
-                    <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center', padding: 10}}>Detail</Text>:
-                    <Text style={{fontSize: 25, color: "rgb(213, 216, 224)", textAlign: 'center', padding: 10}}>Top</Text>
+                    <Text style={{fontSize: 22, color: "white", textAlign: 'center', padding: 10}}>More Information</Text>:
+                    <Text style={{fontSize: 22, color: "white", textAlign: 'center', padding: 10}}>General Information</Text>
                     }
                 </TouchableOpacity>
             </View>
@@ -267,13 +267,13 @@ const styles = StyleSheet.create({
     },
 
     prompt: {
-        width: 25,
-        height: 25, 
+        width: 26,
+        height: 26, 
         // opacity: 0.6,
         // backgroundColor: "red",
         position: 'absolute',
-        top: 20,
-        right: 20,
+        top: 16,
+        right: 16,
         borderRadius: 100,
         zIndex: 998,
     },
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     title: {
         position: 'absolute',
         fontSize: 29,
-        color: "rgb(213, 216, 224)",
+        color: "white",
         alignSelf: 'center',
         top: 50,
     },
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     name: {
         position: 'absolute',
         fontSize: 25,
-        color: "rgb(213, 216, 224)",
+        color: "white",
         alignSelf: 'center',
         top: 120,
     },
@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
     gender: {
         position: 'absolute',
         fontSize: 25,
-        color: "rgb(213, 216, 224)",
+        color: "white",
         alignSelf: 'center',
         top: 230,
     },
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     age: {
         position: 'absolute',
         fontSize: 25,
-        color: "rgb(213, 216, 224)",
+        color: "white",
         alignSelf: 'center',
         top: 340,
     },
@@ -364,7 +364,7 @@ const styles = StyleSheet.create({
     education: {
         position: 'absolute',
         fontSize: 25,
-        color: "rgb(213, 216, 224)",
+        color: "white",
         alignSelf: 'center',
         top: 120,
     },
@@ -384,7 +384,7 @@ const styles = StyleSheet.create({
     area: {
         position: 'absolute',
         fontSize: 25,
-        color: "rgb(213, 216, 224)",
+        color: "white",
         alignSelf: 'center',
         top: 230,
     },
@@ -404,7 +404,7 @@ const styles = StyleSheet.create({
     history: {
         position: 'absolute',
         fontSize: 25,
-        color: "rgb(213, 216, 224)",
+        color: "white",
         alignSelf: 'center',
         top: 350,
     },

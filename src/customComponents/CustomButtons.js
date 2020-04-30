@@ -320,8 +320,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: Colors.themeColorPrimary,
         borderWidth: 2,
+        borderStyle: 'solid',
         // borderRadius: 5,
-        borderColor: 'transparent',
+        borderColor: 'white',
 
         shadowColor: 'black',
         shadowOpacity: 0.4,
@@ -332,7 +333,7 @@ const styles = StyleSheet.create({
 
     signOutText: {
         fontSize: 16,
-        color: 'white',
+        color: Colors.themeColorPrimary,
         textTransform: 'uppercase'
     },
     editProfileCont: {

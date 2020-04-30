@@ -78,6 +78,7 @@ export class ProfileScreen extends Component {
   };
 
   startHeaderAnimation = () => {
+    this.state.topOpacity.setValue(0)
     Animated.timing(this.state.topOpacity, {
       toValue: 1,
       duration: 300,
@@ -105,7 +106,7 @@ export class ProfileScreen extends Component {
   }
 
   blured = () => {
-    this.state.topOpacity.setValue(0)
+    this.state.topOpacity.setValue(1)
   }
 
   componentDidMount() {
@@ -554,9 +555,28 @@ export class ProfileScreen extends Component {
           }} /> */}
 
         </Animated.View>
-        {/* <Animated.View> */}
+        <Animated.View style={{
+          flex: 1,
+          alignItems:'center',
+          textAlign: 'center',
+          justifyContent:'center',
+          backgroundColor:'red',
+
+          opacity: this.state.topOpacity,
+
+          transform: [
+            {
+              scale: this.state.topOpacity.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 1],
+                // useNativeDriver: true,
+              })
+            }
+          ]
+
+        }}>
           <SignOutBtn title={"Sign Out"} onPress={this.signOut} />
-        {/* </Animated.View> */}
+        </Animated.View>
 
       </View>
     );
@@ -680,9 +700,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 110,
+    bottom: 100,
 
-    // backgroundColor: 'rgb(70,70,70)',
+    // backgroundColor: 'rgb(100,70,70)',
   },
 
   signOutText: {

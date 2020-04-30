@@ -31,6 +31,10 @@ export class PetScreen extends Component {
       goldStatus: AppCredit.totalCredits,
 
       petOpacity: new Animated.Value(0),
+
+      playScale: new Animated.Value(1),
+      feedScale: new Animated.Value(1),
+      cleanScale: new Animated.Value(1),
     }
 
     this.focused = this.focused.bind(this);
@@ -42,6 +46,13 @@ export class PetScreen extends Component {
   }
 
   componentDidMount() {
+    Animated.timing(this.state.petOpacity, {
+      toValue: 1,
+      duration: 300,
+      useNativeDriver: true
+    }).start()
+
+
     setInterval(
       () => {
         MyPet.dayPass();
@@ -67,12 +78,15 @@ export class PetScreen extends Component {
   }
 
 
+
+
   focused() {
 
     this.forceUpdate();
 
     console.log('pet focused')
 
+    this.state.petOpacity.setValue(0);
 
     Animated.timing(this.state.petOpacity, {
       toValue: 1,
@@ -93,7 +107,7 @@ export class PetScreen extends Component {
   }
 
   blured = () => {
-    this.state.petOpacity.setValue(0);
+    this.state.petOpacity.setValue(1);
   }
 
 
@@ -113,6 +127,30 @@ export class PetScreen extends Component {
 
   pressPlay() {
 
+    Animated.sequence([
+      Animated.timing(this.state.playScale, {
+        toValue: 1.2,
+        duration: 120,
+        useNativeDriver: true,
+      }),
+      Animated.timing(this.state.playScale, {
+        toValue: 0.9,
+        duration: 120,
+        useNativeDriver: true,
+      }),
+      Animated.timing(this.state.playScale, {
+        toValue: 1.1,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      
+      Animated.timing(this.state.playScale, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true,
+      })
+    ]).start()
+
     if (AppCredit.totalCredits >= 10) {
       AppCredit.reduceCredit(10);
       MyPet.play();
@@ -126,6 +164,31 @@ export class PetScreen extends Component {
   }
 
   pressFeed() {
+   
+    Animated.sequence([
+      Animated.timing(this.state.feedScale, {
+        toValue: 1.2,
+        duration: 120,
+        useNativeDriver: true,
+      }),
+      Animated.timing(this.state.feedScale, {
+        toValue: 0.9,
+        duration: 120,
+        useNativeDriver: true,
+      }),
+      Animated.timing(this.state.feedScale, {
+        toValue: 1.1,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      
+      Animated.timing(this.state.feedScale, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true,
+      })
+    ]).start()
+
     if (AppCredit.totalCredits >= 40) {
 
       MyPet.feed();
@@ -143,6 +206,31 @@ export class PetScreen extends Component {
   }
 
   pressClean() {
+    
+    Animated.sequence([
+      Animated.timing(this.state.cleanScale, {
+        toValue: 1.2,
+        duration: 120,
+        useNativeDriver: true,
+      }),
+      Animated.timing(this.state.cleanScale, {
+        toValue: 0.9,
+        duration: 120,
+        useNativeDriver: true,
+      }),
+      Animated.timing(this.state.cleanScale, {
+        toValue: 1.1,
+        duration: 100,
+        useNativeDriver: true,
+      }),
+      
+      Animated.timing(this.state.cleanScale, {
+        toValue: 1,
+        duration: 100,
+        useNativeDriver: true,
+      })
+    ]).start()
+
     if (AppCredit.totalCredits >= 30) {
 
       MyPet.clean();
@@ -188,10 +276,12 @@ export class PetScreen extends Component {
         <Animated.View style={[styles.petDash, {
           opacity: this.state.petOpacity,
           transform: [
-            {translateY: this.state.petOpacity.interpolate({
-              inputRange: [0,1],
-              outputRange: [-screenHeight / 2, 0]
-            })}
+            {
+              translateY: this.state.petOpacity.interpolate({
+                inputRange: [0, 1],
+                outputRange: [-screenHeight / 2, 0]
+              })
+            }
           ]
 
         }]}>
@@ -255,13 +345,15 @@ export class PetScreen extends Component {
           </View>
         </Animated.View>
         {MyPet.isAlive &&
-          <Animated.View style={[styles.petActPane,{
+          <Animated.View style={[styles.petActPane, {
             opacity: this.state.petOpacity,
             transform: [
-              {scale: this.state.petOpacity.interpolate({
-                inputRange: [0,1 ],
-                outputRange: [0.8, 1]
-              })}
+              {
+                scale: this.state.petOpacity.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0.8, 1]
+                })
+              }
             ]
           }]}>
             <Text style={{
@@ -276,7 +368,13 @@ export class PetScreen extends Component {
             }}>
               Gold: {this.state.goldStatus}
             </Text>
-            <View style={styles.petActItem}>
+            <Animated.View style={[styles.petActItem, {
+              transform: [
+                {
+                  scale: this.state.playScale
+                }
+              ]
+            }]}>
               <TouchableOpacity onPress={this.pressPlay} style={styles.petActItemCnt}>
                 <Text style={styles.petActText}>
                   Play with {MyPet.name}
@@ -288,8 +386,14 @@ export class PetScreen extends Component {
                   10
               </Text>
               </View>
-            </View>
-            <View style={styles.petActItem}>
+            </Animated.View>
+            <Animated.View style={[styles.petActItem, {
+              transform: [
+                {
+                  scale: this.state.feedScale
+                }
+              ]
+            }]}>
               <TouchableOpacity onPress={this.pressFeed} style={styles.petActItemCnt}>
                 <Text style={styles.petActText}>
                   Feed {MyPet.name}
@@ -301,8 +405,14 @@ export class PetScreen extends Component {
                   40
               </Text>
               </View>
-            </View>
-            <View style={styles.petActItem}>
+            </Animated.View>
+            <Animated.View style={[styles.petActItem, {
+              transform: [
+                {
+                  scale: this.state.cleanScale
+                }
+              ]
+            }]}>
               <TouchableOpacity onPress={this.pressClean} style={styles.petActItemCnt}>
                 <Text style={styles.petActText}>
                   Clean {MyPet.name}
@@ -314,7 +424,7 @@ export class PetScreen extends Component {
                   30
               </Text>
               </View>
-            </View>
+            </Animated.View>
 
           </Animated.View>
         }
@@ -363,7 +473,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(70,70,70)',
   },
   petDash: {
-   
+
     width: '100%',
     // paddingBottom: 20,
     height: screenHeight / 2.5,
