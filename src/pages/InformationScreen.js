@@ -184,6 +184,7 @@ export class InformationScreen extends Component {
                             title={"Enter your answer"}
                             message={"Please enter your Age"}
                             hintInput ={"18"}
+                            textInputProps={{keyboardType: "number-pad" }}
                             submitInput={ async (inputText) => {
                                 this.setState({age: inputText, showAge: false});
                                 await writeToCache("age", inputText);

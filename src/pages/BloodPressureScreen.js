@@ -134,17 +134,21 @@ export class BloodPressure extends Component {
                     <DialogInput isDialogVisible={this.state.enter}
                         title={"Enter your Blood Pressure"}
                         message={"Please enter your Systolic blood Pressure"}
-                        hintInput={"eg. 120(mmHg)"}
+                        hintInput={"eg. 120(mmHg)"} textInputProps={{keyboardType: "number-pad" }}
                         submitInput={async (inputText) => {
                             let arr = [];
                             if (this.state.pressure) {
                                 arr = this.state.pressure;
                             }
+                            // console.log(typeof(inputText) === "number")
+
+
                             arr.push(inputText);
                             this.setState({ value: inputText, enter: false, pressure: arr });
                             await writeToCache("bloodPressure", "[" + arr.toString() + "]");
 
                             await writeToCache("name", inputText);
+
                         }}
                         closeDialog={() => { this.setState({ enter: false }) }}>
                     </DialogInput>
@@ -153,6 +157,7 @@ export class BloodPressure extends Component {
                         title={"Enter your Blood Pressure"}
                         message={"Please enter your Diastolic blood Pressure"}
                         hintInput={"eg. 80(mmHg)"}
+                        textInputProps={{keyboardType: "number-pad" }}
                         submitInput={async (inputText) => {
                             let arr = [];
                             if (this.state.lowPressure) {
