@@ -7,8 +7,6 @@ import { Video, Audio } from 'expo-av';
 import VideoPlayer from 'expo-video-player';
 import FastImage from 'react-native-fast-image';
 import { findCoordinates } from '../utils/findCoordinate';
-import { Asset } from 'expo-asset';
-
 import { AppCredit, AppProgress } from '../globals/appManager';
 
 
@@ -45,9 +43,6 @@ export class WatchVideosScreen extends Component {
     }
 
     async UNSAFE_componentWillMount() {
-
-        const loc = await findCoordinates();
-        // console.log(loc);
 
         if (AppProgress.learningProgress >= 25) {
             this.setState({ lockSecond: false })

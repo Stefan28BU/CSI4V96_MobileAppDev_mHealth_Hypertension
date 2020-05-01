@@ -44,7 +44,7 @@ import { fromBottom } from 'react-navigation-transitions';
 import { AppLoading } from 'expo';
 import { Asset } from 'expo-asset';
 import Spinner from 'react-native-loading-spinner-overlay';
-
+import {findCoordinates} from './src/utils/findCoordinate'
 import { MyPet } from './src/pages/PetScreen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { DailyCheckinScreen } from './src/pages/DailyCheckInScreen';
@@ -60,6 +60,8 @@ const Auth = {
 Amplify.configure(
   Auth
 );
+
+findCoordinates()
 
 console.log(Auth);
 

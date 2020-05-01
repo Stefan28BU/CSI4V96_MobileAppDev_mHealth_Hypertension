@@ -3,7 +3,7 @@ import { Alert, Button, View, StyleSheet, Text, KeyboardAvoidingView, TouchableO
 import { Form, TextValidator } from 'react-native-validator-form';
 import { Auth } from 'aws-amplify';
 import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
-import { writeToCache } from './../localCache/LocalCache';
+import { writeToCache, readFromCache } from './../localCache/LocalCache';
 import Colors from '../globals/Colors';
 import { NavigationEvents } from 'react-navigation';
 
@@ -27,22 +27,6 @@ export class SignUpScreen extends Component {
         this.handleResendSignUp = this.handleResendSignUp.bind(this);
     }
 
-
-    // UNSAFE_componentWillMount() {
-    //     Form.addValidationRule('passwordMatch', (value)=>{
-    //         if (value === undefined || value !== this.state.password) {
-    //             this.setState({
-    //                 checked: false
-    //             })
-    //             return false;
-    //         }
-    //         this.setState({
-    //             checked: true
-    //         })
-    //         return true;
-    //     });
-    // }
-
     componentWillUnmount() {
         Form.removeValidationRule('passwordMatch');
     }
@@ -63,7 +47,6 @@ export class SignUpScreen extends Component {
 
                 const username = this.state.username.toLowerCase();
                 const password = this.state.password;
-                console.log(username + " " + password);
                 try {
                     const signUpResponse = await Auth.signUp({
                         username,
@@ -72,11 +55,11 @@ export class SignUpScreen extends Component {
                             email: username
                         }
                     });
-                    console.log('not a error');
                     console.log(signUpResponse);
                     this.setState({ submited: true }, () => {
                         this.state.splashOpacity.setValue(0);
                     });
+                    // TODO: sign in again
                     // SecureStore.setItemAsync("key", JSON.stringify(signUpResponse));
 
                     // do some saving?
@@ -133,10 +116,24 @@ export class SignUpScreen extends Component {
             }).start()
 
             Auth.confirmSignUp(this.state.username.toLowerCase(), this.state.confirmKey)
-                .then(() => {
+                .then(async () => {
+                    Auth.signIn(this.state.username.toLowerCase(), this.state.password).then((user) => {
+                        writeToCache("accessToken", user.signInUserSession.accessToken.jwtToken);
+                        writeToCache("idToken", user.signInUserSession.idToken.jwtToken);
+                        writeToCache("refreshToken", user.signInUserSession.refreshToken.token);
+                        writeToCache("user", user.signInUserSession.idToken.payload.email);
+                        writeToCache("user_id", this.state.username.toLowerCase());
+                        this.navigateToHome();
+                      })
+                        .catch(err => {
+                          console.log(err);
+                          Alert.alert(err.message);
+                          this.state.splashOpacity.setValue(0);
+                        })
+                    let temp = await readFromCache("idToken");
+                    console.log(temp)
                     this.navigateToHome();
                     console.log('successful confirm signed up')
-
                 })
                 .catch(err => {
                     this.state.splashOpacity.setValue(0)

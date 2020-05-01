@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button, Dimensions, Image, TouchableOpacity, Alert } from 'react-native';
 import { writeToCache, readFromCache } from './../localCache/LocalCache';
 import * as SecureStore from 'expo-secure-store';
-import { AuthSession } from 'expo';
+import { findCoordinates } from '../utils/findCoordinate';
 import DialogInput from 'react-native-dialog-input';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
+import axios from 'axios';
 
 import Colors from './../globals/Colors'
 
@@ -34,7 +35,6 @@ export class InformationScreen extends Component {
     }
     
     async UNSAFE_componentWillMount() {
-        console.log(await readFromCache("user"));
         const u_user = await readFromCache("user");
         const u_name = await readFromCache("name");
         const u_gender = await readFromCache("gender");
@@ -42,21 +42,20 @@ export class InformationScreen extends Component {
         const u_edu = await readFromCache("education");
         const u_area = await readFromCache("area");
         const u_medicalHistory = await readFromCache("medicalHistory");
-        console.log(u_name);
         this.setState({
             user: u_user,
-            name: u_name,
-            gender: u_gender,
-            age: u_age,
-            education: u_edu,
-            area: u_area,
-            medicalHistory: u_medicalHistory,
+            name: u_name ? u_name : "Harry Potter",
+            gender: u_gender ? u_gender: "Female",
+            age: u_age ? u_age: 18,
+            education: u_edu ? u_edu : "Bachelor",
+            area: u_area ? u_area : "Bombay",
+            medicalHistory: u_medicalHistory ? u_medicalHistory : "none"
         })
     
     }
 
     handleInput(type) {
-        console.log(type)
+        console.log(type);
         switch(type) {
             case "name":
                 this.setState({
@@ -73,8 +72,9 @@ export class InformationScreen extends Component {
                             onPress: async () => {
                                 this.setState({
                                     gender: 'Male'
+                                }, async () => {
+                                    await writeToCache("gender", this.state.gender);
                                 });
-                                await writeToCache("gender", this.state.gender);
                                 console.log(await readFromCache("gender"));
                             }
                         },
@@ -83,8 +83,10 @@ export class InformationScreen extends Component {
                             onPress: async () => {
                                 this.setState({
                                     gender: 'Female'
+                                }, async () => {
+                                    await writeToCache("gender", this.state.gender);
                                 });
-                                await writeToCache("gender", this.state.gender);
+                                
                                 console.log(await readFromCache("gender"));
                             }
                         }
@@ -130,7 +132,35 @@ export class InformationScreen extends Component {
         );
     }
 
-    handleSubmit() {
+    async handleSubmit() {
+        let user_id = await readFromCache("user_id");
+        let config = {
+            headers: {
+                app_user_id: user_id,
+                app_user_name: user_id
+            }
+        }
+        let loc_url = "https://b898utamg6.execute-api.us-east-1.amazonaws.com/prod/location"
+        let loc = JSON.parse(await readFromCache("loc"));
+        let loc_data = {
+            "Item": {
+                "latitude": loc['coords']["latitude"],
+                "longitude": loc['coords']["longitude"]
+            }
+        }
+        await axios.post(loc_url, loc_data, config);
+        let profile_data = {
+            "Item": {
+                "name": this.state.name,
+                "gender": this.state.gender,
+                "age": Number.parseInt(this.state.age),
+                "education": this.state.education,
+                "area": this.state.area,
+                "medicalHistory": this.state.medicalHistory
+            }
+        }
+        let prof_url = "https://b898utamg6.execute-api.us-east-1.amazonaws.com/prod/profile"
+        axios.post(prof_url, profile_data, config).then().catch(err => console.log(err));
         this.props.navigation.navigate('My Dashboard');
     }
 
