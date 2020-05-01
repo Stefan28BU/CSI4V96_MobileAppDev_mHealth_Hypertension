@@ -6,6 +6,7 @@ import { Camera } from 'expo-camera';
 import Toolbar from './toolbar.component';
 import Gallery from './gallery.component';
 import { RNS3 } from 'react-native-s3-upload';
+import uuid from 'uuid-random'
 import axios from 'axios';
 import * as ImageManipulator from 'expo-image-manipulator';
 
@@ -45,12 +46,11 @@ export class CameraPage extends React.Component {
             [{resize: {width: 100, height: 100}}],
             { compress: 0.5, format: ImageManipulator.SaveFormat.JPEG }
         )
-
+        let imageName = uuid() + "image.jpg";
         const { uri: ph_uri } = compressedImage
-        //console.log(ph_uri);
         const file = {
             uri: ph_uri,
-            name: "image.jpg",
+            name: imageName,
             type: "image/jpg"
         }
         const options = {
@@ -61,44 +61,56 @@ export class CameraPage extends React.Component {
             secretKey: "FmQNQ+ZpzAVS6n6i49/ft3Yd27kV8idngpMoJDFF",
             successActionStatus: 201
           }
-          //console.log('file!')
-        //console.log(file);
+
 
         RNS3.put(file, options).progress((e) => console.log(e.loaded / e.total))
         .then(response => {
-            // console.log(response);
-
-            // console.log('upload?')
-
             axios.post('https://y5k6itv6eg.execute-api.us-east-1.amazonaws.com/test', {
                 bucket: 'hypertest1',
-                key: 'image.jpg'
+                key: imageName
               })
               .then( (response) => {
-                  // console.log('here!!!');
-                //console.log(response.data.result);
                 let label = JSON.parse(response.data.result)
-                //console.log(label);
                 let tempPhoto = []
 
                 label.map(entity => {
-                    tempPhoto.push(entity["Name"])
+                    if (entity["Name"] !== 'Fruit' && entity["Name"] !== 'Plant' && entity["Name"] !== 'Food') {
+                        tempPhoto.push(entity["Name"])
+                    }
+                    
                 });
+
                 console.log(tempPhoto);
 
+                axios.post('https://w3qgx6u059.execute-api.us-east-1.amazonaws.com/prod', {
+                    'labels': tempPhoto
+                }).then(response => {
+                    console.log(response.data.results)
+                    this.showLabel2(response.data.results);
+                })
                 this.setState({photoResponse: tempPhoto});
-                this.showLabel(this.state.photoResponse);
+                // this.showLabel(this.state.photoResponse);
               })
               .catch(function (error) {
                 console.log(error);
               });
             if (response.status !== 201)
             throw new Error("Failed to upload image to S3");
-        // console.log(response.body);
         })
         .catch(err => {console.log(err)});
         this.setState({ capturing: false, captures: [photoData, ...this.state.captures] })
     };
+
+    showLabel2(photoResponse) {
+        let entities = []
+        for (var name in photoResponse) {
+            console.log(name)
+            if (photoResponse[name] === 'food' || photoResponse[name] === 'fruit' || photoResponse[name] === 'vegetable'){
+                entities.push(name);
+            }
+        }
+        Alert.alert(entities.join('\n'));
+    }
 
     showLabel(photoResponse) {
         Alert.alert(photoResponse.join('\n'));

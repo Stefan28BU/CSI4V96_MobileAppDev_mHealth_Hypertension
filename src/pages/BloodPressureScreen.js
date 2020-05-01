@@ -5,6 +5,7 @@ import DialogInput from 'react-native-dialog-input';
 import { writeToCache, readFromCache, deleteItem } from './../localCache/LocalCache';
 import { NavigationEvents } from 'react-navigation';
 import Colors from '../globals/Colors';
+import axios from 'axios';
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
@@ -65,7 +66,24 @@ export class BloodPressure extends Component {
         }
     }
 
-    handleSubmit() {
+    async handleSubmit() {
+        let user_id = await readFromCache("user_id");
+        let config = {
+            headers: {
+                app_user_id: user_id,
+                app_user_name: user_id
+            }
+        }
+        let data = {
+            "Item" : {
+                "high": Number.parseInt(this.state.pressure[this.state.pressure.length-1]),
+                "low": Number.parseInt(this.state.lowPressure[this.state.lowPressure.length-1]),
+            }
+        }
+        let url = "https://b898utamg6.execute-api.us-east-1.amazonaws.com/prod/blood"
+        console.log(user_id)
+        console.log(data)
+        axios.post(url, data, config);
         this.props.navigation.navigate('My Dashboard');
     }
 

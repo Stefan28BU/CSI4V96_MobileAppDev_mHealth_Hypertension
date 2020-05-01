@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Alert, Button, Text, View, StyleSheet, KeyboardAvoidingView, ImageBackground, TouchableOpacity, Dimensions, Animated, ActivityIndicator } from 'react-native';
 import { Form, TextValidator } from 'react-native-validator-form';
 import { Auth } from 'aws-amplify';
-import { writeToCache } from './../localCache/LocalCache';
+import { writeToCache, readFromCache, deleteItem } from './../localCache/LocalCache';
 import Colors from '../globals/Colors';
 import { LinearGradient } from 'react-native-svg';
 import { NavigationEvents } from 'react-navigation';
@@ -61,13 +61,9 @@ export class Login extends Component {
         }).start()
 
         Auth.signIn(this.state.username.toLowerCase(), this.state.password).then((user) => {
-          console.log(user);
-          // Auth.confirmSignIn(user).then(() => {
-          //   this.navigateToHome();
-          //   console.log('successful confirm signed up')
-          // });
           writeToCache("accessToken", user.signInUserSession.accessToken.jwtToken);
-          writeToCache("idToken", user.signInUserSession.idToken.jwtToken);
+          writeToCache("idToken", user.signInUserSession.idToken.jwtToken)
+          writeToCache("user_id", this.state.username.toLowerCase());
           writeToCache("refreshToken", user.signInUserSession.refreshToken.token);
           writeToCache("user", user.signInUserSession.idToken.payload.email);
           this.navigateToHome();

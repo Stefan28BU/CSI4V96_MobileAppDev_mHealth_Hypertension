@@ -2,18 +2,13 @@ import React, { Component } from 'react';
 import { TouchableOpacity, View, Text, StyleSheet, Button, FlatList, SafeAreaView, ScrollView, Animated, ImageBackground, Alert } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 import { Auth } from 'aws-amplify';
-
+import { writeToCache, readFromCache, deleteItem } from './../localCache/LocalCache';
 import { LinearGradient } from 'expo-linear-gradient';
-
 import { MHealthBackBtn, MHealthBtn, PlayBtn, SignInBtn, SignUpBtn, EditProfileBtn } from '../customComponents/CustomButtons';
-
-
 import { AppCredit, AppProgress } from '../globals/appManager';
-
 import { NavigationEvents } from 'react-navigation';
 
 import { Entypo, MaterialCommunityIcons, MaterialIcons, Ionicons, AntDesign, Octicons, FontAwesome } from '@expo/vector-icons';
-import { deleteItem } from '../localCache/LocalCache';
 import Colors from '../globals/Colors';
 
 
@@ -91,9 +86,11 @@ export class ProfileScreen extends Component {
   }
 
   async signOut() {
-    console.log('trying to sign out');
     Auth.signOut({ global: true })
-      .then(data => console.log(data))
+      .then(async () => {
+        await deleteItem("user_id");
+        await deleteItem("idToken");
+      })
       .catch(err => console.log(err));
 
 
