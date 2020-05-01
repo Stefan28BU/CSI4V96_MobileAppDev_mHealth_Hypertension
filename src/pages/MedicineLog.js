@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import DialogInput from 'react-native-dialog-input';
-import { writeToCache, readFromCache } from './../localCache/LocalCache';
+import { writeToCache, readFromCache, deleteItem } from './../localCache/LocalCache';
 import { NavigationEvents } from 'react-navigation';
 import Colors from '../globals/Colors';
 
@@ -22,7 +22,9 @@ export class MedicineLog extends Component {
     }
 
     async UNSAFE_componentWillMount() {
+        // await deleteItem("medicine")
         let medicine = await readFromCache("medicine");
+
         console.log(medicine);
         if (medicine !== null) {
             let x = medicine;
