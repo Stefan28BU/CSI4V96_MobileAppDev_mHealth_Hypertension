@@ -1,4 +1,5 @@
 # CSI4V96_MobileAppDev_mHealth_Hypertension
+# Presentation Slides: [Link](https://docs.google.com/presentation/d/17RIztLX4-ROT-FpJ370-FpHy8PRZ88Doa2IUBmSY-YA/edit?usp=sharing)
 # Environment setup
 Install npm: https://www.npmjs.com/get-npm
 
